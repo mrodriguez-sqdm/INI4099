@@ -1,0 +1,23 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "Name": "string",
+      "CorrelationID": "string",
+      "ProcessingServer": "string"
+    },
+    "Service": {
+      "Status": "string",
+      "ResponseDate": "string",
+      "ProcessingServer": "string",
+      "statusDetail": []
+    },
+    "Property": []
+  },
+  "WSResponseBody": {
+    "Reconnection_Status": "string",
+    "Service_Status": "string",
+    "Estimated_Time": "string",
+    "Status": "string",
+    "Message": "string"
+  }
+}

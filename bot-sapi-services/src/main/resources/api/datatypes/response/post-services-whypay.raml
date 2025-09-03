@@ -1,0 +1,50 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  WSResponseHeader:
+    type: !include objects/header.raml
+    required: true
+  Payment_Info:
+    type: object
+    properties:
+      Phone:
+        type: string
+        example: '6013103732'
+        required: false
+      Billing_Account:
+        type: string
+        example: '15052876387'
+        required: false
+      Total_Amount:
+        type: integer
+        example: 125000
+        required: false
+      Currency:
+        type: string
+        example: COP
+        required: false
+      Due_Date:
+        type: date-only
+        example: '2024-12-25'
+        required: false
+      Status:
+        type: string
+        example: Vencida
+        required: false
+      Reasons:
+        type: array
+        items:
+          type: object
+          properties:
+            Code:
+              type: string
+              example: FACTURA_VENCIDA
+              required: false
+            Description:
+              type: string
+              example: Factura vencida del mes anterior
+              required: false
+            Amount:
+              type: integer
+              example: 89000
+              required: false

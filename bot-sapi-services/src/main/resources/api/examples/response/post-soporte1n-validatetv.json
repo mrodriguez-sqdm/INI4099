@@ -1,0 +1,25 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "Name": "string",
+      "CorrelationID": "string",
+      "ProcessingServer": "string"
+    },
+    "Service": {
+      "Status": "string",
+      "ResponseDate": "string",
+      "ProcessingServer": "string",
+      "statusDetail": []
+    },
+    "Property": []
+  },
+  "WSResponseBody": {
+    "Num_PQR": "string",
+    "Additional_Channels": "string",
+    "Additional_Services": "string",
+    "Decos": "string",
+    "State_Subscriber_Id": "string",
+    "Status": "string",
+    "Message": "string"
+  }
+}

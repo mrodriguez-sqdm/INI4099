@@ -1,0 +1,29 @@
+{
+  "WSRequestHeader": {
+    "System": {
+      "Name": "KIOSKOS",
+      "CorrelationID": "LUZ-21062022-05000545",
+      "ProcessingServer": "server-01"
+    },
+    "Property": [
+      { "Name": "CANAL", "Value": "KIOSKOS" }
+    ]
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": "KIOSKOS",
+      "Id_Device": "",
+      "SO": "",
+      "IP_Address": "169.60.82.89",
+      "IP_Latitude": "",
+      "IP_Longitude": "-74.0980",
+      "WhatsApp_Phone_Number": "",
+      "Facebook_User": "",
+      "Twitter_User": ""
+    },
+    "Barcode": "",
+    "Billing_Account": "15052876387",
+    "Billing_Number": "",
+    "Phone": ""
+  }
+}

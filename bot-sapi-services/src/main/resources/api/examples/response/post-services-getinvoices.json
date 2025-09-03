@@ -1,0 +1,167 @@
+{
+	"WSResponseHeader": {
+		"System": {
+			"name": "LUZ",
+			"correlationID": "LUZ-0.6268083564885447",
+			"processingServer": "PRD"
+		},
+		"Service": {
+			"status": "OK",
+			"responseDate": "2025-07-30T09:14:31.1276535Z",
+			"processingServer": "",
+			"statusDetail": [
+				{
+					"errorCode": "OK_01",
+					"errorDetailCode": "Se obtuvieron exitosamente las facturas",
+					"errorMessage": "La solicitud LUZ-0.6268083564885447 fue exitosa",
+					"errorMessageUser": ""
+				}
+			]
+		},
+		"Property": []
+	},
+	"WSResponseBody": {
+		"Pending_Invoice": {
+			"Adjust": "",
+			"Barcode": "4157707181500017802010003366498819390000001132709620250806",
+			"Billed_Period": "202507",
+			"Billing_Account": "12053999712",
+			"Billing_Address": "AC 53 14 80 AP 201",
+			"Billing_Cutoff_Date": "16/Agosto/2025",
+			"Billing_Phone": "3058916659",
+			"Billing_Number": "336649881",
+			"Billing_Number_PSE": "10003366498819",
+			"Cuotas_Factura": "",
+			"Creation_Date": "2025-07-24T01:13:03.582Z",
+			"Delivery_Type": "SMS",
+			"Email": "KARYLIM_S@HOTMAIL.COM",
+			"Extemporaneous": false,
+			"Information_Value": [
+				{
+					"Date": "2025-07-25T04:03:59.087Z",
+					"Message": "Te informamos que a partir de la factura de este mes tu servicio fijo tuvo un incremento de: $ 5.348 antes de IVA."
+				}
+			],
+			"Invoice_Origin": "Factura RMCA",
+			"Is_Receipt_Of_Payment": false,
+			"Payday_Limit": "2025-08-06T00:00:00Z",
+			"Payment": "",
+			"Payment_Date": "2025-08-04T00:00:00Z",
+			"Phone": "6012173009",
+			"State": "PENDIENTE",
+			"Value_Final": {
+				"Tens_Setting": 0,
+				"Value": 113270,
+				"Value_Str": "$ 113,270",
+				"Value_Pay": 113270,
+				"Value_Pay_Str": "$ 113,270.00"
+			},
+			"Value_Original": {
+				"Tens_Setting": 0,
+				"Value": 113270,
+				"Value_Str": "$ 113,270",
+				"Value_Pay": 113270,
+				"Value_Pay_Str": "$ 113,270.00"
+			},
+			"Value_Previous": {
+				"Tens_Setting": 0,
+				"Value": 107920,
+				"Value_Str": "$ 107,920",
+				"Value_Pay": "",
+				"Value_Pay_Str": ""
+			},
+			"Value_Service": {
+				"Tens_Setting": 0,
+				"Value": 158900,
+				"Value_Str": "$ 158,900",
+				"Value_Pay": "",
+				"Value_Pay_Str": ""
+			}
+		},
+		"Invoices": [
+			{
+				"Adjust": {
+					"Date": "2025-07-31T15:30:00Z",
+					"Num_PQR": "PQR123456",
+					"Origin": "Sistema",
+					"Value": 15000,
+					"Value_Str": "$15,000"
+				},
+				"Barcode": "4157707181500017802010003366498819390000001132709620250806",
+				"Billed_Period": "202507",
+				"Billing_Account": "12053999712",
+				"Billing_Address": "AC 53 14 80 AP 201",
+				"Billing_Cutoff_Date": "16/Agosto/2025",
+				"Billing_Phone": "3058916659",
+				"Billing_Number": "336649881",
+				"Billing_Number_PSE": "10003366498819",
+				"Cuotas_Factura": [
+					{
+						"Cuota": "1",
+						"Estado": "Pagada",
+						"Fecha_Pago_Cuota": "2025-07-15",
+						"Fecha_Vencimiento": "2025-07-10",
+						"Referencia_Pago_Cuota": "REF123456",
+						"Valor_Acumulado": "$500.000",
+						"Valor_Pagado": "$500.000",
+						"Valor_Pagar": "$0"
+					}
+				],
+				"Creation_Date": "2025-07-24T01:13:03.582Z",
+				"Delivery_Type": "SMS",
+				"Email": "KARYLIM_S@HOTMAIL.COM",
+				"Extemporaneous": false,
+				"Information_Value": [
+					{
+						"Date": "2025-07-25T04:03:59.087Z",
+						"Message": "Te informamos que a partir de la factura de este mes tu servicio fijo tuvo un incremento de: $ 5.348 antes de IVA."
+					}
+				],
+				"Invoice_Origin": "Factura RMCA",
+				"Is_Receipt_Of_Payment": false,
+				"Payday_Limit": "2025-08-06T00:00:00Z",
+				"Payment": {
+					"Bank": "Banco de Bogotá",
+					"Franchise": "Visa",
+					"Payment_Date": "2025-07-30T14:20:00Z",
+					"State": "Aprobado",
+					"Type": "Digital",
+					"Value": 250000,
+					"Value_Str": "$250.000",
+					"Visible_Number": "**** **** **** 1234"
+				},
+				"Payment_Date": "2025-08-04T00:00:00Z",
+				"Phone": "6012173009",
+				"State": "PENDIENTE",
+				"Value_Final": {
+					"Tens_Setting": 0,
+					"Value": 113270,
+					"Value_Str": "$ 113,270",
+					"Value_Pay": 113270,
+					"Value_Pay_Str": "$ 113,270.00"
+				},
+				"Value_Original": {
+					"Tens_Setting": 0,
+					"Value": 113270,
+					"Value_Str": "$ 113,270",
+					"Value_Pay": 113270,
+					"Value_Pay_Str": "$ 113,270.00"
+				},
+				"Value_Previous": {
+					"Tens_Setting": 0,
+					"Value": 107920,
+					"Value_Str": "$ 107,920",
+					"Value_Pay": "",
+					"Value_Pay_Str": ""
+				},
+				"Value_Service": {
+					"Tens_Setting": 0,
+					"Value": 158900,
+					"Value_Str": "$ 158,900",
+					"Value_Pay": "",
+					"Value_Pay_Str": ""
+				}
+			}
+		]
+	}
+}

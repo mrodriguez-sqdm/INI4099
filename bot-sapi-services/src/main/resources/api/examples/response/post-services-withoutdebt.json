@@ -1,0 +1,31 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "name": "KIOSKOS",
+      "correlationID": "KIOSKOS-20220623-08313226",
+      "processingServer": "SERVER-01"
+    },
+    "Service": {
+      "status": "OK",
+      "responseDate": "2025-04-16T22:25:28.3273172Z",
+      "processingServer": "SERVER-01",
+      "statusDetail": [
+        {
+          "errorCode": "OK_01",
+          "errorDetailCode": "Proceso exitoso",
+          "errorMessage": "Documento generado correctamente",
+          "errorMessageUser": "Su documento ha sido generado y enviado"
+        }
+      ]
+    }
+  },
+  "WSResponseBody": {
+    "Billing_Account": "123456789",
+    "Link": "https://storage.etb.co/documents/paz-y-salvo-123456.pdf",
+    "Pay_Point": "Punto de pago: Bancolombia, Davivienda, Efecty",
+    "Pending_Balance": {
+      "Value": 0.0,
+      "Value_Str": "$ 0"
+    }
+  }
+}

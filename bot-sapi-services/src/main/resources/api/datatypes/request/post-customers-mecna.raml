@@ -1,0 +1,64 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  WSRequestHeader:
+    type: !include objects/header.raml
+    required: true
+  WSRequestBody:
+    type: object
+    properties:
+      Document_Type:
+        type: string
+        example: CC
+        required: false
+      Document_Number:
+        type: string
+        example: '80955088'
+        required: false
+      Audit:
+        type: object
+        properties:
+          Canal:
+            type: string
+            example: whatsapp
+            required: false
+          IP_Address:
+            type: string
+            example: 169.60.82.89
+            required: false
+          IP_Latitud:
+            type: string
+            example: '4.8094'
+            required: false
+          IP_Longitude:
+            type: string
+            example: '-74.0980'
+            required: false
+          IP_City:
+            type: string
+            example: COTA
+            required: false
+          IP_Country:
+            type: string
+            example: COLOMBIA
+            required: false
+          Date:
+            type: date-only
+            example: '2025-08-04'
+            required: false
+          Hour:
+            type: time-only
+            example: '13:25:30'
+            required: false
+          WhatsApp_Phone_Number:
+            type: string
+            example: ''
+            required: false
+          Facebook_User:
+            type: string
+            example: ''
+            required: false
+          Twitter_User:
+            type: string
+            example: ''
+            required: false

@@ -1,0 +1,482 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  WSResponseHeader:
+    type: !include objects/header.raml
+    required: true
+  WSResponseBody:
+    type: object
+    properties:
+      Pending_Invoice:
+        type: object
+        properties:
+          Adjust:
+            type: string
+            example: ''
+            required: false
+          Barcode:
+            type: string
+            example: '4157707181500017802010003366498819390000001132709620250806'
+            required: false
+          Billed_Period:
+            type: string
+            example: '202507'
+            required: false
+          Billing_Account:
+            type: string
+            example: '12053999712'
+            required: false
+          Billing_Address:
+            type: string
+            example: AC 53 14 80 AP 201
+            required: false
+          Billing_Cutoff_Date:
+            type: string
+            example: 16/Agosto/2025
+            required: false
+          Billing_Phone:
+            type: string
+            example: '3058916659'
+            required: false
+          Billing_Number:
+            type: string
+            example: '336649881'
+            required: false
+          Billing_Number_PSE:
+            type: string
+            example: '10003366498819'
+            required: false
+          Cuotas_Factura:
+            type: string
+            example: ''
+            required: false
+          Creation_Date:
+            type: datetime
+            example: '2025-07-24T01:13:03.582Z'
+            required: false
+          Delivery_Type:
+            type: string
+            example: SMS
+            required: false
+          Email:
+            type: string
+            example: KARYLIM_S@HOTMAIL.COM
+            required: false
+          Extemporaneous:
+            type: boolean
+            example: false
+            required: false
+          Information_Value:
+            type: array
+            items:
+              type: object
+              properties:
+                Date:
+                  type: datetime
+                  example: '2025-07-25T04:03:59.087Z'
+                  required: false
+                Message:
+                  type: string
+                  example: >-
+                    Te informamos que a partir de la factura de este mes tu
+                    servicio fijo tuvo un incremento de: $ 5.348 antes de IVA.
+                  required: false
+          Invoice_Origin:
+            type: string
+            example: Factura RMCA
+            required: false
+          Is_Receipt_Of_Payment:
+            type: boolean
+            example: false
+            required: false
+          Payday_Limit:
+            type: string
+            example: '2025-08-06T00:00:00Z'
+            required: false
+          Payment:
+            type: string
+            example: ''
+            required: false
+          Payment_Date:
+            type: string
+            example: '2025-08-04T00:00:00Z'
+            required: false
+          Phone:
+            type: string
+            example: '6012173009'
+            required: false
+          State:
+            type: string
+            example: PENDIENTE
+            required: false
+          Value_Final:
+            type: object
+            properties:
+              Tens_Setting:
+                type: integer
+                example: 0
+                required: false
+              Value:
+                type: integer
+                example: 113270
+                required: false
+              Value_Str:
+                type: string
+                example: $ 113,270
+                required: false
+              Value_Pay:
+                type: integer
+                example: 113270
+                required: false
+              Value_Pay_Str:
+                type: string
+                example: $ 113,270.00
+                required: false
+          Value_Original:
+            type: object
+            properties:
+              Tens_Setting:
+                type: integer
+                example: 0
+                required: false
+              Value:
+                type: integer
+                example: 113270
+                required: false
+              Value_Str:
+                type: string
+                example: $ 113,270
+                required: false
+              Value_Pay:
+                type: integer
+                example: 113270
+                required: false
+              Value_Pay_Str:
+                type: string
+                example: $ 113,270.00
+                required: false
+          Value_Previous:
+            type: object
+            properties:
+              Tens_Setting:
+                type: integer
+                example: 0
+                required: false
+              Value:
+                type: integer
+                example: 107920
+                required: false
+              Value_Str:
+                type: string
+                example: $ 107,920
+                required: false
+              Value_Pay:
+                type: string
+                example: ''
+                required: false
+              Value_Pay_Str:
+                type: string
+                example: ''
+                required: false
+          Value_Service:
+            type: object
+            properties:
+              Tens_Setting:
+                type: integer
+                example: 0
+                required: false
+              Value:
+                type: integer
+                example: 158900
+                required: false
+              Value_Str:
+                type: string
+                example: $ 158,900
+                required: false
+              Value_Pay:
+                type: string
+                example: ''
+                required: false
+              Value_Pay_Str:
+                type: string
+                example: ''
+                required: false
+      Invoices:
+        type: array
+        items:
+          type: object
+          properties:
+            Adjust:
+              type: object
+              properties:
+                Date:
+                  type: string
+                  example: '2025-07-31T15:30:00Z'
+                  required: false
+                Num_PQR:
+                  type: string
+                  example: PQR123456
+                  required: false
+                Origin:
+                  type: string
+                  example: Sistema
+                  required: false
+                Value:
+                  type: integer
+                  example: 15000
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $15,000
+                  required: false
+            Barcode:
+              type: string
+              example: '4157707181500017802010003366498819390000001132709620250806'
+              required: false
+            Billed_Period:
+              type: string
+              example: '202507'
+              required: false
+            Billing_Account:
+              type: string
+              example: '12053999712'
+              required: false
+            Billing_Address:
+              type: string
+              example: AC 53 14 80 AP 201
+              required: false
+            Billing_Cutoff_Date:
+              type: string
+              example: 16/Agosto/2025
+              required: false
+            Billing_Phone:
+              type: string
+              example: '3058916659'
+              required: false
+            Billing_Number:
+              type: string
+              example: '336649881'
+              required: false
+            Billing_Number_PSE:
+              type: string
+              example: '10003366498819'
+              required: false
+            Cuotas_Factura:
+              type: array
+              items:
+                type: object
+                properties:
+                  Cuota:
+                    type: string
+                    example: '1'
+                    required: false
+                  Estado:
+                    type: string
+                    example: Pagada
+                    required: false
+                  Fecha_Pago_Cuota:
+                    type: date-only
+                    example: '2025-07-15'
+                    required: false
+                  Fecha_Vencimiento:
+                    type: date-only
+                    example: '2025-07-10'
+                    required: false
+                  Referencia_Pago_Cuota:
+                    type: string
+                    example: REF123456
+                    required: false
+                  Valor_Acumulado:
+                    type: string
+                    example: $500.000
+                    required: false
+                  Valor_Pagado:
+                    type: string
+                    example: $500.000
+                    required: false
+                  Valor_Pagar:
+                    type: string
+                    example: $0
+                    required: false
+            Creation_Date:
+              type: datetime
+              example: '2025-07-24T01:13:03.582Z'
+              required: false
+            Delivery_Type:
+              type: string
+              example: SMS
+              required: false
+            Email:
+              type: string
+              example: KARYLIM_S@HOTMAIL.COM
+              required: false
+            Extemporaneous:
+              type: boolean
+              example: false
+              required: false
+            Information_Value:
+              type: array
+              items:
+                type: object
+                properties:
+                  Date:
+                    type: datetime
+                    example: '2025-07-25T04:03:59.087Z'
+                    required: false
+                  Message:
+                    type: string
+                    example: >-
+                      Te informamos que a partir de la factura de este mes tu
+                      servicio fijo tuvo un incremento de: $ 5.348 antes de IVA.
+                    required: false
+            Invoice_Origin:
+              type: string
+              example: Factura RMCA
+              required: false
+            Is_Receipt_Of_Payment:
+              type: boolean
+              example: false
+              required: false
+            Payday_Limit:
+              type: string
+              example: '2025-08-06T00:00:00Z'
+              required: false
+            Payment:
+              type: object
+              properties:
+                Bank:
+                  type: string
+                  example: Banco de Bogotá
+                  required: false
+                Franchise:
+                  type: string
+                  example: Visa
+                  required: false
+                Payment_Date:
+                  type: string
+                  example: '2025-07-30T14:20:00Z'
+                  required: false
+                State:
+                  type: string
+                  example: Aprobado
+                  required: false
+                Type:
+                  type: string
+                  example: Digital
+                  required: false
+                Value:
+                  type: integer
+                  example: 250000
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $250.000
+                  required: false
+                Visible_Number:
+                  type: string
+                  example: '**** **** **** 1234'
+                  required: false
+            Payment_Date:
+              type: string
+              example: '2025-08-04T00:00:00Z'
+              required: false
+            Phone:
+              type: string
+              example: '6012173009'
+              required: false
+            State:
+              type: string
+              example: PENDIENTE
+              required: false
+            Value_Final:
+              type: object
+              properties:
+                Tens_Setting:
+                  type: integer
+                  example: 0
+                  required: false
+                Value:
+                  type: integer
+                  example: 113270
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $ 113,270
+                  required: false
+                Value_Pay:
+                  type: integer
+                  example: 113270
+                  required: false
+                Value_Pay_Str:
+                  type: string
+                  example: $ 113,270.00
+                  required: false
+            Value_Original:
+              type: object
+              properties:
+                Tens_Setting:
+                  type: integer
+                  example: 0
+                  required: false
+                Value:
+                  type: integer
+                  example: 113270
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $ 113,270
+                  required: false
+                Value_Pay:
+                  type: integer
+                  example: 113270
+                  required: false
+                Value_Pay_Str:
+                  type: string
+                  example: $ 113,270.00
+                  required: false
+            Value_Previous:
+              type: object
+              properties:
+                Tens_Setting:
+                  type: integer
+                  example: 0
+                  required: false
+                Value:
+                  type: integer
+                  example: 107920
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $ 107,920
+                  required: false
+                Value_Pay:
+                  type: string
+                  example: ''
+                  required: false
+                Value_Pay_Str:
+                  type: string
+                  example: ''
+                  required: false
+            Value_Service:
+              type: object
+              properties:
+                Tens_Setting:
+                  type: integer
+                  example: 0
+                  required: false
+                Value:
+                  type: integer
+                  example: 158900
+                  required: false
+                Value_Str:
+                  type: string
+                  example: $ 158,900
+                  required: false
+                Value_Pay:
+                  type: string
+                  example: ''
+                  required: false
+                Value_Pay_Str:
+                  type: string
+                  example: ''
+                  required: false

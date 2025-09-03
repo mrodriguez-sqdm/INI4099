@@ -1,0 +1,72 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  WSResponseHeader:
+    type: !include objects/header.raml
+    required: true
+  WSResponseBody:
+    type: object
+    properties:
+      Num_PQR:
+        type: string
+        example: string
+        required: false
+      Service:
+        type: object
+        properties:
+          Status:
+            type: string
+            example: string
+            required: false
+          Message:
+            type: string
+            example: string
+            required: false
+      Networks:
+        type: array
+        items:
+          type: object
+          properties:
+            Network_Name:
+              type: string
+              example: string
+              required: false
+            Network_State:
+              type: string
+              example: string
+              required: false
+            MAC_Address:
+              type: string
+              example: string
+              required: false
+            ONT_Serial:
+              type: string
+              example: string
+              required: false
+            Frequency:
+              type: string
+              example: string
+              required: false
+      Equipment:
+        type: object
+        properties:
+          ONT_Serial:
+            type: string
+            example: string
+            required: false
+          Model:
+            type: string
+            example: string
+            required: false
+          Status:
+            type: string
+            example: string
+            required: false
+      Status:
+        type: string
+        example: string
+        required: false
+      Message:
+        type: string
+        example: string
+        required: false

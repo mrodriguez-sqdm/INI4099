@@ -1,0 +1,46 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "Name": "string",
+      "CorrelationID": "string",
+      "ProcessingServer": "string"
+    },
+    "Service": {
+      "Status": "string",
+      "ResponseDate": "string",
+      "ProcessingServer": "string",
+      "statusDetail": [
+        {
+                    "errorCode": "OK_01",
+                    "errorDetailCode": "",
+                    "errorMessage": "",
+                    "errorMessageUser": ""
+                }
+      ]
+    },
+    "Property": []
+  },
+  "WSResponseBody": {
+    "Num_PQR": "string",
+    "Service": {
+      "Status": "string",
+      "Message": "string"
+    },
+    "Networks": [
+      {
+        "Network_Name": "string",
+        "Network_State": "string",
+        "MAC_Address": "string",
+        "ONT_Serial": "string",
+        "Frequency": "string"
+      }
+    ],
+    "Equipment": {
+      "ONT_Serial": "string",
+      "Model": "string",
+      "Status": "string"
+    },
+    "Status": "string",
+    "Message": "string"
+  }
+}

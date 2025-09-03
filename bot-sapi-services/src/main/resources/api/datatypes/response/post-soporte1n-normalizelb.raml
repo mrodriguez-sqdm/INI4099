@@ -1,0 +1,25 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  WSResponseHeader:
+    type: !include objects/header.raml
+    required: true
+  WSResponseBody:
+    type: object
+    properties:
+      Num_PQR:
+        type: string
+        example: string
+        required: false
+      Traffic_Light_Color:
+        type: string
+        example: string
+        required: false
+      Status:
+        type: string
+        example: string
+        required: false
+      Message:
+        type: string
+        example: string
+        required: false

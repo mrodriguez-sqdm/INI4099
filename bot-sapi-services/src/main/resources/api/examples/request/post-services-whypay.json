@@ -1,0 +1,24 @@
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": "MIETB",
+      "correlationID": "Identificador único de la petición",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": "Web",
+      "Id_Device": "",
+      "SO": "",
+      "IP_Address": "",
+      "IP_Latitude": "",
+      "IP_Longitude": "",
+      "WhatsApp_Phone_Number": "",
+      "Facebook_User": "",
+      "Twitter_User": ""
+    },
+    "Phone": "6013103732"
+  }
+}

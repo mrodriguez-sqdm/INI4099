@@ -1,0 +1,42 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "name": "MIETB",
+      "correlationID": "Identificador único de la petición",
+      "processingServer": "SRV-BOT-01"
+    },
+    "Service": {
+      "status": "OK",
+      "responseDate": "2024-06-01T12:34:56Z",
+      "processingServer": "SRV-BOT-01",
+      "statusDetail": [
+        {
+          "errorCode": "OK_01",
+          "errorMessage": "Proceso exitoso",
+          "errorMessageUser": "Consulta de información de pago realizada correctamente"
+        }
+      ]
+    },
+    "Property": []
+  },
+  "Payment_Info": {
+    "Phone": "6013103732",
+    "Billing_Account": "15052876387",
+    "Total_Amount": 125000,
+    "Currency": "COP",
+    "Due_Date": "2024-12-25",
+    "Status": "Vencida",
+    "Reasons": [
+      {
+        "Code": "FACTURA_VENCIDA",
+        "Description": "Factura vencida del mes anterior",
+        "Amount": 89000
+      },
+      {
+        "Code": "SERVICIOS_ADICIONALES",
+        "Description": "Servicios adicionales del mes actual",
+        "Amount": 36000
+      }
+    ]
+  }
+}
