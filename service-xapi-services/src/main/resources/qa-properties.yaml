@@ -6,7 +6,7 @@ autodiscovery: "20429970"
 
 service-papi:
   protocol: "HTTP"
-  host: "mule-worker-internal-problem-management-papi-services-qa.us-e2.cloudhub.io"
+  host: "mule-worker-internal-service-papi-services-qa.us-e2.cloudhub.io"
   port: "8090"
   base-path: "/services/v1"
   service:
