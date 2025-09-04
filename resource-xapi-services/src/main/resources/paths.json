@@ -1,0 +1,12 @@
+[
+	{
+		"systemId": "MIGRACION",
+		"data": [
+			{
+				"method": "POST",
+				"path": "/v1/resourceFunction",
+				"processname": "perform an action to normalize service"
+			}
+		]
+	}
+]		

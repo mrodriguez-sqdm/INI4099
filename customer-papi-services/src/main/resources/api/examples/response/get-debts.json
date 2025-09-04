@@ -1,0 +1,24 @@
+ {
+  "codeResponse" : "200",
+  "messageResponse": "succes",
+  "debt": {
+	"phone": "6013103732",
+	"billingAccount": "15052876387",
+	"totalAmount": 125000,
+	"currency": "COP",
+	"dueDate": "2024-12-25",
+	"status": "Vencida",
+	"reasons": [
+	  {
+		"code": "FACTURA_VENCIDA",
+		"description": "Factura vencida del mes anterior",
+		"amount": 89000
+	  },
+	  {
+		"code": "SERVICIOS_ADICIONALES",
+		"description": "Servicios adicionales del mes actual",
+		"amount": 36000
+	  }
+	]
+  }
+ }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="post-transferbalance-test-suite.xml" />
+	<munit:test name="post-transferbalance-test-suite-configTest" doc:id="d45df837-177a-4a2f-84ce-8651e2a12f02" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get Subscription Origen" doc:id="7497e999-8c14-41bc-86ab-657aa05664c5" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;	"links": [&#10;		{&#10;			"rel": "self",&#10;			"href": "http://10.0.255.32/bssrest/v1/subscription?externalID=MDM-MOV-331940-1&amp;page=0&amp;size=10"&#10;		}&#10;	],&#10;	"content": [&#10;		{&#10;			"id": "SID2112721_TS1738871686786_0",&#10;			"name": "MOVIL MIXTO 35GB 8.0-",&#10;			"domain": "ETB",&#10;			"status": "PRE_ACTIVE",&#10;			"networkStatus": "PRE_ACTIVE",&#10;			"type": "RETAIL",&#10;			"portabilityStatus": "NO_PORTABILITY",&#10;			"billingType": "ACCOUNT_CONTROL",&#10;			"creationDate": "2025-02-06T14:54:58.000-05:00",&#10;			"balance": {&#10;				"amount": 10000.0&#10;			},&#10;			"language": "es-ES",&#10;			"ntwID": "SID2112721_TS1738871686786_0",&#10;			"externalID": "MDM-MOV-331940-1",&#10;			"priceplan": {&#10;				"id": "PP_ETB_Base_CControl",&#10;				"name": "PP_ETB_Base_CControl"&#10;			},&#10;			"salesData": {&#10;				"salesChannel": "OWN_CALLCENTER"&#10;			},&#10;			"packageList": [&#10;				{&#10;					"id": "PKGID5505973_TS1738871686925",&#10;					"links": [&#10;						{&#10;							"rel": "getPackage",&#10;							"href": "http://10.0.255.32/bssrest/v1/pkgi/PKGID5505973_TS1738871686925"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"msisdnList": [&#10;				{&#10;					"id": "3057815598",&#10;					"links": [&#10;						{&#10;							"rel": "getMsisdn",&#10;							"href": "http://10.0.255.32/bssrest/v1/msisdn/3057815598"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"simList": [&#10;				{&#10;					"id": "89571871150031780904",&#10;					"links": [&#10;						{&#10;							"rel": "getPkgi",&#10;							"href": "http://10.0.255.32/bssrest/v1/sim/89571871150031780904"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"subscriber": {&#10;				"id": "1501705",&#10;				"links": [&#10;					{&#10;						"rel": "getSubscriber",&#10;						"href": "http://10.0.255.32/bssrest/v1/subscriber/1501705"&#10;					}&#10;				]&#10;			},&#10;			"msisdn": {&#10;				"id": "3057815598",&#10;				"links": [&#10;					{&#10;						"rel": "getMsisdn",&#10;						"href": "http://10.0.255.32/bssrest/v1/msisdn/3057815598"&#10;					}&#10;				]&#10;			},&#10;			"sim": {&#10;				"id": "89571871150031780904",&#10;				"links": [&#10;					{&#10;						"rel": "getSim",&#10;						"href": "http://10.0.255.32/bssrest/v1/sim/89571871150031780904"&#10;					}&#10;				]&#10;			},&#10;			"billingAccount": {&#10;				"id": "2336050",&#10;				"links": [&#10;					{&#10;						"rel": "getBillingAccount",&#10;						"href": "http://10.0.255.32/bssrest/v1/billing/ba/2336050"&#10;					}&#10;				]&#10;			},&#10;			"brand": {&#10;				"id": "ETB",&#10;				"links": [&#10;					{&#10;						"rel": "getBrand",&#10;						"href": "http://10.0.255.32/bssrest/v1/brand/ETB"&#10;					}&#10;				]&#10;			},&#10;			"pos": {&#10;				"id": "PDV_ETBWS_Test",&#10;				"links": [&#10;					{&#10;						"rel": "getPos",&#10;						"href": "http://10.0.255.32/bssrest/v1/pos/PDV_ETBWS_Test"&#10;					}&#10;				]&#10;			},&#10;			"lastUpdate": "2025-02-07T11:33:36.000-05:00",&#10;			"links": []&#10;		}&#10;	],&#10;	"page": {&#10;		"size": 10,&#10;		"totalElements": 1,&#10;		"totalPages": 1,&#10;		"number": 0&#10;	}&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get Subscription Destino" doc:id="e4d931f8-992f-4d28-adf8-84052de979ef" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;	"links": [&#10;		{&#10;			"rel": "self",&#10;			"href": "http://10.0.255.32/bssrest/v1/subscription?externalID=MDM-MOV-331940-1&amp;page=0&amp;size=10"&#10;		}&#10;	],&#10;	"content": [&#10;		{&#10;			"id": "SID2112721_TS1738871686786_0",&#10;			"name": "MOVIL MIXTO 35GB 8.0-",&#10;			"domain": "ETB",&#10;			"status": "PRE_ACTIVE",&#10;			"networkStatus": "PRE_ACTIVE",&#10;			"type": "RETAIL",&#10;			"portabilityStatus": "NO_PORTABILITY",&#10;			"billingType": "ACCOUNT_CONTROL",&#10;			"creationDate": "2025-02-06T14:54:58.000-05:00",&#10;			"balance": {&#10;				"amount": 10000.0&#10;			},&#10;			"language": "es-ES",&#10;			"ntwID": "SID2112721_TS1738871686786_0",&#10;			"externalID": "MDM-MOV-331940-1",&#10;			"priceplan": {&#10;				"id": "PP_ETB_Base_CControl",&#10;				"name": "PP_ETB_Base_CControl"&#10;			},&#10;			"salesData": {&#10;				"salesChannel": "OWN_CALLCENTER"&#10;			},&#10;			"packageList": [&#10;				{&#10;					"id": "PKGID5505973_TS1738871686925",&#10;					"links": [&#10;						{&#10;							"rel": "getPackage",&#10;							"href": "http://10.0.255.32/bssrest/v1/pkgi/PKGID5505973_TS1738871686925"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"msisdnList": [&#10;				{&#10;					"id": "3057815598",&#10;					"links": [&#10;						{&#10;							"rel": "getMsisdn",&#10;							"href": "http://10.0.255.32/bssrest/v1/msisdn/3057815598"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"simList": [&#10;				{&#10;					"id": "89571871150031780904",&#10;					"links": [&#10;						{&#10;							"rel": "getPkgi",&#10;							"href": "http://10.0.255.32/bssrest/v1/sim/89571871150031780904"&#10;						}&#10;					]&#10;				}&#10;			],&#10;			"subscriber": {&#10;				"id": "1501705",&#10;				"links": [&#10;					{&#10;						"rel": "getSubscriber",&#10;						"href": "http://10.0.255.32/bssrest/v1/subscriber/1501705"&#10;					}&#10;				]&#10;			},&#10;			"msisdn": {&#10;				"id": "3057815598",&#10;				"links": [&#10;					{&#10;						"rel": "getMsisdn",&#10;						"href": "http://10.0.255.32/bssrest/v1/msisdn/3057815598"&#10;					}&#10;				]&#10;			},&#10;			"sim": {&#10;				"id": "89571871150031780904",&#10;				"links": [&#10;					{&#10;						"rel": "getSim",&#10;						"href": "http://10.0.255.32/bssrest/v1/sim/89571871150031780904"&#10;					}&#10;				]&#10;			},&#10;			"billingAccount": {&#10;				"id": "2336050",&#10;				"links": [&#10;					{&#10;						"rel": "getBillingAccount",&#10;						"href": "http://10.0.255.32/bssrest/v1/billing/ba/2336050"&#10;					}&#10;				]&#10;			},&#10;			"brand": {&#10;				"id": "ETB",&#10;				"links": [&#10;					{&#10;						"rel": "getBrand",&#10;						"href": "http://10.0.255.32/bssrest/v1/brand/ETB"&#10;					}&#10;				]&#10;			},&#10;			"pos": {&#10;				"id": "PDV_ETBWS_Test",&#10;				"links": [&#10;					{&#10;						"rel": "getPos",&#10;						"href": "http://10.0.255.32/bssrest/v1/pos/PDV_ETBWS_Test"&#10;					}&#10;				]&#10;			},&#10;			"lastUpdate": "2025-02-07T11:33:36.000-05:00",&#10;			"links": []&#10;		}&#10;	],&#10;	"page": {&#10;		"size": 10,&#10;		"totalElements": 1,&#10;		"totalPages": 1,&#10;		"number": 0&#10;	}&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Post Transfer Balance" doc:id="44767c10-e04c-4e43-80ba-e6bb5a13557d" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Transfer balance" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="96fde76c-530d-46f0-8e01-c12d014a0393" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "topupDonor": {&#10;        "id": "1509091",&#10;        "links": [&#10;            {&#10;                "rel": "getDonorTopup",&#10;                "href": "http://10.0.255.32/bssrest/v1/topup/1509091"&#10;            }&#10;        ]&#10;    },&#10;    "topupDonee": {&#10;        "id": "1509094",&#10;        "links": [&#10;            {&#10;                "rel": "getDoneeTopup",&#10;                "href": "http://10.0.255.32/bssrest/v1/topup/1509094"&#10;            }&#10;        ]&#10;    },&#10;    "links": []&#10;}]' mediaType="application/dw" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="7da01c15-ef28-460b-a67c-18f1052a5e19" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;	"msisdnOrig": "3058987612",&#10;	"msisdnDest": "3006449237",&#10;	"externalIDorig": "MDM-MOV-331943-1",&#10;	"externalIDest": "MDM-MOV-331919-1",&#10;	"monto": 3000.0&#10;}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\transferbalance:application\json:service-papi-services-config" doc:id="b935053a-f118-4cba-8770-a5420b379bc1" name="post:\v1\transferbalance:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="c53768e9-ff65-43bc-ade7-74090ae9547d" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

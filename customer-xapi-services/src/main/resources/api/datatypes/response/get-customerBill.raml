@@ -1,0 +1,298 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  codeResponse:
+    type: string
+    example: '200'
+    required: false
+  messageResponse:
+    type: string
+    example: ''
+    required: false
+  invoices:
+    type: array
+    items:
+      type: object
+      properties:
+        adjust:
+          type: object
+          properties:
+            date:
+              type: string
+              example: '2025-07-31T15:30:00Z'
+              required: false
+            numPqr:
+              type: string
+              example: PQR123456
+              required: false
+            origin:
+              type: string
+              example: Sistema
+              required: false
+            value:
+              type: integer
+              example: 15000
+              required: false
+            valueStr:
+              type: string
+              example: $15,000
+              required: false
+        barcode:
+          type: string
+          example: '4157707181500017802010003366498819390000001132709620250806'
+          required: false
+        billedPeriod:
+          type: string
+          example: '202507'
+          required: false
+        billingAccount:
+          type: string
+          example: '12053999712'
+          required: false
+        billingAddress:
+          type: string
+          example: AC 53 14 80 AP 201
+          required: false
+        billingCutoffDate:
+          type: string
+          example: 16/Agosto/2025
+          required: false
+        billingPhone:
+          type: string
+          example: '3058916659'
+          required: false
+        billingNumber:
+          type: string
+          example: '336649881'
+          required: false
+        billingNumberPse:
+          type: string
+          example: '10003366498819'
+          required: false
+        cuotasFactura:
+          type: array
+          items:
+            type: object
+            properties:
+              cuota:
+                type: string
+                example: '1'
+                required: false
+              estado:
+                type: string
+                example: Pagada
+                required: false
+              fechaPagoCuota:
+                type: date-only
+                example: '2025-07-15'
+                required: false
+              fechaVencimiento:
+                type: date-only
+                example: '2025-07-10'
+                required: false
+              referenciaPagoCuota:
+                type: string
+                example: REF123456
+                required: false
+              valorAcumulado:
+                type: string
+                example: $500.000
+                required: false
+              valorPagado:
+                type: string
+                example: $500.000
+                required: false
+              valorPagar:
+                type: string
+                example: $0
+                required: false
+        creationDate:
+          type: datetime
+          example: '2025-07-24T01:13:03.582Z'
+          required: false
+        deliveryType:
+          type: string
+          example: SMS
+          required: false
+        email:
+          type: string
+          example: KARYLIM_S@HOTMAIL.COM
+          required: false
+        extemporaneous:
+          type: boolean
+          example: false
+          required: false
+        informationValue:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: datetime
+                example: '2025-07-25T04:03:59.087Z'
+                required: false
+              message:
+                type: string
+                example: >-
+                  Te informamos que a partir de la factura de este mes tu
+                  servicio fijo tuvo un incremento de: $ 5.348 antes de IVA.
+                required: false
+        invoiceOrigin:
+          type: string
+          example: Factura RMCA
+          required: false
+        isReceiptOfPayment:
+          type: boolean
+          example: false
+          required: false
+        paydayLimit:
+          type: string
+          example: '2025-08-06T00:00:00Z'
+          required: false
+        payment:
+          type: object
+          properties:
+            bank:
+              type: string
+              example: Banco de Bogotá
+              required: false
+            franchise:
+              type: string
+              example: Visa
+              required: false
+            paymentDate:
+              type: string
+              example: '2025-07-30T14:20:00Z'
+              required: false
+            state:
+              type: string
+              example: Aprobado
+              required: false
+            type:
+              type: string
+              example: Digital
+              required: false
+            value:
+              type: integer
+              example: 250000
+              required: false
+            valueStr:
+              type: string
+              example: $250.000
+              required: false
+            visibleNumber:
+              type: string
+              example: '**** **** **** 1234'
+              required: false
+        paymentDate:
+          type: string
+          example: '2025-08-04T00:00:00Z'
+          required: false
+        phone:
+          type: string
+          example: '6012173009'
+          required: false
+        state:
+          type: string
+          example: PENDIENTE
+          required: false
+        valueFinal:
+          type: object
+          properties:
+            tensSetting:
+              type: integer
+              example: 0
+              required: false
+            value:
+              type: integer
+              example: 113270
+              required: false
+            valueStr:
+              type: string
+              example: $ 113,270
+              required: false
+            valuePay:
+              type: integer
+              example: 113270
+              required: false
+            valuePayStr:
+              type: string
+              example: $ 113,270.00
+              required: false
+        valueOriginal:
+          type: object
+          properties:
+            tensSetting:
+              type: integer
+              example: 0
+              required: false
+            value:
+              type: integer
+              example: 113270
+              required: false
+            valueStr:
+              type: string
+              example: $ 113,270
+              required: false
+            valuePay:
+              type: integer
+              example: 113270
+              required: false
+            valuePayStr:
+              type: string
+              example: $ 113,270.00
+              required: false
+        valuePrevious:
+          type: object
+          properties:
+            tensSetting:
+              type: integer
+              example: 0
+              required: false
+            value:
+              type: integer
+              example: 107920
+              required: false
+            valueStr:
+              type: string
+              example: $ 107,920
+              required: false
+            valuePay:
+              type: 'null'
+              example: null
+              required: false
+            valuePayStr:
+              type: 'null'
+              example: null
+              required: false
+        valueService:
+          type: object
+          properties:
+            tensSetting:
+              type: integer
+              example: 0
+              required: false
+            value:
+              type: integer
+              example: 158900
+              required: false
+            valueStr:
+              type: string
+              example: $ 158,900
+              required: false
+            valuePay:
+              type: 'null'
+              example: null
+              required: false
+            valuePayStr:
+              type: 'null'
+              example: null
+              required: false
+  file:
+    type: object
+    required: false
+    properties:
+      link:
+        type: string
+        example: ''
+        required: false

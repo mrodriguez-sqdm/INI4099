@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-ordenesMovilidad-test-suite.xml" />
+	<munit:test name="get-ordenesMovilidad-test-suite-get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-configTest" doc:id="6071892c-e23b-4dff-beac-2a37fc5023e0" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get MSISDN" doc:id="b301637a-874d-42ca-ab04-581ffaef5ac5" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c565587e-7cb3-41c0-9423-1724eb105a39" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "id": "3336025009",&#10;    "status": "FREE",&#10;    "storeStatus": "FREE",&#10;    "pool": {&#10;        "id": "PoolMsisdn_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "sourcePool": {&#10;        "id": "PoolMsisdn_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025009"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get SIMCARD" doc:id="af5978e6-8455-4715-8954-350c95c19e99" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="69ee40b2-c40f-450d-a174-4586b4113e12" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "id": "8957287000000000023",&#10;    "simCode": "8957287000000000023",&#10;    "puk": "17577826",&#10;    "status": "FREE",&#10;    "storeStatus": "FREE",&#10;    "pool": {&#10;        "id": "PoolSim_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "sourcePool": {&#10;        "id": "PoolSim_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "imsi": {&#10;        "id": "732199000000002",&#10;        "links": []&#10;    },&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000023"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="165c3bce-dcaa-40cb-a70d-2c8fa2cdea3b" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="c0e69420-64f5-4d80-a418-519b2a9386c9" >
+				<munit:attributes value='#[{queryParams: {msisdn: "3336025009", sim: "8957287000000000023"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config" doc:id="c03a230d-df3b-4120-ad79-5decd2b64e7c" name="get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="34361e93-e3d6-4f15-b0ea-74271be794eb" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get-ordenesMovilidad-testMSISDN-suite-get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-configTest" doc:id="8ee0dbb3-9a2a-44af-87dc-d8c81c157e55" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get MSISDN" doc:id="68781aa6-e745-4086-b338-d2e996b0c0be" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c565587e-7cb3-41c0-9423-1724eb105a39" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "id": "3336025009",&#10;    "status": "FREE",&#10;    "storeStatus": "FREE",&#10;    "pool": {&#10;        "id": "PoolMsisdn_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "sourcePool": {&#10;        "id": "PoolMsisdn_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025009"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="d2381913-f4a2-4511-bc84-33da843c15bc" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="44271b98-2bca-4c6b-bd1c-20943d05bbb0" >
+				<munit:attributes value='#[{queryParams: {msisdn: "3336025009"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config" doc:id="c7f11af8-1485-42d9-8085-93fd68fc3586" name="get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="e8265517-ff34-4a4c-adaa-9741d9f9ad47" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get-ordenesMovilidad-testSIMCARD-suite-get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-configTest" doc:id="4ac781f4-fe42-40cd-b79f-b6f84a0545ba" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get SIMCARD" doc:id="46b42f76-e1c1-466b-8c3d-2087d1cc4930" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="69ee40b2-c40f-450d-a174-4586b4113e12" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "id": "8957287000000000023",&#10;    "simCode": "8957287000000000023",&#10;    "puk": "17577826",&#10;    "status": "FREE",&#10;    "storeStatus": "FREE",&#10;    "pool": {&#10;        "id": "PoolSim_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "sourcePool": {&#10;        "id": "PoolSim_TestETBMVNE",&#10;        "links": []&#10;    },&#10;    "imsi": {&#10;        "id": "732199000000002",&#10;        "links": []&#10;    },&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000023"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="07cb07ce-cbbf-47e3-8713-df855a780719" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="9b619567-afb5-4a25-aa99-9ae0632da010" >
+				<munit:attributes value='#[{queryParams: {sim: "8957287000000000023"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config" doc:id="9b1abb8a-7e09-4570-b4ee-9d5c48164ae7" name="get:\v1\ordenes\movilidad\disponibilidad:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="c6ca2621-570e-461c-a817-d03f58dd1dd2" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,808 @@
+#%RAML 1.0
+title: Problem Management Experience API Services
+version: v1
+baseUri: https://problem-management-xapi-services-{env}.us-e2.cloudhub.io/{version}
+protocols:
+  - HTTPS
+
+description: |
+  # Problem Management Experience API Services
+  
+  ## Architecture Context
+  **Layer**: XAPI (Experience Layer) - ETB's API-led connectivity architecture
+  **Role**: Provides comprehensive problem management and service resolution experience for customer support and operational teams across multiple channels
+  **Integration Pattern**: Orchestrates Problem Management PAPI and Bot Services to deliver optimized problem resolution experiences
+  
+  ## Core Capabilities
+  - **Service Problem Management**: Complete lifecycle management of service problems and failures following TMF656 standards
+  - **Massive Failure Consultation**: Real-time consultation of massive service failures affecting multiple customers
+  - **Service Inventory Management**: Service resource information and inventory queries for problem resolution
+  - **Service Order Management**: Creation and tracking of service restoration orders and reconnection workflows
+  - **Multi-Channel Support**: Unified experience across WhatsApp Bot Services, Web Portal, Mobile App, and Agent channels
+  
+  ## Integration Points
+  - **Problem Management PAPI Services**: Core problem management orchestration (`mule-worker-internal-problem-management-papi-services-qa.us-e2.cloudhub.io:8091`)
+    - `/v1/serviceProblem`: Service problem lifecycle management
+    - `/v1/problemGroup`: Massive failure consultation and management
+    - `/v1/service`: Service resource information and inventory queries
+    - `/v1/serviceOrder`: Service restoration order creation and tracking
+  - **Bot Services Integration**: WhatsApp automation and customer communication for problem notifications
+  - **Audit System**: Oracle SAPI Services for transaction logging and regulatory compliance
+    - `audits-oracle-sapi-services` for comprehensive problem management audit trails
+  - **Data Sources**: Oracle database for customer and service data, service inventory systems
+  - **Security**: OAuth 2.0 with ETB authentication standards and JKS keystore configuration
+  
+  ## Standards Compliance
+  - **TM Forum TMF656**: Service Problem Management API v5.0 for complete problem lifecycle management
+  - **TMF656 5.1.1**: Service Problem Query and Retrieval standards for multi-criteria problem searches
+  - **TMF656 5.1.2**: Problem Group Management standards for massive failure coordination and communication
+  - **TMF656 5.1.3**: Service Order Integration standards for problem resolution workflow automation
+  - **RESTful Principles**: HTTP methods, status codes, and resource-based URLs
+  - **ETB Security Standards**: OAuth 2.0, JWT tokens, and encrypted communications via JKS keystore
+  - **Colombian Telecommunications Standards**: Regulatory compliance for service problem management and customer communication
+  
+  ## Performance Metrics
+  - **Response Time Target**: < 1500ms for GET operations, < 2500ms for POST operations, < 2000ms for PATCH operations
+  - **Availability**: 99.5% uptime requirement with 24/7 monitoring via Anypoint Platform
+  - **Throughput**: Up to 500 requests per minute per worker with rate limiting policies for problem management operations
+  - **Error Rate**: < 1% for business logic errors, < 0.5% for system integration failures
+  - **Audit Coverage**: 100% of problem management transactions logged for regulatory compliance
+  - **PAPI Services Timeout**: Standard ETB timeout configuration for backend integration reliability
+  
+  ## Target Consumers
+  - **WhatsApp Bot Services**: Automated customer notifications for service problems and massive failures
+  - **ETB Web Portal**: Customer self-service for problem reporting and service status queries
+  - **Mobile Applications**: iOS and Android apps for real-time problem status and service restoration tracking
+  - **Call Center Systems**: Agent-assisted customer support with complete problem management context
+  - **Network Operations Center (NOC)**: Operational teams managing service problems and massive failures
+  - **CRM Integration**: Automated business systems integration for customer lifecycle and problem resolution
+  
+  ## Technical Documentation
+  
+  ### Architecture Overview
+  This XAPI service acts as the primary orchestrator for problem management within ETB's telecommunications ecosystem. It abstracts the complexity of Problem Management PAPI Services and Bot Services backend systems while providing a consistent, channel-optimized experience for service problem resolution following TMF656 Service Problem Management standards.
+  
+  ### Data Integration
+  - **Problem Management PAPI Services**: Core business logic for problem management, service problem lifecycle, and resolution workflows
+    - Integration endpoints: `/v1/serviceProblem`, `/v1/problemGroup`, `/v1/service`, `/v1/serviceOrder`
+    - Authentication: OAuth 2.0 with client_id/client_secret configuration
+    - Timeout configuration: Standard ETB integration patterns for reliable backend processing
+  - **Oracle Database**: Primary service data repository, customer information, and problem history storage
+  - **Service Inventory Systems**: Real-time service resource information and network element data
+  - **Audit System**: `audits-oracle-sapi-services` for comprehensive regulatory compliance logging
+  - **Bot Services External System**: Customer communication and notification automation for problem updates
+  
+  ### Response Codes (API-Controlled)
+  All responses include business-specific codes in the response body following TMF656 standards:
+  - **200**: "200" - Operation completed successfully 
+    - Problem query success: "codeResponse": "200" with comprehensive problem data
+    - Service order success: Problem resolution workflow initiated successfully
+  - **400**: "REQUEST_ERROR" - Invalid request parameters, missing required fields, or business rule validation failed
+  - **401**: "Unauthorized" - Authentication failed, invalid token, or insufficient scope permissions
+  - **404**: "NOT_FOUND" - Requested problem resource not found or service not registered in inventory
+  - **500**: "INTERNAL_SERVER_ERROR" - Problem Management PAPI connectivity failure, Oracle database errors, or audit system unavailability
+  
+  ### Error Handling
+  Standardized error structure includes:
+  - **Business Error Codes**: API-specific codes for client-side handling following TMF656 standards
+  - **Detailed Messages**: Human-readable error descriptions in Spanish for customer-facing applications
+  - **System Context**: Backend system identification (Problem Management PAPI, Oracle, Bot Services) for troubleshooting
+  - **Cause Tracking**: Full error chain from source system to client with origin attribution
+  
+  ### Performance Standards
+  - **Problem Queries**: < 1500ms average response time with pagination support for large problem datasets
+  - **Problem Creation**: < 2500ms for complete workflow including PAPI integration and audit logging
+  - **Massive Failure Queries**: < 1500ms for real-time failure status with Bot Services notification preparation
+  - **Service Orders**: < 2500ms for service restoration order creation with inventory validation
+  - **Audit Logging**: Real-time audit trail generation with 100% transaction coverage via audits-oracle-sapi-services
+  - **System Dependencies**: Problem Management PAPI availability directly impacts all operation performance
+  - **Backend Integration**: Oracle and service inventory response time optimization for data consistency
+
+traits:
+  tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
+  commonResponses:
+    responses:
+      400:
+        description: |
+          **Bad Request - REQUEST_ERROR**
+          
+          **API Error Code**: REQUEST_ERROR
+          
+          **Common Issues**:
+          - Missing required query parameters (ORIGIN, document, documentType)
+          - Invalid document type or number format per Colombian standards
+          - Malformed request body structure for service problem updates or service orders
+          - Business rule validation failures for problem management operations
+          
+          **System Context**: Validation occurs at the XAPI layer before Problem Management PAPI backend system calls
+        body:
+          application/json:
+            type: !include datatypes/response/error.raml
+            example: !include examples/response/error-400.json
+      401:
+        description: |
+          **Unauthorized - AUTHENTICATION_ERROR**
+          
+          **API Error Code**: Unauthorized
+          
+          **Common Issues**:
+          - Missing or invalid OAuth 2.0 access token
+          - Expired JWT token requiring refresh
+          - Insufficient scope permissions for requested problem management operation
+          - ETB authentication service unavailable
+          
+          **System Context**: Authentication managed by ETB OAuth 2.0 provider with JKS keystore security
+        body:
+          application/json:
+            type: !include datatypes/response/error.raml
+            example: !include examples/response/error-401.json
+      404:
+        description: |
+          **Not Found - NOT_FOUND**
+          
+          **API Error Code**: NOT_FOUND
+          
+          **Common Issues**:
+          - Service problem ID does not exist in problem management system
+          - Customer document number not found in Oracle customer database
+          - Service account or resource not found in service inventory systems
+          - Invalid endpoint path or resource identifier for problem management operations
+          
+          **System Context**: Resource lookup performed across Oracle customer database, service inventory, and Problem Management PAPI services
+        body:
+          application/json:
+            type: !include datatypes/response/error.raml
+            example: !include examples/response/error-404.json
+      500:
+        description: |
+          **Internal Server Error - INTERNAL_SERVER_ERROR**
+          
+          **API Error Code**: INTERNAL_SERVER_ERROR
+          
+          **Common Issues**:
+          - Problem Management PAPI services connectivity failure or timeout
+          - Oracle database connection timeout or unavailability
+          - Service inventory system unavailability for resource queries
+          - Audit system (`audits-oracle-sapi-services`) logging service failure
+          
+          **System Context**: Backend system failures logged for operations team analysis with full error attribution
+        body:
+          application/json:
+            type: !include datatypes/response/error.raml
+            example: !include examples/response/error-500.json
+
+mediaType: 
+  - application/json
+
+securitySchemes:
+  etb_oauth_2_0: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/etb-oauth-20/1.0.1/etb-oauth-20.raml
+
+
+/serviceProblem:
+  description: |
+    ## Service Problem Management Resource
+    
+    **Business Purpose**: Comprehensive management of service problems following TMF656 Service Problem Management standards, providing complete problem lifecycle management for ETB telecommunications services.
+    
+    **Data Integration**: 
+    - **Oracle Database**: Primary customer profile and service data with Colombian document validation
+    - **Problem Management PAPI Services**: Core problem management business logic via `/v1/serviceProblem` endpoint
+    - **Service Inventory Systems**: Real-time service status and resource information for problem correlation
+    
+    **Business Intelligence Features**: 
+    - Service problem trend analysis and pattern recognition for proactive problem management
+    - Customer impact assessment and service quality measurement with regulatory compliance tracking
+    - Problem resolution workflow automation and service restoration coordination
+    
+  get:
+    is: 
+    - tibcoHeaders
+    - commonResponses
+    securedBy: [etb_oauth_2_0]
+    displayName: Get Service Problems
+    description: |
+      **Operation Summary**: Retrieves comprehensive service problem information based on customer identification for problem resolution and service management following TMF656 Service Problem Management standards.
+      
+      **Use Cases**:
+      - **WhatsApp Bot Services**: Automated customer problem status queries and resolution updates
+      - **Web Portal**: Customer self-service problem tracking and service status information
+      - **Mobile App**: Real-time problem status updates and resolution notifications with offline capability
+      - **Agent Desktop**: Call center agents accessing complete customer problem history for service support
+      - **Network Operations Center**: Operational teams monitoring service problems and resolution workflows
+      
+      **Data Sources**: 
+      - **Oracle Customer Database**: Validated customer profiles and service associations with Colombian document standards
+      - **Problem Management PAPI**: Real-time service problem data and resolution status via PAPI integration
+      - **Service Inventory**: Service resource information and network element correlation for problem context
+      
+      **Performance Characteristics**: 
+      - **Response Time**: < 1500ms for comprehensive problem queries including PAPI integration and data enrichment
+      - **Caching Strategy**: No caching for real-time problem data to ensure service status accuracy
+      - **Rate Limits**: 100 requests per minute per authenticated client with OAuth 2.0 validation
+      - **Validation**: Real-time customer document verification against Oracle database with service association check
+      
+    queryParameters:
+      documentType:
+        type: string
+        required: true
+        enum: ["CC","CE","PASAPORTE","NIT","RUT","TI"]
+        example: "CC"
+        description: |
+          **Business Purpose**: Colombian national identification document type for customer verification and service problem correlation
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string from predefined Colombian document types
+          - Length: 2-10 characters following national identification standards
+          - Pattern: Must match Colombian national document type regulations
+          
+          **Valid Values**: 
+          - **CC**: Cédula de Ciudadanía (National Identity Card) for Colombian citizens
+          - **CE**: Cédula de Extranjería (Foreign Identity Card) for foreign residents
+          - **PASAPORTE**: International passport identification for temporary visitors
+          - **NIT**: Número de Identificación Tributaria (Tax Identification Number) for legal entities
+          - **RUT**: Registro Único Tributario (Unified Tax Registry) for business entities
+          - **TI**: Tarjeta de Identidad (Identity Card) for minors under 18 years
+          
+          **Usage Examples**: 
+          - Individual customer: "CC" for Colombian citizens accessing personal service problem information
+          - Business customer: "NIT" for corporate entities managing enterprise service problems
+          
+          **Channel Variations**: All channels require document type validation for Colombian regulatory compliance and service association
+          
+      document:
+        type: string
+        required: true
+        maxLength: 30
+        example: "12314235"
+        pattern: ^[0-9]*$
+        description: |
+          **Business Purpose**: Customer identification document number for precise service problem lookup and customer service correlation
+          
+          **Validation Rules**: 
+          - Format: Numeric string only for Colombian identification standards
+          - Length: 5-30 characters depending on document type (CC: 6-10, NIT: 9-15, etc.)
+          - Pattern: ^[0-9]*$ for numeric validation following Colombian national standards
+          
+          **Usage Examples**: 
+          - Colombian citizen: "12314235" for Cédula de Ciudadanía lookup with service problem correlation
+          - Business entity: "900123456-1" for NIT identification with enterprise service problem management
+          
+          **Channel Variations**: 
+          - **WhatsApp**: Document number validation before Bot Services problem status updates
+          - **Portal**: Integration with customer authentication for problem history access
+          - **Agent**: Agent-assisted verification with complete customer service problem context
+          
+          **Business Context**: Document number must exist in Oracle customer database with active service associations for problem management access
+          
+    responses:
+        200:
+          description: |
+            **Success Response - Service Problems Retrieved Successfully**
+            
+            **API-Controlled Code**: "200" or similar (in response field structure)
+            
+            **Response Structure**: 
+            - **Service Problems Array**: Complete service problem information following TMF656 standards
+            - **Problem Metadata**: Problem categorization, severity, and resolution status information
+            - **Service Context**: Service resource information and customer service association data
+            
+            **Data Enrichment**: 
+            - **System-Generated Fields**: Automatic problem categorization and severity assessment from PAPI services
+            - **Cross-Reference Data**: Customer profile enrichment from Oracle master data with service correlation
+            - **Problem Context**: Service problem history and resolution timeline for comprehensive customer service
+            - **Service Association**: Active service correlation with network resource identification
+            
+            **Business Context**: 
+            - **Customer Profile**: Complete customer identification with Colombian document validation
+            - **Service Problems**: Comprehensive problem information with TMF656 standard compliance
+            - **Resolution Status**: Real-time problem resolution workflow status and estimated resolution time
+            - **Service Impact**: Service availability and customer impact assessment for problem prioritization
+            
+          body:
+            application/json:
+              type: !include datatypes/response/get-serviceProblem.raml
+              example: !include examples/response/get-serviceProblem.json
+                
+  /{id}:
+    uriParameters:
+      id:
+        type: string
+        description: |
+          **Business Purpose**: Unique service problem identifier for targeted updates, resolution tracking, and audit correlation
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string or UUID format for TMF656 problem identification standards
+          - Length: 6-36 characters supporting both sequential and UUID identifiers
+          - Pattern: ^[0-9a-zA-Z-]{6,36}$ for flexible identifier formats following TMF656 standards
+          
+          **Usage Examples**: 
+          - Sequential ID: "PRB123456" for simple problem references in NOC operations
+          - UUID format: "550e8400-e29b-41d4-a716-446655440000" for distributed system compatibility
+          
+          **Business Context**: References existing service problem record in Problem Management PAPI for status updates, resolution workflows, and audit trail correlation
+          
+    patch:
+      is: 
+      - tibcoHeaders
+      - commonResponses
+      securedBy: [etb_oauth_2_0]
+      displayName: Update Service Problem
+      description: |
+        **Operation Summary**: Updates existing service problem records for resolution workflow management, status changes, and problem lifecycle tracking following TMF656 Service Problem Management standards.
+        
+        **Use Cases**:
+        - **Network Operations Center**: NOC teams updating problem resolution status and technical resolution details
+        - **Agent Desktop**: Customer service agents updating customer communication status and resolution progress
+        - **Automated Workflows**: System-triggered problem status updates from service restoration and network recovery processes
+        - **Mobile App**: Field technician updates on problem resolution progress and service restoration status
+        - **Service Management**: Problem escalation, priority changes, and resource assignment for service problem resolution
+        
+        **Business Context**: Enables dynamic service problem management where resolution status, customer communication, or technical details require updates during the problem resolution lifecycle.
+        
+        **Data Sources**: 
+        - **Problem Lookup**: Problem Management PAPI for existing problem record retrieval and validation
+        - **Service Validation**: Oracle database and service inventory for service association and impact assessment
+        - **Resolution Workflow**: Problem Management PAPI `/v1/serviceProblem/{id}` endpoint for problem update processing
+        - **Audit Updates**: `audits-oracle-sapi-services` for modification audit trails and regulatory compliance
+        - **Service Status**: Service inventory systems for real-time service status and restoration confirmation
+        
+        **Performance Characteristics**: 
+        - **Response Time**: < 2000ms for standard updates including validation, PAPI integration, and audit logging
+        - **Concurrency Control**: Problem Management PAPI optimistic locking to prevent concurrent modification conflicts
+        - **Rate Limits**: 30 updates per minute per problem to prevent abuse and ensure system stability
+        - **Version Control**: Automatic versioning of problem changes for audit compliance and regulatory requirements
+        
+      body:
+        application/json:
+          description: |
+            **Request Body Structure**: Service problem update payload following TMF656 Service Problem Management schema
+            
+            **Updateable Fields**: 
+            - **status**: Problem resolution status (OPEN, IN_PROGRESS, RESOLVED, CLOSED) for workflow management
+            - **priority**: Problem priority level (1-5) for resource allocation and escalation management
+            - **description**: Problem description updates for technical details and resolution information
+            - **resolution**: Resolution details and technical information for knowledge management
+            - **assignedTo**: Resource assignment for problem resolution and escalation workflows
+            - **customerCommunication**: Customer notification status and communication tracking
+            
+            **Business Logic**: 
+            - Existing problem validation with Problem Management PAPI lookup before update processing
+            - Service problem status workflow validation ensuring proper TMF656 lifecycle compliance
+            - Customer impact assessment for problem priority and resolution timeline adjustments
+            - Automatic timestamp updates for modification tracking and audit trail generation
+            - Integration with service inventory for service status correlation and restoration validation
+            
+            **Validation Rules**: 
+            - Problem ID must exist in Problem Management PAPI system
+            - Status transitions must follow TMF656 Service Problem Management workflow standards
+            - Priority levels must be within valid range (1-5) with business justification for changes
+            - Problem Management PAPI availability validation before processing updates
+            - Resolution information required for RESOLVED status transitions
+            
+          type: !include datatypes/request/update-serviceProblem.raml
+          example: !include examples/request/update-serviceProblem.json
+      responses:
+          201:
+            description: |
+              **Success Response - Service Problem Updated Successfully**
+              
+              **API-Controlled Code**: "201" or similar (in response field structure)
+              
+              **Response Structure**: 
+              - **Updated Problem**: Complete service problem information with applied changes
+              - **Version Information**: New version number and modification timestamp for concurrency control
+              - **Resolution Status**: Updated problem resolution workflow status and estimated completion time
+              
+              **Data Enrichment**: 
+              - **Version Control**: Automatic version increment following TMF656 standards for problem change tracking
+              - **PAPI Response**: Integration response from Problem Management PAPI with problem modification confirmation
+              - **Audit Trail**: Complete modification history logged to `audits-oracle-sapi-services` for regulatory compliance
+              - **Service Correlation**: Updated service status information for customer impact assessment
+              
+              **Business Context**: 
+              - **Problem Lifecycle**: Updated service problem following TMF656 workflow standards with proper status transitions
+              - **Regulatory Compliance**: Colombian telecommunications standards compliance for service problem resolution tracking
+              - **Service Restoration**: Integration with service inventory for service status correlation and customer impact assessment
+              - **Customer Communication**: Updated customer notification status and communication history for service quality management
+              
+            body:
+              application/json:
+                type: !include datatypes/response/update-serviceProblem.raml
+                example: !include examples/response/update-serviceProblem.json
+/problemGroup:
+  description: |
+    ## Massive Failure Consultation Resource
+    
+    **Business Purpose**: Real-time consultation of massive service failures affecting multiple customers, providing comprehensive failure information for customer communication and service restoration coordination following TMF656 Problem Group Management standards.
+    
+    **Data Integration**: 
+    - **Problem Management PAPI Services**: Core massive failure business logic via `/v1/problemGroup` endpoint
+    - **Bot Services Integration**: WhatsApp automation and customer communication via `/support/init/v1` endpoint
+    - **Oracle Database**: Customer profile validation and service association for failure impact assessment
+    - **Service Inventory Systems**: Network element information and service resource correlation for failure context
+    
+    **Business Intelligence Features**: 
+    - Real-time massive failure status tracking and customer impact assessment with regulatory compliance
+    - Cross-channel failure communication coordination for unified customer experience
+    - Automated failure categorization and service restoration timeline estimation
+    - Regulatory compliance tracking for customer communication and service level agreements
+    
+  get:
+    is: 
+    - tibcoHeaders
+    - commonResponses
+    securedBy: [etb_oauth_2_0]
+    displayName: Get Massive Failure Information
+    description: |
+      **Operation Summary**: Retrieves comprehensive massive service failure information with real-time status updates and customer impact assessment for multi-channel customer communication and service restoration coordination following TMF656 Problem Group Management standards.
+      
+      **Use Cases**:
+      - **WhatsApp Bot Services**: Automated customer notifications for massive failures with real-time status updates and resolution timelines
+      - **Web Portal**: Customer self-service massive failure status queries and service restoration information
+      - **Mobile App**: Real-time massive failure notifications and service restoration tracking with offline capability
+      - **Agent Desktop**: Call center agents accessing comprehensive massive failure context for customer support and communication
+      - **Network Operations Center**: NOC teams monitoring massive failures and coordinating service restoration efforts
+      - **Customer Communications**: Automated customer communication workflows for failure notifications and resolution updates
+      
+      **Business Context**: Enables real-time massive failure consultation as documented in Info_API "Consulta Falla Masiva V1" with Bot Services integration for WhatsApp automation and customer communication coordination.
+      
+      **Data Sources**: 
+      - **Problem Management PAPI**: Real-time massive failure data via `/v1/problemGroup` endpoint with failure classification and impact assessment
+      - **Bot Services Integration**: Customer communication automation via `/support/init/v1` endpoint for WhatsApp notification workflows
+      - **Oracle Database**: Customer profile validation and service association for personalized failure impact information
+      - **Service Inventory**: Network resource information and service correlation for failure context and restoration timeline
+      
+      **Performance Characteristics**: 
+      - **Response Time**: < 1500ms for massive failure queries including PAPI integration, Bot Services correlation, and data enrichment
+      - **Caching Strategy**: Limited caching for rapidly changing failure status to ensure real-time accuracy
+      - **Rate Limits**: 200 requests per minute per authenticated client for high-volume customer communication scenarios
+      - **Bot Integration**: Real-time coordination with Bot Services for customer notification preparation and WhatsApp automation
+      
+    queryParameters:
+      ORIGIN:
+        type: string
+        required: true
+        example: "WHATSAPP"
+        description: |
+          **Business Purpose**: Identifies the requesting channel for massive failure consultation, enabling channel-specific processing rules, audit requirements, and Bot Services integration routing
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string, uppercase
+          - Length: 3-20 characters
+          - Pattern: ^[A-Z][A-Z0-9_]*$
+          
+          **Valid Values**: 
+          - **WHATSAPP**: WhatsApp Business Platform requests via Bot Services integration for automated customer notifications
+          - **PORTAL**: ETB Customer Portal requests for self-service massive failure information and status updates
+          - **MOBILE**: Mobile application requests with offline synchronization capability for failure notifications
+          - **AGENT**: Call center agent requests for comprehensive massive failure context and customer communication support
+          - **CRM**: Automated CRM system requests for business intelligence and customer impact assessment
+          
+          **Usage Examples**: 
+          - Customer communication: "WHATSAPP" for Bot Services automated massive failure notifications and status updates
+          - Self-service: "PORTAL" for web-based massive failure status queries and service restoration information
+          
+          **Channel Variations**: Each channel receives optimized response structure and field filtering based on business requirements and customer communication needs
+          
+      FAILURE_ID:
+        type: string
+        example: "12552454"
+        description: |
+          **Business Purpose**: Retrieves specific massive failure by unique system identifier for detailed analysis, customer communication, and service restoration coordination
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string or UUID format for TMF656 problem group identification
+          - Length: 6-36 characters supporting both sequential and UUID identifiers
+          - Pattern: ^[0-9a-zA-Z-]{6,36}$ for flexible identifier formats
+          
+          **Usage Examples**: 
+          - Specific failure lookup: "12552454" for targeted massive failure information and customer impact assessment
+          - Customer communication: Agent accessing specific failure details for customer service and communication coordination
+          - Service restoration: NOC teams accessing detailed failure information for restoration planning and resource allocation
+          
+          **Channel Variations**: 
+          - **WHATSAPP**: Returns Bot Services-specific metadata for automated customer notification workflows
+          - **PORTAL**: Includes web-friendly failure information for customer self-service and status tracking
+          - **AGENT**: Comprehensive failure details for customer service and communication support
+          
+        required: false
+      FILTERS:
+        type: string
+        example: "Phone:542545454;AccountNumber:12452145"
+        description: |
+          **Business Purpose**: Advanced filtering for targeted massive failure queries supporting customer-specific impact assessment, service restoration workflows, and regulatory reporting
+          
+          **Validation Rules**: 
+          - Format: Key:Value pairs separated by semicolons for multiple filter conditions
+          - Pattern: ^([a-zA-Z]+:[^;]+)(;[a-zA-Z]+:[^;]+)*$ for structured filter syntax
+          - Maximum: 10 filter conditions per query to optimize Problem Management PAPI performance
+          
+          **Valid Filter Types**: 
+          - **Phone**: Customer phone number (format: +57XXXXXXXXXX Colombian mobile numbers) for customer-specific failure impact
+          - **AccountNumber**: ETB customer account number from Oracle database for service association and impact assessment
+          - **ServiceType**: Service type filter (INTERNET, TV, TELEFONIA) for failure categorization and impact analysis
+          - **Zone**: Geographic zone filter for regional failure analysis and service restoration coordination
+          - **Priority**: Failure priority level (1-5) for escalation and resource allocation filtering
+          - **Status**: Failure status (OPEN, IN_PROGRESS, RESOLVED) for lifecycle tracking and customer communication
+          - **Product**: Product type filter (INTERNET, TELEVISION, FIXED_LINE) for service-specific failure analysis
+          
+          **Usage Examples**: 
+          - Customer impact: "Phone:+573001234567;ServiceType:INTERNET" for customer-specific failure information
+          - Service restoration: "Zone:NORTE;Priority:1" for high-priority regional failure coordination
+          - Communication targeting: "Product:INTERNET;Status:IN_PROGRESS" for targeted customer notifications
+          
+          **Channel Variations**: 
+          - **WHATSAPP**: Phone number is primary filter for Bot Services customer-specific failure notifications
+          - **PORTAL**: Account number is primary with customer authentication and service association
+          - **AGENT**: Multiple filters available for comprehensive customer service and failure analysis
+          
+        required: false
+      LIMIT:
+        type: number
+        description: |
+          **Business Purpose**: Controls result set size for pagination and performance optimization in high-volume massive failure queries with Problem Management PAPI aggregation
+          
+          **Validation Rules**: 
+          - Range: 1-500 failure records per request to balance performance and data completeness
+          - Default: 50 failures if not specified for optimal response time and customer communication efficiency
+          - Maximum: 500 for bulk operations and comprehensive failure analysis
+          
+          **Usage Examples**: 
+          - Dashboard summaries: 10-25 recent failures for real-time NOC dashboards and customer service overviews
+          - Customer communication: 5-10 relevant failures for targeted customer notifications via Bot Services
+          - Comprehensive analysis: 100-500 failures for business intelligence, trend analysis, and regulatory reporting
+          
+          **Channel Variations**: 
+          - **WHATSAPP**: Optimized for 5-10 failures per customer notification to avoid message overflow
+          - **PORTAL**: Customer self-service limited to 20 failures for performance and user experience
+          - **AGENT**: Up to 100 failures for comprehensive customer service context and failure analysis
+          
+        required: false
+      OFFSET:
+        type: number
+        description: |
+          **Business Purpose**: Enables cursor-based pagination for large massive failure datasets, supporting efficient data retrieval and optimal customer communication workflows
+          
+          **Validation Rules**: 
+          - Type: Non-negative integer for Problem Management PAPI skip operation
+          - Range: 0 to maximum dataset size with performance considerations
+          - Increment: Typically by LIMIT value for sequential pagination and optimal PAPI performance
+          
+          **Usage Examples**: 
+          - First page: OFFSET=0, LIMIT=50 for initial failure data load
+          - Second page: OFFSET=50, LIMIT=50 for sequential navigation through failure data
+          - Jump to specific segment: OFFSET=200, LIMIT=50 for direct navigation to historical failure data
+          
+          **Channel Variations**: 
+          - **PORTAL**: Web-based pagination with page numbers for user-friendly navigation
+          - **MOBILE**: Infinite scroll with dynamic offset calculation for mobile user experience
+          - **AGENT**: Large offset values for historical failure data access and comprehensive customer service context
+          
+        required: false
+    responses:
+        200:
+          description: |
+            **Success Response - Massive Failure Information Retrieved Successfully**
+            
+            **API-Controlled Code**: "200" (in codeResponse field)
+            
+            **Response Structure**: 
+            - **codeResponse**: API-controlled success indicator ("200") following TMF656 standards
+            - **messageResponse**: Optional descriptive message or empty string for custom messaging
+            - **massiveFailure**: Array of massive failure objects with complete failure information and customer impact data
+            
+            **Data Enrichment**: 
+            - **System-Generated Fields**: Automatic failure categorization and impact assessment from Problem Management PAPI services
+            - **Cross-Reference Data**: Customer profile enrichment from Oracle master data with service association validation
+            - **Failure Context**: Service failure correlation with network resource identification for restoration coordination
+            - **Bot Services Integration**: WhatsApp-specific metadata preparation for automated customer notifications
+            - **Service Impact**: Real-time service availability assessment and customer impact analysis
+            
+            **Business Context**: 
+            - **Massive Failure Details**: Comprehensive failure information following Info_API "Consulta Falla Masiva V1" specification
+            - **Customer Communication**: Failure information optimized for multi-channel customer notifications and service updates
+            - **Service Restoration**: Technical details for service restoration coordination and timeline estimation
+            - **Regulatory Compliance**: Colombian telecommunications standards compliance with complete audit trail management
+            
+            **Failure Information Structure**:
+            - **affectation**: Service type affected (Internet, TV, Telefonia) for customer impact classification
+            - **cun**: Código Único de Notificación (Unique Notification Code) for regulatory compliance and tracking
+            - **description**: General failure description for customer communication and internal coordination
+            - **descriptionUser**: Customer-facing description for service notifications and communication
+            - **descriptionTechnical**: Technical failure description for NOC teams and service restoration
+            - **startDate/endDate**: Failure timeline with multiple date formats for customer communication optimization
+            - **priority**: Failure priority level (1-5) for resource allocation and escalation management
+            - **tes**: Tiempo Estimado de Solución (Estimated Solution Time) in minutes for customer communication
+            
+          body:
+            application/json:
+              type: !include datatypes/response/get-problemGroup.raml
+              example: !include examples/response/get-problemGroup.json
+/service:
+  description: |
+    ## Service Inventory Management Resource
+    
+    **Business Purpose**: Comprehensive service resource information and inventory queries for problem resolution, service validation, and network element management following TMF656 Service Management standards.
+    
+    **Data Integration**: 
+    - **Problem Management PAPI Services**: Core service inventory business logic via `/v1/service` endpoint
+    - **Service Inventory Systems**: Real-time service resource information and network element data
+    - **Oracle Database**: Customer service associations and subscription validation
+    - **Network Management Systems**: Network element status and resource availability for problem correlation
+    
+    **Business Intelligence Features**: 
+    - Real-time service resource status tracking and availability assessment
+    - Network element correlation for problem resolution and service restoration
+    - Service dependency mapping for impact analysis and restoration planning
+    - Regulatory compliance tracking for service management and customer communication
+    
+  get:
+    is: 
+    - tibcoHeaders
+    - commonResponses
+    securedBy: [etb_oauth_2_0]
+    displayName: Get Service Resource Information
+    description: |
+      **Operation Summary**: Retrieves comprehensive service resource information and network element data for problem resolution, service validation, and network management following TMF656 Service Management standards.
+      
+      **Use Cases**:
+      - **Network Operations Center**: NOC teams accessing service resource information for problem diagnosis and service restoration
+      - **Problem Resolution**: Service technicians accessing network element data for problem troubleshooting and resolution
+      - **Customer Service**: Agent desktop accessing service resource status for customer inquiry resolution
+      - **Service Validation**: Automated service health checks and availability monitoring for proactive problem management
+      - **Resource Planning**: Network planning teams accessing service resource utilization and capacity information
+      
+      **Data Sources**: 
+      - **Problem Management PAPI**: Service resource queries via `/v1/service` endpoint with network element correlation
+      - **Service Inventory**: Real-time service resource status and network element information
+      - **Oracle Database**: Customer service associations and subscription validation for access control
+      - **Network Management**: Network element status and performance data for comprehensive service context
+      
+      **Performance Characteristics**: 
+      - **Response Time**: < 1500ms for service resource queries including PAPI integration and network element data enrichment
+      - **Caching Strategy**: Limited caching for rapidly changing service status to ensure real-time accuracy
+      - **Rate Limits**: 100 requests per minute per authenticated client for operational service management
+      - **Network Integration**: Real-time coordination with network management systems for service resource correlation
+      
+    queryParameters:
+      ORIGIN:
+        type: string
+        required: true
+        example: "WHATSAPP"
+        description: |
+          **Business Purpose**: Identifies the requesting channel for service resource queries, enabling channel-specific processing rules and audit requirements
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string, uppercase
+          - Length: 3-20 characters
+          - Pattern: ^[A-Z][A-Z0-9_]*$
+          
+          **Valid Values**: 
+          - **WHATSAPP**: WhatsApp Business Platform requests for customer service resource validation
+          - **PORTAL**: ETB Customer Portal requests for self-service resource information
+          - **MOBILE**: Mobile application requests for service status and resource information
+          - **AGENT**: Call center agent requests for comprehensive service resource context
+          - **NOC**: Network Operations Center requests for service resource management and problem resolution
+          
+          **Usage Examples**: 
+          - Service validation: "AGENT" for customer service resource verification and problem resolution
+          - Network operations: "NOC" for service resource management and network element correlation
+          
+      SERVICE_ACCOUNT:
+        type: string
+        example: "12552454"
+        description: |
+          **Business Purpose**: ETB service account number for targeted service resource lookup and customer service correlation
+          
+          **Validation Rules**: 
+          - Format: Numeric string following ETB account number standards
+          - Length: 6-15 characters for service account identification
+          - Pattern: ^[0-9]{6,15}$ for numeric validation
+          
+          **Usage Examples**: 
+          - Service lookup: "12552454" for specific service account resource information and status validation
+          - Customer service: Agent accessing service resources for customer account management and problem resolution
+          
+        required: false
+      CONNECTION_NUMBER:
+        type: string
+        example: "542545454"
+        description: |
+          **Business Purpose**: Customer connection number (typically phone number) for service resource identification and network element correlation
+          
+          **Validation Rules**: 
+          - Format: Numeric string for Colombian phone number standards
+          - Length: 7-10 characters for local and national phone numbers
+          - Pattern: ^[0-9]{7,10}$ for phone number validation
+          
+          **Usage Examples**: 
+          - Phone service: "542545454" for fixed-line service resource lookup and network element correlation
+          - Service correlation: Network element identification for customer connection and service validation
+          
+        required: false
+      RESOURCE_ID:
+        type: string
+        description: |
+          **Business Purpose**: Network element identifier for targeted resource queries and service correlation
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string for network element identification
+          - Length: 4-50 characters supporting various network element naming conventions
+          - Pattern: ^[a-zA-Z0-9-_\.]{4,50}$ for network element identifier validation
+          
+          **Usage Examples**: 
+          - Network element: "OLT-001-BOGOTA" for optical line terminal resource information
+          - Service correlation: Network element identification for service resource mapping and problem resolution
+          
+        required: false
+      RESOURCE_TYPE:
+        type: string
+        description: |
+          **Business Purpose**: Network resource type classification for targeted resource queries and service management
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string for resource type categorization
+          - Length: 3-20 characters for resource type identification
+          - Pattern: ^[A-Z][A-Z0-9_]{2,19}$ for resource type validation
+          
+          **Valid Resource Types**: 
+          - **OLT**: Optical Line Terminal for fiber optic services
+          - **DSLAM**: Digital Subscriber Line Access Multiplexer for DSL services
+          - **SWITCH**: Network switch for data services
+          - **ROUTER**: Network router for internet services
+          - **PBX**: Private Branch Exchange for telephony services
+          
+          **Usage Examples**: 
+          - Equipment type: "OLT" for optical line terminal resource queries and fiber service management
+          - Service planning: "DSLAM" for DSL service resource availability and capacity planning
+          
+        required: false
+      OPERATION:
+        type: string
+        description: |
+          **Business Purpose**: Specific operation or query type for service resource management and network element interaction
+          
+          **Validation Rules**: 
+          - Format: Alphanumeric string for operation classification
+          - Length: 3-20 characters for operation identification
+          - Pattern: ^[A-Z][A-Z0-9_]{2,19}$ for operation validation
+          
+          **Valid Operations**: 
+          - **STATUS_CHECK**: Service resource status validation and availability check
+          - **INVENTORY_QUERY**: Resource inventory information and capacity queries
+          - **DIAGNOSTIC**: Network element diagnostic and performance information
+          - **CONFIGURATION**: Resource configuration information for service management
+          
+          **Usage Examples**: 
+          - Service health: "STATUS_CHECK" for service resource availability and operational status
+          - Problem diagnosis: "DIAGNOSTIC" for network element performance and problem correlation
+          
+        required: false
+    responses:
+        200:
+          description: |
+            **Success Response - Service Resource Information Retrieved Successfully**
+            
+            **API-Controlled Code**: "200" or similar (in response field structure)
+            
+            **Response Structure**: 
+            - **Service Resources**: Comprehensive service resource information and network element data
+            - **Resource Status**: Real-time resource availability and operational status information
+            - **Network Context**: Network element correlation and service dependency mapping
+            
+            **Data Enrichment**: 
+            - **System-Generated Fields**: Automatic resource categorization and status assessment from PAPI services
+            - **Cross-Reference Data**: Customer service association from Oracle database with resource validation
+            - **Network Correlation**: Network element information and service dependency mapping for comprehensive context
+            - **Service Status**: Real-time service availability and performance metrics from network management systems
+            
+            **Business Context**: 
+            - **Service Management**: Comprehensive service resource information for operational management and problem resolution
+            - **Network Operations**: Network element data for service correlation and resource planning
+            - **Problem Resolution**: Service resource context for problem diagnosis and resolution workflows
+            - **Customer Service**: Service resource information for customer inquiry resolution and service validation
+            
+          body:
+            application/json:
+              type: !include datatypes/response/get-service.raml
+              example: !include examples/response/get-service.json

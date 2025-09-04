@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="service-papi-services-test-suite.xml" />
+	<munit:test name="service-papi-services-test-suite-post:\v1\referred:application\json:service-papi-services-configTest" doc:id="2ccdd2fc-0d44-449f-833e-e56b5c5a7eac" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="4b9c1d10-8500-45f7-9943-f6bd92f3f575" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;  {&#10;    "_id": {&#10;            "\$oid": "591d1f65ec96a36937f7effb"&#10;    },&#10;    "Tipo_Documento": "CC",&#10;    "Tipo_Cliente": "NATURAL",&#10;    "Numero_Identificacion": "1033682511",&#10;    "Nombre_Cliente": "JAVIER ANDRES ZACIPA CRIOLLO",&#10;    "Estado": "ACTIVA",&#10;    "Segmento": "Hogares",&#10;    "Segmento_UEN": "Hogares",&#10;    "UEN": "Hogares y MiPymes",&#10;    "Cliente_Valor": "",&#10;    "Telefono_Fijo": "",&#10;    "Telefono_Movil": "3125472911",&#10;    "Correo_Electronico": "mane-euni@hotmail.com",&#10;    "Direccion": "CL 8 11A 05",&#10;    "Cobertura": "",&#10;    "Pais": "COLOMBIA",&#10;    "Departamento": "CUNDINAMARCA",&#10;    "Ciudad": "MOSQUERA",&#10;    "Barrio": "SABANA",&#10;    "Localidad": "",&#10;    "Estrato": "1",&#10;    "Usuario_Creador": "1-15RYT",&#10;    "Usuario_Modificador": "1-2U4OGIW",&#10;    "Autorizacion_Datacredito": "",&#10;    "Fecha_Expedicion_Documento": "",&#10;    "Fecha_Nacimiento": "",&#10;    "Genero": "",&#10;    "Rango_Edad": "",&#10;    "Estado_Civil": "",&#10;    "Ciudad_Exp_Documento": "",&#10;    "Depto_Exp_Documento": "",&#10;    "Scoring": "",&#10;    "Tipo_Scoring": "",&#10;    "Clasificacion_Scoring": "",&#10;    "Fecha_Scoring": "",&#10;    "Sistema_Origen": [&#10;      {&#10;        "Id_Sistema_Origen": "1-PG0A-997",&#10;        "Sistema_Origen": "COBRE"&#10;      }&#10;    ],&#10;    "Contacto": [&#10;      {&#10;        "_id": {&#10;                "\$oid": "000000000000000000000000"&#10;        },&#10;        "Numero_Documento": "",&#10;        "Nombre_Contacto": "",&#10;        "Telefono_Contacto": "",&#10;        "Movil_Contacto": "",&#10;        "Email_Contacto": "",&#10;        "Tipo_Documento": "",&#10;        "Direccion_Asociada": "",&#10;        "Pais": "",&#10;        "Departamento": "",&#10;        "Ciudad": "",&#10;        "Localidad": "",&#10;        "Barrio": "",&#10;        "Estrato": "",&#10;        "actualizacion_extractor": "1"&#10;      }&#10;    ],&#10;    "Modificado_MDM": "0",&#10;    "actualizacion_extractor": "19/02/2018",&#10;    "Direcciones": [],&#10;    "Nombres": "JAVIER ANDRES",&#10;    "Primer_Apellido": "ZACIPA",&#10;    "Segundo_Apellido": "CRIOLLO",&#10;    "Categoria": "",&#10;    "EsquemaAtencion": null,&#10;    "ServiciosPS": null,&#10;    "Fecha_Actualizacion": "2024-03-13T16:20:46.588Z",&#10;    "Referidos_Empleado": [&#10;      {&#10;        "Tipo_Documento": "CC",&#10;        "Numero_Documento": "19433246",&#10;        "Nombres": "Juan",&#10;        "Primer_Apellido": "Lopez",&#10;        "Segundo_Apellido": "Barrera",&#10;        "Telefono_Movil": "3002044852",&#10;        "Fecha_Registro": "2024-03-12T18:52:31.543Z"&#10;      },&#10;      {&#10;        "Tipo_Documento": "CC",&#10;        "Numero_Documento": "19433248",&#10;        "Nombres": "Juan",&#10;        "Primer_Apellido": "Lopez",&#10;        "Segundo_Apellido": "Barrera",&#10;        "Telefono_Movil": "3002044852",&#10;        "Fecha_Registro": "2024-03-12T18:52:31.544Z"&#10;      },&#10;      {&#10;        "Tipo_Documento": "CC",&#10;        "Numero_Documento": "19433250",&#10;        "Nombres": "Juan",&#10;        "Primer_Apellido": "Lopez",&#10;        "Segundo_Apellido": "Barrera",&#10;        "Telefono_Movil": "3002044852",&#10;        "Fecha_Registro": "2024-03-13T16:20:46.575Z"&#10;      },&#10;      {&#10;        "Tipo_Documento": "PA",&#10;        "Numero_Documento": "19433251",&#10;        "Nombres": "Juan",&#10;        "Primer_Apellido": "Lopez",&#10;        "Segundo_Apellido": "Barrera",&#10;        "Telefono_Movil": "3002044852",&#10;        "Fecha_Registro": "2024-03-13T16:20:46.576Z"&#10;      }&#10;    ]&#10;  }&#10;]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when patch client mongo" doc:id="1ee2867d-04ef-4ef5-826d-3c806067c65e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bb629e61-7510-4f2f-8ff0-00a062347b62" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "matched": 1,&#10;  "modified": 1&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="7f316435-3e9a-4956-af68-fd7b2876adcc" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;    "tipoDocumentoReferido": "CC",&#10;    "numeroDocumentoReferido": "19433249",&#10;    "nombreReferido": "Alberto",&#10;    "primerApellidoReferido": "Rodriguez",&#10;    "segundoApellidoReferido": "Fernandez",&#10;    "movil": "3002044853"&#10;  }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\referred:application\json:service-papi-services-config" doc:id="17e9e9ed-1c16-4fef-968b-feb417914e46" name="post:\v1\referred:application\json:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3385f062-907a-470f-b144-fbdf410281b6" actual="#[payload]" expected='#[{&#10;	codigo: "Exitoso",&#10;	descripcion: "Se agregó el referido de forma exitosa"&#10;}]' message="Resulting payload does not match with the expected"/>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="ae3833ff-e3a4-4be4-b3e0-dd5a3aa5a2e1" actual="#[vars.httpStatus]" expected="#[201]" message="The status code is not the correct"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-delete:\v1\referred:application\json:service-papi-services-configTest" doc:id="4d446d26-37a5-4ca0-9800-dc7e81719cfb" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="b4e27da0-5884-4b81-849c-5f096d1a54c8" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;      "_id": {&#10;        "\$oid": "591d1f65ec96a36937f7effb"&#10;      },&#10;      "Tipo_Documento": "CC",&#10;      "Tipo_Cliente": "NATURAL",&#10;      "Numero_Identificacion": "1033682511",&#10;      "Nombre_Cliente": "JAVIER ANDRES ZACIPA CRIOLLO",&#10;      "Estado": "ACTIVA",&#10;      "Segmento": "Hogares",&#10;      "Segmento_UEN": "Hogares",&#10;      "UEN": "Hogares y MiPymes",&#10;      "Cliente_Valor": "",&#10;      "Telefono_Fijo": "",&#10;      "Telefono_Movil": "3125472911",&#10;      "Correo_Electronico": "mane-euni@hotmail.com",&#10;      "Direccion": "CL 8 11A 05",&#10;      "Cobertura": "",&#10;      "Pais": "COLOMBIA",&#10;      "Departamento": "CUNDINAMARCA",&#10;      "Ciudad": "MOSQUERA",&#10;      "Barrio": "SABANA",&#10;      "Localidad": "",&#10;      "Estrato": "1",&#10;      "Usuario_Creador": "1-15RYT",&#10;      "Usuario_Modificador": "1-2U4OGIW",&#10;      "Autorizacion_Datacredito": "",&#10;      "Fecha_Expedicion_Documento": "",&#10;      "Fecha_Nacimiento": "",&#10;      "Genero": "",&#10;      "Rango_Edad": "",&#10;      "Estado_Civil": "",&#10;      "Ciudad_Exp_Documento": "",&#10;      "Depto_Exp_Documento": "",&#10;      "Scoring": "",&#10;      "Tipo_Scoring": "",&#10;      "Clasificacion_Scoring": "",&#10;      "Fecha_Scoring": "",&#10;      "Sistema_Origen": [&#10;        {&#10;          "Id_Sistema_Origen": "1-PG0A-997",&#10;          "Sistema_Origen": "COBRE"&#10;        }&#10;      ],&#10;      "Contacto": [&#10;        {&#10;          "_id": {&#10;            "\$oid": "000000000000000000000000"&#10;          },&#10;          "Numero_Documento": "",&#10;          "Nombre_Contacto": "",&#10;          "Telefono_Contacto": "",&#10;          "Movil_Contacto": "",&#10;          "Email_Contacto": "",&#10;          "Tipo_Documento": "",&#10;          "Direccion_Asociada": "",&#10;          "Pais": "",&#10;          "Departamento": "",&#10;          "Ciudad": "",&#10;          "Localidad": "",&#10;          "Barrio": "",&#10;          "Estrato": "",&#10;          "actualizacion_extractor": "1"&#10;        }&#10;      ],&#10;      "Modificado_MDM": "0",&#10;      "actualizacion_extractor": "19/02/2018",&#10;      "Direcciones": [&#10;        &#10;      ],&#10;      "Nombres": "JAVIER ANDRES",&#10;      "Primer_Apellido": "ZACIPA",&#10;      "Segundo_Apellido": "CRIOLLO",&#10;      "Categoria": "",&#10;      "EsquemaAtencion": null,&#10;      "ServiciosPS": null,&#10;      "Fecha_Actualizacion": "2024-03-13T16:20:46.588Z",&#10;      "Referidos_Empleado": [&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433246",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.543Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433248",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.544Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433250",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.575Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "PA",&#10;          "Numero_Documento": "19433251",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.576Z"&#10;        }&#10;      ]&#10;    }&#10;  ]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when patch client mongo" doc:id="83e50c4a-1e06-4648-b5bc-37305cf925db" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bb629e61-7510-4f2f-8ff0-00a062347b62" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "matched": 1,&#10;  "modified": 1&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when get referral mongo" doc:id="b6fe4b4b-9bc5-43f4-9ad9-9fa83d38cf4a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="b79ea020-ad37-4ad7-8f01-fb858c36019b" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getReferral.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;      "Tipo_Documento_Empleado": "CC",&#10;      "Numero_Documento_Empleado": "1033682511",&#10;      "Codigo_Empleado": "36578",&#10;      "Tipo_Documento_Referido": "CC",&#10;      "Numero_Documento_Referido": "19433250",&#10;      "Integration_Id": "MDM-MOV-123654-1",&#10;      "Estado_Activo": "1",&#10;      "Fecha_Activacion": "2023-06-02T08:08:00z",&#10;      "Fecha_Inactivacion": "2023-11-02T08:08:00z",&#10;      "Orden_Retiro": "MDM-MOV-123456"&#10;    }&#10;]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when patch referral mongo" doc:id="552a20ab-58e9-491e-bce8-b266f3d2b4db" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="8b042f8b-0cc1-4639-aa97-6a486a2ebee8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getReferral.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "matched": 1,&#10;  "modified": 1&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="85787b47-2e33-45bb-9a79-0ce78c72c209">
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;      "tipoDocumentoReferido": "CC",&#10;      "numeroDocumentoReferido": "19433250"&#10;    }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\referred:application\json:service-papi-services-config" doc:id="b08c9fe5-b5b3-4e4e-9048-f37fabcd739a" name="delete:\v1\referred:application\json:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="3d9e3bc3-dd27-4539-a088-e40ac427c96e" actual="#[payload]" expected='#[{&#10;	codigo: "Exitoso",&#10;	descripcion: "Se eliminó el referido de forma exitosa"&#10;}]' message="Resulting payload does not match with the expected" />
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="25d4c783-9122-467d-a66d-73bdffaadc3b" actual="#[vars.httpStatus]" expected="#[200]" message="The status code is not the correct" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\referred:application\json:service-papi-services-configTestClientNotFound" doc:id="69cfbd5b-14f5-419b-863f-66e7dc3333f8" description="Test" expectedErrorType="CUSTOM:NOT_FOUND" expectedErrorDescription="Data not found">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="8185b578-5681-4c59-9d08-ece8d1164fad" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="c72ef697-3f33-4491-9970-aa236ea95158" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682512",&#10;  "referido": {&#10;    "tipoDocumentoReferido": "CC",&#10;    "numeroDocumentoReferido": "19433249",&#10;    "nombreReferido": "Alberto",&#10;    "primerApellidoReferido": "Rodriguez",&#10;    "segundoApellidoReferido": "Fernandez",&#10;    "movil": "3002044853"&#10;  }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\referred:application\json:service-papi-services-config" doc:id="95f2e235-c20a-4538-84c3-a0e9f6380c2a" name="post:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="094a1303-4e97-4f1f-8cc7-c5d189f35433" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\referred:application\json:service-papi-services-configTestReferralAlreadyExists" doc:id="be9ae530-a939-4b84-b358-3e599ca77a4c" description="Test" expectedErrorType="CUSTOM:NOT_FOUND" expectedErrorDescription="Data not found">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="91d6c591-9588-4dd5-9c5f-aa0e63b2bbc3" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="04c3cc54-e41b-4f76-9d31-4fa326dfcb62" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;    "tipoDocumentoReferido": "CC",&#10;    "numeroDocumentoReferido": "19433249",&#10;    "nombreReferido": "Alberto",&#10;    "primerApellidoReferido": "Rodriguez",&#10;    "segundoApellidoReferido": "Fernandez",&#10;    "movil": "3002044853"&#10;  }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\referred:application\json:service-papi-services-config" doc:id="ae8df18e-9841-412f-8cab-1410289b6c7c" name="post:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-delete:\v1\referred:application\json:service-papi-services-configTestClientNotFound" doc:id="13e0b46b-9e92-4317-abff-216e67da599b" description="Test" expectedErrorType="CUSTOM:NOT_FOUND" expectedErrorDescription="Data not found">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="97bf1797-8442-4fea-a232-5dac9a66b159" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="d2c8c80f-00bb-4bd1-92a7-03fb0a8fdc36" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;    "tipoDocumentoReferido": "CC",&#10;    "numeroDocumentoReferido": "19433249",&#10;    "nombreReferido": "Alberto",&#10;    "primerApellidoReferido": "Rodriguez",&#10;    "segundoApellidoReferido": "Fernandez",&#10;    "movil": "3002044853"&#10;  }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\referred:application\json:service-papi-services-config" doc:id="98588ea5-f95c-4ad2-a71b-10a0573682a8" name="delete:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="58614d33-34aa-482a-9e6a-a25d8c3eae5c" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-delete:\v1\referred:application\json:service-papi-services-configTestReferralNotExists" doc:id="7ea675e0-9f82-4e79-9916-4bdcf0fac326" description="Test" expectedErrorType="CUSTOM:NOT_FOUND" expectedErrorDescription="Data not found">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="78770115-344f-4828-9a13-a9fc36224df2" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="b3a22acb-c58e-46e0-8a6a-cde059695e44" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;      "tipoDocumentoReferido": "CC",&#10;      "numeroDocumentoReferido": "19433250"&#10;    }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\referred:application\json:service-papi-services-config" doc:id="b58fcf42-3709-4db2-a3d9-f5d704f02832" name="delete:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-delete:\v1\referred:application\json:service-papi-services-configTestUpdateClientFailed" doc:id="8ef28fb6-efe3-42f6-8a25-93dc199556ee" description="Test" expectedErrorType="CUSTOM:ERROR" expectedErrorDescription="No se pudo eliminar el referido">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="3dd60d6f-410a-4e71-a9c3-533a46d681e2" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;      "_id": {&#10;        "\$oid": "591d1f65ec96a36937f7effb"&#10;      },&#10;      "Tipo_Documento": "CC",&#10;      "Tipo_Cliente": "NATURAL",&#10;      "Numero_Identificacion": "1033682511",&#10;      "Nombre_Cliente": "JAVIER ANDRES ZACIPA CRIOLLO",&#10;      "Estado": "ACTIVA",&#10;      "Segmento": "Hogares",&#10;      "Segmento_UEN": "Hogares",&#10;      "UEN": "Hogares y MiPymes",&#10;      "Cliente_Valor": "",&#10;      "Telefono_Fijo": "",&#10;      "Telefono_Movil": "3125472911",&#10;      "Correo_Electronico": "mane-euni@hotmail.com",&#10;      "Direccion": "CL 8 11A 05",&#10;      "Cobertura": "",&#10;      "Pais": "COLOMBIA",&#10;      "Departamento": "CUNDINAMARCA",&#10;      "Ciudad": "MOSQUERA",&#10;      "Barrio": "SABANA",&#10;      "Localidad": "",&#10;      "Estrato": "1",&#10;      "Usuario_Creador": "1-15RYT",&#10;      "Usuario_Modificador": "1-2U4OGIW",&#10;      "Autorizacion_Datacredito": "",&#10;      "Fecha_Expedicion_Documento": "",&#10;      "Fecha_Nacimiento": "",&#10;      "Genero": "",&#10;      "Rango_Edad": "",&#10;      "Estado_Civil": "",&#10;      "Ciudad_Exp_Documento": "",&#10;      "Depto_Exp_Documento": "",&#10;      "Scoring": "",&#10;      "Tipo_Scoring": "",&#10;      "Clasificacion_Scoring": "",&#10;      "Fecha_Scoring": "",&#10;      "Sistema_Origen": [&#10;        {&#10;          "Id_Sistema_Origen": "1-PG0A-997",&#10;          "Sistema_Origen": "COBRE"&#10;        }&#10;      ],&#10;      "Contacto": [&#10;        {&#10;          "_id": {&#10;            "\$oid": "000000000000000000000000"&#10;          },&#10;          "Numero_Documento": "",&#10;          "Nombre_Contacto": "",&#10;          "Telefono_Contacto": "",&#10;          "Movil_Contacto": "",&#10;          "Email_Contacto": "",&#10;          "Tipo_Documento": "",&#10;          "Direccion_Asociada": "",&#10;          "Pais": "",&#10;          "Departamento": "",&#10;          "Ciudad": "",&#10;          "Localidad": "",&#10;          "Barrio": "",&#10;          "Estrato": "",&#10;          "actualizacion_extractor": "1"&#10;        }&#10;      ],&#10;      "Modificado_MDM": "0",&#10;      "actualizacion_extractor": "19/02/2018",&#10;      "Direcciones": [&#10;        &#10;      ],&#10;      "Nombres": "JAVIER ANDRES",&#10;      "Primer_Apellido": "ZACIPA",&#10;      "Segundo_Apellido": "CRIOLLO",&#10;      "Categoria": "",&#10;      "EsquemaAtencion": null,&#10;      "ServiciosPS": null,&#10;      "Fecha_Actualizacion": "2024-03-13T16:20:46.588Z",&#10;      "Referidos_Empleado": [&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433246",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.543Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433248",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.544Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433249",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.575Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "PA",&#10;          "Numero_Documento": "19433251",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.576Z"&#10;        }&#10;      ]&#10;    }&#10;  ]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when patch client mongo" doc:id="5aaff71d-82da-4711-a96f-b2272f188604" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bb629e61-7510-4f2f-8ff0-00a062347b62" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "matched": 1,&#10;  "modified": 0&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when get referral mongo" doc:id="d56e7d2f-4d4c-44b7-93a5-b1a235218e9a" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="b79ea020-ad37-4ad7-8f01-fb858c36019b" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getReferral.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;      "Tipo_Documento_Empleado": "CC",&#10;      "Numero_Documento_Empleado": "1033682511",&#10;      "Codigo_Empleado": "36578",&#10;      "Tipo_Documento_Referido": "CC",&#10;      "Numero_Documento_Referido": "19433249",&#10;      "Integration_Id": "MDM-MOV-123654-1",&#10;      "Estado_Activo": "1",&#10;      "Fecha_Activacion": "2023-06-02T08:08:00z",&#10;      "Fecha_Inactivacion": "2023-11-02T08:08:00z",&#10;      "Orden_Retiro": "MDM-MOV-123456"&#10;    }&#10;]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="4ac487ce-36c7-497e-9424-b3c46297c0aa" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;      "tipoDocumentoReferido": "CC",&#10;      "numeroDocumentoReferido": "19433249"&#10;    }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\referred:application\json:service-papi-services-config" doc:id="3ef58b4e-d798-4868-8941-d3a260bcc3d6" name="delete:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="12bcde40-3c92-4b2a-be2a-9ae2ccbbd121" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-delete:\v1\referred:application\json:service-papi-services-configTestUpdateReferalStatusFailed" doc:id="51f2401e-fbcf-4e9f-9f9d-e78b99255196" description="Test" expectedErrorType="CUSTOM:ERROR" expectedErrorDescription="No se pudo eliminar el referido">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when get client mongo" doc:id="a080e1e4-c291-4b0f-bb8b-d51c25bf5638" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="06df0224-4a20-4e7f-8457-aefb2f6274d8" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;    {&#10;      "_id": {&#10;        "\$oid": "591d1f65ec96a36937f7effb"&#10;      },&#10;      "Tipo_Documento": "CC",&#10;      "Tipo_Cliente": "NATURAL",&#10;      "Numero_Identificacion": "1033682511",&#10;      "Nombre_Cliente": "JAVIER ANDRES ZACIPA CRIOLLO",&#10;      "Estado": "ACTIVA",&#10;      "Segmento": "Hogares",&#10;      "Segmento_UEN": "Hogares",&#10;      "UEN": "Hogares y MiPymes",&#10;      "Cliente_Valor": "",&#10;      "Telefono_Fijo": "",&#10;      "Telefono_Movil": "3125472911",&#10;      "Correo_Electronico": "mane-euni@hotmail.com",&#10;      "Direccion": "CL 8 11A 05",&#10;      "Cobertura": "",&#10;      "Pais": "COLOMBIA",&#10;      "Departamento": "CUNDINAMARCA",&#10;      "Ciudad": "MOSQUERA",&#10;      "Barrio": "SABANA",&#10;      "Localidad": "",&#10;      "Estrato": "1",&#10;      "Usuario_Creador": "1-15RYT",&#10;      "Usuario_Modificador": "1-2U4OGIW",&#10;      "Autorizacion_Datacredito": "",&#10;      "Fecha_Expedicion_Documento": "",&#10;      "Fecha_Nacimiento": "",&#10;      "Genero": "",&#10;      "Rango_Edad": "",&#10;      "Estado_Civil": "",&#10;      "Ciudad_Exp_Documento": "",&#10;      "Depto_Exp_Documento": "",&#10;      "Scoring": "",&#10;      "Tipo_Scoring": "",&#10;      "Clasificacion_Scoring": "",&#10;      "Fecha_Scoring": "",&#10;      "Sistema_Origen": [&#10;        {&#10;          "Id_Sistema_Origen": "1-PG0A-997",&#10;          "Sistema_Origen": "COBRE"&#10;        }&#10;      ],&#10;      "Contacto": [&#10;        {&#10;          "_id": {&#10;            "\$oid": "000000000000000000000000"&#10;          },&#10;          "Numero_Documento": "",&#10;          "Nombre_Contacto": "",&#10;          "Telefono_Contacto": "",&#10;          "Movil_Contacto": "",&#10;          "Email_Contacto": "",&#10;          "Tipo_Documento": "",&#10;          "Direccion_Asociada": "",&#10;          "Pais": "",&#10;          "Departamento": "",&#10;          "Ciudad": "",&#10;          "Localidad": "",&#10;          "Barrio": "",&#10;          "Estrato": "",&#10;          "actualizacion_extractor": "1"&#10;        }&#10;      ],&#10;      "Modificado_MDM": "0",&#10;      "actualizacion_extractor": "19/02/2018",&#10;      "Direcciones": [&#10;        &#10;      ],&#10;      "Nombres": "JAVIER ANDRES",&#10;      "Primer_Apellido": "ZACIPA",&#10;      "Segundo_Apellido": "CRIOLLO",&#10;      "Categoria": "",&#10;      "EsquemaAtencion": null,&#10;      "ServiciosPS": null,&#10;      "Fecha_Actualizacion": "2024-03-13T16:20:46.588Z",&#10;      "Referidos_Empleado": [&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433246",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.543Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433248",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-12T18:52:31.544Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "CC",&#10;          "Numero_Documento": "19433249",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.575Z"&#10;        },&#10;        {&#10;          "Tipo_Documento": "PA",&#10;          "Numero_Documento": "19433251",&#10;          "Nombres": "Juan",&#10;          "Primer_Apellido": "Lopez",&#10;          "Segundo_Apellido": "Barrera",&#10;          "Telefono_Movil": "3002044852",&#10;          "Fecha_Registro": "2024-03-13T16:20:46.576Z"&#10;        }&#10;      ]&#10;    }&#10;  ]]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when patch client mongo" doc:id="2ec6ccb7-d964-44cb-acfe-a35efcbf64f2" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Request mongo-sapi" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="bb629e61-7510-4f2f-8ff0-00a062347b62" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getClient.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="patch_resp" value='#[output application/json --- {   "matched": 0,   "modified": 0 }]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="a2c70adc-4708-4ad0-aee1-f575d13a3b68" >
+				<munit:payload value='#[output application/json&#10;---&#10;{&#10;  "tipoDocumento": "CC",&#10;  "numeroDocumento": "1033682511",&#10;  "referido": {&#10;      "tipoDocumentoReferido": "CC",&#10;      "numeroDocumentoReferido": "19433249"&#10;    }&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\referred:application\json:service-papi-services-config" doc:id="824120b7-fc58-4c78-8b02-93ee1b71eb03" name="delete:\v1\referred:application\json:service-papi-services-config" />
+		</munit:execution>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-get:\v1\referred\quotas:service-papi-services-configTest" doc:id="ecb26c84-a8a0-48c8-b55a-65bf3250b3e8" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get typeParameter" doc:id="d418d09e-6114-4c77-80c4-bd47e5d75e98" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="66afb5cd-4623-44ed-85f2-d094630b971a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10; [{&#10;      "UsuarioCreacion": "SUMAOR",&#10;      "FechaCreacion": "2022-04-22 09:14:52",&#10;			"UsuarioModificacion": "",&#10;			"FechaModificacion": "",&#10;			"ActualizacionExtractor": "",&#10;      "Tipo": "TEST",&#10;      "TotalValoresConfig": 1,&#10;      "Estado": "Inactivo",&#10;      "Valores": [&#10;        {&#10;          "Codigo": "5",&#10;          "Nombre": "Cantidad Referidos",&#10;          "Descripcion": "AB"&#10;        }&#10;      ]&#10;    }]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="9bb95fd6-4361-4201-b40c-4dbaa925cccc" >
+				<munit:attributes value='#[{queryParams: {cantidadLineas: "2"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\referred\quotas:service-papi-services-config" doc:id="7ebb7f6b-94a5-47fe-a38f-db200de7c787" name="get:\v1\referred\quotas:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="9e10844e-16be-40e0-b3b9-e086fde7b8aa" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-configTest" doc:id="f7339f38-89f0-440a-8241-9c9e59efe47e" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="d241114b-4056-4883-b6f7-a210bb4c62be" >
+				<munit:payload value='#[{&#10;    "documentType": "NIT",&#10;    "documentNumber": "14589658",&#10;    "billingAccountNumber": "123456789",&#10;    "PAM": "15",&#10;    "integrationId": "AC-0000000"&#10;}]' />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock when Get token" doc:id="c64d5e10-8b25-4571-994d-c963da2f0655" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJhbGciOiJIUzM4NCJ9.eyJiciI6IkVUQlBydWViYXMiLCJpcCI6IjEwLjEyMS4yOC4yMTQiLCJzdWIiOiJ1c2Vyd3NfZXRicHJ1ZWJhcyIsInMiOiJFV1NiMjhiMTg4N2YxZDZlNyIsInBvcyI6IlBEVl9FVEJQcnVlYmFzV1MiLCJpZFdzVXNlciI6IjU3MiIsImlzTXZuYSI6ZmFsc2UsImlhdCI6MTcxOTI4MTMzNSwiZXhwIjoxNzE5MjkyMTM1fQ.xCpHulfjnnWvLM52LM_W8rkwUK7rrObBqobU-2XhkpGdggW9NzZFzsQNwNBbkN_e"]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription" doc:id="57c02f23-3480-4b28-b994-0df86c8ff864" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",&#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscriber" doc:id="dd08c79d-6369-4e62-bc9e-d249a04e978e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscriber" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscriber.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="subscriberObject" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="subscriberObject" value='#[{ "links": [ { "rel": "string", "href": "string", "hreflang": "string", "media": "string", "title": "string", "type": "string", "deprecation": "string", "profile": "string", "name": "string" } ] }]' mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			
+</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Post subscriber" doc:id="94b9893e-c203-44fd-a50f-8a3aaf3eeb8e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Post subscriber" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscriber.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="subscriberObject" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="postSubscriberResp" value='#[{ "externalID": "NIT14589658", "subscriberType": "EXTERNAL", "document": { "documentType": "EXTERNAL", "fiscalID": "NIT14589658" } }]' mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Billing BA GET" doc:id="41fa87be-492f-487f-a28c-9e1142d92937" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing BA" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.ba.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="billingAccountInfo" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="billingAccountInfo" value='#[{ "content": [ { "name": "Name", "invoiceMode": "UNDEFINED", "externalID": "123456789", "virtualBankAccount": "VBA123456789", "creationDate": "2022-04-20T10:13:15.686Z", "subscriber": { "id": "1234", "name": "Name", "links": [ { "rel": "string", "href": "string", "hreflang": "string", "media": "string", "title": "string", "type": "string", "deprecation": "string", "profile": "string", "name": "string" } ] }, "paymentMethod": { "id": "1234", "name": "Name", "links": [ { "rel": "string", "href": "string", "hreflang": "string", "media": "string", "title": "string", "type": "string", "deprecation": "string", "profile": "string", "name": "string" } ] }, "cycleConfig": { "cycleDay": "", "migrationDay": "", "migrationMonth": "1970-01-01T00:00:00.000Z" }, "links": [ { "rel": "string", "href": "string", "hreflang": "string", "media": "string", "title": "string", "type": "string", "deprecation": "string", "profile": "string", "name": "string" } ] } ] }]' mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Billing BA POST" doc:id="160d1ed9-7c53-4f3a-9747-89b3eb443cc8" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing BA" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.ba.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="billingAccountObject" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="billingAccountObject" value='#[{ "id": "366592", "balance": { "amount": 0.000000 }, "invoiceMode": "UNDEFINED", "creationDate": "2024-02-15T16:18:15.000Z", "subscriber": { "id": "223194", "links": [ { "rel": "getSubscriber", "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223194" } ] }, "cycleConfig": { "cycleDay": 20 }, "links": [ { "rel": "self", "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366592" } ] }]' mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Assign subscription to subscriber" doc:id="8f6bc5c1-645b-4e22-bb95-64d1167fa9aa" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Assign subscription to subscriber" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.assignSubscriptionToSubscriber.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="assignSubscriptionToSubscriberResp" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="assignSubscriptionToSubscriberResp" value="#[null]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Billing Subscription" doc:id="ec622e33-0423-47e9-ab9c-a429fd784302" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing Subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[null]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-config" doc:id="f0102aed-c9d4-40cf-9a71-383195c5e14f" name="post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to Get token" doc:id="fd04994c-b4da-46bd-b892-8a710037491d" processor="http:request" atLeast="2">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get subscription" doc:id="46a1f076-72d8-40d9-9e62-7a17dcf9008a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Post subscriber" doc:id="80f26a85-224f-411a-9db4-2fabd45f5984" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Post subscriber" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscriber.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="subscriberObject" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Billing BA" doc:id="e8bb4b34-2301-4699-ae81-8efde675c895" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing BA" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.ba.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="billingAccountInfo" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Billing BA" doc:id="ca362fc8-bce2-4ea8-bb65-5e8b666f8ab8" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing BA" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.ba.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="billingAccountObject" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Assign subscription to subscriber" doc:id="051f4142-25eb-4939-90c8-8de2df8f8b4b" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Assign subscription to subscriber" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.assignSubscriptionToSubscriber.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="assignSubscriptionToSubscriberResp" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Billing Subscription" doc:id="2368abda-e7a3-45d6-8594-44f28d717560" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="PATCH" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Billing Subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.createBillingAccount.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="12faf8e8-c0f2-476e-82be-2c2cd6f6d2a6" actual="#[vars.httpStatus]" expected="#[200]" message="Status code is not 200"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-configTestSubscriptionNotExists" doc:id="a61c6817-96f6-47a2-a4ff-4aa5dba3e6dc" description="Test" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="f5d67655-4061-4edb-bbef-4b7181b50877" >
+				<munit:payload value='#[{&#10;    "documentType": "NIT",&#10;    "documentNumber": "14589658",&#10;    "billingAccountNumber": "123456789",&#10;    "PAM": "15",&#10;    "integrationId": "AC-0000000"&#10;}]' />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock when Get token" doc:id="1ddfee48-6b53-4c3c-89f0-010439be5f2e" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJhbGciOiJIUzM4NCJ9.eyJiciI6IkVUQlBydWViYXMiLCJpcCI6IjEwLjEyMS4yOC4yMTQiLCJzdWIiOiJ1c2Vyd3NfZXRicHJ1ZWJhcyIsInMiOiJFV1NiMjhiMTg4N2YxZDZlNyIsInBvcyI6IlBEVl9FVEJQcnVlYmFzV1MiLCJpZFdzVXNlciI6IjU3MiIsImlzTXZuYSI6ZmFsc2UsImlhdCI6MTcxOTI4MTMzNSwiZXhwIjoxNzE5MjkyMTM1fQ.xCpHulfjnnWvLM52LM_W8rkwUK7rrObBqobU-2XhkpGdggW9NzZFzsQNwNBbkN_e"]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription" doc:id="81d5e068-5040-4164-9059-e9180c7f4aa3" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-config" doc:id="ac73422e-d7a0-4c3c-8460-7be5f6f27191" name="post:\v1\cambioSuscriptorLTECorp:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to Get token" doc:id="9d601238-2e9d-484b-93d7-29fe5a2b75c7" processor="http:request" atLeast="1" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get subscription" doc:id="6faf8b0a-124b-4bb0-8849-a12242bc8c68" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert-equals doc:name="Assert equals" doc:id="c5d04719-b00f-4c94-a4dc-9a524982fa1a" actual="#[vars.httpStatus]" expected="#[404]" message="Status code is not 404" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\bolsaCompartidaLTECorp:service-papi-services-configTest" doc:id="729735a4-60a3-421a-b65d-b0d04c821593" description="Test">
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="5ca675a4-8224-4998-9427-57fbd03f419f" >
+				<munit:attributes value='#[output application/json&#10;---&#10;{&#10;	"headers": {&#10;		"origenTransaccion": "salesforce-xapi-services"&#10;	},&#10;	"queryParams": {&#10;		"integrationId": "AC-0000000",&#10;		"MSISDN": "3050000000",&#10;		"parentPkgInstanceId": "PKGID11_TS1708598971841"&#10;	}&#10;}]' />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock when Get token" doc:id="c14b0ff2-62bd-4072-8c00-894bfc2dea45" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJhbGciOiJIUzM4NCJ9.eyJiciI6IkVUQlBydWViYXMiLCJpcCI6IjEwLjEyMS4yOC4yMTQiLCJzdWIiOiJ1c2Vyd3NfZXRicHJ1ZWJhcyIsInMiOiJFV1NiMjhiMTg4N2YxZDZlNyIsInBvcyI6IlBEVl9FVEJQcnVlYmFzV1MiLCJpZFdzVXNlciI6IjU3MiIsImlzTXZuYSI6ZmFsc2UsImlhdCI6MTcxOTI4MTMzNSwiZXhwIjoxNzE5MjkyMTM1fQ.xCpHulfjnnWvLM52LM_W8rkwUK7rrObBqobU-2XhkpGdggW9NzZFzsQNwNBbkN_e"]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription" doc:id="1167b821-bc84-4e5b-ae73-321dfed40624" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",&#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get PKGI" doc:id="088cd2cc-a2da-4551-ae7f-7f3b5e6f38de" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get PKGI" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.pkgi.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "id": "1234",&#10;  "name": "Name",&#10;  "cancellationDate": "2022-04-20T10:13:15.686Z",&#10;  "provisioningDate": "2022-04-20T10:13:15.686Z",&#10;  "applicationDate": "2022-04-20T10:13:15.686Z",&#10;  "billingIgnore": true,&#10;  "contractStartDate": "2022-04-20T10:13:15.686Z",&#10;  "contractEndDate": "2022-04-20T10:13:15.686Z",&#10;  "status": "FREE",&#10;  "packageType": "INITIAL",&#10;  "isVisible": true,&#10;  "renewable": true,&#10;  "prices": {},&#10;  "renewalOption": "ACTIVATED",&#10;  "isTariff": true,&#10;  "permanencyDate": "2022-04-20T10:13:15.686Z",&#10;  "groupMember": {&#10;    "id": "#SID4_TS1707843473032_2",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription by SID" doc:id="4df295d3-18eb-4e22-b63d-6640b2b4f701" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription by SID" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.getBySID}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;	"id": "1234",&#10;	"name": "Name",&#10;	"domain": "string",&#10;	"status": "PRE_ACTIVE",&#10;	"networkStatus": "PRE_ACTIVE",&#10;	"type": "RETAIL",&#10;	"portabilityStatus": "NO_PORTABILITY",&#10;	"billingType": "PREPAY",&#10;	"creationDate": "2022-04-20T10:13:15.686Z",&#10;	"firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;	"terminationDate": "2022-04-20T10:13:15.686Z",&#10;	"balance": 15.45,&#10;	"balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;	"lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;	"externalName": "Prepay Mobile",&#10;	"language": "en_US",&#10;	"ntwID": "555112",&#10;	"publicIdentity": "555112",&#10;	"externalID": "555112",&#10;	"groupInstance": {&#10;		"id": "123456",&#10;		"name": "Name",&#10;		"links": [&#10;			{&#10;				"rel": "string",&#10;				"href": "string",&#10;				"hreflang": "string",&#10;				"media": "string",&#10;				"title": "string",&#10;				"type": "string",&#10;				"deprecation": "string",&#10;				"profile": "string",&#10;				"name": "string"&#10;			}&#10;		]&#10;	}&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Link to group" doc:id="2074b6e5-3367-4125-87ed-b7f6ba700958" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Link to group" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.groupInstance.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "id": "1234",&#10;  "name": "Name",&#10;  "msisdn": "string",&#10;  "extension": "string",&#10;  "groupInstance": {&#10;    "id": "1234",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  },&#10;  "packageInstance": {&#10;    "id": "1234",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  },&#10;  "subscription": {&#10;    "id": "1234",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  },&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ]&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" doc:id="340b9d6a-ffa2-4dbe-b36b-a4fde0ce34e0" name="post:\v1\bolsaCompartidaLTECorp:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call doc:name="Verify call to Get token" doc:id="ffc8c09a-eb32-47c0-ad26-026fa90b80b7" processor="http:request" atLeast="1" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get subscription" doc:id="ce63116f-3103-41ea-ad0b-f522be865d39" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get PKGI" doc:id="71641522-986d-4a9d-a180-9c564bfd7035" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get PKGI" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.pkgi.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get subscription by SID" doc:id="dfff9ed9-2831-450f-bb06-e434f0dbb5cd" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription by SID" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.getBySID}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Link to group" doc:id="12d82469-386c-437f-9d5d-c6570225bbc3" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="POST" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Link to group" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.groupInstance.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert-equals doc:name="Assert equals http status" doc:id="f8c7e728-5cb9-4ad3-b95a-86c6bdca0519" actual="#[vars.httpStatus]" expected="#[200]" message="Status code is not 200" />
+			<munit-tools:assert-equals doc:name="Assert equals payload" doc:id="c880cb59-ddfc-49df-9764-5f53201c417d" actual="#[payload]" expected='#[{&#10;	"code": 0,&#10;	"descripcion": "Procesamiento exitoso"&#10;}]' message="Payload does not match" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\bolsaCompartidaLTECorp:service-papi-services-configTestSubscriptionNotExists" doc:id="8f495b34-7515-4c0f-8901-376de1fda342" description="Test" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="50ef4619-adcb-4e08-8e0e-f30cf39446b8" >
+				<munit:attributes value='#[output application/json&#10;---&#10;{&#10;	"headers": {&#10;		"origenTransaccion": "salesforce-xapi-services"&#10;	},&#10;	"queryParams": {&#10;		"integrationId": "AC-0000000",&#10;		"MSISDN": "3050000000",&#10;		"parentPkgInstanceId": "PKGID11_TS1708598971841"&#10;	}&#10;}]' />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock when Get token" doc:id="26c9ddd6-9dbc-4fea-b5e1-c4e9d8fa535d" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJhbGciOiJIUzM4NCJ9.eyJiciI6IkVUQlBydWViYXMiLCJpcCI6IjEwLjEyMS4yOC4yMTQiLCJzdWIiOiJ1c2Vyd3NfZXRicHJ1ZWJhcyIsInMiOiJFV1NiMjhiMTg4N2YxZDZlNyIsInBvcyI6IlBEVl9FVEJQcnVlYmFzV1MiLCJpZFdzVXNlciI6IjU3MiIsImlzTXZuYSI6ZmFsc2UsImlhdCI6MTcxOTI4MTMzNSwiZXhwIjoxNzE5MjkyMTM1fQ.xCpHulfjnnWvLM52LM_W8rkwUK7rrObBqobU-2XhkpGdggW9NzZFzsQNwNBbkN_e"]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription" doc:id="191d56f9-f043-4107-8f7f-28e179280dfe" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" doc:id="4a6ff27c-7b53-49f2-82b6-5f4179c47eeb" name="post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:verify-call doc:name="Verify call to Get token" doc:id="29ed5a12-ec52-4c93-971a-c10fa618818b" processor="http:request" atLeast="1" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get subscription" doc:id="01b9af1f-801a-4cd3-8592-ba3184374521" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert-equals doc:name="Assert equals http status" doc:id="d7ec6da0-c0c0-408c-8940-bfebd88bcd5a" actual="#[vars.httpStatus]" expected="#[404]" message="Status code is not 404" />
+			<munit-tools:assert-equals doc:name="Assert equals payload" doc:id="a192a7b8-ddcf-428c-9f4f-7c3ec58b1a42" actual="#[payload]" expected='#[{&#10;	"code": 1,&#10;	"description": "El subscription relacionado a la solicitud no existe."&#10;}]' message="Payload does not match" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\bolsaCompartidaLTECorp:service-papi-services-configTestIsNotDaughterLine" doc:id="a4875dd1-5553-471e-8ff0-db1d2e18e052" description="Test" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Event" doc:id="40e55618-3f40-4295-9e13-df55e59d7961" >
+				<munit:attributes value='#[output application/json&#10;---&#10;{&#10;	"headers": {&#10;		"origenTransaccion": "salesforce-xapi-services"&#10;	},&#10;	"queryParams": {&#10;		"integrationId": "AC-0000000",&#10;		"MSISDN": "3050000000",&#10;		"parentPkgInstanceId": ""&#10;	}&#10;}]' />
+			</munit:set-event>
+			<munit-tools:mock-when doc:name="Mock when Get token" doc:id="a288a044-abde-45f4-b390-def4ba6f3695" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJhbGciOiJIUzM4NCJ9.eyJiciI6IkVUQlBydWViYXMiLCJpcCI6IjEwLjEyMS4yOC4yMTQiLCJzdWIiOiJ1c2Vyd3NfZXRicHJ1ZWJhcyIsInMiOiJFV1NiMjhiMTg4N2YxZDZlNyIsInBvcyI6IlBEVl9FVEJQcnVlYmFzV1MiLCJpZFdzVXNlciI6IjU3MiIsImlzTXZuYSI6ZmFsc2UsImlhdCI6MTcxOTI4MTMzNSwiZXhwIjoxNzE5MjkyMTM1fQ.xCpHulfjnnWvLM52LM_W8rkwUK7rrObBqobU-2XhkpGdggW9NzZFzsQNwNBbkN_e"]' />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock when Get subscription" doc:id="7fb8d7ca-fe3f-477b-963b-555a413e1a6a" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",&#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" doc:id="14ffd8b2-ffa2-4a0c-af40-3fd53b7e4ad4" name="post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify call to Get subscription" doc:id="f872a931-4374-40cb-aea8-3157e6249af6" processor="http:request">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_jsc" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${jsc-sapi.subscription.path}" attributeName="path" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify call to Get token" doc:id="935315a5-fdaa-4886-ad4e-a1cc00744f72" processor="http:request" atLeast="1">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="GET" attributeName="method" />
+					<munit-tools:with-attribute whereValue="Get token" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="HTTP_Request_configuration_mongo" attributeName="config-ref" />
+					<munit-tools:with-attribute whereValue="${mongo-sapi.getToken.path}" attributeName="path" />
+					<munit-tools:with-attribute whereValue="jscToken" attributeName="target" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:assert-equals doc:name="Assert equals http status" doc:id="666e5501-8601-433d-a076-f8fbece463a4" actual="#[vars.httpStatus]" expected="#[200]" message="Status code is not 200" />
+			<munit-tools:assert-equals doc:name="Assert equals payload" doc:id="f3466989-9c3d-41d0-91c5-df5a87f62f48" actual="#[payload]" expected='#[{&#10;	"code": 0,&#10;	"descripcion": "Procesamiento exitoso"&#10;}]' message="Payload does not match" />
+		</munit:validation>
+	</munit:test>
+</mule>

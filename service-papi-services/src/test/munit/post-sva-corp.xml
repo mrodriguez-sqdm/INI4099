@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="service-papi-services-test-suite.xml" />
+	<munit:test name="post-sva-corp-test-suite" doc:id="83518152-8a8f-44c0-bb20-2eb5a8a7f04c" description="Test">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="286bb192-1ae1-4002-a731-b3ee89cecd6c" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json &#10;--- &#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",      &#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]      &#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="CreateOrder" doc:id="521c6264-8d6d-473b-9889-0027db933fe0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Post order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="089db6f5-e7ae-4b06-8af1-f52f93dfecb3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json &#10;---     &#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",&#10;      "priceplan": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "pricePlanName": "Brand price plan"&#10;      },&#10;      "salesData": {&#10;        "salesChannel": "OWN_CALLCENTER",&#10;        "salesPerson": "cac_agent_john"&#10;      },&#10;      "packageList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],&#10;      "msisdnList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],      &#10;      "simList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],&#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Apply Order" doc:id="114d49c3-46cc-4067-803f-2ea30d8d937a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="End order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="de69c118-3d0c-4e07-8c64-4c8eb28ac386" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json ---&#10;{}]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Get PKGI with SID by status" doc:id="bf4da405-bb35-49c8-8d6c-e2d23d68f7ae" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4477dc37-0845-4265-9e05-9ca880c06187" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="4477dc37-0845-4265-9e05-9ca880c06187" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{ &#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "cancellationDate": "2022-04-20T10:13:15.686Z",&#10;      "provisioningDate": "2022-04-20T10:13:15.686Z",&#10;      "applicationDate": "2022-04-20T10:13:15.686Z",&#10;      "billingIgnore": true,&#10;      "status": "FREE",&#10;      "packageType": "INITIAL",&#10;      "pkg": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      },&#10;      "subscription": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Patch pkgid with status" doc:id="c15e0fae-9103-4cef-a212-b8b930107033" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json&#10;---&#10;{}]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="c142877a-2097-47a3-8089-59b9a17493ba" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="8d0cd22e-f645-4d7d-9869-5d212dda750e">
+				<munit:payload value='#[output application/json &#10;--- &#10;{&#10;  "addonPackage": [&#10;    {&#10;      "id": "1",&#10;      "actionCode": "ADD"&#10;    },&#10;    {&#10;      "id": "2",&#10;      "actionCode": "ADD"&#10;    },&#10;    {&#10;      "id": "3",&#10;      "actionCode": "DELETE"&#10;    },&#10;    {&#10;      "id": "1234",&#10;      "actionCode": "DELETE"&#10;    }&#10;  ],&#10;  "integrationId": "AC-0000000"&#10;}]' mediaType="application/json" />
+				<munit:attributes value='#[{ &#10;	headers: { &#10;		origenTransaccion: "salesforce-xapi-services" &#10;	}&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\sva\corp:application\json:service-papi-services-config" doc:id="1a58c164-fa03-4075-ba07-d49a1d9a326e" name="post:\v1\sva\corp:application\json:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ced2e1ee-d44b-4fe4-8af0-348a2358de8b" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="post-sva-corp-test-suite-empty" doc:id="3798925e-bba9-4faa-8c98-62495a5a38a0" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="87a1aca5-9eb6-4081-a005-a357e0581f06" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json &#10;--- &#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",      &#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]      &#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="CreateOrder" doc:id="0f992f96-635c-4718-9185-5c8810be64d3" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Post order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="089db6f5-e7ae-4b06-8af1-f52f93dfecb3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json &#10;---     &#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",&#10;      "priceplan": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "pricePlanName": "Brand price plan"&#10;      },&#10;      "salesData": {&#10;        "salesChannel": "OWN_CALLCENTER",&#10;        "salesPerson": "cac_agent_john"&#10;      },&#10;      "packageList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],&#10;      "msisdnList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],      &#10;      "simList": [&#10;        {&#10;          "id": "1234",&#10;          "name": "Name",&#10;          "links": [&#10;            {&#10;              "rel": "string",&#10;              "href": "string",&#10;              "hreflang": "string",&#10;              "media": "string",&#10;              "title": "string",&#10;              "type": "string",&#10;              "deprecation": "string",&#10;              "profile": "string",&#10;              "name": "string"&#10;            }&#10;          ]&#10;        }&#10;      ],&#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Apply Order" doc:id="c4bd4260-4114-4107-bb6c-bde528851df4" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="End order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="de69c118-3d0c-4e07-8c64-4c8eb28ac386" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json ---&#10;{}]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Get PKGI with SID by status" doc:id="17728198-2276-47ac-9dec-67a920c57fe7" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4477dc37-0845-4265-9e05-9ca880c06187" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="4477dc37-0845-4265-9e05-9ca880c06187" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{ &#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "cancellationDate": "2022-04-20T10:13:15.686Z",&#10;      "provisioningDate": "2022-04-20T10:13:15.686Z",&#10;      "applicationDate": "2022-04-20T10:13:15.686Z",&#10;      "billingIgnore": true,&#10;      "status": "FREE",&#10;      "packageType": "INITIAL",&#10;      "pkg": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      },&#10;      "subscription": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Patch pkgid with status" doc:id="5ce62e6e-d27b-46ec-869b-86b8a9d7f3fd" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+					<munit-tools:with-attribute whereValue="2ac3a473-59c4-4a2d-8a52-702858a2f0ea" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json&#10;---&#10;{}]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="61e68464-9319-4144-87ae-9e95fababc83" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="432ab61f-1c4a-4ac8-8917-3112ead7d40e" >
+				<munit:payload value='#[output application/json &#10;--- &#10;{&#10;  "addonPackage": [&#10;    {&#10;      "id": "1",&#10;      "actionCode": "TEST"&#10;    }&#10;  ],&#10;  "integrationId": "AC-0000000"&#10;}]' mediaType="application/json" />
+				<munit:attributes value='#[{ &#10;	"attributes": { &#10;		"headers": { &#10;			"origenTransaccion": "salesforce-xapi-services" &#10;		}&#10;	}&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\sva\corp:application\json:service-papi-services-config" doc:id="a59b06fc-bf72-4c4b-8da7-8cd1dfa9fce6" name="post:\v1\sva\corp:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="fe8b5e36-64f9-4937-b340-31cd610dbe79" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="post-sva-corp-test-suite-empty-subscription" doc:id="05893b49-952f-450b-8df2-e9d62dafb5ba" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="40fe3e6b-826e-4c2c-95b8-762e268f22eb" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json &#10;--- &#10;null]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="9f8a0b66-19d9-4ad1-9175-2ef1adaf51bb" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="aba44e8b-8f11-404b-8ea5-89a32636db10" >
+				<munit:payload value='#[output application/json &#10;--- &#10;{&#10;  "addonPackage": [&#10;    {&#10;      "id": "1",&#10;      "actionCode": "TEST"&#10;    }&#10;  ],&#10;  "integrationId": "AC-0000000"&#10;}]' mediaType="application/json" />
+				<munit:attributes value='#[{ &#10;	"attributes": { &#10;		"headers": { &#10;			"origenTransaccion": "salesforce-xapi-services" &#10;		}&#10;	}&#10;}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\sva\corp:application\json:service-papi-services-config" doc:id="5b44c83c-720a-437b-ba05-9149050e14c9" name="post:\v1\sva\corp:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="c8086d88-11f5-4d85-bb17-fe254b7ac1f5" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

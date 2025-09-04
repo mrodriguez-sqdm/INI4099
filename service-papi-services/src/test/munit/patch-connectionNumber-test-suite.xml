@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="service-papi-services-test-suite.xml" />
+	<munit:test name="delete-cancelationSubscriber-test-suite:\v1\operations\subscription\(connectionNumber):service-papi-services-configTest" doc:id="e4b47a19-d9c4-43df-9088-abab22ccee69" description="Test">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Get token" doc:id="dfbaa27a-450c-408d-9032-559dd8252b0a" processor="http:request">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:variables>
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscriber" doc:id="82dc2b8d-74c7-4aa9-8e33-be0f073a9cfd" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- {&#10;  "links": [&#10;    {&#10;      "rel": "self",&#10;      "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber?fiscalID=20240117&amp;page=0&amp;size=10"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "223183",&#10;      "domain": "Test_ETBMVNE",&#10;      "externalID": "20240117",&#10;      "subscriberType": "EXTERNAL",&#10;      "creationDate": "2024-01-18T00:18:56.000Z",&#10;      "lastUpdate": "2024-01-18T00:18:56.000Z",&#10;      "status": "PROVISIONED",&#10;      "document": {&#10;        "documentType": "CO_CEDULA_CIUDANIA",&#10;        "fiscalID": "20240117"&#10;      },&#10;      "contactData": {},&#10;      "personalData": {&#10;        "document": {}&#10;      },&#10;      "billingAddress": {},&#10;      "shippingAddress": {},&#10;      "scoring": {},&#10;      "salesData": {},&#10;      "defaultBA": {&#10;        "id": "366574",&#10;        "links": [&#10;          {&#10;            "rel": "getBA",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366574"&#10;          }&#10;        ]&#10;      },&#10;      "brand": {&#10;        "id": "Test_ETBMVNE",&#10;        "name": "Test_ETBMVNE",&#10;        "links": [&#10;          {&#10;            "rel": "getBrand",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;          }&#10;        ]&#10;      },&#10;      "pos": {&#10;        "id": "TestETBMVNECac",&#10;        "name": "TestETBMVNECac",&#10;        "links": [&#10;          {&#10;            "rel": "getPos",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/TestETBMVNECac"&#10;          }&#10;        ]&#10;      },&#10;      "links": []&#10;    },&#10;    {&#10;      "id": "223186",&#10;      "domain": "Test_ETBMVNE",&#10;      "externalID": "20240117",&#10;      "subscriberType": "EXTERNAL",&#10;      "creationDate": "2024-01-30T20:26:44.000Z",&#10;      "lastUpdate": "2024-01-30T20:26:44.000Z",&#10;      "status": "PROVISIONED",&#10;      "document": {&#10;        "documentType": "EXTERNAL",&#10;        "fiscalID": "20240117"&#10;      },&#10;      "contactData": {},&#10;      "personalData": {&#10;        "document": {}&#10;      },&#10;      "billingAddress": {},&#10;      "shippingAddress": {},&#10;      "scoring": {},&#10;      "salesData": {},&#10;      "defaultBA": {&#10;        "id": "366577",&#10;        "links": [&#10;          {&#10;            "rel": "getBA",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366577"&#10;          }&#10;        ]&#10;      },&#10;      "brand": {&#10;        "id": "Test_ETBMVNE",&#10;        "name": "Test_ETBMVNE",&#10;        "links": [&#10;          {&#10;            "rel": "getBrand",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;          }&#10;        ]&#10;      },&#10;      "pos": {&#10;        "id": "TestETBMVNECac",&#10;        "name": "TestETBMVNECac",&#10;        "links": [&#10;          {&#10;            "rel": "getPos",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/TestETBMVNECac"&#10;          }&#10;        ]&#10;      },&#10;      "links": []&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 10,&#10;    "totalElements": 2,&#10;    "totalPages": 1,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="patch-SubscriptionMVNE-client" doc:id="160fb13a-37fb-4b79-a7e1-06268fcbc090" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a634bb0d-3e05-4487-9e63-b4b5f6f657cd" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- {}]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="75408d4a-355a-4f4d-b6e6-0b8e781d0066" >
+				<munit:attributes value='#[{uriParams: {connectionNumber: "202402151107"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to delete:\v1\operations\subscription\(connectionNumber):service-papi-services-config" doc:id="ded5d712-892a-44b5-85c7-bd14cdb7f0b7" name="delete:\v1\operations\subscription\(connectionNumber):service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="73ab02ec-faec-4be4-93f5-b866c35e172a" >
+				<munit-tools:that ><![CDATA[#[import * from dw::test::Asserts 
+ ---
+payload must equalTo({
+	"codigo": "OK",
+	"description": "Cancelación exitosa."
+})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="patch-subscriber-test-suite:\v1\operations\subscription\(connectionNumber):application\json:service-papi-services-configTest" doc:id="f06517bb-0864-47a4-9942-e2b58342add8" description="Test" >
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Get token" doc:id="8fe1914d-ffa5-4f0a-9423-b545ff08a4db" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- {&#10;  "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcwODQ1MjMyNX0.ve9-4YF96RQXBjcZ42z3lr1rYPdgUgbm-FAflIDheRw",&#10;  "tokenType": "Bearer",&#10;  "ipOrigen": "0.0.0.0",&#10;  "expiresIn": "2024-02-07T20:00:00.000Z"&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscriber" doc:id="5f1dc3b1-d874-423f-9e39-18904b1ff445" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- {&#10;  "links": [&#10;    {&#10;      "rel": "self",&#10;      "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber?fiscalID=20240117&amp;page=0&amp;size=10"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "223183",&#10;      "domain": "Test_ETBMVNE",&#10;      "externalID": "20240117",&#10;      "subscriberType": "EXTERNAL",&#10;      "creationDate": "2024-01-18T00:18:56.000Z",&#10;      "lastUpdate": "2024-01-18T00:18:56.000Z",&#10;      "status": "PROVISIONED",&#10;      "document": {&#10;        "documentType": "CO_CEDULA_CIUDANIA",&#10;        "fiscalID": "20240117"&#10;      },&#10;      "contactData": {},&#10;      "personalData": {&#10;        "document": {}&#10;      },&#10;      "billingAddress": {},&#10;      "shippingAddress": {},&#10;      "scoring": {},&#10;      "salesData": {},&#10;      "defaultBA": {&#10;        "id": "366574",&#10;        "links": [&#10;          {&#10;            "rel": "getBA",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366574"&#10;          }&#10;        ]&#10;      },&#10;      "brand": {&#10;        "id": "Test_ETBMVNE",&#10;        "name": "Test_ETBMVNE",&#10;        "links": [&#10;          {&#10;            "rel": "getBrand",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;          }&#10;        ]&#10;      },&#10;      "pos": {&#10;        "id": "TestETBMVNECac",&#10;        "name": "TestETBMVNECac",&#10;        "links": [&#10;          {&#10;            "rel": "getPos",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/TestETBMVNECac"&#10;          }&#10;        ]&#10;      },&#10;      "links": []&#10;    },&#10;    {&#10;      "id": "223186",&#10;      "domain": "Test_ETBMVNE",&#10;      "externalID": "20240117",&#10;      "subscriberType": "EXTERNAL",&#10;      "creationDate": "2024-01-30T20:26:44.000Z",&#10;      "lastUpdate": "2024-01-30T20:26:44.000Z",&#10;      "status": "PROVISIONED",&#10;      "document": {&#10;        "documentType": "EXTERNAL",&#10;        "fiscalID": "20240117"&#10;      },&#10;      "contactData": {},&#10;      "personalData": {&#10;        "document": {}&#10;      },&#10;      "billingAddress": {},&#10;      "shippingAddress": {},&#10;      "scoring": {},&#10;      "salesData": {},&#10;      "defaultBA": {&#10;        "id": "366577",&#10;        "links": [&#10;          {&#10;            "rel": "getBA",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366577"&#10;          }&#10;        ]&#10;      },&#10;      "brand": {&#10;        "id": "Test_ETBMVNE",&#10;        "name": "Test_ETBMVNE",&#10;        "links": [&#10;          {&#10;            "rel": "getBrand",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;          }&#10;        ]&#10;      },&#10;      "pos": {&#10;        "id": "TestETBMVNECac",&#10;        "name": "TestETBMVNECac",&#10;        "links": [&#10;          {&#10;            "rel": "getPos",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/TestETBMVNECac"&#10;          }&#10;        ]&#10;      },&#10;      "links": []&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 10,&#10;    "totalElements": 2,&#10;    "totalPages": 1,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="patch-SubscriptionMVNE-client" doc:id="525099c8-2642-4e4a-b5c2-3b149dd552f9" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="95844e69-daf0-4c55-a425-d48ad6b19090" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- {}]" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="eabfc21f-776e-4e70-a73a-f545355790ae">
+				<munit:payload value='#[output application/json --- {&#10;  "status": "ACTIVE"&#10; }]' mediaType="application/json" />
+				<munit:attributes value='#[{uriParams: {connectionNumber: "202402151107"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to patch:\v1\operations\subscription\(connectionNumber):application\json:service-papi-services-config" doc:id="1f087317-0302-4cf4-bd8c-85b3fb2defa7" name="patch:\v1\operations\subscription\(connectionNumber):application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="4623ba47-9a87-49f6-b4b1-db05fc6103c4" >
+				<munit-tools:that ><![CDATA[#[import * from dw::test::Asserts 
+ ---
+payload must equalTo({
+	"codigo": "OK",
+	"description": "Proceso exitoso."
+})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

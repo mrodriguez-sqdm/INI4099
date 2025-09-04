@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-service-orchestratorSub_Flow" doc:id="16ec7c1e-b7bd-4ff3-aebd-0badc9f972a3" >
+		<choice doc:name="Choice" doc:id="1a323323-0476-43d1-b45d-5b7c588e473e" >
+			<when expression='#[attributes.queryParams.RESOURCE_ID == "WIFI"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="34797687-33a9-4ea6-945c-3d5f6bcd8de0" name="getwifi-orchestratorSub_Flow"/>
+			</when>
+			<when expression='#[attributes.queryParams.RESOURCE_ID == "TV"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="eda50478-7aa1-4ccf-91fd-1a7dc68cd4c5" name="validatetv-orchestratorSub_Flow"/>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Set Body Response Invalid" doc:id="fb1bdade-fa1c-47a7-a4d6-be2093def4e8">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: 500 ,
+  messageResponse: "Ruta no definida"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<sub-flow name="getwifi-orchestratorSub_Flow" doc:id="d88ca269-88a5-4959-869d-b8114bbe4708" >
+		<set-variable value="#[attributes.headers]" doc:name="Set headers" doc:id="3e5eb920-db4c-4539-8e00-9f4364565a13" variableName="headers" />
+		<set-variable value="#[attributes.queryParams]" doc:name="Set parameters" doc:id="c4a5f992-f3e5-4239-aa7c-8464d9d00e6b" variableName="parameters" />
+		<ee:transform doc:name="Set Body BOT" doc:id="5212cdfa-1806-4b31-b288-d827e062f56c">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+    "Network_Type": "",
+    "Phone": vars.parameters.CONNECTION_NUMBER,
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="dc005052-ce67-471d-a09f-815b2e7108b4" name="post-getwifi-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="e59bee91-b75f-4bd9-950d-168f98b957fa" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="58239236-f2dd-4974-8cf6-9de781208747">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+  serviceResource: if(payload.WSResponseBody.Service != null)[
+    {
+      numPqr: payload.WSResponseBody.Num_PQR,
+      service: {
+        status: payload.WSResponseBody.Service.Status,
+        message: payload.WSResponseBody.Service.Message
+      },
+      networks: payload.WSResponseBody.Networks map (n) -> {
+        networkName: n.Network_Name,
+        networkState: n.Network_State,
+        macAddress: n.MAC_Address,
+        ontSerial: n.ONT_Serial,
+        frequency: n.Frequency
+      },
+      equipment: {
+        ontSerial: payload.WSResponseBody.Equipment.ONT_Serial,
+        model: payload.WSResponseBody.Equipment.Model,
+        status: payload.WSResponseBody.Equipment.Status
+      },
+      status: payload.WSResponseBody.Status,
+      message: payload.WSResponseBody.Message
+    }
+  ] else []
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="validatetv-orchestratorSub_Flow" doc:id="19b8877d-3db2-40b2-852a-ac223dae573e" >
+		<set-variable value="#[attributes.headers]" doc:name="Set headers" doc:id="6c1a81f5-e7b6-46c6-b408-036a07a56a41" variableName="headers" />
+		<set-variable value="#[attributes.queryParams]" doc:name="Set parameters" doc:id="f3330359-79ca-4a98-becf-82d6e11ce445" variableName="parameters" />
+		<ee:transform doc:name="Set Body BOT" doc:id="36988fbb-29aa-4a15-a281-baa9f495380b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+    "Service_Type": "",
+    "Phone": vars.parameters.CONNECTION_NUMBER,
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="e6d5f58b-fedc-4f9f-a43e-1f10d22ffc83" name="post-validatetv-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="ca4a5259-bf30-4ed3-a504-bbdcbef686e5" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="a479b10e-b6bf-477a-96e3-33558f875059" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+  serviceResource: if(payload.WSResponseBody != null)[
+    {
+      numPqr: payload.WSResponseBody.Num_PQR,
+      status: payload.WSResponseBody.Status,
+      message: payload.WSResponseBody.Message,
+      additionalChannels: payload.WSResponseBody.Additional_Channels,
+      additionalServices: payload.WSResponseBody.Additional_Services,
+      decos: payload.WSResponseBody.Decos,
+      stateSubscriberId: payload.WSResponseBody.State_Subscriber_Id
+    }
+  ] else []
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="post-activateLine-test-suite.xml" />
+	<munit:test name="post-rechargeLine-test-suite" doc:id="81fc5f3d-4248-42e1-a6fc-b9de39eb039f" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Associate integration id" doc:id="e0ff4a35-82ec-4159-bbcf-effec56b7b92" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a1a34ee3-5f28-42d0-b7f8-ac1d78f4285f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- &#10;{&#10;  "id": "1234",&#10;  "name": "Name",&#10;  "type": "ADMINISTRATIVE",&#10;  "category": "prepay",&#10;  "status": "ALLOWED",&#10;  "externalID": "EXT_005",&#10;  "channelType": "PROVISIONING",&#10;  "channelID": "OnitiCAC",&#10;  "scope": "FINANCIAL",&#10;  "subscription": {&#10;    "id": "1234",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  },&#10;  "packageInstance": {&#10;    "id": "1234",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  },&#10;  "expirationDays": 5,&#10;  "expirationDate": "2022-04-20T10:13:15.686Z",&#10;  "date": "2022-04-20T10:13:15.686Z",&#10;  "financialReason": "PAID",&#10;  "reason": "BALANCE",&#10;  "source": "PAYPAL",&#10;  "comment": "This is a comment",&#10;  "zipcode": "35001",&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get token" doc:id="17984e20-d98d-477a-90cc-2eac566c2d16" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="5cb06dbb-90aa-41f2-b30d-0e9b523c1d21" >
+				<munit:payload value='#[output application/json --- &#10;{&#10;  "amount": 20000,&#10;  "msisdn": "3336025009",&#10;  "gestor": "PayU"&#10;}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\ordenes\movilidad\recargar:application\json:service-papi-services-config" doc:id="4e94a4ae-da67-4fd8-9672-cfaf4e595cf2" name="post:\v1\ordenes\movilidad\recargar:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="924c245e-bfec-420b-a736-f80373a33501" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

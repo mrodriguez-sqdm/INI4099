@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="service-papi-services-test-suite.xml" />
+	<munit:test name="service-papi-services-test-suite-post:\v1\replacement\plan:application\json:service-papi-services-configTest" doc:id="83518152-8a8f-44c0-bb20-2eb5a8a7f04c" description="Test">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Get token" doc:id="9f59f78e-11fd-4a50-91ee-fb5d844a650e" processor="http:request">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="286bb192-1ae1-4002-a731-b3ee89cecd6c" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- &#10;{&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscription?externalID=MDM-MOV-0000000001-1&amp;page=0&amp;size=10"&#10;        }&#10;    ],&#10;    "content": [&#10;        {&#10;            "id": "SID309866_TS1708013394500_0",&#10;            "name": "Plan Pospago 1",&#10;            "domain": "Test_ETBMVNE2",&#10;            "status": "PRE_ACTIVE",&#10;            "networkStatus": "PRE_ACTIVE",&#10;            "type": "RETAIL",&#10;            "portabilityStatus": "NO_PORTABILITY",&#10;            "billingType": "POST",&#10;            "creationDate": "2024-02-15T16:28:48.000Z",&#10;            "balance": {&#10;                "amount": 0.000000&#10;            },&#10;            "balanceExpirationDate": "2025-02-14T16:28:48.000Z",&#10;            "language": "es-ES",&#10;            "ntwID": "SID309866_TS1708013394500_0",&#10;            "externalID": "MDM-MOV-0000000001-1",&#10;            "priceplan": {&#10;                "id": "PP_TestETBMVNE_Pospago",&#10;                "name": "Plan de precios base pospago"&#10;            },&#10;            "salesData": {&#10;                "salesChannel": "OWN_CALLCENTER"&#10;            },&#10;            "packageList": [&#10;                {&#10;                    "id": "PKGID950301_TS1708013394615",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPackage",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pkgi/PKGID950301_TS1708013394615"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "msisdnList": [&#10;                {&#10;                    "id": "3336025008",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getMsisdn",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "simList": [&#10;                {&#10;                    "id": "8957287000000000015",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPkgi",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "subscriber": {&#10;                "id": "223194",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSubscriber",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223194"&#10;                    }&#10;                ]&#10;            },&#10;            "msisdn": {&#10;                "id": "3336025008",&#10;                "links": [&#10;                    {&#10;                        "rel": "getMsisdn",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                    }&#10;                ]&#10;            },&#10;            "sim": {&#10;                "id": "8957287000000000015",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSim",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                    }&#10;                ]&#10;            },&#10;            "billingAccount": {&#10;                "id": "366592",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBillingAccount",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366592"&#10;                    }&#10;                ]&#10;            },&#10;            "brand": {&#10;                "id": "Test_ETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBrand",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "pos": {&#10;                "id": "PDV_TestETBMVNE2",&#10;                "name": "PDV_TestETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getPos",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/PDV_TestETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "lastUpdate": "2024-04-09T03:30:02.000Z",&#10;            "links": []&#10;        }&#10;    ],&#10;    "page": {&#10;        "size": 10,&#10;        "totalElements": 1,&#10;        "totalPages": 1,&#10;        "number": 0&#10;    }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="CreateOrder" doc:id="521c6264-8d6d-473b-9889-0027db933fe0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Post order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="089db6f5-e7ae-4b06-8af1-f52f93dfecb3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json ---     &#10;{&#10;  "id": "948740",&#10;  "domain": "Test_ETBMVNE",&#10;  "orderCode": "4",&#10;  "type": "RETAIL",&#10;  "status": "CONFIRMED",&#10;  "amount": {&#10;    "amount": 0&#10;  },&#10;  "salesChannel": "OWN_CALLCENTER",&#10;  "creationDate": "2024-02-09T18:55:14.000Z",&#10;  "packages": [&#10;    {&#10;      "id": "plan_inicial_testetbmvne",&#10;      "name": "Plan Inicial",&#10;      "packagePrices": {},&#10;      "packageInstance": {&#10;        "id": "PKGID950292_TS1707504914832",&#10;        "links": [&#10;          {&#10;            "rel": "getPackageInstance",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pkgi/PKGID950292_TS1707504914832"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ],&#10;  "subscription": {&#10;    "id": "SID309858_TS1707504914728_0",&#10;    "links": [&#10;      {&#10;        "rel": "getSubscription",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscription/SID309858_TS1707504914728_0"&#10;      }&#10;    ]&#10;  },&#10;  "subscriber": {&#10;    "id": "223179",&#10;    "links": [&#10;      {&#10;        "rel": "getSubscriber",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223179"&#10;      }&#10;    ]&#10;  },&#10;  "brand": {&#10;    "id": "Test_ETBMVNE",&#10;    "links": [&#10;      {&#10;        "rel": "getBrand",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;      }&#10;    ]&#10;  },&#10;  "links": [&#10;    {&#10;      "rel": "self",&#10;      "href": "https://pre.ioscolombia.com.co/bssrest/v1/order/948740"&#10;    }&#10;  ]&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Apply Order" doc:id="114d49c3-46cc-4067-803f-2ea30d8d937a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="End order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="de69c118-3d0c-4e07-8c64-4c8eb28ac386" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json ---&#10;{}]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="8d0cd22e-f645-4d7d-9869-5d212dda750e">
+				<munit:payload value='#[output application/json --- &#10;{&#10;  "modalidad": "pospago-pospago",&#10;  "integrationId": "MDM-16235538",&#10;  "packageId": "TestETBMVNE2_changePlan",&#10;  "pam": "1"&#10;}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\replacement\plan:application\json:service-papi-services-config" doc:id="1a58c164-fa03-4075-ba07-d49a1d9a326e" name="post:\v1\replacement\plan:application\json:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ced2e1ee-d44b-4fe4-8af0-348a2358de8b" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\replacement\plan:application\json:service-papi-services-configTest2" doc:id="e7f3d33b-cac8-43c1-878a-768b981c2c59" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get token" doc:id="4ffc67ff-541d-4546-93d3-7eab03809035" processor="http:request">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:variables>
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="1defca2c-5c2c-480f-b9ce-e3c4cb63e60c" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- &#10;{&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscription?externalID=MDM-MOV-0000000001-1&amp;page=0&amp;size=10"&#10;        }&#10;    ],&#10;    "content": [&#10;        {&#10;            "id": "SID309866_TS1708013394500_0",&#10;            "name": "Plan Pospago 1",&#10;            "domain": "Test_ETBMVNE2",&#10;            "status": "PRE_ACTIVE",&#10;            "networkStatus": "PRE_ACTIVE",&#10;            "type": "RETAIL",&#10;            "portabilityStatus": "NO_PORTABILITY",&#10;            "billingType": "POST",&#10;            "creationDate": "2024-02-15T16:28:48.000Z",&#10;            "balance": {&#10;                "amount": 0.000000&#10;            },&#10;            "balanceExpirationDate": "2025-02-14T16:28:48.000Z",&#10;            "language": "es-ES",&#10;            "ntwID": "SID309866_TS1708013394500_0",&#10;            "externalID": "MDM-MOV-0000000001-1",&#10;            "priceplan": {&#10;                "id": "PP_TestETBMVNE_Pospago",&#10;                "name": "Plan de precios base pospago"&#10;            },&#10;            "salesData": {&#10;                "salesChannel": "OWN_CALLCENTER"&#10;            },&#10;            "packageList": [&#10;                {&#10;                    "id": "PKGID950301_TS1708013394615",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPackage",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pkgi/PKGID950301_TS1708013394615"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "msisdnList": [&#10;                {&#10;                    "id": "3336025008",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getMsisdn",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "simList": [&#10;                {&#10;                    "id": "8957287000000000015",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPkgi",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "subscriber": {&#10;                "id": "223194",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSubscriber",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223194"&#10;                    }&#10;                ]&#10;            },&#10;            "msisdn": {&#10;                "id": "3336025008",&#10;                "links": [&#10;                    {&#10;                        "rel": "getMsisdn",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                    }&#10;                ]&#10;            },&#10;            "sim": {&#10;                "id": "8957287000000000015",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSim",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                    }&#10;                ]&#10;            },&#10;            "billingAccount": {&#10;                "id": "366592",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBillingAccount",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366592"&#10;                    }&#10;                ]&#10;            },&#10;            "brand": {&#10;                "id": "Test_ETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBrand",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "pos": {&#10;                "id": "PDV_TestETBMVNE2",&#10;                "name": "PDV_TestETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getPos",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/PDV_TestETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "lastUpdate": "2024-04-09T03:30:02.000Z",&#10;            "links": []&#10;        }&#10;    ],&#10;    "page": {&#10;        "size": 10,&#10;        "totalElements": 1,&#10;        "totalPages": 1,&#10;        "number": 0&#10;    }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="CreateOrder" doc:id="2c59e05d-2f11-40f9-8ab8-f182c73eb54d" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Post order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="089db6f5-e7ae-4b06-8af1-f52f93dfecb3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json ---     &#10;{&#10;  "id": "948740",&#10;  "domain": "Test_ETBMVNE",&#10;  "orderCode": "4",&#10;  "type": "RETAIL",&#10;  "status": "CONFIRMED",&#10;  "amount": {&#10;    "amount": 0&#10;  },&#10;  "salesChannel": "OWN_CALLCENTER",&#10;  "creationDate": "2024-02-09T18:55:14.000Z",&#10;  "packages": [&#10;    {&#10;      "id": "plan_inicial_testetbmvne",&#10;      "name": "Plan Inicial",&#10;      "packagePrices": {},&#10;      "packageInstance": {&#10;        "id": "PKGID950292_TS1707504914832",&#10;        "links": [&#10;          {&#10;            "rel": "getPackageInstance",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pkgi/PKGID950292_TS1707504914832"&#10;          }&#10;        ]&#10;      }&#10;    }&#10;  ],&#10;  "subscription": {&#10;    "id": "SID309858_TS1707504914728_0",&#10;    "links": [&#10;      {&#10;        "rel": "getSubscription",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscription/SID309858_TS1707504914728_0"&#10;      }&#10;    ]&#10;  },&#10;  "subscriber": {&#10;    "id": "223179",&#10;    "links": [&#10;      {&#10;        "rel": "getSubscriber",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223179"&#10;      }&#10;    ]&#10;  },&#10;  "brand": {&#10;    "id": "Test_ETBMVNE",&#10;    "links": [&#10;      {&#10;        "rel": "getBrand",&#10;        "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE"&#10;      }&#10;    ]&#10;  },&#10;  "links": [&#10;    {&#10;      "rel": "self",&#10;      "href": "https://pre.ioscolombia.com.co/bssrest/v1/order/948740"&#10;    }&#10;  ]&#10;}]' />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Create billingAccount" doc:id="86e5367a-074d-4dfe-bcb4-e76bec9f734f" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Billing BA" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="c9bbca8e-5c45-40e3-b14e-3a959bb0821d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json ---&#10;{&#10;    "id": "366582",&#10;    "balance": {&#10;        "amount": 0.000000&#10;    },&#10;    "invoiceMode": "UNDEFINED",&#10;    "creationDate": "2024-02-14T18:28:40.000Z",&#10;    "subscriber": {&#10;        "id": "223179",&#10;        "links": [&#10;            {&#10;                "rel": "getSubscriber",&#10;                "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223179"&#10;            }&#10;        ]&#10;    },&#10;    "cycleConfig": {},&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366582"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Move Billing Account" doc:id="b3afe72f-1eed-417a-b9f3-2876c841c9bf" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Billing Subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="8ffdf555-c0f0-453f-a23a-74cd62c58d3c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json ---&#10;{}]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Apply Order" doc:id="d1b8abf5-475d-45fe-a5fd-cdde33c288c5" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="End order" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="de69c118-3d0c-4e07-8c64-4c8eb28ac386" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json ---&#10;{}]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="408c8344-4caf-4af4-aa95-c627306fff8a" >
+				<munit:payload value='#[output application/json --- &#10;{&#10;  "modalidad": "prepago-pospago",&#10;  "integrationId": "MDM-16235538",&#10;  "packageId": "TestETBMVNE2_changePlan",&#10;  "pam": "1"&#10;}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\replacement\plan:application\json:service-papi-services-config" doc:id="5dd26fe8-f60f-4398-bb7e-e1fb3cfdbeac" name="post:\v1\replacement\plan:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="47d303cc-6a54-40f7-9eb3-f09c88cbaa68" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="service-papi-services-test-suite-post:\v1\replacement\plan:application\json:service-papi-services-configTest1" doc:id="83ee8a30-9f24-4b59-8050-3519f7756b4a" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get token" doc:id="ffacf943-bc92-431b-8f55-7e64972c235e" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="5b920272-2b30-4556-ba48-9ca27fac3fda" >
+				<munit:payload value='#[output application/json --- &#10;{&#10;  "modalidad": "unknown",&#10;  "integrationId": "MDM-16235538",&#10;  "packageId": "TestETBMVNE2_changePlan",&#10;  "pam": "1"&#10;}]' mediaType="application/json" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\replacement\plan:application\json:service-papi-services-config" doc:id="7d11b334-608e-4daa-82e5-2d3a1b07948e" name="post:\v1\replacement\plan:application\json:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="ecef7abb-73a1-4217-8d7d-6ab1b7f2ce29" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-referredActiveLines-test-suite.xml" />
+	<munit:test name="get-referredActiveLines-test-suite-get:\v1\referred\activeLines:service-papi-services-configTest" doc:id="9ed792f5-ea7e-4f7c-bd2a-f4c9307f1541" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get services" doc:id="644a41f3-94b5-40c9-8c73-d4b53d2c682e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="88c98722-81cd-434b-abe6-811a5608bacb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[&#10;  {&#10;    "Numero_Conexion": "3058111334",&#10;    "Integration_Id": "MDM-MOV-50051-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3058111715",&#10;    "Integration_Id": "MDM-MOV-50174-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3058111345",&#10;    "Integration_Id": "MDM-MOV-50188-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3058116536",&#10;    "Integration_Id": "MDM-RET-1608"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3012612555",&#10;    "Integration_Id": "1-GF99LTT"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3005996099",&#10;    "Integration_Id": "1-G2A61B2"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3143489494",&#10;    "Integration_Id": "MDM-MOV-55778-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3124400000",&#10;    "Integration_Id": "MDM-MOV-55785-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3138845488",&#10;    "Integration_Id": "MDM-MOV-55872-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3127777878",&#10;    "Integration_Id": "MDM-POR-150026"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000534",&#10;    "Integration_Id": "MDM-RET-70114"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000546",&#10;    "Integration_Id": "MDM-POR-150033"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000564",&#10;    "Integration_Id": "MDM-MOV-300196-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000576",&#10;    "Integration_Id": "MDM-MOV-300387-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000565",&#10;    "Integration_Id": "MDM-MOV-300789-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000534",&#10;    "Integration_Id": "MDM-MOV-300850-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000548",&#10;    "Integration_Id": "MDM-MOV-300883-1"&#10;  },&#10;  {&#10;    "Numero_Conexion": "3057000560",&#10;    "Integration_Id": "MDM-MOV-301079-1"&#10;  }&#10;]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get promVenta" doc:id="9e348459-457c-47b3-8ae8-4a8ec4749dd4" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="6bd39a6b-f1a2-4271-b01f-073b7c5f0020" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "PROM_Promociones_ActivoResult": {&#10;    "WSResponseBody": {&#10;      "PROM_Promocion_Venta": [{&#10;        "Accion": "Pendiente",&#10;        "Descripcion": "50% de descuento en 5 cargos básicos los meses de Ene-Abr-Jul-Oct 2018 y Ene 2019. Falta por aplicar los 3 últimos meses.",&#10;        "Estado": null,&#10;        "Fecha_Inicial": "2017-09-01T05:00:00Z",&#10;        "Fecha_accion": null,&#10;        "Fecha_final": "2017-09-30T05:00:00Z",&#10;        "ID_Tipo_Servicio": null,&#10;        "Id": "5afaf906929c4e1c80af4e93",&#10;        "Id_Promocion_Accion": null,&#10;        "Nivel": null,&#10;        "Nombre": "50 De los nuestros",&#10;        "Numero_Agrupacion": null,&#10;        "Opcionales": null,&#10;        "Origen": null,&#10;        "Tipo": "Existente",&#10;        "Tipo_Condicion": null,&#10;        "Beneficios": null,&#10;        "DescuentoPrimerPeriodo": null&#10;      },&#10;      {&#10;        "Accion": "Pendiente",&#10;        "Descripcion": "50% de descuento en 5 cargos básicos los meses de Ene-Abr-Jul-Oct 2018 y Ene 2019. Falta por aplicar los 3 últimos meses.",&#10;        "Estado": null,&#10;        "Fecha_Inicial": "2017-09-01T05:00:00Z",&#10;        "Fecha_accion": null,&#10;        "Fecha_final": "2017-09-30T05:00:00Z",&#10;        "ID_Tipo_Servicio": null,&#10;        "Id": "5afaf906929c4e1c80af4e93",&#10;        "Id_Promocion_Accion": null,&#10;        "Nivel": null,&#10;        "Nombre": "50 De los nuestros",&#10;        "Numero_Agrupacion": null,&#10;        "Opcionales": null,&#10;        "Origen": null,&#10;        "Tipo": "Existente",&#10;        "Tipo_Condicion": null,&#10;        "Beneficios": null,&#10;        "DescuentoPrimerPeriodo": null&#10;      }]&#10;    },&#10;    "WSResponseHeader": {&#10;      "property": {&#10;        "Property": {&#10;          "name": "?",&#10;          "value": "?"&#10;        }&#10;      },&#10;      "service": {&#10;        "responseDate": "2024-03-01 08:18:07",&#10;        "status": "OK",&#10;        "statusDetail": "Consulta realizada exitosamente"&#10;      },&#10;      "system": {&#10;        "correlationId": "?",&#10;        "name": "Promociones Logic Service",&#10;        "processingServer": "?"&#10;      }&#10;    }&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get typeParameter" doc:id="59bc5929-fea2-47a4-8a9e-1f47294b9f70" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="66afb5cd-4623-44ed-85f2-d094630b971a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "Actualizacion_Extractor" : "1",&#10;    "Fecha_Creacion" : "2023-11-03T19:10:54.276-05:00",&#10;    "Fecha_Modificacion" : "2023-11-03T19:10:54.276-05:00",&#10;    "Tipo_Parametro" : "EMPLEADOS_REFERIDOS",&#10;    "Usuario_Creacion" : "admin",&#10;    "Usuario_Modificacion" : "admin",&#10;    "Valores" : [ &#10;        {&#10;            "Codigo" : "5",&#10;            "Nombre" : "Cantidad Referidos",&#10;            "Descripcion" : "Cantidad Maxima de referidos por empleado"&#10;        },&#10;        {&#10;            "Codigo" : "1",&#10;            "Nombre" : "lineas Referidos",&#10;            "Descripcion" : "Cantidad Maxima de lineas por referido"&#10;        }, &#10;        {&#10;            "Codigo" : "5b083a77929c4e41149573b6|61fc163fd708392d843960e4|61fc16c5d708392d843960e6|6216762ad708390b907d9626|621675aad708390b907d9624",&#10;            "Nombre" : "Promociones descuento Empleados",&#10;            "Descripcion" : "Ids Promociones 50% Empleados"&#10;        }&#10;    ]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="aa549e2c-601f-4341-8194-ddc789ac7d8c">
+				<munit:attributes value='#[{queryParams: {tipoDocumento: "CC", numeroDocumento: "1090409964"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\referred\activeLines:service-papi-services-config" doc:id="92d4a4dd-adb3-47d1-ba15-7bccc25b4b92" name="get:\v1\referred\activeLines:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="b9b0fe71-1fb3-4631-a29f-a692c33a81ef" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

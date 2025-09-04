@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-recuperacionExperiencia-test-suite.xml" />
+	<munit:test name="get-recuperacionExperiencia-test-suite-post:\v1\clientes\recuperacion-experiencia:service-papi-services-configTest" doc:id="c35e1b35-301f-4e29-a9fa-f0e6f39b5655" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Cliente Excluido" doc:id="3ca4e5c1-f551-462d-b2c0-c520eaabccd1" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="3ea5c444-bc92-4d4f-8fea-586f33a76fad" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Configuracion I" doc:id="33485cf4-e15e-42af-a8b9-e4ad76dc4441" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="eaf6e1a8-0680-4574-a56b-782262132dc7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- [{&#10;    "_id" : "6274522d2167fa2f00f12899",&#10;    "Fecha_Creacion" : "2017-12-04T00:10:54.276+0000",&#10;    "Fecha_Modificacion" : "2022-05-05T22:39:41.899+0000",&#10;    "Usuario_Modificacion" : "admin",&#10;    "Usuario_Creacion" : "admin",&#10;    "Actualizacion_Extractor" : "1",&#10;    "Tipo_Parametro" : "CLIENTE_RECURRENTE",&#10;    "Valores" : [&#10;        {&#10;            "Codigo" : "RangoDiasConsulta",&#10;            "Nombre" : "30",&#10;            "Descripcion" : "Rango de días para consultar las PQRs de un cliente."&#10;        },&#10;        {&#10;            "Codigo" : "CantidadPQRs",&#10;            "Nombre" : "2",&#10;            "Descripcion" : "Máximo de PQRs a validar para categorizar un cliente."&#10;        },&#10;        {&#10;            "Codigo" : "MotivoFiltro",&#10;            "Nombre" : "FALLA TECNICA",&#10;            "Descripcion" : "CAMBIO DE CLAVE WIFI,CAMBIO DE CLAVE,ESTADO DE RED"&#10;        },&#10;        {&#10;            "Codigo" : "CantidadPQRsTecno",&#10;            "Nombre" : "2",&#10;            "Descripcion" : "Máximo de Visitas a validar por tecnologia FTTH."&#10;        },&#10;        {&#10;            "Codigo" : "CantidadPQRsTecnologia",&#10;            "Nombre" : "3",&#10;            "Descripcion" : "Máximo de Visitas a validar por tecnologia FTTC - COBRE."&#10;        },&#10;        {&#10;            "Codigo" : "MotivoFiltro",&#10;            "Nombre" : "TRÁMITES CON AGENDAMIENTO",&#10;            "Descripcion" : "CANCELADO - CAUSAL CLIENTE,CANCELADO - CAUSAL TÉCNICA,ERROR HERRAMIENTA"&#10;        },&#10;        {&#10;            "Codigo" : "ActiveGetCapacityClieRecu",&#10;            "Nombre" : "true",&#10;            "Descripcion" : "Habilitar o no la funcionalidad de consulta de cupos Platino para cliente recuerrente."&#10;        },&#10;        {&#10;            "Codigo" : "CategoriaClieRecu",&#10;            "Nombre" : "_Platino",&#10;            "Descripcion" : "Categoria para consulta cupos de cliente recuerrente."&#10;        },&#10;        {&#10;            "Codigo" : "Tecnologias",&#10;            "Nombre" : "FO,FTTH,FTTC,CU,COBRE,OTT",&#10;            "Descripcion" : "Tecnologias a validar."&#10;        },&#10;        {&#10;            "Codigo" : "ActiveIniClieRecu",&#10;            "Nombre" : "true",&#10;            "Descripcion" : "Habilitar o no la funcionalidad de cliente recuerrente. Valor true o false"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_RangoDiasConsulta",&#10;            "Nombre" : "30",&#10;            "Descripcion" : "Recuperación de la Experiencia, Rango de días para consultar las PQRs de un cliente."&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_MotivoFiltro",&#10;            "Nombre" : "FALLA TECNICA",&#10;            "Descripcion" : "Recuperación de la Experiencia, Motivos excepción"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_CantidadPQRs",&#10;            "Nombre" : "3",&#10;            "Descripcion" : "Recuperación de la Experiencia, Máximo de PQRs a validar para categorizar un cliente."&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_Active",&#10;            "Nombre" : "true",&#10;            "Descripcion" : "Habilitar o no la funcionalidad de Recuperacion de la experiencia. Valor true o false"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_LblTipoAtencion",&#10;            "Nombre" : "Tipo de Atención",&#10;            "Descripcion" : "Etiqueta Tipo de Atencion"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_LblRecExp",&#10;            "Nombre" : "Recuperación Experiencia",&#10;            "Descripcion" : "Etiqueta Recuperacion de la experiencia"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_TipoAtencionSi",&#10;            "Nombre" : "SI",&#10;            "Descripcion" : "Valor Tipo de Atencion SI"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_TipoAtencionNo",&#10;            "Nombre" : "NO",&#10;            "Descripcion" : "Valor Tipo de Atencion NO"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_descSat",&#10;            "Nombre" : "Satisfacción",&#10;            "Descripcion" : "Descripcion de Satisfacción"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_descTra",&#10;            "Nombre" : "NPS Transaccional",&#10;            "Descripcion" : "descripcion de Transaccional"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_descEsf",&#10;            "Nombre" : "Esfuerzo",&#10;            "Descripcion" : "Descripcion de Esfuerzo"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_subQuestions",&#10;            "Nombre" : "subQuestions",&#10;            "Descripcion" : "llave de subpreguntas"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_estInPro",&#10;            "Nombre" : "inProgress",&#10;            "Descripcion" : "estado en Progreso"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_estCompl",&#10;            "Nombre" : "complete",&#10;            "Descripcion" : "estado completado"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_idField",&#10;            "Nombre" : "externalDataReference",&#10;            "Descripcion" : "id de campo de consulta cliente"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_recordedDate",&#10;            "Nombre" : "recordedDate",&#10;            "Descripcion" : "fecha de registro"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_grupoSat",&#10;            "Nombre" : "Satisfaccion",&#10;            "Descripcion" : "Grupo Satisfacción"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_grupoTra",&#10;            "Nombre" : "Transaccional",&#10;            "Descripcion" : "Grupo Transaccional"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_grupoEsf",&#10;            "Nombre" : "Esfuerzo",&#10;            "Descripcion" : "Grupo Esfuerzo"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_grupoNA",&#10;            "Nombre" : "N/A",&#10;            "Descripcion" : "grupo n/a"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_urlBase",&#10;            "Nombre" : "https://ca1.qualtrics.com/",&#10;            "Descripcion" : "url base"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_hours",&#10;            "Nombre" : "24",&#10;            "Descripcion" : "cantidad de horas a cosultar"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_dateFormat",&#10;            "Nombre" : "yyyy-MM-ddTHH:mm:ssZ",&#10;            "Descripcion" : "formato de fecha"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_readSurveys",&#10;            "Nombre" : "read:surveys",&#10;            "Descripcion" : "ambito lectura de encuestas"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_readSurveyResponses",&#10;            "Nombre" : "read:survey_responses",&#10;            "Descripcion" : "ambito lectura respuestas de encuestas"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_userName",&#10;            "Nombre" : "b774e79b40984b58cb343602ad9ea476",&#10;            "Descripcion" : "usuario de autenticacion"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_password",&#10;            "Nombre" : "xuy5Z7tIhiUogItkWRYvUKBSSKpXJJQWZk82VEBP6AqxADN6X3sUKi95BYhmOMBp",&#10;            "Descripcion" : "clave de autenticacion"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_scoreSat",&#10;            "Nombre" : "3",&#10;            "Descripcion" : "Si calificación es menor a 3 = calificación negativa"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_scoreTra",&#10;            "Nombre" : "7",&#10;            "Descripcion" : "Si calificación es menor a 7 = calificación negativa"&#10;        },&#10;        {&#10;            "Codigo" : "RecExp_scoreEsf",&#10;            "Nombre" : "2",&#10;            "Descripcion" : "Si calificación es mayor a 2 = calificación negativa"&#10;        }&#10;    ]&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Configuracion II" doc:id="6221349b-1375-4392-a626-85e704c9aa64" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="78563db9-cd2a-4004-9b5e-e4276275758a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- [{&#10;    "_id" : "6306bcbc181317882f004ac4",&#10;    "Actualizacion_Extractor" : "1",&#10;    "Fecha_Creacion" : "2022-08-25T00:05:16.328+0000",&#10;    "Fecha_Modificacion" : "2022-08-25T00:05:16.328+0000",&#10;    "Tipo_Parametro" : "SemClienteRecurrente_Agendamiento",&#10;    "Usuario_Creacion" : "admin",&#10;    "Usuario_Modificacion" : "admin",&#10;    "Valores" : [&#10;        {&#10;            "Codigo" : "true",&#10;            "Nombre" : "SemClienteRecurrente_Agendamiento",&#10;            "Descripcion" : ""&#10;        }&#10;    ]&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Configuracion III" doc:id="da2fa0bd-7b42-466e-af42-ebe3440868c2" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="85e6aad0-9c61-4782-9293-1dc17b48ccda" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- [{&#10;    "_id" : "6334b2c1ab66bb823544ac81",&#10;    "Actualizacion_Extractor" : "1",&#10;    "Fecha_Creacion" : "2022-09-28T20:46:57.685+0000",&#10;    "Fecha_Modificacion" : "2022-09-28T20:46:57.685+0000",&#10;    "Tipo_Parametro" : "RECURRENTE_CONSULTA_AGENDA_TMR_DIGITAL",&#10;    "Usuario_Creacion" : "admin",&#10;    "Usuario_Modificacion" : "admin",&#10;    "Valores" : [&#10;        {&#10;            "Codigo" : "ON",&#10;            "Nombre" : "Encendido",&#10;            "Descripcion" : "Encendido consultas agendamiento cliente recurrente"&#10;        }&#10;    ]&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Configuracion IV" doc:id="d93eb86a-614b-4606-bcc1-ec6b3fa33bf9" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="636ed028-eeeb-4a38-8980-185cbf000097" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- [{&#10;    "_id" : "6334b2c0ab66bb823544ac80",&#10;    "Actualizacion_Extractor" : "1",&#10;    "Fecha_Creacion" : "2022-09-28T20:46:56.318+0000",&#10;    "Fecha_Modificacion" : "2022-09-28T20:46:56.318+0000",&#10;    "Tipo_Parametro" : "RECURRENTE_CONSULTA_AGENDA_VISITA_DIGITAL",&#10;    "Usuario_Creacion" : "admin",&#10;    "Usuario_Modificacion" : "admin",&#10;    "Valores" : [&#10;        {&#10;            "Codigo" : "ON",&#10;            "Nombre" : "Encendido",&#10;            "Descripcion" : "Encendido consultas visitas cliente recurrente"&#10;        }&#10;    ]&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get PQRs" doc:id="81140f54-6721-4c7b-bcaf-01d2ef5f2246" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="1b4f8837-8325-4588-b7b6-c08c7c01208d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get Agendas TMR" doc:id="ad1aea9e-5db3-42b4-be72-66ba86613586" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="dc872985-63a4-4219-bc6b-2fd45868cb11" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get Ordenes" doc:id="b76d1066-be51-4518-b725-ea3c46c633b4" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="7fe55dac-6fab-46a9-b8bb-b509ab112041" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get Encuestas" doc:id="866cc8d4-31aa-420e-8f47-be6acb5aa4d2" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b49cdf0c-ca09-41b1-8ee9-9e3a70ba72e6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Tipo Atencion" doc:id="46750757-1b05-4bf6-9fde-489d6b438822" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="bbfc25a2-8093-406e-b4cf-c55beff75faa" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- []]" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="65c6c7d5-91a0-4942-8e23-43ce535e88a9" >
+				<munit:attributes value="#[{&#10;	'queryParams': {&#10;		'numeroIdentificacion': '12345',&#10;		'tipoIdentificacion': '12345'&#10;	}&#10;}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\clientes\recuperacion-experiencia:service-papi-services-config" doc:id="908219be-9ed6-4872-9ac6-2ceb88cfe400" name="get:\v1\clientes\recuperacion-experiencia:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="c007d966-61d1-4e0b-a269-9f844b3d6e17" >
+				<munit-tools:that ><![CDATA[#[import * from dw::test::Asserts 
+ ---
+payload must equalTo({
+    "cliente":{
+        "numeroIdentificacion": "12345",
+        "tipoIdentificacion": "12345"
+    },
+    "encuestas": true,
+    "recurrente":{
+        "agendamientos": false,
+        "comercial": false,
+        "pqrs": false,
+        "tecnico": false,
+        "tramites": false,
+        "visitas": false
+    },
+    "tipoAtencion": null
+})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

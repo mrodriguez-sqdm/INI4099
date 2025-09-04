@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="customer-papi-services-main" doc:id="a3e53617-812f-4551-92aa-d25bb5572e92" >
+		<http:listener doc:name="Listener" doc:id="6045d547-9bf0-4e6d-98d0-44913676e99f" config-ref="customer-papi-services-httpListenerConfig" path="/v1/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<flow-ref doc:name="Flow Reference" doc:id="d175a42f-ef3e-461c-96a8-5f6666a76745" name="initial-loggin-Sub_Flow" />
+		<apikit:router doc:id="d6ee5d6e-a93e-4baa-9ce9-442fc9bc28f2" config-ref="customer-papi-services-config" doc:name="APIkit Router" />
+		<async doc:name="Async" doc:id="2e1c6195-108c-4ffe-a901-74244a12dc50" >
+			<flow-ref doc:name="Call logger" doc:id="acc4071a-6346-4f4d-8199-88ef55618e3d" name="loggin-client-call" />
+		</async>
+		<error-handler ref="error-handlerError_Handler" />
+	</flow>
+	<flow name="customer-papi-services-console" doc:id="4f6cac97-525e-4d3a-be33-7872dd098bc9" >
+		<http:listener doc:name="Listener" doc:id="d7d6a120-b6e1-4871-835a-ba310be2b069" config-ref="customer-papi-services-httpListenerConfig" path="/console/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:console doc:id="49beb9f9-29ac-44ad-a0d2-f797c3df86d6" config-ref="customer-papi-services-config" doc:name="APIkit Console" />
+	</flow>
+	<flow name="get:\customer:customer-papi-services-config" doc:id="43f59190-8ad0-4b75-9626-9863b59d3d4b" >
+		<flow-ref doc:name="Flow Reference" doc:id="bb766fe7-2fe5-42bd-ad72-c23e15037675" name="get-customer-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="post:\customer:application\json:customer-papi-services-config" doc:id="56349943-43eb-4e7e-8a75-160dba714c8a">
+		<flow-ref doc:name="Flow Reference" doc:id="44a059c6-4250-47e5-8b7b-b3f924ff12f8" name="create-customer-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="patch:\customer\(id):application\json:customer-papi-services-config" doc:id="5d5ab57c-ac53-4fe8-be3f-07d06d463504">
+		<flow-ref doc:name="Flow Reference" doc:id="30ba563b-7c13-4b7e-8566-cd0b2388cd85" name="update-customer-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\productOrder:customer-papi-services-config" doc:id="e6941693-372f-4137-bb2d-94227fda7f90" >
+		<flow-ref doc:name="Flow Reference" doc:id="9dbe0496-1c6a-4c39-aaf0-aa5fcb851142" name="product-order-orchestratorSub_Flow" />
+	</flow>
+	<flow name="get:\customerBill:customer-papi-services-config" doc:id="4a02fba7-18b5-4f32-b073-10e0b7440a9a" >
+		<flow-ref doc:name="Flow Reference" doc:id="256674a3-62e7-467c-a1f3-3a5521079207" name="get-customer-bill-orchestratorSub_Flow" />
+	</flow>
+	<flow name="get:\customerBill\balance:customer-papi-services-config" doc:id="5b399bb8-4a26-4824-a7bc-3e4c37ce2d5c" >
+		<flow-ref doc:name="Flow Reference" doc:id="16e78df7-98bb-40de-9bdf-c6b0d98576eb" name="post-getbalance-bill-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\customerBill\clearance:customer-papi-services-config" doc:id="49f80670-fbc1-4ac7-8ecd-b889124b8e21">
+		<flow-ref doc:name="Flow Reference" doc:id="0a2463d5-07dd-4810-a2e4-1a428196f49a" name="post-getclearance-bill-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\riskManagement:customer-papi-services-config" doc:id="fde03258-015a-40cb-b50a-6dfe85ab6105" >
+		<flow-ref doc:name="Flow Reference" doc:id="1b35bfd5-f1f9-491e-9a2b-d63a40503da8" name="get-riskManagement-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\customerBill\debts:customer-papi-services-config" doc:id="8a1c87ca-cab4-4c6e-883f-e0796be9f65b" >
+		<flow-ref doc:name="Flow Reference" doc:id="6aa2e854-e97d-449c-9917-35364089c36e" name="post-debts-bill-orchestratorSub_Flow" />
+	</flow>
+</mule>
