@@ -29,3 +29,5 @@ replay_pid*
 /.mule/
 /.tooling/
 /.tooling-apps-cache/
+
+test*/
