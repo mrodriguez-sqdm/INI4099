@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mongo="http://www.mulesoft.org/schema/mule/mongo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/mongo http://www.mulesoft.org/schema/mule/mongo/current/mule-mongo.xsd">
+	<flow name="mongo-db-sapi-services-main">
+        <http:listener path="/mongo/*" config-ref="mongo-db-sapi-services-httpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+         <flow-ref doc:name="Call initial Logger" doc:id="83964e3b-61ba-42ff-abf5-554b9f491dea" name="initial-loggin-Sub_Flow" /> 
+        <apikit:router config-ref="mongo-db-sapi-services-config" />
+         <async doc:name="Async" doc:id="ab159665-e482-4898-8fb0-ef0415f203e5" >
+			<flow-ref doc:name="Call logger" doc:id="c930c842-ef53-4538-883b-d81cacf38c3b" name="loggin-client-call"/>
+		</async> 
+		<error-handler ref="error-handlerError_Handler" />
+    </flow>
+    <flow name="mongo-db-sapi-services-console">
+        <http:listener path="/console/*" config-ref="mongo-db-sapi-services-httpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="mongo-db-sapi-services-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform>
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="patch:\v1\orders\(orderNumber):application\json:mongo-db-sapi-services-config">
+        <flow-ref doc:name="Go to handler" doc:id="1d604358-99b9-4713-8cc7-b71a894a79a3" name="patch-order-handlerSub_Flow" />
+    
+</flow>
+    <flow name="post:\v1\orders\(orderNumber):application\json:mongo-db-sapi-services-config">
+        <flow-ref doc:name="Go to handler" doc:id="9d11e661-bb5d-4c0c-b3cb-30a98a22dc74" name="post-orders-handlerSub_Flow" />
+    </flow>
+	<flow name="get:\v1\serviceProblem\pqrs:mongo-db-sapi-services-config" doc:id="ce5c8b55-f0c2-44b7-a030-c437566e2e86" >
+		<flow-ref doc:name="Flow Reference" doc:id="d68bd9e1-5acc-4810-85f1-dff0532a89ce" name="get-serviceProblem-pqrsSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\serviceProblem\orders:mongo-db-sapi-services-config" doc:id="0691cd62-10bb-42a9-8b4f-5f48e62b9aab" >
+		<flow-ref doc:name="Flow Reference" doc:id="0190ccf9-f0ef-4484-8848-c3e48d5c6a1d" name="get-serviceProblem-ordersSub_Flow"/>
+	</flow>
+	<flow name="patch:\v1\serviceProblem\pqrs\(id):application\json:mongo-db-sapi-services-config" doc:id="ade8dc9d-12c1-43ed-886d-88344d912602" >
+		<flow-ref doc:name="Flow Reference" doc:id="af8f7cf5-ab9d-4ef7-b372-457f9f932d52" name="patch-serviceProblem-pqrs-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\serviceProblem\consecutive:mongo-db-sapi-services-config" doc:id="9affbd0e-69ae-4d1d-97ec-ac0d2e233e76" >
+		<flow-ref doc:name="Flow Reference" doc:id="7eaef60f-49b6-4962-bb57-468af151b60f" name="get-serviceProblem-consecutive-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\serviceProblem\pqrs\(id):mongo-db-sapi-services-config" doc:id="d7f03b01-d3c7-4874-80af-9389513942d4" >
+		<flow-ref doc:name="Flow Reference" doc:id="23d35782-25af-44f8-b536-286b69da3c7d" name="get-serviceProblem-pqrs-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\customer:mongo-db-sapi-services-config" doc:id="5d69b2bf-f514-45d0-9d86-a38d223949e8" >
+		<flow-ref doc:name="Flow Reference" doc:id="b611447b-588a-4c9d-b74a-9bbd2ce2c100" name="get-customer-clientSub_Flow"/>
+	</flow>
+	<flow name="post:\v1\audit\dijin:application\json:mongo-db-sapi-services-config" doc:id="255006e7-0c49-4d12-849b-150859f64075" >
+		<flow-ref doc:name="Flow Reference" doc:id="e651aaad-7039-47b3-b076-ae4bbeed544e" name="post-audit-dijin-clientSub_Flow"/>
+	</flow>
+	<flow name="patch:\v1\customer:application\json:mongo-db-sapi-services-config" doc:id="8a230980-ba94-426b-ac75-7782fb54ec94" >
+		<flow-ref doc:name="Flow Reference" doc:id="eaf01e65-8e77-4bf8-b642-223982890bf9" name="patch-customer-clientSub_Flow"/>
+	</flow>
+	<flow name="post:\v1\customer:application\json:mongo-db-sapi-services-config" doc:id="13567e69-a141-496c-a249-e2f7f46738da" >
+		<flow-ref doc:name="Flow Reference" doc:id="dc1a0e29-3ff4-4631-a1d9-c93aceaf7600" name="post-customer-clientSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\parameters:mongo-db-sapi-services-config" doc:id="d0c6a763-e724-422c-9d0f-7ce011b44a67" >
+		<flow-ref doc:name="Flow Reference" doc:id="5fcc7b06-e910-4b8d-8a03-1e295b93d786" name="get-parameters-clientSub_Flow"/>
+	</flow>
+
+</mule>

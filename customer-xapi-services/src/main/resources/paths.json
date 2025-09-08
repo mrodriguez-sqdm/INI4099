@@ -24,7 +24,7 @@
 			},
 			{
 				"method": "PATCH",
-				"path": "/v1/customer/(id)",
+				"path": "/v1/customer",
 				"processname": "Update customer"
 			},
 			{

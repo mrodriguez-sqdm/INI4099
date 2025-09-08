@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\customer:application\json:customer-xapi-services-config" doc:id="1aa372fc-f70a-4172-9972-b987193ded81">
 		<flow-ref doc:name="Flow Reference" doc:id="5afbd76f-b1bb-4717-9fa3-33e00c0ca835" name="customer-papi-create-customer-clientSub_Flow"/>
 	</flow>
-	<flow name="patch:\customer\(id):application\json:customer-xapi-services-config" doc:id="7f9c06c0-f0f8-4ad1-855b-cda8e1c4f918">
+	<flow name="patch:\customer:application\json:customer-xapi-services-config" doc:id="7f9c06c0-f0f8-4ad1-855b-cda8e1c4f918">
 		<flow-ref doc:name="Flow Reference" doc:id="0e4e3c98-7d5b-4bdb-aed2-b6aa8c6cdf99" name="customer-papi-update-customer-clientSub_Flow"/>
 	</flow>
 	<flow name="get:\productOrder:customer-xapi-services-config" doc:id="d99fbd55-a1e0-4174-8938-5b644e71aeee" >

@@ -1,179 +1,13 @@
 #%RAML 1.0
-title: ETB Customer Experience API
+title: customer-xapi-services
 version: v1
-baseUri: https://customer-xapi-services-{env}.us-e2.cloudhub.io/{version}
-description: |
-  **ETB Customer Experience API - Comprehensive Customer Management**
-  
-  This Experience Layer (XAPI) service provides unified customer management capabilities for ETB's telecommunications ecosystem. 
-  It orchestrates customer data from multiple backend systems (MDM, Oracle, MongoDB) to deliver a consolidated view of customer 
-  information, services, billing, orders, and support interactions.
-  
-  **Core Capabilities:**
-  - **Customer Profile Management**: Complete CRUD operations for customer data with real-time validation
-  - **Product Order Tracking**: Comprehensive order lifecycle management and status tracking  
-  - **Billing & Balance Inquiries**: Real-time financial data with detailed balance breakdowns
-  - **Multi-System Integration**: Seamless data aggregation from MDM (Siebel), Oracle Billing, and MongoDB
-  - **Multi-Channel Support**: Optimized for WhatsApp bots, customer portals, mobile apps, and agent systems
-  
-  **Architecture & Standards:**
-  - **Layer**: Experience API (XAPI) in ETB's API-led connectivity architecture
-  - **Standards Compliance**: TM Forum TMF629 Customer Management and RESTful design principles
-  - **Performance**: Sub-2 second response times for standard operations
-  - **Security**: OAuth 2.0 with comprehensive audit trails
-  
-  **Target Consumers:** Internal applications, customer self-service channels, mobile applications, and AI-powered chatbots.
-
+baseUri:  https://customer-xapi-services-{env}.us-e2.cloudhub.io/{version}
+description: manage information related to the organization's customers
 protocols:
   - HTTPS
 
-documentation:
-  - title: ETB Customer Experience API - Technical Documentation
-    content: |
-      **Architecture Overview:**
-      This Experience Layer (XAPI) service implements ETB's API-led connectivity pattern, serving as the primary interface 
-      for customer management operations across all digital channels.
-      
-      **Data Integration:**
-      - **MDM (Siebel)**: Master customer data repository for profiles, contacts, and business information
-      - **Oracle Billing**: Real-time billing data, invoices, payment history, and account balances  
-      - **MongoDB**: Audit logs, document storage, and transaction history
-      - **Service Systems**: Live service status, equipment inventory, and technical details
-      
-      **Response Codes:**
-      All successful operations return API-controlled codes in response body:
-      - **codeResponse**: "200" for successful operations
-      - **responseMessage**: Localized success message
-      
-      **Error Handling:**
-      Standardized error structure with specific business codes:
-      - **REQUEST_ERROR** (400): Invalid parameters or malformed requests
-      - **Unauthorized** (401): Invalid or expired authentication tokens
-      - **NOT_FOUND** (404): Resource not found in system
-      - **INTERNAL_SERVER_ERROR** (500): Backend system failures or processing errors
-      
-      **Performance Standards:**
-      - Customer lookups: < 2 seconds response time
-      - Balance inquiries: < 1 second real-time data
-      - Order queries: < 3 seconds with complete related data
-      - Customer creation: < 5 seconds including validations
-
 traits:
   tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
-  commonResponses:
-    responses:
-      400:
-        description: |
-          **Bad Request - REQUEST_ERROR**
-          
-          The request contains malformed syntax, invalid parameters, or missing required fields.
-          Common causes include missing mandatory query parameters (ORIGIN, BUSINESS), invalid parameter 
-          formats, or request body validation failures.
-          
-          **API Error Code**: "REQUEST_ERROR"
-          **Common Issues**:
-          - Missing required ORIGIN parameter for audit trails
-          - Invalid parameter patterns (e.g., CUSTOMER_ID format)
-          - Malformed FILTERS syntax (should be key:value;key2:value2)
-          - Request body validation failures for customer creation/updates
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-            example: !include /examples/response/error-400.json
-      401:
-        description: |
-          **Unauthorized - Authentication Failed**
-          
-          Authentication credentials are missing, invalid, or expired. This API uses OAuth 2.0 
-          client credentials flow for secure access.
-          
-          **API Error Code**: "Unauthorized"
-          **Common Issues**:
-          - Missing Authorization header with Bearer token
-          - Expired OAuth 2.0 access token
-          - Invalid client credentials during token generation
-          - Malformed token format in Authorization header
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-            example: !include /examples/response/error-401.json
-      403:
-        description: |
-          **Forbidden - Insufficient Permissions**
-          
-          The server understood the request but refuses to authorize it. Valid credentials 
-          were provided but lack necessary permissions for the requested operation.
-          
-          **Common Issues**:
-          - Client lacks permissions for specific customer operations
-          - Channel restrictions prevent access to certain data
-          - Business rules prohibit the requested action
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-      404:
-        description: |
-          **Not Found - Resource Not Found**
-          
-          The requested customer, order, billing account, or other resource could not be 
-          located in the system using the provided identifiers.
-          
-          **API Error Code**: "NOT_FOUND"
-          **Common Issues**:
-          - Customer ID not found in MDM system
-          - Invalid document number/type combination
-          - Order number doesn't exist in Oracle Order Management
-          - Billing account not associated with customer
-          - Filter criteria returns no matching records
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-            example: !include /examples/response/error-404.json
-      405:
-        description: |
-          **Method Not Allowed**
-          
-          The HTTP method used is not supported for this specific endpoint. 
-          Check API documentation for supported methods on each resource.
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-      500:
-        description: |
-          **Internal Server Error - System Failure**
-          
-          An unexpected error occurred during request processing, typically due to 
-          backend system failures or connectivity issues.
-          
-          **API Error Code**: "INTERNAL_SERVER_ERROR"
-          **Common Causes**:
-          - MDM (Siebel) system connectivity issues
-          - Oracle Billing database connection failures
-          - MongoDB service unavailability
-          - Service timeout from downstream systems
-          - Data processing or transformation errors
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-            example: !include /examples/response/error-500.json
-      501:
-        description: |
-          **Not Implemented**
-          
-          The server does not support the functionality required to fulfill the request.
-          This may indicate a feature is not yet implemented or not available in the current version.
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
-      503:
-        description: |
-          **Service Unavailable**
-          
-          The server is temporarily unable to handle requests due to maintenance activities,
-          high load, or capacity constraints. Please retry after a brief delay.
-        body:
-          application/json:
-            type: !include /datatypes/response/error.raml
 
 mediaType: 
   - application/json
@@ -183,948 +17,318 @@ securitySchemes:
 
 
 /customer:
-  description: |
-    **Customer Resource - Master Customer Data Management**
-    
-    This resource serves as the primary interface for comprehensive customer management operations within ETB's
-    telecommunications ecosystem. It provides unified access to customer profiles by orchestrating data from
-    multiple backend systems (MDM, Oracle Billing, MongoDB) and presents a consolidated view of:
-    
-    **Customer Data Integration:**
-    - **Personal Identity Data**: Names, documents, demographics from MDM (Siebel)
-    - **Contact Information**: Addresses, phones, emails with real-time validation
-    - **Service Portfolio**: Active services, plans, SVAs (Value Added Services)
-    - **Billing & Financial**: Account status, balances, payment history from Oracle
-    - **Order History**: Service installations, modifications, cancellations
-    - **Support Cases (PQRs)**: Customer complaints, requests, and resolution tracking
-    - **Compliance Data**: ATDP (Customer Treatment and Data Protection) consents
-    
-    **Business Intelligence Features:**
-    - Customer segmentation (Households, SMEs, Enterprise)
-    - Service technology mapping (FTTH, Copper, Mobile)
-    - Credit scoring and risk assessment
-    - Geographic coverage analysis with service availability
-  
   get:
     is: 
      - tibcoHeaders
-     - commonResponses
     securedBy: [etb_oauth_2_0]
-    displayName: Retrieve Comprehensive Customer Profiles
-    description: |
-      **Customer Profile Retrieval with Advanced Filtering**
-      
-      Retrieves comprehensive customer profiles including identity data, contact information, active services,
-      billing details, order history, and support cases (PQRs). This endpoint supports multiple search strategies
-      and advanced filtering options to efficiently locate customers across ETB's integrated business systems.
-      
-      **Search Strategies:**
-      - **Direct Lookup**: Customer ID + Document Type for precise identification
-      - **Multi-Field Search**: Flexible filters using phones, emails, account numbers
-      - **Pagination Support**: Efficient handling of large result sets with LIMIT/OFFSET
-      
-      **Data Aggregation Sources:**
-      - **MDM (Siebel)**: Master customer profiles, contacts, and business information
-      - **Oracle Billing**: Real-time financial data, invoices, and payment status
-      - **MongoDB**: Audit trails, document attachments, and transaction logs
-      - **Service Systems**: Live service status, equipment inventory, and technical details
-      
-      **Channel Optimization:**
-      - **WhatsApp Bot**: Optimized responses for conversational interfaces
-      - **Customer Portal**: Rich dashboard data with complete service details
-      - **Mobile Apps**: Streamlined profile data for mobile consumption
-      - **Agent Systems**: Comprehensive view for customer service representatives
-      
-      **Performance Characteristics:**
-      - **Standard Queries**: < 2 seconds response time
-      - **Complex Aggregations**: < 5 seconds with complete related data
-      - **Caching Strategy**: 5-minute cache for frequently accessed profiles
-      - **Rate Limiting**: 100 requests/minute per client for standard operations
-    
+    displayName: getCustomer
+    description: view customer 
     queryParameters:
         ORIGIN:
           type: string
-          pattern: "^[A-Z_]+$"
-          minLength: 2
-          maxLength: 20
           example: "WHATSAPP"
-          description: |
-            **Request Origin Channel**
-            
-            Identifies the channel or application making the request for audit and routing purposes.
-            This parameter is used for logging, monitoring, and applying channel-specific business rules.
-            
-            **Allowed Values:**
-            - WHATSAPP: WhatsApp chatbot channel
-            - PORTAL: Web customer portal
-            - MOBILE: Mobile application
-            - AGENT: Customer service agent system
-            - IVR: Interactive Voice Response system
-            
-            **Required for compliance and audit trails.**
-          required: true
+          description: Parameter that allows the origin of the request to be identified
         CUSTOMER_ID:
           type: string
-          pattern: "^[0-9]{6,15}$"
-          minLength: 6
-          maxLength: 15
           example: "12552454"
-          description: |
-            **Customer Identification Number**
-            
-            The customer's primary identification document number (ID card, tax ID, passport, etc.).
-            Must be used in combination with CUSTOMER_ID_TYPE for accurate customer lookup.
-            
-            **Format:** Numeric string, 6-15 digits
-            **Validation:** Must correspond to a valid Colombian identification document
+          description: Customer identification number can be ID card or tax ID number
           required: false
         CUSTOMER_ID_TYPE:
           type: string
           enum: ["CC","CE","PASAPORTE","NIT","RUT","TI"]
           example: "CC"
-          description: |
-            **Document Type**
-            
-            Specifies the type of identification document provided in CUSTOMER_ID.
-            
-            **Document Types:**
-            - **CC**: Cédula de Ciudadanía (Colombian National ID)
-            - **CE**: Cédula de Extranjería (Foreign Resident ID)
-            - **PASAPORTE**: Passport
-            - **NIT**: Número de Identificación Tributaria (Tax ID)
-            - **RUT**: Registro Único Tributario (Business Tax Registry)
-            - **TI**: Tarjeta de Identidad (Minor's ID Card)
-            
-            **Required when CUSTOMER_ID is provided.**
+          description: Type of customer identification document
           required: false
         FILTERS:
           type: string
-          pattern: "^[A-Za-z0-9:;]+$"
-          maxLength: 500
           example: "MobilePhone:3222233322;Phone:542545454;AccountNumber:12452145"
-          description: |
-            **Advanced Filter Criteria**
-            
-            Apply multiple search filters using key-value pairs. Each filter consists of a field name
-            and value separated by a colon (:), with multiple filters separated by semicolons (;).
-            
-            **Supported Filter Fields:**
-            - **MobilePhone**: Mobile phone number (10 digits)
-            - **Phone**: Landline phone number (7-10 digits)
-            - **AccountNumber**: Service or billing account number
-            - **Email**: Customer email address
-            - **ServiceAccount**: Service account identifier
-            - **BillingAccount**: Billing account number
-            
-            **Format:** FieldName:Value;FieldName2:Value2
-            **Example:** MobilePhone:3221234567;Email:customer@email.com
+          description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
           required: false
         LIMIT:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 10
-          example: 25
-          description: |
-            **Result Limit**
-            
-            Maximum number of customer records to return in the response.
-            Used for pagination and performance optimization.
-            
-            **Range:** 1-100 records
-            **Default:** 10 records
-            **Recommendation:** Use smaller limits (10-25) for better performance
+          type: number
+          description: Limit on orders to display
           required: false
         OFFSET:
-          type: integer
-          minimum: 0
-          default: 0
-          example: 50
-          description: |
-            **Pagination Offset**
-            
-            Number of records to skip before returning results. Used in combination
-            with LIMIT for pagination through large result sets.
-            
-            **Format:** Non-negative integer
-            **Default:** 0 (start from first record)
-            **Example:** OFFSET=50&LIMIT=25 returns records 51-75
+          type: string
+          description: used to organize information and establish a logical order
           required: false
     responses:
           200:
-            description: |
-              **Customer Data Retrieved Successfully**
-              
-              Returns comprehensive customer profiles with aggregated data from multiple backend systems.
-              The response provides a unified view of customer information including identity data, services,
-              billing status, order history, and support interactions.
-              
-              **Response Format (API-Controlled):**
-              - **codeResponse**: Always "200" for successful operations
-              - **responseMessage**: "La solicitud fue exitosa" (Spanish success message)
-              - **customer**: Array of customer profile objects
-              
-              **Customer Profile Structure:**
-              - **identityData**: Personal information (names, document, birth date, demographics)
-              - **contactData**: Communication details (email, phones, address, location)
-              - **atdp**: Data protection and treatment consents with audit trail
-              - **ley2300**: Contact registry and communication preferences compliance
-              - **segment**: Customer categorization (Households, SMEs, Enterprise)
-              - **customerExperience**: Service attention type and experience category
-              - **services**: Array of active services with plans and SVAs (Value Added Services)
-              - **service**: Detailed service information including billing, equipment, and status
-              - **orders**: Complete order history with scheduling and technician details
-              - **pqrs**: Support cases (PQR) with activities, assignments, and resolution tracking
-              
-              **Data Enrichment Features:**
-              - Real-time service status from provisioning systems
-              - Current billing balances and payment status
-              - Geographic coverage and technology availability
-              - Equipment inventory and technical specifications
-              - Audit trails with formatted dates and user tracking
-              
-              **Pagination Support:**
-              Multiple customer records returned when search criteria matches several profiles,
-              controlled by LIMIT and OFFSET parameters for efficient data retrieval.
             body:
               application/json:
                 type: !include /datatypes/response/get-customer.raml
                 example: !include /examples/response/get-customer.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
   post:
     is: 
      - tibcoHeaders
-     - commonResponses
     securedBy: [etb_oauth_2_0]
-    displayName: Create New Customer Profile in MDM
-    description: |
-      **Customer Profile Creation with Comprehensive Validation**
-      
-      Creates new customer records in ETB's Master Data Management (MDM/Siebel) system with complete
-      data validation, normalization, and enrichment processes. This endpoint supports both individual
-      and business customer onboarding with integrated compliance and coverage verification.
-      
-      **Customer Types Supported:**
-      - **Natural Persons**: Individual customers with personal identification (CC, CE, TI, Passport)
-      - **Legal Entities**: Business customers with tax identification (NIT, RUT) and financial data
-      - **Mixed Profiles**: Customers with both personal and business relationships
-      
-      **Data Processing Pipeline:**
-      1. **Input Validation**: Document format, email syntax, phone number validation
-      2. **Business Rules**: Duplicate detection, credit assessment, regulatory compliance
-      3. **Address Normalization**: Geographic validation and coverage analysis
-      4. **System Integration**: MDM creation, downstream synchronization triggers
-      5. **Enrichment**: Credit scoring, segmentation, service availability mapping
-      
-      **Validation & Compliance:**
-      - **Colombian Standards**: Document number validation per document type
-      - **Address Validation**: Real-time geographic verification and standardization
-      - **Credit Assessment**: Automated scoring for business customers with financial data
-      - **ATDP Compliance**: Customer treatment and data protection consent tracking
-      - **Coverage Analysis**: Service availability verification at installation addresses
-      
-      **Channel Integration:**
-      - **Web Portals**: Customer self-registration with guided validation
-      - **Agent Systems**: Assisted registration with business rule enforcement
-      - **Mobile Apps**: Simplified registration flow with photo ID validation
-      - **Bulk Import**: Batch customer creation from external systems
-      
-      **Business Intelligence:**
-      - Automatic customer segmentation (Households, SMEs, Enterprise)
-      - Geographic service coverage mapping
-      - Technology availability analysis (FTTH, Copper, Mobile)
-      - Risk assessment and credit scoring integration
-    
+    displayName: create Customer
+    description: create Customer
     queryParameters:
         BUSINESS:
           type: string
-          enum: ["MDM"]
           example: "MDM"
-          description: |
-            **Target Business System**
-            
-            Specifies the backend system where the customer record will be created.
-            Currently only MDM (Master Data Management) is supported as the primary
-            customer data repository.
-            
-            **System Integration:**
-            - **MDM**: Creates customer in Siebel MDM system
-            - Automatically synchronizes with downstream systems
-            - Triggers customer validation workflows
-          required: true
-    
+          description: Parameter that defines the data source on which the operation will be executed.
     body:
         application/json:
           type: !include /datatypes/request/customer.raml
-          description: |
-            **Customer Creation Payload**
-            
-            Complete customer information including:
-            - **Personal Data**: Names, document information, birth date
-            - **Contact Information**: Email, phones, addresses
-            - **Company Data**: Business information (for legal entities)
-            - **ATDP Data**: Regulatory compliance information
-            - **Address Data**: Service installation addresses with coverage details
           example: !include /examples/request/customer.json
-    
     responses:
           200:
-            description: |
-              **Customer Profile Created Successfully in MDM**
-              
-              New customer record has been successfully created in ETB's Master Data Management (MDM/Siebel) system
-              with complete validation, normalization, and enrichment processes applied. The response contains the
-              complete customer profile with system-generated identifiers and enriched data.
-              
-              **Response Format (API-Controlled):**
-              - **codeResponse**: Always "200" for successful customer creation
-              - **responseMessage**: Success confirmation message
-              - **customer**: Complete customer object with all processed data
-              
-              **Data Enrichment Applied:**
-              - **System IDs**: Generated customer ID, source system identifiers, user tracking
-              - **Address Normalization**: Standardized addresses with geographic coordinates
-              - **Coverage Analysis**: Service availability mapping with technology details (FTTH/Copper/Mobile)
-              - **Credit Scoring**: Automated risk assessment for business customers
-              - **Segmentation**: Customer classification (Households, SMEs, Enterprise)
-              - **Validation Results**: Document verification, email deliverability, phone validation
-              
-              **Integration Triggers:**
-              - **Downstream Synchronization**: Automatic propagation to billing, CRM, and service systems
-              - **Workflow Activation**: Customer onboarding processes and service provisioning workflows
-              - **Audit Trail Creation**: Complete activity logging in MongoDB with user attribution
-              - **Compliance Registration**: ATDP consent tracking and regulatory compliance setup
-              
-              **Business Intelligence Data:**
-              - Geographic coverage mapping with service availability zones
-              - Technology feasibility analysis for installation addresses
-              - Customer value assessment and segmentation classification
-              - Risk profiling and credit scoring (where applicable)
             body:
               application/json:
                 type: !include /datatypes/response/customer.raml
                 example: !include /examples/response/customer.json
-  /{id}:
-    description: |
-      **Customer by ID Resource**
-      
-      Operations on specific customer records identified by their unique ID.
-      The ID parameter can be a customer's document number or system-generated identifier.
-    
-    uriParameters:
-      id:
-        type: string
-        pattern: "^[0-9A-Za-z-]+$"
-        minLength: 6
-        maxLength: 20
-        example: "12552454"
-        description: |
-          **Customer Identifier**
-          
-          The unique identifier for the customer. Can be:
-          - Document number (CC, NIT, etc.)
-          - System-generated customer ID
-          - Service account number
-          
-          **Format:** Alphanumeric string, 6-20 characters
-    
-    patch:
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+  patch:
       is: 
       - tibcoHeaders
-      - commonResponses
       securedBy: [etb_oauth_2_0]
-      displayName: Update Customer Profile with Partial Data
-      description: |
-        **Customer Profile Update with Business Rule Enforcement**
-        
-        Updates existing customer records in MDM with partial data modification support. Only the fields
-        provided in the request body are updated, while existing data remains unchanged. All updates
-        are subject to business rule validation and compliance verification.
-        
-        **Update Scope & Capabilities:**
-        - **Personal Information**: Names, demographics, contact preferences (with consent validation)
-        - **Contact Data**: Email addresses, phone numbers with deliverability verification
-        - **Address Information**: Installation and correspondence addresses with coverage re-validation
-        - **Company Data**: Business information, financial data for legal entities
-        - **ATDP Settings**: Customer treatment and data protection consent management
-        - **Segmentation**: Customer classification and experience category updates
-        
-        **Business Rule Enforcement:**
-        - **Immutable Fields**: Document type and number cannot be modified (regulatory compliance)
-        - **Address Validation**: Geographic verification and service coverage re-analysis for address changes
-        - **Consent Management**: Contact updates require explicit customer consent verification
-        - **Credit Re-assessment**: Business customer updates trigger automatic credit re-evaluation
-        - **Duplicate Prevention**: Cross-validation against existing customer database
-        
-        **System Integration & Synchronization:**
-        - **Real-time Propagation**: Updates synchronized across billing, CRM, and service provisioning
-        - **Workflow Triggers**: Address changes initiate service coverage analysis workflows
-        - **Audit Trail**: Complete change history with user attribution and timestamp tracking
-        - **Compliance Logging**: ATDP and regulatory compliance activity recording
-        
-        **Data Validation Pipeline:**
-        1. **Field-level Validation**: Format, pattern, and business rule compliance
-        2. **Cross-system Verification**: Consistency checks across integrated systems
-        3. **Coverage Analysis**: Service availability validation for address changes
-        4. **Enrichment Process**: Data normalization and business intelligence updates
-      
+      displayName: update Customer
+      description: update Customer
       queryParameters:
           BUSINESS:
             type: string
-            enum: ["MDM"]
             example: "MDM"
-            description: |
-              **Target Business System**
-              
-              Specifies the backend system where the customer update will be applied.
-              Updates in MDM are automatically synchronized with downstream systems.
-            required: true
-      
+            description: Parameter that defines the data source on which the operation will be executed.
       body:
           application/json:
             type: !include /datatypes/request/customer.raml
-            description: |
-              **Customer Update Payload**
-              
-              Partial or complete customer information for update. Only include
-              fields that need to be modified. The structure follows the same
-              format as customer creation but all fields are optional.
             example: !include /examples/request/customer.json
-      
       responses:
           200:
-            description: |
-              **Customer Profile Updated Successfully**
-              
-              Customer record has been successfully updated in MDM with all business rule validations applied.
-              The response contains the complete customer profile reflecting all changes, enrichments, and
-              system-generated updates resulting from the modification process.
-              
-              **Response Format (API-Controlled):**
-              - **codeResponse**: Always "200" for successful updates
-              - **responseMessage**: Update confirmation message
-              - **customer**: Complete updated customer profile with all current data
-              
-              **Update Confirmation Data:**
-              - **Modification Timestamp**: Exact date/time of last update with multiple format representations
-              - **User Attribution**: System tracking of user who performed the update
-              - **Validation Results**: Confirmation of all field validations and business rule compliance
-              - **Enrichment Results**: Any system-generated data improvements or corrections
-              
-              **System Synchronization Status:**
-              - **MDM Update**: Confirmed persistence in Master Data Management system
-              - **Downstream Propagation**: Automatic synchronization status to billing, CRM, service systems
-              - **Coverage Re-analysis**: Updated service availability data (if addresses were modified)
-              - **Credit Re-assessment**: Updated credit scoring (if business data was modified)
-              
-              **Audit Trail Information:**
-              - Complete change history with field-level modification tracking
-              - Compliance activity logging for ATDP and regulatory requirements
-              - Workflow trigger confirmation for address or contact changes
-              - Integration status across all connected business systems
             body:
               application/json:
                 type: !include /datatypes/response/customer.raml
                 example: !include /examples/response/customer.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
 /productOrder:
-    description: |
-      **Product Order Management - Complete Order Lifecycle Tracking**
-      
-      This resource provides comprehensive access to product order information with complete lifecycle tracking
-      from order creation through fulfillment. It integrates data from Oracle Order Management and field service
-      systems to provide real-time order status, scheduling information, and execution details.
-      
-      **Order Lifecycle Management:**
-      - **Order Creation**: New service requests with complete customer and technical specifications
-      - **Status Tracking**: Real-time order progression through fulfillment workflow stages
-      - **Schedule Management**: Installation appointments, technician assignments, and time slot coordination
-      - **Fulfillment Monitoring**: Technical implementation progress and completion verification
-      - **Exception Handling**: Cancellation processing, failure analysis, and rescheduling management
-      
-      **Service Order Categories:**
-      - **New Installations**: FTTH fiber, Copper broadband, Mobile service activations
-      - **Service Modifications**: Plan upgrades/downgrades, feature additions/removals, speed changes
-      - **Equipment Management**: Router installations, replacements, upgrades, and maintenance
-      - **Location Services**: Service relocations, address changes, and coverage migrations  
-      - **Account Management**: Service cancellations, suspensions, and reactivations
-      
-      **Technical Integration Points:**
-      - **Oracle Order Management**: Core order data, customer information, and business workflow status
-      - **Field Service Systems**: Technician scheduling, assignment tracking, and completion reporting
-      - **Inventory Management**: Equipment allocation, availability verification, and logistics coordination
-      - **Billing Integration**: Service activation triggers and billing account association
-      
-      **Business Intelligence Features:**
-      - Order performance analytics with completion time tracking
-      - Technician productivity monitoring and resource optimization
-      - Customer satisfaction correlation with order fulfillment metrics
-      - Geographic service delivery analysis and capacity planning
-    
     get:
       is: 
        - tibcoHeaders
-       - commonResponses
       securedBy: [etb_oauth_2_0]
-      displayName: Retrieve Product Orders
-      description: |
-        **Retrieve Product Order Information**
-        
-        Retrieves detailed information about product orders including order status,
-        scheduling details, technician assignments, and order characteristics.
-        Supports filtering by customer document, order number, and various order attributes.
-        
-        **Use Cases:**
-        - Customer service agents tracking order status
-        - WhatsApp bot providing order updates to customers
-        - Portal displaying order history and current status
-        - Mobile app showing installation appointments
-        
-        **Order Status Values:**
-        - **Pending**: Order created, awaiting processing
-        - **In Progress**: Order being processed or installed
-        - **Scheduled**: Installation/service appointment scheduled
-        - **Completed**: Order successfully fulfilled
-        - **Cancelled**: Order cancelled by customer or system
-        - **Failed**: Order could not be completed
-        
-        **Data Sources:** Integrates with Oracle Order Management and field service systems.
-      
+      displayName: productOrder
+      description: view product orders
       queryParameters:
         ORIGIN:
           type: string
-          pattern: "^[A-Z_]+$"
-          minLength: 2
-          maxLength: 20
           example: "WHATSAPP"
-          description: |
-            **Request Origin Channel**
-            
-            Identifies the channel making the request for audit and business rule application.
-            Used for customizing response format and applying channel-specific filters.
-          required: true
+          description: Parameter that allows the origin of the request to be identified
         ORDER_NUMBER:
           type: string
-          pattern: "^[A-Z0-9-]+$"
-          minLength: 5
-          maxLength: 20
-          example: "ORD-2024-001234"
-          description: |
-            **Order Number**
-            
-            Specific order identifier to retrieve. When provided, returns detailed
-            information for that specific order only.
-            
-            **Format:** Alphanumeric with hyphens, 5-20 characters
-            **Example:** ORD-2024-001234, INST-2024-5678
+          example: "MDM"
+          description: Order number
           required: false
         FILTERS:
           type: string
-          pattern: "^[A-Za-z0-9:;]+$"
-          maxLength: 500
-          example: "DocumentType:CC;DocumentNumber:12452145"
-          description: |
-            **Order Filter Criteria**
-            
-            Apply multiple search filters using key-value pairs to locate orders.
-            
-            **Supported Filter Fields:**
-            - **DocumentType**: Customer document type (CC, NIT, CE, etc.)
-            - **DocumentNumber**: Customer identification number
-            - **OrderType**: Type of order (INSTALLATION, UPGRADE, RELOCATION, etc.)
-            - **Status**: Order status (PENDING, IN_PROGRESS, COMPLETED, etc.)
-            - **Technology**: Service technology (FTTH, COPPER, MOBILE)
-            - **ServiceAccount**: Service account number
-            - **CreateDate**: Order creation date (YYYY-MM-DD format)
-            
-            **Format:** FieldName:Value;FieldName2:Value2
+          example: "Phone:CC;AccountNumber:12452145"
+          description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
           required: false
         LIMIT:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 10
-          example: 25
-          description: |
-            **Result Limit**
-            
-            Maximum number of orders to return. Used for pagination and performance optimization.
+          type: number
+          description: Limit on orders to display
           required: false
         OFFSET:
-          type: integer
-          minimum: 0
-          default: 0
-          example: 25
-          description: |
-            **Pagination Offset**
-            
-            Number of records to skip before returning results.
+          type: string
+          description: used to organize information and establish a logical order
           required: false
       responses:
           200:
-            description: |
-              **Product Orders Retrieved with Complete Lifecycle Data**
-              
-              Returns comprehensive product order information with complete lifecycle tracking data from Oracle
-              Order Management and integrated field service systems. Each order includes detailed status tracking,
-              scheduling information, and technical implementation progress.
-              
-              **Response Format (API-Controlled):**
-              - **codeResponse**: Always "200" for successful order retrieval
-              - **responseMessage**: "succes" (success confirmation message)
-              - **order**: Array of order objects with complete tracking data
-              
-              **Order Information Structure:**
-              - **id**: Unique order identifier in Oracle Order Management system
-              - **CUN**: Customer Unified Number for order correlation and tracking
-              - **orderType**: Service request category (installation, upgrade, relocation, cancellation)
-              - **state**: Current order status (pending, in_progress, scheduled, completed, cancelled, failed)
-              - **creationDate**: Order creation timestamp with ISO 8601 format
-              - **phone**: Service line or contact phone number associated with the order
-              
-              **Customer Association:**
-              - **customer.documentType**: Customer identification document type (CC, NIT, CE, etc.)
-              - **customer.documentNumber**: Customer identification number for verification
-              - **customer.name**: Customer name for order association and communication
-              
-              **Service Technical Details:**
-              - **service.phone**: Service line number for activation/modification
-              - **service.technology**: Technical platform (FTTH, COPPER, MOBILE)
-              - **service.state**: Service status (active, inactive, pending activation)
-              
-              **Scheduling & Field Service:**
-              - **schedule.date**: Confirmed appointment date and time (ISO 8601)
-              - **schedule.status**: Appointment status (confirmed, pending, rescheduled)
-              - **technician.name**: Assigned technician name for customer contact
-              - **technician.id**: Technician identifier for field service coordination
-              
-              **Service Plan Information:**
-              - **newOffer**: Target service plan with name and pricing details
-              - **oldOffer**: Previous service plan (for modification orders) with pricing
-              - **Price values**: All pricing information in Colombian Pesos (COP)
-              
-              **Order Status Classifications:**
-              - **pending**: Order created, awaiting technical feasibility analysis
-              - **in_progress**: Order under active processing or technical implementation
-              - **scheduled**: Installation/service appointment confirmed with technician assignment
-              - **completed**: Order successfully fulfilled with service activation confirmed
-              - **cancelled**: Order cancelled by customer request or business rules
-              - **failed**: Order could not be completed due to technical or business constraints
             body:
               application/json:
                 type: !include /datatypes/response/get-productOrder.raml
                 example: !include /examples/response/get-productOrder.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
 /customerBill:
-  description: |
-    **Customer Billing Resource**
-    
-    This resource provides access to customer billing information including invoice details,
-    payment history, outstanding balances, and billing account information. Supports
-    multiple search criteria to locate billing records across different service types.
-    
-    **Billing Information Includes:**
-    - Invoice details and payment due dates
-    - Service charges and taxes
-    - Payment history and transaction records
-    - Outstanding balance information
-    - Billing cycle and next invoice date
-    - Payment methods and preferences
-  
   get:
     is: 
      - tibcoHeaders
-     - commonResponses
     securedBy: [etb_oauth_2_0]
-    displayName: Retrieve Customer Billing Information
-    description: |
-      **Retrieve Customer Billing Details**
-      
-      Retrieves comprehensive billing information for customers including current
-      and historical invoices, payment records, and account status. Supports
-      multiple search methods using billing numbers, phone numbers, or barcode references.
-      
-      **Use Cases:**
-      - Customer service providing billing support
-      - WhatsApp bot answering balance inquiries
-      - Customer portal displaying billing history
-      - Mobile app showing current balance and payment options
-      - Payment processing and verification
-      
-      **Data Sources:**
-      - Oracle Billing System for invoice data
-      - Payment gateway for transaction history
-      - Customer database for account associations
-      
-      **Performance:** Typically responds within 1-3 seconds depending on history depth.
-    
+    displayName: getCustomerBilling
+    description: view customer billing
     queryParameters:
         ORIGIN:
           type: string
-          pattern: "^[A-Z_]+$"
-          minLength: 2
-          maxLength: 20
           example: "WHATSAPP"
-          description: |
-            **Request Origin Channel**
-            
-            Identifies the channel making the billing inquiry for audit and compliance purposes.
-          required: true
+          description: Parameter that allows the origin of the request to be identified
         BILLING_NUMBER:
           type: string
-          pattern: "^[0-9]+$"
-          minLength: 8
-          maxLength: 15
           example: "12552454"
-          description: |
-            **Billing Account Number**
-            
-            The primary billing account identifier. This number appears on customer invoices
-            and is used to associate services with billing records.
-            
-            **Format:** Numeric string, 8-15 digits
-            **Usage:** Primary identifier for billing account lookup
+          description: Number billing
           required: false
         FILTERS:
           type: string
-          pattern: "^[A-Za-z0-9:;]+$"
-          maxLength: 500
-          example: "Barcode:542545454;Phone:12452145;BillingAccount:656565:DocumentNumber:72727277;DocumentType:CC;"
-          description: |
-            **Billing Search Filters**
-            
-            Apply multiple search criteria to locate billing information.
-            
-            **Supported Filter Fields:**
-            - **Barcode**: Invoice barcode number for payment reference
-            - **Phone**: Associated phone number (landline or mobile)
-            - **BillingAccount**: Billing account number
-            - **ServiceAccount**: Service account identifier
-            - **DocumentNumber**: Customer document number
-            - **InvoiceNumber**: Specific invoice number
-            - **PaymentReference**: Payment transaction reference
-            
-            **Format:** FieldName:Value;FieldName2:Value2
-            **Example:** Barcode:1234567890;Phone:3201234567
-          required: false
-        NOTIFICATION_METHOD:
-          type: string
-          description: method of notification of clearance certificate
-          example: "Email, Phone or whatsapp"
-          required: false
-        NOTIFICATION_VALUE:
-          type: string
-          description: Value of the notification method. Phone number or WhatsApp according to the selected notification method.
-          example: "1234567891"
+          example: Barcode:542545454;Phone:12452145;BillingAccount:656565"
+          description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
           required: false
         LIMIT:
-          type: integer
-          minimum: 1
-          maximum: 100
-          default: 10
-          example: 12
-          description: |
-            **Result Limit**
-            
-            Maximum number of billing records to return. Recommended to use smaller
-            limits (10-25) for better performance when retrieving detailed billing history.
+          type: number
+          description: Limit on orders to display
           required: false
         OFFSET:
-          type: integer
-          minimum: 0
-          default: 0
-          example: 10
-          description: |
-            **Pagination Offset**
-            
-            Number of billing records to skip before returning results.
-            Used for paginating through billing history.
+          type: string
+          description: used to organize information and establish a logical order
           required: false
     responses:
           200:
-            description: |
-              **Billing Information Retrieved Successfully**
-              
-              Returns comprehensive billing information for the customer including
-              current invoices, payment history, outstanding balances, and account details.
-              
-              **Response includes:**
-              - Current outstanding balance and due dates
-              - Recent invoice details and line items
-              - Payment history and transaction records
-              - Billing cycle information and next invoice date
-              - Payment methods and preferences
-              - Service charges breakdown by service type
             body:
               application/json:
                 type: !include /datatypes/response/get-customerBill.raml
                 example: !include /examples/response/get-customerBill.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
   /balance:
-    description: |
-      **Customer Balance Resource**
-      
-      This resource provides real-time balance information for customer accounts
-      including current outstanding amounts, credit balances, payment due dates,
-      and account status. Particularly important for prepaid mobile services
-      and postpaid account management.
-    
     get:
       is: 
       - tibcoHeaders
-      - commonResponses
       securedBy: [etb_oauth_2_0]
-      displayName: Retrieve Customer Account Balance
-      description: |
-        **Retrieve Current Account Balance**
-        
-        Retrieves real-time balance information for customer accounts including
-        current outstanding amounts, available credit, payment due dates, and
-        account status across all services (fixed, mobile, internet, TV).
-        
-        **Balance Types:**
-        - **Outstanding Balance**: Amount due for postpaid services
-        - **Credit Balance**: Available credit for prepaid services
-        - **Current Charges**: Unbilled usage charges
-        - **Pending Payments**: Payments in process but not yet applied
-        - **Overdue Amounts**: Past-due balances requiring immediate attention
-        
-        **Use Cases:**
-        - WhatsApp bot providing instant balance information
-        - Customer portal displaying account status
-        - Mobile app balance inquiries
-        - Customer service balance verification
-        - Payment processing and validation
-        
-        **Real-time Data:** Balance information is updated in real-time from
-        billing systems and payment gateways.
-      
+      displayName: getCustomerBilling
+      description: view customer billing
       queryParameters:
           ORIGIN:
             type: string
-            pattern: "^[A-Z_]+$"
-            minLength: 2
-            maxLength: 20
             example: "WHATSAPP"
-            description: |
-              **Request Origin Channel**
-              
-              Identifies the channel requesting balance information for audit
-              and personalization of response format.
-            required: true
+            description: Parameter that allows the origin of the request to be identified
           CUSTOMER_ID:
             type: string
-            pattern: "^[0-9]{6,15}$"
-            minLength: 6
-            maxLength: 15
             example: "12552454"
-            description: |
-              **Customer Identification Number**
-              
-              The customer's primary identification document number.
-              Must be used in combination with CUSTOMER_ID_TYPE.
-              
-              **Format:** Numeric string, 6-15 digits
+            description: Customer identification number can be ID card or tax ID number
             required: false
           CUSTOMER_ID_TYPE:
             type: string
             enum: ["CC","CE","PASAPORTE","NIT","RUT","TI"]
             example: "CC"
-            description: |
-              **Document Type**
-              
-              Type of identification document for the customer.
-              Required when CUSTOMER_ID is provided.
-              
-              **Document Types:**
-              - **CC**: Cédula de Ciudadanía (Colombian National ID)
-              - **CE**: Cédula de Extranjería (Foreign Resident ID)
-              - **PASAPORTE**: Passport
-              - **NIT**: Número de Identificación Tributaria (Tax ID)
-              - **RUT**: Registro Único Tributario (Business Tax Registry)
-              - **TI**: Tarjeta de Identidad (Minor's ID Card)
+            description: Type of customer identification document
             required: false
           BILLING_ACCOUNT:
             type: string
-            pattern: "^[A-Z0-9-]+$"
-            minLength: 8
-            maxLength: 20
-            example: "BA-2024001234"
-            description: |
-              **Billing Account Number**
-              
-              Specific billing account identifier to retrieve balance information.
-              When provided, returns balance details for that specific account only.
-              
-              **Format:** Alphanumeric with hyphens, 8-20 characters
+            description: User billing account to retrieve balances
             required: false
           CONNECTION_NUMBER:
-            type: string
-            pattern: "^[0-9]{7,10}$"
-            minLength: 7
-            maxLength: 10
-            example: '3201234567'
-            description: |
-              **Phone Number**
-              
-              Customer's phone number (landline or mobile) associated with the service.
-              Used to identify the specific service account for balance inquiry.
-              
-              **Format:** 
-              - Mobile: 10 digits starting with 3
-              - Landline: 7-8 digits (Bogotá area code optional)
+            type: number
+            description: User phone number
             required: false
-      
       responses:
             200:
-              description: |
-                **Customer Balance Information Retrieved with Real-Time Data**
-                
-                Returns comprehensive, real-time balance information for customer accounts with detailed breakdowns
-                by service type, promotional balances, and consumption tracking. Data is aggregated from billing
-                systems and payment gateways to ensure accuracy for customer inquiries and payment processing.
-                
-                **Response Format (API-Controlled):**
-                - **codeResponse**: Always "200" for successful balance retrieval
-                - **messageResponse**: Balance query confirmation (typically empty for success)
-                - **balance**: Complete balance object with detailed breakdowns
-                
-                **Main Balance Information:**
-                - **availableCoin**: Type/category of available currency or credit units
-                - **availableCoinValue**: Numerical value of total available balance
-                - **promotionCoin**: Type/category of promotional currency or bonus credit
-                - **promotionCoinValue**: Numerical value of promotional balance available
-                
-                **Detailed Balance Structure:**
-                - **detailed.detail**: Array of balance sections organized by service category
-                - **sectionName**: Service category identifier (Voice, Data, SMS, etc.)
-                - **boxes**: Array of specific balance categories within each section
-                - **boxName**: Specific balance category name (Minutes, MB, Messages)
-                - **groupName**: Balance grouping classification for reporting
-                - **unitType**: Type of measurement units (minutes, megabytes, SMS count, currency)
-                - **available**: Currently available amount in the specified units
-                - **consumed**: Amount already used from the provisioned allowance
-                - **provisioned**: Total amount allocated/purchased for the category
-                
-                **Offer-Specific Details:**
-                - **offers**: Array of specific service offers within each balance category
-                - **offerName**: Commercial name of the specific offer or plan
-                - **available/consumed/provisioned**: Offer-specific usage tracking
-                - **expirationDate**: When the specific offer or balance expires
-                
-                **Balance Summary:**
-                - **summary.resource**: Consolidated view of all balance types across services
-                - **name**: Resource type name (Voice, Data, SMS, Credit)
-                - **available/consumed/provisioned**: Aggregated amounts across all offers
-                - **expirationDate**: Earliest expiration date across all related balances
-                
-                **Real-Time Data Features:**
-                - Balance information updated in real-time from billing systems
-                - Payment gateway integration for immediate transaction reflection
-                - Prepaid service management with usage tracking
-                - Promotional balance monitoring with expiration alerts
-                - Multi-service aggregation (Fixed, Mobile, Internet, TV)
               body:
                 application/json:
                   type: !include /datatypes/response/get-balance.raml
                   example: !include /examples/response/get-balance.json
-
+            400:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-400.json
+            401:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-401.json
+            404:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-404.json
+            500:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-500.json
   /clearance:
       get:
         is: 

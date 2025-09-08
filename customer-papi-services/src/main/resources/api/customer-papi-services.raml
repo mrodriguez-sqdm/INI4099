@@ -113,8 +113,8 @@ mediaType:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
-  /{id}:
-    patch:
+
+  patch:
       is: [security_client_id,tibcoHeaders]
       displayName: update Customer
       description: update Customer
@@ -224,7 +224,7 @@ mediaType:
           required: false
         FILTERS:
           type: string
-          example: "Barcode:542545454;Phone:12452145;BillingAccount:656565:DocumentNumber:72727277;DocumentType:CC;"
+          example: "Barcode:542545454;Phone:12452145;BillingAccount:656565;DocumentNumber:72727277;DocumentType:CC;"
           description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
           required: false
         NOTIFICATION_METHOD:

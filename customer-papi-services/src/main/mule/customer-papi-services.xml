@@ -41,7 +41,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\customer:application\json:customer-papi-services-config" doc:id="56349943-43eb-4e7e-8a75-160dba714c8a">
 		<flow-ref doc:name="Flow Reference" doc:id="44a059c6-4250-47e5-8b7b-b3f924ff12f8" name="create-customer-orchestratorSub_Flow"/>
 	</flow>
-	<flow name="patch:\customer\(id):application\json:customer-papi-services-config" doc:id="5d5ab57c-ac53-4fe8-be3f-07d06d463504">
+	<flow name="patch:\customer:application\json:customer-papi-services-config" doc:id="5d5ab57c-ac53-4fe8-be3f-07d06d463504">
 		<flow-ref doc:name="Flow Reference" doc:id="30ba563b-7c13-4b7e-8566-cd0b2388cd85" name="update-customer-orchestratorSub_Flow"/>
 	</flow>
 	<flow name="get:\productOrder:customer-papi-services-config" doc:id="e6941693-372f-4137-bb2d-94227fda7f90" >

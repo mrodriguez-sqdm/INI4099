@@ -1,0 +1,86 @@
+http:
+  private:
+    port: "8091"
+
+configurationTimeout:
+  mdm-db: "60000"
+  or-db: "60000"
+  prtl_pro_bd: "60000"
+  audits-mongo: "60000"
+
+api_id: "mongo-db-sapi-services-qa"
+  
+mongoDb-mdm:
+  host_list:
+    host1: "10.10.0.23"
+    host2: ""
+  port: "27017"
+  database: "MDM"
+  database-parametrization: "AUTOGESTION"
+  username: "usermdm"
+  password: "MM0rWtVfp7"
+ 
+  mayoristas:
+    collection-order: "MDM_CD_ORDEN"
+    collection-order-completed: "MDM_CD_ORDEN_COMPLETADA"
+    
+  mulesoft:
+    tokens: "MULESOFT_TOKENS"
+    clients: "MULESOFT_CLIENTES"
+    systems: "MULESOFT_SISTEMAS" 
+  
+  serviceProblem: 
+    collection-pqr: "PQR_PQR"
+    collection-consecutives: "PAR_CONSECUTIVOS"   
+    
+  audits:
+    collection-dijin: "MDM_AUDITORIA_DIJIN"
+  clientes:
+    collection-cliente: "MDM_CLIENTE"
+  parametros:
+    collection-parametro: "MDM_CD_PARAMETRO"
+        
+audits-sapi:
+  host: "mule-worker-internal-audits-oracle-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basePath: "/api/v1/logs"
+  path: "/systems/{system_id}/apis/{api_id}"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+
+audits-mongo-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-audits-mongo-db-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basePath: "/audits/v1/logs/"
+  path: "/apis/{api_id}"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+    
+retryConfiguration:
+  maxRetry: "3"
+   
+scheduler:
+  frequency: "24"
+
+cacheKeys:
+  typeParameters: "TP"
+  
+logging:
+  deniedProcessName: "send_message"
+  mayoristas:
+    causal: "OFF"
+    clientes: "OFF"
+    ordenes:
+      obtener: "OFF"
+      actualizar: "OFF"
+      insertar: "OFF"
+    ordenesModelo: "OFF"
+    status: "OFF"
+    servicios: "OFF"
+    
+autodiscovery: "20236556"
+
+
+#Parametro de busqueda interaccion HSM en minutos
+search-interaction: "15"

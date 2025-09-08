@@ -1,136 +1,13 @@
 #%RAML 1.0
-title: Resource XAPI Services
+title: resource-xapi-services
 version: v1
 baseUri:  https://resource-xapi-services-{env}.us-e2.cloudhub.io/{version}
-description: |
-  ## API Overview
-  
-  **Architecture Layer:** XAPI (Experience Layer) - Part of ETB's API-led connectivity architecture
-  
-  **Core Capabilities:**
-  - **Service Normalization:** Internet service recovery and normalization operations following TM Forum TMF664 standard
-  - **Network Diagnostics:** Real-time ONT (Optical Network Terminal) status monitoring and connection quality assessment
-  - **Failure Management:** Massive failure detection, tracking, and priority-based resolution management
-  - **Network Semaphore:** Visual indicators for network status including attenuation, modem health, noise levels, and signal potency
-  
-  **Integration Points:**
-  - **resource-papi-services:** Process layer for resource management orchestration (port 8091)
-  - **bot-sapi-services:** System layer integration with Bot Services backend via `/soporte1n/normalizeinternet/v1`
-  - **audits-oracle-sapi-services:** Oracle-based audit logging for compliance and traceability (port 8091)
-  
-  **Standards Compliance:**
-  - TM Forum TMF664 (Resource Function Activation & Configuration) v6.1.1
-  - RESTful API design principles
-  - OAuth 2.0 security standards
-  
-  **Performance Metrics:**
-  - Target response time: < 3 seconds for normalization operations
-  - Availability target: 99.5% monthly uptime
-  - Maximum error rate: < 2% of transactions
-  
-  **Target Consumers:**
-  - WhatsApp Business Channel
-  - Customer Support Portal
-  - Field Service Mobile Applications
-  - Technical Support Agent Desktop
-  - Automated Service Recovery Systems
-
-documentation:
-  - title: Technical Architecture
-    content: |
-      ## Architecture Overview
-      
-      This API serves as the experience layer for network resource management and service normalization. It orchestrates technical support operations through integration with Bot Services, providing real-time diagnostics and automated recovery capabilities for ETB's internet services.
-      
-      ## Data Integration
-      
-      **Primary Backend Systems:**
-      - **Bot Services:** Core system for service normalization via `/api/soporte1n/v3/normalizeinternet`
-      - **Resource PAPI:** Process orchestration layer for complex resource operations
-      - **Oracle Database:** Enterprise audit repository for compliance and operational tracking
-      
-      **Data Flow Patterns:**
-      - Synchronous request-response for normalization operations
-      - Real-time diagnostic data retrieval
-      - Event-driven massive failure notifications
-      - Audit trail generation for all operations
-      
-      ## Response Codes
-      
-      **API-Controlled Response Codes (in response body):**
-      - `200`: Successful normalization operation
-      - `REQUEST_ERROR`: Invalid request parameters or business validation failure
-      - `Unauthorized`: Invalid or expired authentication token
-      - `NOT_FOUND`: Service or resource not found in system
-      - `INTERNAL_SERVER_ERROR`: Backend system failure or timeout
-      
-      ## Error Handling
-      
-      All errors follow a standardized structure with:
-      - Business-specific error codes in the response body
-      - Detailed error messages for troubleshooting
-      - Origin tracking for multi-system error propagation
-      - Correlation IDs for end-to-end traceability
-      
-      ## Performance Standards
-      
-      **Response Time Expectations:**
-      - Normalization operations: < 3 seconds
-      - Diagnostic retrieval: < 1 second
-      - Massive failure queries: < 2 seconds
-      - Audit logging: Asynchronous (non-blocking)
-
+description: Provisioning and lifecycle management of Resource Functions
 protocols:
   - HTTPS
 
 traits:
   tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
-  commonResponses:
-    responses:
-      400:
-        description: |
-          **API Error Code:** `REQUEST_ERROR`
-          
-          **Common Issues:**
-          - Missing required parameters (businessSegment, serviceAccount, phone)
-          - Invalid resource ID format
-          - Unsupported operation type
-          - Business validation failures
-          
-          **System Context:** Validation performed at API Gateway before backend processing
-      401:
-        description: |
-          **API Error Code:** `Unauthorized`
-          
-          **Common Issues:**
-          - Missing or invalid OAuth 2.0 bearer token
-          - Token expired (tokens valid for 3600 seconds)
-          - Insufficient scope for normalization operations
-          - Client credentials not authorized for resource management
-          
-          **System Context:** Token validation against ETB OAuth 2.0 provider
-      404:
-        description: |
-          **API Error Code:** `NOT_FOUND`
-          
-          **Common Issues:**
-          - Service account does not exist
-          - Resource ID not found in inventory
-          - Invalid phone number or service reference
-          - Service already terminated or inactive
-          
-          **System Context:** Resource validation at PAPI layer
-      500:
-        description: |
-          **API Error Code:** `INTERNAL_SERVER_ERROR`
-          
-          **Common Issues:**
-          - Bot Services timeout (> 30 seconds)
-          - Resource PAPI unavailable
-          - Network infrastructure failure
-          - Database connection issues
-          
-          **System Context:** Error logged with correlation ID for support investigation
 
 mediaType: 
   - application/json
@@ -140,408 +17,88 @@ securitySchemes:
 
 
 /resourceFunction:
-  description: |
-    ## Resource Description
-    
-    **Business Purpose:** Manages resource functions for internet service normalization and recovery. This resource provides automated technical support capabilities to restore service functionality, diagnose network issues, and track massive failures affecting multiple customers.
-    
-    **Data Integration:**
-    - **resource-papi-services:** Process layer orchestration for resource operations
-    - **bot-sapi-services:** System layer integration with Bot Services for normalization execution
-    - **Bot Services:** External backend system performing actual service recovery via `/api/soporte1n/v3/normalizeinternet`
-    
-    **Business Intelligence Features:**
-    - **Real-time Diagnostics:** ONT status, connection quality, and speed fault detection
-    - **Massive Failure Correlation:** Automatic detection and tracking of area-wide service disruptions
-    - **Network Health Indicators:** Visual semaphore system for quick status assessment
-    - **Priority-based Resolution:** Automated prioritization based on failure impact and customer segment
-    
   post:
     is:
       - tibcoHeaders
-      - commonResponses
-    securedBy: [etb_oauth_2_0]
-    displayName: Normalize Internet Service
-    description: |
-      ## Operation Summary
-      
-      Executes a normalization operation to restore internet service functionality. This operation performs automated technical recovery procedures, provides real-time diagnostics, and returns comprehensive network status information including massive failure indicators when applicable.
-      
-      ## Use Cases
-      
-      - **WhatsApp Channel:** Automated service recovery initiated through chatbot interaction
-      - **Portal Channel:** Customer self-service normalization from web portal
-      - **Mobile Channel:** Field technician service normalization during on-site visits
-      - **Agent Channel:** Support staff executing recovery procedures for escalated cases
-      - **Automated Recovery:** System-triggered normalization for proactive service restoration
-      
-      ## Data Sources
-      
-      - Primary: resource-papi-services `/v1/resourceFunction` endpoint
-      - Secondary: bot-sapi-services `/soporte1n/normalizeinternet/v1` endpoint
-      - Backend: Bot Services normalization engine `/api/soporte1n/v3/normalizeinternet`
-      - Audit: audits-oracle-sapi-services for operation logging
-      
-      ## Performance Characteristics
-      
-      - Response time: < 3 seconds for normalization execution
-      - Success rate: > 85% for automated recovery
-      - Rate limits: 10 normalizations per service per hour
-      - Timeout: 30 seconds for backend operations
+    #securedBy: [etb_oauth_2_0]
+    displayName: normaliceService
+    description: perform an action to normalize service
     queryParameters:
       ORIGIN:
         type: string
         example: "WHATSAPP"
-        description: |
-          **Business Purpose:** Identifies the channel or system originating the normalization request for analytics and routing optimization
-          
-          **Valid Values:** WHATSAPP, PORTAL, MOBILE_APP, AGENT_DESKTOP, IVR, AUTOMATED_SYSTEM
-          
-          **Usage Examples:**
-          - WHATSAPP: Service recovery initiated via WhatsApp chatbot
-          - PORTAL: Customer self-service from web portal
-          - MOBILE_APP: Field technician using mobile application
-          - AUTOMATED_SYSTEM: Proactive recovery triggered by monitoring
-          
-          **Channel Variations:** Required for all channels to ensure proper audit trail and success metrics tracking
-        required: true
+        description: "Parameter that allows the origin of the request to be identified"
     body:
       application/json:
         type: !include /datatypes/request/normalice-service.raml
         example: !include /examples/request/normalice-service.json
-        description: |
-          ## Request Body Structure
-          
-          **Business Segment (businessSegment):**
-          - **Purpose:** Customer segment classification for priority routing
-          - **Valid Values:** RESIDENTIAL, CORPORATE, SMB, GOVERNMENT, VIP
-          - **Business Logic:** VIP and GOVERNMENT segments receive priority processing
-          
-          **Service Account (serviceAccount):**
-          - **Purpose:** Unique account identifier for service association
-          - **Format:** Alphanumeric, 10-15 characters
-          - **Validation:** Must exist in billing system
-          - **Example:** ACC1234567890
-          
-          **Phone (phone):**
-          - **Purpose:** Service line number requiring normalization
-          - **Format:** 10 digits (Colombian mobile/fixed format)
-          - **Pattern:** ^[0-9]{10}$
-          - **Example:** 3001234567
-          
-          **Resource ID (resourceID):**
-          - **Purpose:** Unique identifier of the network resource (ONT/Modem)
-          - **Format:** Equipment serial number or MAC address
-          - **Validation:** Must be registered in inventory
-          - **Example:** ONT-ABC123456 or AA:BB:CC:DD:EE:FF
-          
-          **Resource Type (resourceType):**
-          - **Purpose:** Classification of network equipment
-          - **Valid Values:** ONT, MODEM, ROUTER, SWITCH, GATEWAY
-          - **Business Logic:** Determines specific normalization procedures
-          
-          **Function Type (functionType):**
-          - **Purpose:** Category of normalization function to execute
-          - **Valid Values:** RESET, RESTART, RECONFIGURE, DIAGNOSE, OPTIMIZE
-          - **Business Logic:** RESET performs full factory reset, RESTART does soft reboot
-          
-          **Operation (operation):**
-          - **Purpose:** Specific technical operation within function type
-          - **Valid Values:** FULL_RESET, SOFT_RESET, PORT_RESET, SYNC_RESET, CACHE_CLEAR
-          - **Dependencies:** Must be compatible with selected functionType
-          - **Example:** FULL_RESET for functionType=RESET
     responses:
         200:
-          description: |
-            **API-Controlled Code:** `200` in codeResponse field
-            
-            **Response Structure:**
-            - **codeResponse:** API success code (always "200" for successful operations)
-            - **messageResponse:** Human-readable success message or operation details
-            - **diagnostic:** Real-time network diagnostic information
-            - **massiveFailure:** Area-wide failure information if applicable
-            - **semaphore:** Visual network health indicators
-            
-            **Data Enrichment:**
-            - Automatic timestamp formatting in multiple formats for UI flexibility
-            - Priority calculation based on failure impact and customer segment
-            - Expected resolution time estimation using ML models
-            - Network health color coding (Verde/Green, Amarillo/Yellow, Rojo/Red)
-            
-            **Business Context:**
-            - Successful normalization doesn't guarantee immediate service restoration
-            - Massive failure information supersedes individual diagnostics
-            - Semaphore indicators provide quick visual status for support agents
-            - Multiple date/time formats support various UI requirements
           body:
             application/json:
               type: !include /datatypes/response/normalice-service.raml
               example: !include /examples/response/normalice-service.json
-              description: |
-                ## Response Fields Documentation
-                
-                **Diagnostic Object:**
-                - **ontOn (boolean):** ONT power status - true indicates device is powered
-                - **poorConnection (boolean):** Connection quality indicator - true indicates degraded service
-                - **speedFault (boolean):** Speed test failure indicator - true indicates bandwidth issues
-                - **Data Source:** Real-time polling from network monitoring system
-                
-                **Massive Failure Object:**
-                - **startDate/endDate:** Failure window with multiple format options for UI flexibility
-                - **expectedSolutionTime (integer):** Minutes until expected resolution
-                - **priority (integer):** 1-5 scale (1=highest priority)
-                - **product (string):** Affected service type (INTERNET, TV, VOICE)
-                - **numPqr (string):** Master ticket number for failure tracking
-                - **Business Logic:** Only populated when service is part of identified massive failure
-                
-                **Semaphore Object:**
-                - **attenuation (string):** Signal loss indicator (Verde/Amarillo/Rojo)
-                - **modem (string):** Modem health status
-                - **noise (string):** Line noise level indicator
-                - **potency (string):** Signal strength indicator
-                - **Interpretation:** Verde=Good, Amarillo=Warning, Rojo=Critical
         400:
-          description: |
-            **API Error Code:** `REQUEST_ERROR`
-            
-            **Common Issues:**
-            - Missing required fields (all request fields are technically optional but business-required)
-            - Invalid phone number format (must be 10 digits)
-            - Service account not found in billing system
-            - Invalid resource type or function type combination
-            - Resource ID not registered in inventory
-            
-            **System Context:** Validation performed at XAPI layer before PAPI invocation
           body:
             application/json:
               type: !include /datatypes/response/error.raml
               example: !include /examples/response/error-400.json
         401:
-          description: |
-            **API Error Code:** `Unauthorized`
-            
-            **Common Issues:**
-            - Missing or invalid OAuth 2.0 bearer token
-            - Token expired (tokens valid for 3600 seconds)
-            - Insufficient scope for normalization operations
-            - Client not authorized for technical support operations
-            
-            **System Context:** OAuth validation against ETB identity provider
           body:
             application/json:
               type: !include /datatypes/response/error.raml
               example: !include /examples/response/error-401.json
         404:
-          description: |
-            **API Error Code:** `NOT_FOUND`
-            
-            **Common Issues:**
-            - Service account does not exist
-            - Phone number not associated with account
-            - Resource ID not found in network inventory
-            - Service in terminated or suspended state
-            
-            **System Context:** Resource validation at Bot Services integration point
           body:
             application/json:
               type: !include /datatypes/response/error.raml
               example: !include /examples/response/error-404.json
         500:
-          description: |
-            **API Error Code:** `INTERNAL_SERVER_ERROR`
-            
-            **Common Issues:**
-            - Bot Services timeout (> 30 seconds)
-            - Resource PAPI services unavailable
-            - Network infrastructure communication failure
-            - Database connection timeout
-            - Unexpected response format from backend
-            
-            **System Context:** Error logged with correlation ID, automatic incident creation for critical failures
           body:
             application/json:
               type: !include /datatypes/response/error.raml
               example: !include /examples/response/error-500.json
   /setWifiPassword:
-    description: |
-      ## Resource Description
-      
-      **Business Purpose:** pending.
-      
-      **Data Integration:**
-      - **resource-papi-services:** Process layer orchestration for resource operations
-      - **bot-sapi-services:** System layer integration with Bot Services for setwifinetpassword execution
-      - **Bot Services:** External backend system performing actual service recovery via `/api/soporte1n/v3/setwifinetpassword`
-      
-      **Business Intelligence Features:**
-      - **Real-time Diagnostics:** ONT status, connection quality, and speed fault detection
-      - **Massive Failure Correlation:** Automatic detection and tracking of area-wide service disruptions
-      - **Network Health Indicators:** Visual semaphore system for quick status assessment
-      - **Priority-based Resolution:** Automated prioritization based on failure impact and customer segment
-      
+    description:  
     post:
       is:
         - tibcoHeaders
-        - commonResponses
       securedBy: [etb_oauth_2_0]
       displayName: Set Wifi Password
-      description: |
-        ## Operation Summary
-        
-        pending
-        
-        ## Use Cases
-        
-         pending
-        
-        ## Data Sources
-        
-        - Primary: resource-papi-services `/v1/resourceFunction/setWifiPassword` endpoint
-        - Secondary: bot-sapi-services `/soporte1n/setwifinetpassword/v1` endpoint
-        - Backend: Bot Services normalization engine `/api/soporte1n/v3/setwifinetpassword`
-        - Audit: audits-oracle-sapi-services for operation logging
-        
-        ## Performance Characteristics
-        
-        - Response time: < 3 seconds for normalization execution
-        - Success rate: > 85% for automated recovery
-        - Rate limits: 10 normalizations per service per hour
-        - Timeout: 30 seconds for backend operations
+      description: Set wifi password
       queryParameters:
         ORIGIN:
           type: string
           example: "WHATSAPP"
-          description: |
-            **Business Purpose:** Identifies the channel or system originating the normalization request for analytics and routing optimization
-            
-            **Valid Values:** WHATSAPP, PORTAL, MOBILE_APP, AGENT_DESKTOP, IVR, AUTOMATED_SYSTEM
-            
-            **Usage Examples:**
-            - WHATSAPP: Service recovery initiated via WhatsApp chatbot
-            - PORTAL: Customer self-service from web portal
-            - MOBILE_APP: Field technician using mobile application
-            - AUTOMATED_SYSTEM: Proactive recovery triggered by monitoring
-            
-            **Channel Variations:** Required for all channels to ensure proper audit trail and success metrics tracking
+          description: "Parameter that allows the origin of the request to be identified"
           required: true
       body:
         application/json:
           type: !include /datatypes/request/set-wifi-password.raml
           example: !include /examples/request/set-wifi-password.json
-          description: |
-            ## Request Body Structure
-             PENDING
-             
       responses:
           200:
-            description: |
-              **API-Controlled Code:** `200` in codeResponse field
-              
-              **Response Structure:**
-              - **codeResponse:** API success code (always "200" for successful operations)
-              - **messageResponse:** Human-readable success message or operation details
-              - **diagnostic:** Real-time network diagnostic information
-              - **massiveFailure:** Area-wide failure information if applicable
-              - **semaphore:** Visual network health indicators
-              
-              **Data Enrichment:**
-              - Automatic timestamp formatting in multiple formats for UI flexibility
-              - Priority calculation based on failure impact and customer segment
-              - Expected resolution time estimation using ML models
-              - Network health color coding (Verde/Green, Amarillo/Yellow, Rojo/Red)
-              
-              **Business Context:**
-              - Successful normalization doesn't guarantee immediate service restoration
-              - Massive failure information supersedes individual diagnostics
-              - Semaphore indicators provide quick visual status for support agents
-              - Multiple date/time formats support various UI requirements
             body:
               application/json:
                 type: !include /datatypes/response/set-wifi-password.raml
                 example: !include /examples/response/set-wifi-password.json
-                description: |
-                  ## Response Fields Documentation
-                  
-                  **Diagnostic Object:**
-                  - **ontOn (boolean):** ONT power status - true indicates device is powered
-                  - **poorConnection (boolean):** Connection quality indicator - true indicates degraded service
-                  - **speedFault (boolean):** Speed test failure indicator - true indicates bandwidth issues
-                  - **Data Source:** Real-time polling from network monitoring system
-                  
-                  **Massive Failure Object:**
-                  - **startDate/endDate:** Failure window with multiple format options for UI flexibility
-                  - **expectedSolutionTime (integer):** Minutes until expected resolution
-                  - **priority (integer):** 1-5 scale (1=highest priority)
-                  - **product (string):** Affected service type (INTERNET, TV, VOICE)
-                  - **numPqr (string):** Master ticket number for failure tracking
-                  - **Business Logic:** Only populated when service is part of identified massive failure
-                  
-                  **Semaphore Object:**
-                  - **attenuation (string):** Signal loss indicator (Verde/Amarillo/Rojo)
-                  - **modem (string):** Modem health status
-                  - **noise (string):** Line noise level indicator
-                  - **potency (string):** Signal strength indicator
-                  - **Interpretation:** Verde=Good, Amarillo=Warning, Rojo=Critical
           400:
-            description: |
-              **API Error Code:** `REQUEST_ERROR`
-              
-              **Common Issues:**
-              - Missing required fields (all request fields are technically optional but business-required)
-              - Invalid phone number format (must be 10 digits)
-              - Service account not found in billing system
-              - Invalid resource type or function type combination
-              - Resource ID not registered in inventory
-              
-              **System Context:** Validation performed at XAPI layer before PAPI invocation
             body:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-400.json
           401:
-            description: |
-              **API Error Code:** `Unauthorized`
-              
-              **Common Issues:**
-              - Missing or invalid OAuth 2.0 bearer token
-              - Token expired (tokens valid for 3600 seconds)
-              - Insufficient scope for normalization operations
-              - Client not authorized for technical support operations
-              
-              **System Context:** OAuth validation against ETB identity provider
             body:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-401.json
           404:
-            description: |
-              **API Error Code:** `NOT_FOUND`
-              
-              **Common Issues:**
-              - Service account does not exist
-              - Phone number not associated with account
-              - Resource ID not found in network inventory
-              - Service in terminated or suspended state
-              
-              **System Context:** Resource validation at Bot Services integration point
             body:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-404.json
           500:
-            description: |
-              **API Error Code:** `INTERNAL_SERVER_ERROR`
-              
-              **Common Issues:**
-              - Bot Services timeout (> 30 seconds)
-              - Resource PAPI services unavailable
-              - Network infrastructure communication failure
-              - Database connection timeout
-              - Unexpected response format from backend
-              
-              **System Context:** Error logged with correlation ID, automatic incident creation for critical failures
             body:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
-        
