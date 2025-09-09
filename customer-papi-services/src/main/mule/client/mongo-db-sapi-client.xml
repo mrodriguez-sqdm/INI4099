@@ -51,10 +51,6 @@ output application/java
 	"source": vars.headers.source,
 	"systemId": vars.headers.systemId
 }]]]></http:headers>
-			<http:uri-params ><![CDATA[#[%dw 2.0
-output application/java
----
-attributes.uriParams]]]></http:uri-params>
 		</http:request>
 	</sub-flow>
 </mule>

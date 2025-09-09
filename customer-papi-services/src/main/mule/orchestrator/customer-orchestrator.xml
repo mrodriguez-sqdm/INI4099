@@ -910,8 +910,7 @@ output application/json
 ---
 {
   code: payload.codigo,
-  message: payload.mensaje,
-  id: payload.id
+  message: payload.mensaje
 }
 ]]></ee:set-payload>
 			</ee:message>

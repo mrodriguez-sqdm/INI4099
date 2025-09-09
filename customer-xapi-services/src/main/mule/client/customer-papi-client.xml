@@ -67,10 +67,6 @@ attributes.queryParams]]]></http:query-params>
 	"source": attributes.headers.source,
 	"systemId": attributes.headers.systemId
 }]]]></http:headers>
-			<http:uri-params ><![CDATA[#[%dw 2.0
-output application/java
----
-attributes.uriParams]]]></http:uri-params>
 			<http:query-params ><![CDATA[#[output application/java
 ---
 attributes.queryParams]]]></http:query-params>

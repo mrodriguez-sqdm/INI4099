@@ -43,7 +43,7 @@ mongo-db-sapi:
       post:
         path: ""
       patch:
-        path: "/{id}"
+        path: ""
 
   security:
     client-id: "b8665f3c588a4a709576760a1cc5a582"
