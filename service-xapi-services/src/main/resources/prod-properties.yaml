@@ -11,6 +11,8 @@ service-papi:
   base-path: "/services/v1"
   service:
     base-path: "/serviceOrder"
+  resource:
+    base-path: "/resource"
 
   security:
     client-id: "7b167b9c389a4c0099bbf7ea34df88fc"

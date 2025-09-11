@@ -922,4 +922,27 @@ read(error.muleMessage.typedValue.message.message, 'application/json')
 			</error-handler>
 		</try>
 	</sub-flow>
+	<sub-flow name="get-subscription-msisdn-imei" doc:id="9179e827-c539-40c7-ab6d-146b9a4a8600" >
+		<try doc:name="Try" doc:id="18f86e4d-686c-45a0-8207-2946ad2f87a6" >
+			<http:request method="GET" doc:name="Get IMEI by msisdn" doc:id="afa24585-87c1-40a4-8816-da2278c2a8df" config-ref="HTTP_Request_configuration_jsc" path="${jsc-sapi.subscription.path}${jsc-sapi.subscription.msisdn}" >
+				<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('jsc-sapi.client_secret'),
+	
+	"client_id" : p('jsc-sapi.client_id')
+}]]]></http:headers>
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	msisdn : vars.parameters.RESOURCE_ID
+}]]]></http:uri-params>
+			</http:request>
+			<error-handler >
+				<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="37dba27b-eacb-4b81-94b4-506612d59baf" >
+					<set-variable value="#[p('jsc-sapi.subscription-id-feature.errorMessage-get')]" doc:name="Set Error Message" doc:id="f1026d01-0ba7-4407-993d-3267725b1966" variableName="errorMessageOutput" />
+				</on-error-propagate>
+			</error-handler>
+		</try>
+	</sub-flow>
 </mule>

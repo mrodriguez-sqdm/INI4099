@@ -11,6 +11,8 @@ service-papi:
   base-path: "/services/v1"
   service:
     base-path: "/serviceOrder"
+  resource:
+    base-path: "/resource"
 
 
   security:

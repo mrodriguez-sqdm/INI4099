@@ -81,6 +81,7 @@ jsc-sapi:
   subscription:
     path: "/subscription"
     getBySID: "/subscription/group/{SID}"
+    msisdn: "/{msisdn}/imei"
     errorMessage: "Error retrieving info subscription"
     get-svas:
       caracteristica: "JSC ID"

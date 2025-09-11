@@ -34,4 +34,19 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="get-resource-clientSub_Flow" doc:id="14eef48d-53ec-4d76-a8da-34dff9fc1596" >
+		<http:request method="GET" doc:name="Request" doc:id="11e1819c-7f2d-4636-a801-3d69f1cdda3f" config-ref="HTTP_Request_configuration_service-papi" path="${service-papi.resource.base-path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('service-papi.security.client-secret'),
+	"client_id" : p('service-papi.security.client-id'),
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"system": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>

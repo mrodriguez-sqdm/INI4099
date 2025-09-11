@@ -37,4 +37,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\serviceOrder:application\json:service-xapi-services-config" doc:id="2c313ad7-308f-4d8a-86e7-9d05fea69f36" >
 		<flow-ref doc:name="Flow Reference" doc:id="24b08003-4053-4108-8fd9-a0ee08c5c282" name="post-service-Order-clientSub_Flow"/>
 	</flow>
+	<flow name="get:\resource:service-xapi-services-config" doc:id="1d171afc-fe9d-4131-ba62-47d204dc9b0f" >
+		<flow-ref doc:name="Flow Reference" doc:id="146540a8-363c-4d6b-ba80-c9dd94f2d99c" name="get-resource-clientSub_Flow"/>
+	</flow>
 </mule>

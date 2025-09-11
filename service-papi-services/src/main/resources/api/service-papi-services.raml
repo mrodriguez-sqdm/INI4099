@@ -679,3 +679,66 @@ traits:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/error/error-500.json  
+  /resource:
+      get:
+        is: [security_client_id,commonHeaders]
+        displayName: Resource Inventory
+        description: Resource Inventory.
+        queryParameters:
+          ORIGIN:
+            type: string
+            example: "JSC"
+            description: "Parameter that allows the origin of the request to be identified"
+          ORDER_NUMBER:
+            type: string
+            example: "12552454"
+            description: "number of order"
+            required: false
+          CUSTOMER_ID:
+            type: string
+            example: "12552454"
+            description: Customer identification number can be ID card or tax ID number
+            required: false
+          CUSTOMER_ID_TYPE:
+            type: string
+            enum: ["CC","CE","PASAPORTE","NIT","RUT","TI"]
+            example: "CC"
+            description: Type of customer identification document
+            required: false
+          RESOURCE_ID:
+            type: number
+            example: 12552454
+            description: resource number can be IMEI, IMSI, MSISDN
+            required: false
+          RESOURCE_TYPE:
+            type: string
+            enum: ["IMEI", "IMSI", "MSISDN"]
+            example: "IMEI"
+            description: resource TYPE can be IMEI, IMSI, MSISDN
+            required: false 
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include datatypes/response/get-resource.raml
+                example: !include examples/responses/get-resource.json
+          400:
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/error/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/error/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/error/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/error/error-500.json
