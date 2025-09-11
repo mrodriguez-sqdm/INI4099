@@ -161,4 +161,7 @@ output application/json
 	<flow name="patch:\v1\msisdn\(msisdn):application\json:jsc-sapi-services-config">
 		<flow-ref doc:name="Go to patch-msisdn-handlerSub_Flow" doc:id="19495a75-13cb-49b5-b5f3-55b77ec1decc" name="patch-msisdn-handlerSub_Flow"/>
     </flow>
+	<flow name="get:\v1\subscription\(msisdn)\imei:jsc-sapi-services-config" doc:id="95aa906f-a85f-4b8f-9134-e1ba2c1b50c7" >
+		<flow-ref doc:name="Go to get-subscription-msisdn-imei-handlerSub_Flow" doc:id="8d253d7a-2cb4-4f12-b81c-ddf3097e8249" name="get-subscription-msisdn-imei-handlerSub_Flow"/>
+	</flow>
 </mule>

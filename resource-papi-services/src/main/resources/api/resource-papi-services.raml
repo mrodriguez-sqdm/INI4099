@@ -71,8 +71,48 @@ mediaType:
           200:
             body:
               application/json:
-                type: !include /datatypes/response/set-wifi-password.raml
-                example: !include /examples/response/set-wifi-password.json
+                type: !include /datatypes/response/resource-function.raml
+                example: !include /examples/response/resource-function.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+  /configureService:
+    post:
+      is: [security_client_id,tibcoHeaders]
+      displayName: configure Service
+      description: Updates the WiFi network status (enable/disable); receives network data and returns updated status.
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: "Parameter that allows the origin of the request to be identified"
+      body:
+        application/json:
+          type: !include /datatypes/request/configure-service.raml
+          example: !include /examples/request/configure-service.json
+      responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/resource-function.raml
+                example: !include /examples/response/resource-function.json
           400:
             body:
               application/json:

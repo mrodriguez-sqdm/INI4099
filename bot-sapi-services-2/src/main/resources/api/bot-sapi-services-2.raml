@@ -1,0 +1,83 @@
+#%RAML 1.0
+title: bot-sapi-services-2
+version: v1
+baseUri: http://bot-sapi-services-{env}.us-e2.cloudhub.io/bot/{version}
+protocols: [HTTP]
+mediaType: application/json
+description: |
+  API para la comunicación con servicios del bot.
+
+traits:
+  security_client_id: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/security-clientid/1.0.3/security-clientid.raml
+  request_headers: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
+  encrypted_headers: !include datatypes/request/objects/encrypt.raml
+
+/services:
+  /validateimei:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Validar IMEI
+      description: Validar IMEI
+      body:
+        application/json:
+          type: !include /datatypes/request/post-valida-imei.raml
+          example: !include /examples/request/post-valida-imei.json
+      responses:
+        200:
+          description: IMEI validado exitosamente.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-valida-imei.raml
+              example: !include /examples/response/post-valida-imei.json
+
+  /suspendvoluntarily:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Suspender línea voluntariamente
+      description: Suspender línea voluntariamente
+      body:
+        application/json:
+          type: !include /datatypes/request/post-suspend-voluntarily.raml
+          example: !include /examples/request/post-suspend-voluntarily.json
+      responses:
+        200:
+          description: Suspensión voluntaria realizada exitosamente.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-suspend-voluntarily.raml
+              example: !include /examples/response/post-suspend-voluntarily.json
+
+  /suspendbytheft:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Suspender línea por robo
+      description: Suspender línea por robo
+      body:
+        application/json:
+          type: !include /datatypes/request/post-suspend-bytheft.raml
+          example: !include /examples/request/post-suspend-bytheft.json
+      responses:
+        200:
+          description: Suspensión por robo realizada exitosamente.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-suspend-bytheft.raml
+              example: !include /examples/response/post-suspend-bytheft.json
+
+/soporte1n:
+  /setwifinetworkstate:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Cambiar estado de red WiFi
+      description: Cambiar estado de red WiFi
+      body:
+        application/json:
+          type: !include /datatypes/request/post-setwifi-networkstate.raml
+          example: !include /examples/request/post-setwifi-networkstate.json
+      responses:
+        200:
+          description: Estado de red WiFi cambiado exitosamente.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-setwifi-networkstate.raml
+              example: !include /examples/response/post-setwifi-networkstate.json

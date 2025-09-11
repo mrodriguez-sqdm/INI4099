@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="post-soporte1n-setwifinetworkstate-orchestadorSub_Flow" doc:id="13584a82-ae37-4324-8271-b8c541586008" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="3937fe11-71c3-4400-a369-3e1f4068fcdd" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="51161eb1-4454-41d6-bab9-04a85f3a68b7" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="48aef48a-a8d1-4b5c-abb7-a634d218581d" name="botServices-soporte1n-setwifinetworkstate-clientSub_Flow" />
+	</sub-flow>
+</mule>

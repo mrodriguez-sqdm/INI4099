@@ -4,57 +4,19 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<sub-flow name="post-reconexion-orchestratorSub_Flow" doc:id="90965a0f-df9d-4460-b91f-6947af3ccfa3" >
-		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="95dd46fa-af30-404b-b9c2-a4df17053153" variableName="headers" />
-		<ee:transform doc:name="Set Body Request" doc:id="38a7e433-d537-4264-b8ca-57b6e47a6be4" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-  "WSRequestHeader": {
-    "System": {
-      "name": vars.headers.system,
-      "correlationID": vars.headers."X-CORRELATION-ID",
-      "processingServer": ""
-    },
-    "Property": []
-  },
-  "WSRequestBody": {
-    "Audit": {
-      "Canal": vars.headers.system
-    },
-    "Network_Type": "",
-    "Phone": payload.serviceOrder.customer.phone,
-    "Service_Type": "",
-    "Reconnection_Reason": ""
-  }
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-		<flow-ref doc:name="Flow Reference" doc:id="816982ea-2239-4998-9f4b-64fc59a30e83" name="post-reconexion-clientSub_Flow"/>
-		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="e6693b96-4a10-4db9-bbe6-03a687f5a3e9" variableName="httpStatus" />
-		<ee:transform doc:name="Set Body Response" doc:id="5858c2e7-ca22-4807-a3ce-ca63ce82d7e2" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-	codeResponse: vars.httpStatus as String ,
-	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-	order: payload.WSResponseBody.Message
-	
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
-	</sub-flow>
 	<sub-flow name="service-order-orchestratorSub_Flow" doc:id="fb825da7-a9af-4c3e-a9c6-bd42c4d40194" >
 		<choice doc:name="Choice" doc:id="a715738f-b256-4f56-9a53-2361243ef52b" >
-			<when expression='#[upper(payload.serviceOrder.operation) == "RECONEXION"]'>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "RECONEXION"]'>
 				<flow-ref doc:name="Flow Reference" doc:id="302103f2-678a-48a4-87ec-bbd04c655d71" name="post-reconexion-orchestratorSub_Flow"/>
 			</when>
-			<when expression='#[upper(payload.serviceOrder.operation) == "TRASLADO"]'>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "TRASLADO"]'>
 				<flow-ref doc:name="Flow Reference" doc:id="eee64e5d-51a2-496d-8e2b-ee214a02d68a" name="post-reconexion-orchestratorSub_Flow"/>
+			</when>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION VOLUNTARIA"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="e0aa83b3-517e-43ce-a03f-be549cb15903" name="post-suspendvoluntarily-orchestratorSub_Flow"/>
+			</when>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION ROBO"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="77dbca44-3c64-47e3-90d6-92b11e566be2" name="post-suspendbytheft-orchestratorSub_Flow"/>
 			</when>
 			<otherwise >
 				<set-variable value='#[500]' doc:name="Set Http Status1" doc:id="96308fc6-c5f4-4346-bfd5-c89fded2e300" variableName="httpStatus" />
@@ -65,7 +27,7 @@ output application/json
 ---
 {
 	codeResponse: vars.httpStatus as String ,
-	messageResponse: "Ruta no definida segun el campo operacion"
+	messageResponse: "Ruta no definida segun el campo orderType, valores permitidos RECONEXION,TRASLADO, SUSPENSION VOLUNTARIA, SUSPENSION ROBO"
 	
 }]]></ee:set-payload>
 			</ee:message>
@@ -150,6 +112,50 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="post-reconexion-orchestratorSub_Flow" doc:id="90965a0f-df9d-4460-b91f-6947af3ccfa3">
+		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="95dd46fa-af30-404b-b9c2-a4df17053153" variableName="headers" />
+		<ee:transform doc:name="Set Body Request" doc:id="38a7e433-d537-4264-b8ca-57b6e47a6be4">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.system,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.system
+    },
+    "Network_Type": "",
+    "Phone": payload.serviceOrder.customer.phone,
+    "Service_Type": "",
+    "Reconnection_Reason": ""
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="816982ea-2239-4998-9f4b-64fc59a30e83" name="post-reconexion-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="e6693b96-4a10-4db9-bbe6-03a687f5a3e9" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="5858c2e7-ca22-4807-a3ce-ca63ce82d7e2">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	order: payload.WSResponseBody.Message
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
 	<sub-flow name="post-relocate-orchestratorSub_Flow" doc:id="c1b1277a-b617-4e7e-bd94-dfe1c0d3da9c" >
 		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="fcbf2dfb-46d1-4b98-af36-1a9258d1debd" variableName="headers" />
 		<ee:transform doc:name="Set Body Request" doc:id="fda67ebd-7bdc-4788-b775-2e72423c20ba" >
@@ -189,6 +195,104 @@ output application/json
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
 	order: payload.WSResponseBody.Message
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-suspendvoluntarily-orchestratorSub_Flow" doc:id="bf711127-24bc-4178-a082-716b1c8ac471" >
+		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="78bb1ea2-89af-45f4-bf17-5bcd939ffa00" variableName="headers" />
+		<ee:transform doc:name="Set Body Request" doc:id="8173a204-0254-4994-9a60-e19ae675c169" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.system,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.system
+    },
+    "Billing_Account": payload.serviceOrder.service.serviceAccountNumber default "",
+    "Phone": payload.serviceOrder.customer.phone default "",
+    "Suspension_Reason": payload.serviceOrder.causal default "",
+    "Suspension_Period": payload.serviceOrder.detailSuspend.suspensionPeriod default ""
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="9b9d9405-7e46-448e-9328-fba8b70e1c98" name="post-suspendvoluntarily-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="bf91b6ba-f19f-413c-ac51-227bb08c8c87" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="5b14b1c7-1ac7-4785-b54c-3f0c78d7f281" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	order: payload.WSResponseBody.Message
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-suspendbytheft-orchestratorSub_Flow" doc:id="7f560c55-c9f1-4b40-92a0-a7479ce54248" >
+		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="87708464-677b-4804-b0af-34287c223a47" variableName="headers" />
+		<ee:transform doc:name="Set Body Request" doc:id="5621e2a5-d11a-455d-8e56-da48b2b126ab" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.system,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.system
+    },
+    "Address": payload.serviceOrder.detailSuspend.address default "",
+    "City": payload.serviceOrder.detailSuspend.city default "",
+    "Contact_Email": payload.serviceOrder.detailSuspend.contactEmail default "",
+    "Contact_Phone": payload.serviceOrder.detailSuspend.contactPhone default "",
+    "Department": payload.serviceOrder.detailSuspend.department default "",
+    "Document_Number": payload.serviceOrder.detailSuspend.documentNumber default "",
+    "Document_Type": payload.serviceOrder.detailSuspend.documentType default "",
+    "IMEI": payload.serviceOrder.detailSuspend.imei default "",
+    "Mail": payload.serviceOrder.detailSuspend.mail default "",
+    "Phone": payload.serviceOrder.detailSuspend.phone default "",
+    "Violence": payload.serviceOrder.detailSuspend.violence default "",
+    "Younger": payload.serviceOrder.detailSuspend.younger default "",
+    "Weapon": payload.serviceOrder.detailSuspend.weapon default "",
+    "Suspension_Period": payload.serviceOrder.detailSuspend.suspensionPeriod default ""
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="4821953d-6dc7-459f-8002-b7bbb36cc82d" name="post-suspendbytheft-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="55b98ac5-ff84-4276-aef4-d74445fcfe3e" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="55e2d5f5-08ac-402f-a3d0-bad805a95e7c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	order: payload.WSResponseBody.Order_Number
 	
 }]]></ee:set-payload>
 			</ee:message>

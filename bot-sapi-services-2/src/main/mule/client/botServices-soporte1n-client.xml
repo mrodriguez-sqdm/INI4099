@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="botServices-soporte1n-setwifinetworkstate-clientSub_Flow" doc:id="7b92c85f-9e7b-4a0a-bca7-8b789ad0c8ee" >
+		<async doc:name="Async" doc:id="08d945bc-d6f8-4983-8ddd-dd9f935ad712" >
+			<flow-ref doc:name="Call Logger" doc:id="f45b0595-0e6a-4a65-a37c-3e7c52557397" name="loggin-client-call" />
+		</async>
+		<http:request method="POST" doc:name="Call bot soporte1n setwifinetworkstate" doc:id="921dce1d-efbc-4088-a878-3cb68727a959" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.soporte1n.rootPath}${botServices.resources.soporte1n.setWifiNetworkStateV3.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+		<async doc:name="Async1" doc:id="15bb8576-4595-4e31-8aa2-8c3b00101165" >
+			<flow-ref doc:name="Call Logger" doc:id="23cb6b79-330e-4a7c-bd90-adf3ba60026d" name="loggin-client-call" />
+		</async>
+	</sub-flow>
+</mule>

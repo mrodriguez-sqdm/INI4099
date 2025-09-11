@@ -35,6 +35,7 @@ jsc:
     post-topup: "/topup"
     get-subscription: "/subscription"
     get-subscription-sid: "/subscription/{SID}"
+    get-subscription-msisdn: "/subscription/{msisdn}/imei"
     get-pkgi: "/pkgi/{pkgi_id}"
     post-groupinstance: "/groupinstance/{groupInstanceId}/member"
     get-pkgibySID: "/pkgi"

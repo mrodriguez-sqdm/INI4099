@@ -41,4 +41,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\resourceFunction\setWifiPassword:application\json:resource-xapi-services-config" doc:id="453b650c-6e05-4967-af44-8721d0b64ae4" >
 		<flow-ref doc:name="Flow Reference" doc:id="0afc9172-40c5-4fa3-8518-f755525aa5f5" name="post-resourceFunction-setwifipassword-clientSub_Flow"/>
 	</flow>
+	<flow name="post:\resourceFunction\configureService:application\json:resource-xapi-services-config" doc:id="4262ebb0-923c-41ec-8b46-25c4e805d64c" >
+		<flow-ref doc:name="Flow Reference" doc:id="0e215b21-44ed-41a9-bf96-6906a725186c" name="post-resourceFunction-configure-service-clientSub_Flow"/>
+	</flow>
 </mule>

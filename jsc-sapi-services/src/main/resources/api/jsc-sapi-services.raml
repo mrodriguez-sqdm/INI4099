@@ -314,7 +314,19 @@ traits:
                 body:
                   application/json:
                     example: {}
-    /group:
+    /{msisdn}:
+      /imei:
+        get:
+          is: [security_client_id]
+          displayName: Get IMEI by msisdn
+          description: Get IMEI by msisdn
+          
+          responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/responses/get-subscription.json
+        /group:
       /{SID}:
         get:
           is: [security_client_id]

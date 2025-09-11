@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="post-services-suspendbytheft-orchestadorSub_Flow" doc:id="e7ff20d5-e582-4f02-9b86-ced8c608e1cf" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="3427f472-4b0c-4328-b98f-66f5df1dabcc" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="9b831e27-335a-4354-8ccb-2a1f9d80e44e" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="9767965b-6466-4aac-b172-5a619befc434" name="botServices-services-suspendbytheft-clientSub_Flow" />
+	</sub-flow>
+	<sub-flow name="post-services-suspendvoluntarily-orchestadorSub_Flow" doc:id="00531dcb-6f3d-4773-b564-695774e96629" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="57a7c2f3-8f72-40be-a373-74ddcb63a3d8" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="76870d63-fdf0-4290-998e-f57bfd9313c8" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="a5e6eb9d-49f5-4685-a92f-7c0f1f3a56f1" name="botServices-services-suspendvoluntarily-clientSub_Flow" />
+	</sub-flow>
+	<sub-flow name="post-services-validateimei-orchestadorSub_Flow" doc:id="d5ecdae9-0601-42d9-8cb6-feed29c7e38b" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="0d88b972-5216-4232-a723-588ed287ad57" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="89c70011-7d1c-4e1b-b9c1-de9b4bd8510b" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="d2f142ac-f79f-4dcc-a8f0-cff75ab28bd9" name="botServices-services-validateimei-clientSub_Flow" />
+	</sub-flow>
+</mule>

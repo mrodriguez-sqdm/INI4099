@@ -1,0 +1,28 @@
+[
+	{
+		"systemId": "MIGRACION",
+		"data": [
+			{
+				"method": "POST",
+				"path": "/api/operations/v1/generateRegisterUrl/(email)",
+				"processname": "Generate register URL"
+			},
+			{
+				"method": "POST",
+				"path": "/api/saleOrder/encripted/v1",
+				"processname": "post botservices encrypted salesrorder"
+			},
+			{
+				"method": "POST",
+				"path": "/api/parameters/cities/v1",
+				"processname": "post botservices encrypted salesrorder"
+			},
+			{
+				"method": "POST",
+				"path": "/api/parameters/departments/v1",
+				"processname": "post botservices encrypted salesrorder"
+			}
+			
+		]
+	}
+]		

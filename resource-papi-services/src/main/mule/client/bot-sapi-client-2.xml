@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="soporte1n-setwifinetworkstate-bot-sapi-2-clientSub_Flow" doc:id="969daff7-fba9-49ee-9e23-fc4eda359326" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="ebc480a5-0bac-4ed6-b51c-02954ba81fce" config-ref="HTTP_Request_configuration_bot-sapi-2" path="${bot-sapi-2.endpoints.soporte1n.base-path}${bot-sapi-2.endpoints.soporte1n.setwifinetworkstate}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+</mule>

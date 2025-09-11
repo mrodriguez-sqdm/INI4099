@@ -26,6 +26,21 @@ bot-sapi:
      
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+bot-sapi-2:
+  protocol: "HTTP"
+  host: "mule-worker-internal-bot-sapi-services-2-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basepath: "/bot/v1"
+  endpoints:
+    services:
+      base-path: "/services"
+      validateimei: "/validateimei"
+      suspendvoluntarily: "/suspendvoluntarily"
+      suspendbytheft: "/suspendbytheft"
+      
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
 
 global:
   renoRepo:
@@ -41,6 +56,7 @@ configurationTimeout:
   sisext-sapi: "61000"
   mongo-cf-sapi: "61000"
   bot-sapi: "62000"
+  bot-sapi-2: "62000"
 
 autodiscovery: "19430281"
 

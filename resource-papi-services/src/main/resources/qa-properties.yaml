@@ -2,7 +2,7 @@ http:
   private:
     port: "8091"
   
-autodiscovery: "20429970"
+autodiscovery: ""
 
 bot-sapi:
   protocol: "HTTP"
@@ -16,6 +16,19 @@ bot-sapi:
       normalizetv: "/normalizetv/v1"
       normalizelb: "/normalizelb/v1"
       setwifinetworkpassword: "/setwifinetworkpassword/v1"
+      
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+bot-sapi-2:
+  protocol: "HTTP"
+  host: "mule-worker-internal-bot-sapi-services-2-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basepath: "/bot/v1"
+  endpoints:
+    soporte1n:
+      base-path: "/soporte1n"
+      setwifinetworkstate: "/setwifinetworkstate"
       
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
@@ -41,3 +54,4 @@ tls:
 
 configurationTimeout:
   bot-sapi: "62000"
+  bot-sapi-2: "62000"

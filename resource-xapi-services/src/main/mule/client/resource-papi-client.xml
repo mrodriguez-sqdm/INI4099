@@ -38,4 +38,21 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="post-resourceFunction-configure-service-clientSub_Flow" doc:id="fea86f5a-c59a-4c43-888f-41cc4e1e03a8" >
+		<http:request method="POST" doc:name="Request" doc:id="608878df-4cf3-4722-bf23-7d183c8ada3c" config-ref="HTTP_Request_configuration_resource-papi" path="${resource-papi.endpoints.resourceFunction.base-path}${resource-papi.endpoints.resourceFunction.configureService}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('resource-papi.security.client-secret'),
+	"client_id" : p('resource-papi.security.client-id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>

@@ -109,6 +109,11 @@
 			},
 			{
 				"method": "GET",
+				"path": "/jsc/v1/subscription/(msisdn)/imei",
+				"processname": "obtener imei by msisdn"
+			},
+			{
+				"method": "GET",
 				"path": "/jsc/v1/subscription/group/(SID)",
 				"processname": "Obtener groupInstance ID de l\u00EDnea virtual"
 			},

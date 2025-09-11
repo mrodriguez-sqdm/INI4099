@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="bot-sapi-services-2-main" doc:id="09d264af-a0f1-48c3-a269-491315ca2481" >
+		<http:listener doc:name="Listener" doc:id="b819f31a-0c51-47e7-869b-7eb721a1684a" config-ref="bot-sapi-services-2-httpListenerConfig" path="/bot/v1/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:router doc:id="f0cd6a41-3f4d-4af9-818b-27e6bd02dec9" config-ref="bot-sapi-services-2-config" doc:name="APIkit Router" />
+		<error-handler ref="error-handlerError_Handler" />
+	</flow>
+	<flow name="bot-sapi-services-2-console" doc:id="30148ba0-acb7-4dda-864f-222e9e176143" >
+		<http:listener doc:name="Listener" doc:id="2c7b6f8f-f628-4344-8f14-a1906d4f2f5a" config-ref="bot-sapi-services-2-httpListenerConfig" path="/console/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:console doc:id="8197b96d-e479-47b1-9298-869b3ad397cf" config-ref="bot-sapi-services-2-config" doc:name="APIkit Console" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="1bd0f4ae-fa20-4b35-83b1-4d7e646487d1" type="APIKIT:NOT_FOUND" >
+				<ee:transform doc:name="Transform Message" doc:id="b1eede04-816e-4aab-b7e7-f826f9eba348" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+	<flow name="post:\soporte1n\setwifinetworkstate:application\json:bot-sapi-services-2-config" doc:id="a121afcd-33c4-460c-9dc2-11f887c9c457" >
+		<flow-ref doc:name="Flow Reference" doc:id="aa8081bd-1e77-4233-ae57-9552700a1d75" name="post-soporte1n-setwifinetworkstate-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\services\suspendbytheft:application\json:bot-sapi-services-2-config" doc:id="4ca8ce17-faae-4177-960e-8fdfca7c1fca" >
+		<flow-ref doc:name="Flow Reference" doc:id="60bc54a8-a565-4884-b82b-8c8107087e43" name="post-services-suspendbytheft-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\services\suspendvoluntarily:application\json:bot-sapi-services-2-config" doc:id="28d87548-81a8-43c2-9b2d-fd6107b51f77" >
+		<flow-ref doc:name="Flow Reference" doc:id="b4a9dbc8-2d57-4eb6-a78a-5b2782699687" name="post-services-suspendvoluntarily-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\services\validateimei:application\json:bot-sapi-services-2-config" doc:id="81d082f5-890f-4b76-9843-fe7108c60497" >
+		<flow-ref doc:name="Flow Reference" doc:id="ac413176-c2c4-40b8-9a2d-11138d5de90d" name="post-services-validateimei-orchestadorSub_Flow"/>
+	</flow>
+</mule>

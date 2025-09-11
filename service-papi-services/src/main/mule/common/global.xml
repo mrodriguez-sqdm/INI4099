@@ -18,6 +18,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:request-config name="HTTP_Request_configuration_jsc" doc:name="HTTP Request configuration" doc:id="cc247256-01e6-4b74-ac25-f262aa68a247" basePath="${jsc-sapi.basePath}" responseTimeout="${configurationTimeout.jsc-sapi}" >
 		<http:request-connection protocol="${jsc-sapi.protocol}" host="${jsc-sapi.host}" port="${jsc-sapi.port}" />
 	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="128c62f9-24ed-46d9-be09-3c1071a8bdaf" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2}">
+		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" />
+	</http:request-config>
 	<http:request-config name="HTTP_Request_configuration_mongo" doc:name="HTTP Request configuration" doc:id="27a1f881-d7ba-4948-8248-0f5c94761405" basePath="${mongo-sapi.basePath}" responseTimeout="${configurationTimeout.mongo-sapi}" >
 		<http:request-connection protocol="${mongo-sapi.protocol}" host="${mongo-sapi.host}" port="${mongo-sapi.port}" />
 	</http:request-config>
