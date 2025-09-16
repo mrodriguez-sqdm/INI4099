@@ -129,6 +129,7 @@ output application/json
 				 else 
 					payload.WSResponseBody.Service.Customer.City.Name
 		},
+		state: payload.WSResponseBody.Customer.State,
         atdp: {
             channel: if (payload.WSResponseBody.Customer != null) 
                         payload.WSResponseBody.Customer.ATDP.Channel 
@@ -503,6 +504,7 @@ output application/json
                     maritalStatus: cust.Estado_Civil default "",
                     birthDate: cust.Fecha_Nacimiento default ""
                 },
+                state: cust.Estado,
                 contactData: {
                     email: cust.Correo_Electronico default "",
                     phone: cust.Telefono_Fijo default "",

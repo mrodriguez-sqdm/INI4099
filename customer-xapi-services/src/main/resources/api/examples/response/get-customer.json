@@ -22,6 +22,7 @@
         "state": "META",
         "city": "ACACIAS"
       },
+			"state": "ACTIVO",
       "atdp": {
         "channel": "Tienda",
         "date": {
