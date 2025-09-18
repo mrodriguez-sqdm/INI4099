@@ -5,9 +5,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
 	<sub-flow name="botServices-services-suspendbytheft-clientSub_Flow" doc:id="07021843-c95e-48ba-b320-6a29553ccece" >
-		<async doc:name="Async" doc:id="c8c9b5c2-0992-46eb-88b3-a14297eb3fef" >
-			<flow-ref doc:name="Call Logger" doc:id="f277997c-99ca-4ee1-98b8-0a0159b976a6" name="loggin-client-call" />
-		</async>
 		<http:request method="POST" doc:name="Call bot services suspendbytheft" doc:id="eb32f989-db6c-45ce-a3b7-cea17751640f" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.suspendByTheft.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
 			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
 			<http:headers ><![CDATA[#[output application/java
@@ -17,14 +14,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
 }]]]></http:headers>
 		</http:request>
-		<async doc:name="Async1" doc:id="6506261a-85dc-4625-8179-3bff2b2ebdba" >
-			<flow-ref doc:name="Call Logger" doc:id="74b3913e-6079-4b97-97d8-d229de83d042" name="loggin-client-call" />
-		</async>
 	</sub-flow>
 	<sub-flow name="botServices-services-suspendvoluntarily-clientSub_Flow" doc:id="d82a790b-3643-4fb8-abea-f43be5206d90" >
-		<async doc:name="Async" doc:id="6cc9e90e-3228-4f59-bf77-3948438c29da" >
-			<flow-ref doc:name="Call Logger" doc:id="29ef1bc6-ea5d-435f-a494-6ced7f39ce69" name="loggin-client-call" />
-		</async>
 		<http:request method="POST" doc:name="Call bot services suspendvoluntarily" doc:id="3440d328-416e-4ff8-9949-523b8ff0f0d2" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.suspendVoluntarilyV2.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
 			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
 			<http:headers ><![CDATA[#[output application/java
@@ -34,14 +25,8 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
 }]]]></http:headers>
 		</http:request>
-		<async doc:name="Async1" doc:id="5fef65d0-e68e-4501-b069-cc1c70200c2e" >
-			<flow-ref doc:name="Call Logger" doc:id="3978411e-1a81-438b-a32d-5c3c9d9724f1" name="loggin-client-call" />
-		</async>
 	</sub-flow>
 	<sub-flow name="botServices-services-validateimei-clientSub_Flow" doc:id="af9f4d3c-65ae-4766-9b64-a429f6099fb8" >
-		<async doc:name="Async" doc:id="7350d1b7-bdac-4aff-a7bd-f93f1c66a6c1" >
-			<flow-ref doc:name="Call Logger" doc:id="2399f900-4e65-407c-9735-1b8c32152368" name="loggin-client-call" />
-		</async>
 		<http:request method="POST" doc:name="Call bot services validateimei" doc:id="f1de4611-6128-43cf-b9dc-63a7641dc770" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.validateImeiV2.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
 			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
 			<http:headers ><![CDATA[#[output application/java
@@ -51,8 +36,16 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
 }]]]></http:headers>
 		</http:request>
-		<async doc:name="Async1" doc:id="457b957c-132d-4922-b2c4-53af6762b67c" >
-			<flow-ref doc:name="Call Logger" doc:id="6bd8fe31-b3ea-4ba2-a532-54d41c80fff2" name="loggin-client-call" />
-		</async>
+	</sub-flow>
+	<sub-flow name="botServices-services-registerdevice-clientSub_Flow" doc:id="e51a8bbd-3d8e-45df-8454-8f660720d7c9" >
+		<http:request method="POST" doc:name="Call bot services registerdevice" doc:id="3168ced1-cfb9-4655-bf7c-c5d5260003d3" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.registerdevice.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
 	</sub-flow>
 </mule>

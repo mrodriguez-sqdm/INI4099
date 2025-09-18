@@ -1,0 +1,33 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "name": "string",
+      "correlationID": "string",
+      "processingServer": "string"
+    },
+    "Service": {
+      "status": "string",
+      "responseDate": "2025-09-18T15:51:00.190Z",
+      "processingServer": "string",
+      "statusDetail": [
+        {
+          "errorCode": "string",
+          "errorDetailCode": "string",
+          "errorMessage": "string",
+          "errorMessageUser": "string"
+        }
+      ]
+    },
+    "Property": [
+      {
+        "name": "string",
+        "value": "string"
+      }
+    ]
+  },
+  "WSResponseBody": {
+    "CUN": "string",
+    "Num_PQR": "string",
+    "Order_Number": "string"
+  }
+}

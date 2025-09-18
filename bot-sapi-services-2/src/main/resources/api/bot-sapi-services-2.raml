@@ -16,15 +16,15 @@ traits:
   /validateimei:
     post:
       is: [security_client_id, request_headers]
-      displayName: Validar IMEI
-      description: Validar IMEI
+      displayName: Validate IMEI
+      description: Validate IMEI
       body:
         application/json:
           type: !include /datatypes/request/post-valida-imei.raml
           example: !include /examples/request/post-valida-imei.json
       responses:
         200:
-          description: IMEI validado exitosamente.
+          description: IMEI validated successfully.
           body:
             application/json:
               type: !include /datatypes/response/post-valida-imei.raml
@@ -33,32 +33,48 @@ traits:
   /suspendvoluntarily:
     post:
       is: [security_client_id, request_headers]
-      displayName: Suspender línea voluntariamente
-      description: Suspender línea voluntariamente
+      displayName: Voluntary line suspension
+      description: Voluntary line suspension
       body:
         application/json:
           type: !include /datatypes/request/post-suspend-voluntarily.raml
           example: !include /examples/request/post-suspend-voluntarily.json
       responses:
         200:
-          description: Suspensión voluntaria realizada exitosamente.
+          description: Voluntary suspension completed successfully.
           body:
             application/json:
               type: !include /datatypes/response/post-suspend-voluntarily.raml
               example: !include /examples/response/post-suspend-voluntarily.json
+  /registerdevice:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Register device and link mobile line
+      description: Register device and link mobile line
+      body:
+        application/json:
+          type: !include /datatypes/request/post-register-device.raml
+          example: !include /examples/request/post-register-device.json
+      responses:
+        200:
+          description: The device was successfully registered and linked to the ETB mobile line.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-register-device.raml
+              example: !include /examples/response/post-register-device.json
 
   /suspendbytheft:
     post:
       is: [security_client_id, request_headers]
-      displayName: Suspender línea por robo
-      description: Suspender línea por robo
+      displayName: Suspend line due to theft
+      description: Suspend line due to theft
       body:
         application/json:
           type: !include /datatypes/request/post-suspend-bytheft.raml
           example: !include /examples/request/post-suspend-bytheft.json
       responses:
         200:
-          description: Suspensión por robo realizada exitosamente.
+          description: Suspension due to theft completed successfully.
           body:
             application/json:
               type: !include /datatypes/response/post-suspend-bytheft.raml
@@ -68,16 +84,68 @@ traits:
   /setwifinetworkstate:
     post:
       is: [security_client_id, request_headers]
-      displayName: Cambiar estado de red WiFi
-      description: Cambiar estado de red WiFi
+      displayName: Change WiFi network status
+      description: Change WiFi network status
       body:
         application/json:
           type: !include /datatypes/request/post-setwifi-networkstate.raml
           example: !include /examples/request/post-setwifi-networkstate.json
       responses:
         200:
-          description: Estado de red WiFi cambiado exitosamente.
+          description: WiFi network status changed successfully.
           body:
             application/json:
               type: !include /datatypes/response/post-setwifi-networkstate.raml
               example: !include /examples/response/post-setwifi-networkstate.json
+
+/customers:
+  /habeasdata:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Update habeasdata
+      description: Update habeasdata
+      body:
+        application/json:
+          type: !include /datatypes/request/post-update-habeasdata.raml
+          example: !include /examples/request/post-update-habeasdata.json
+      responses:
+        200:
+          description: Update of personal data processing decision successful.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-update-habeasdata.json
+
+/notifications:
+  /sendinfosva:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Send SVA usage instructions
+      description: Send SVA usage instructions
+      body:
+        application/json:
+          type: !include /datatypes/request/post-send-infosva.raml
+          example: !include /examples/request/post-send-infosva.json
+      responses:
+        200:
+          description: The SVA usage instructions were successfully sent to the customer’s email address or as an SMS to the specified mobile number.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-send-infosva.json
+  /sendnotifyprocedure:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Send SIM replacement notification
+      description: Send SIM replacement notification
+      body:
+        application/json:
+          type: !include /datatypes/request/post-send-notifyprocedure.raml
+          example: !include /examples/request/post-send-notifyprocedure.json
+      responses:
+        200:
+          description: The SIM replacement notification was successfully sent to the customer’s email address.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-send-notifyprocedure.json
