@@ -1,6 +1,6 @@
 {
-    "minMuleVersion": "4.9.6",
-    "javaSpecificationVersions": ["11"],
+    "minMuleVersion": "4.9.0",
+    "javaSpecificationVersions": ["17"],
     "secureProperties": [
         "autodiscovery",
         "anypoint.platform.client_id",

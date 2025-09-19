@@ -16,7 +16,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
 			</http:error-response>
 		</http:listener>
+		<flow-ref doc:name="Call initial Logger" doc:id="1dc368f1-26e2-4169-b23b-4840da077038" name="initial-loggin-Sub_Flow" />
 		<apikit:router doc:id="f0cd6a41-3f4d-4af9-818b-27e6bd02dec9" config-ref="bot-sapi-services-2-config" doc:name="APIkit Router" />
+		<async doc:name="Async" doc:id="4a935bde-10e1-4be4-9517-2914c2a8dddb" >
+			<flow-ref doc:name="Call logger" doc:id="7d5d7c45-fe47-4843-b08e-83fc474ee06e" name="loggin-client-call" />
+		</async>
 		<error-handler ref="error-handlerError_Handler" />
 	</flow>
 	<flow name="bot-sapi-services-2-console" doc:id="30148ba0-acb7-4dda-864f-222e9e176143" >
@@ -57,5 +61,17 @@ output application/json
 	</flow>
 	<flow name="post:\services\validateimei:application\json:bot-sapi-services-2-config" doc:id="81d082f5-890f-4b76-9843-fe7108c60497" >
 		<flow-ref doc:name="Flow Reference" doc:id="ac413176-c2c4-40b8-9a2d-11138d5de90d" name="post-services-validateimei-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\services\registerdevice:application\json:bot-sapi-services-2-config" doc:id="f1c8be62-512c-4d4d-9642-420381f9c2ff" >
+		<flow-ref doc:name="Flow Reference" doc:id="1c26c4c3-90c9-4b3e-bd8b-3e9eb18c0c52" name="post-services-registerdevice-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\customers\habeasdata:application\json:bot-sapi-services-2-config" doc:id="3e7fe302-1358-4be5-bff0-0b44314aa0ed">
+		<flow-ref doc:name="Flow Reference" doc:id="bbfe6557-4edd-4f23-b91e-48312b2dfc4f" name="post-services-habeasdata-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\notifications\sendinfosva:application\json:bot-sapi-services-2-config" doc:id="212dc1e8-3ba2-4919-852b-7d2db265e10f" >
+		<flow-ref doc:name="Flow Reference" doc:id="bb7c4036-de1d-4570-8f2c-e45413bcd6e3" name="post-services-sendinfosva-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\notifications\sendnotifyprocedure:application\json:bot-sapi-services-2-config" doc:id="427eef68-816c-4cf5-9a4d-c61780735b86" >
+		<flow-ref doc:name="Flow Reference" doc:id="3f5cd5dc-97b4-425f-951b-7cf0bf373213" name="post-services-sendnotifyprocedure-orchestadorSub_Flow"/>
 	</flow>
 </mule>

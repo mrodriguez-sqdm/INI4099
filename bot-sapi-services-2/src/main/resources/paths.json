@@ -4,23 +4,43 @@
 		"data": [
 			{
 				"method": "POST",
-				"path": "/api/operations/v1/generateRegisterUrl/(email)",
-				"processname": "Generate register URL"
+				"path": "/bot/v1/services/validateimei",
+				"processname": "Validate IMEI"
 			},
 			{
 				"method": "POST",
-				"path": "/api/saleOrder/encripted/v1",
-				"processname": "post botservices encrypted salesrorder"
+				"path": "/bot/v1/services/suspendvoluntarily",
+				"processname": "Voluntary line suspension"
 			},
 			{
 				"method": "POST",
-				"path": "/api/parameters/cities/v1",
-				"processname": "post botservices encrypted salesrorder"
+				"path": "/bot/v1/services/registerdevice",
+				"processname": "Register device and link mobile line"
 			},
 			{
 				"method": "POST",
-				"path": "/api/parameters/departments/v1",
-				"processname": "post botservices encrypted salesrorder"
+				"path": "/bot/v1/services/suspendbytheft",
+				"processname": "Suspend line due to theft"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/soporte1n/setwifinetworkstate",
+				"processname": "Change WiFi network status"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/customers/habeasdata",
+				"processname": "Update habeasdata"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/notifications/sendinfosva",
+				"processname": "Send SVA usage instructions"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/notifications/sendnotifyprocedure",
+				"processname": "Send SIM replacement notification"
 			}
 			
 		]

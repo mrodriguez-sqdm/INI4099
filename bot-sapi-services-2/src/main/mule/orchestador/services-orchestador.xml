@@ -18,4 +18,9 @@
 		<flow-ref doc:name="get-authentication-token" doc:id="89c70011-7d1c-4e1b-b9c1-de9b4bd8510b" name="get-authentication-token" />
 		<flow-ref doc:name="Go to generate client" doc:id="d2f142ac-f79f-4dcc-a8f0-cff75ab28bd9" name="botServices-services-validateimei-clientSub_Flow" />
 	</sub-flow>
+	<sub-flow name="post-services-registerdevice-orchestadorSub_Flow" doc:id="314f451e-756f-4f20-8dee-143199d5b2bb" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="3b9e4957-5d08-4548-8b60-05a8d7ce9a0e" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="bd603eae-2ab0-44b4-8906-026ad2b3d7d9" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="6bee05e3-3771-48c6-aaeb-0d9ea59b4080" name="botServices-services-registerdevice-clientSub_Flow" />
+	</sub-flow>
 </mule>

@@ -4,8 +4,8 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
-	<sub-flow name="botServices-soporte1n-setwifinetworkstate-clientSub_Flow" doc:id="7b92c85f-9e7b-4a0a-bca7-8b789ad0c8ee" >
-		<http:request method="POST" doc:name="Call bot soporte1n setwifinetworkstate" doc:id="921dce1d-efbc-4088-a878-3cb68727a959" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.soporte1n.rootPath}${botServices.resources.soporte1n.setWifiNetworkStateV3.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+	<sub-flow name="botServices-services-habeasdata-clientSub_Flow" doc:id="8c2ae36a-4644-4c62-8674-da63fd790a95" >
+		<http:request method="POST" doc:name="Call bot services habeasdata" doc:id="cc031c96-51f9-4ca8-a3e6-a14d3e88cf7d" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.customers.rootPath}${botServices.resources.customers.habeasdata.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
 			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
 			<http:headers ><![CDATA[#[output application/java
 ---

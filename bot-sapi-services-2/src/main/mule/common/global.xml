@@ -15,7 +15,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
     </http:listener-config>
         <apikit:config name="bot-sapi-services-2-config" api="bot-sapi-services-2.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	<configuration-properties doc:name="Configuration properties" doc:id="a5f3006c-805b-4a01-8af9-a9d5ddd04da6" file="${env}-properties.yaml"/>
-	<!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="2d1ab8c4-97ed-4f14-bb63-ee5f3ca2a859" flowRef="bot-sapi-services-2-main" />  -->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="2d1ab8c4-97ed-4f14-bb63-ee5f3ca2a859" flowRef="bot-sapi-services-2-main" />
 	<http:request-config name="HTTP_Request_configuration_botServices" doc:name="HTTP Request configuration" doc:id="aeda5848-e9f4-4909-9946-43355a36b77c" basePath="${botServices.basepath}" responseTimeout="#[p('botServices.responseTimeout')]">
 		<http:request-connection protocol="${botServices.protocol}" host="${botServices.host}" port="${botServices.port}" />
 	</http:request-config>
