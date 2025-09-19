@@ -44,4 +44,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\resourceFunction\configureService:application\json:resource-xapi-services-config" doc:id="4262ebb0-923c-41ec-8b46-25c4e805d64c" >
 		<flow-ref doc:name="Flow Reference" doc:id="0e215b21-44ed-41a9-bf96-6906a725186c" name="post-resourceFunction-configure-service-clientSub_Flow"/>
 	</flow>
+	<flow name="post:\resourceFunction\configureService\registerDevice:application\json:resource-xapi-services-config" doc:id="f582b30c-0f06-481f-a3b7-c7365c0f79db" >
+		<flow-ref doc:name="Flow Reference" doc:id="36ed8710-f402-4d32-96e1-d9d6924e4240" name="post-resourceFunction-configure-service-registerDevice-clientSub_Flow" />
+	</flow>
 </mule>

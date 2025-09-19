@@ -157,4 +157,21 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="customer-papi-post-authorizationTDP-clientSub_Flow" doc:id="69dd5941-f7c1-4810-a99b-380a82521b75" >
+		<http:request method="POST" doc:name="Request" doc:id="455ed2ef-5622-47b5-9770-b6a8691e9c6a" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.customer.base-path}${customer-papi.resources.customer.authorizationTdp.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>

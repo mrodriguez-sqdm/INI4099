@@ -62,4 +62,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="get:\customerBill\debts:customer-xapi-services-config" doc:id="6c115bee-f0ee-413a-987f-e6df046d8ea9" >
 		<flow-ref doc:name="Flow Reference" doc:id="38728887-2c74-4919-ae7c-98c4a3bf6b15" name="customer-papi-get-debts-clientSub_Flow" />
 	</flow>
+	<flow name="post:\customer\authorizationTdp:application\json:customer-xapi-services-config" doc:id="c74f05fc-8376-44a0-be1d-30371b0d20c8" >
+		<flow-ref doc:name="Flow Reference" doc:id="464e6689-1889-4c13-96bd-b1122291be39" name="customer-papi-post-authorizationTDP-clientSub_Flow" />
+	</flow>
 </mule>

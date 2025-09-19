@@ -21,6 +21,21 @@ bot-sapi:
       
   client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
   client_secret: "A2De130A74084573Bc8352790a8C1b56"
+  
+bot-sapi-2:
+  protocol: "HTTP"
+  host: "mule-worker-internal-bot-sapi-services-2-dev.us-e2.cloudhub.io"
+  port: "8091"
+  basepath: "/bot/v1"
+  endpoints:
+    notifications:
+      base-path: "/notifications"
+      sendnotifyprocedure: 
+       path: "/sendnotifyprocedure"
+
+      
+  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+  client_secret: "A2De130A74084573Bc8352790a8C1b56"
 
 mongo-db-sapi:
   protocol: "HTTP"
@@ -58,3 +73,4 @@ tls:
 
 configurationTimeout:
   bot-sapi: "62000"
+  bot-sapi-2: "62000"

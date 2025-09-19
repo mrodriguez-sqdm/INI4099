@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="get-productOffering-clientSub_Flow" doc:id="bf09c8bf-db3b-4b0b-a351-89eabc4c5531" >
+		<ee:transform doc:name="Transform Message" doc:id="580eadef-2f60-4321-8d57-fb0e2b7df29e" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="Queryparams" ><![CDATA[%dw 2.0
+output application/java
+---
+{
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<http:request method="GET" doc:name="Request" doc:id="49486dde-ae3e-4d38-af0b-671f1f58e6aa" config-ref="HTTP_Request_configuration_product-papi" path="${product-papi.productOffering.path}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"source" : attributes.headers.'source',
+	"X-CORRELATION-ID": correlationId,
+	"name" : attributes.headers.'name',
+	"systemId": vars.systemId,
+	"system_Id": vars.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	subtipo_servicio : attributes.queryParams.subtipo_servicio,
+	subtipo_producto : attributes.queryParams.subtipo_producto,
+	tipo_producto : attributes.queryParams.tipo_producto,
+	producto : attributes.queryParams.producto,
+	tipo_servicio : attributes.queryParams.tipo_servicio,
+	cod_configuracion : attributes.queryParams.cod_configuracion,
+	precio_con_iva : attributes.queryParams.precio_con_iva,
+	limit : attributes.queryParams.limit
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="4626a6da-e627-4c1b-bc48-2272aae62401" message="Log: get-productOffering-clientSub_Flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="6e601308-3d65-4bec-8a62-51aacdd34921" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="body_request" ><![CDATA[%dw 2.0
+output application/json
+---
+read(read(payload.body_request, "application/json"), "application/json")
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="3e996bab-7d78-4ae3-a3b0-0937262d7d45" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="body_request_code" ><![CDATA[%dw 2.0
+output application/json
+---
+if (typeOf(vars.body_request) == "String")
+  (read(vars.body_request, "application/json")).code
+else
+  vars.body_request.code]]></ee:set-variable>
+				<ee:set-variable variableName="body_request_reason" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  code: vars.body_request.code,
+  status: vars.body_request.status
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="4fcad85c-d11d-4b60-a208-38463a4cb366" >
+			<when expression="#[!(vars.body_request_code == 200 or vars.body_request_code == 201)]">
+				<ee:transform doc:name="Transform Message" doc:id="7dd26a39-4b32-4ae3-8dc9-53b04efd375e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  code: vars.body_request_code,
+  reason: vars.body_request.reason,
+  message: vars.body_request.message,
+  status: "Fail",
+  referenceError: vars.body_request.message,
+  timestamp: now() as String {format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"}
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[vars.body_request_code]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<logger level="INFO" doc:name="Logger" doc:id="462e4a55-735c-431c-90ad-e3bdb1a56479" />
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="Logger" doc:id="3298f4e0-0270-41ac-9c41-253d3e5ec1cb" message="#[vars.body_request]"/>
+	
+</sub-flow>
+</mule>

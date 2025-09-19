@@ -1,0 +1,406 @@
+#%RAML 1.0
+title: product-xapi-services
+
+version: v1
+baseUri:  https://product-xapi-services-{env}.us-e2.cloudhub.io/{version}
+description: product information
+
+protocols:
+  - HTTPS
+
+
+securitySchemes:
+  oauth_2_0:
+    type: OAuth 2.0
+    description: OAuth 2.0 security for API access
+    settings:
+      authorizationUri: https://api.etb.com.co/oauth/authorize
+      accessTokenUri: https://api.etb.com.co/oauth/token
+      authorizationGrants: [authorization_code, client_credentials]
+      scopes:
+        - product:read
+        - product:write 
+
+traits:
+  tibcoHeaders: !include /exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
+  commonResponses:
+    responses:
+      400:
+        description: |
+          **API Error Code:** `BAD_REQUEST`
+          
+          **Common Issues:**
+          - Invalid query parameter format
+          - Missing required parameters
+          - Invalid parameter values or combinations
+          - Business validation failures
+          
+          **System Context:** Validation performed at API Gateway before backend processing
+        body:
+          application/json:
+            type: error-response
+      401:
+        description: |
+          **API Error Code:** `UNAUTHORIZED`
+          
+          **Common Issues:**
+          - Missing or invalid OAuth 2.0 bearer token
+          - Token expired (tokens valid for 3600 seconds)
+          - Insufficient scope for requested operation
+          - Client credentials not authorized
+          
+          **System Context:** Token validation against ETB OAuth 2.0 provider
+        body:
+          application/json:
+            type: error-response
+      404:
+        description: |
+          **API Error Code:** `NOT_FOUND`
+          
+          **Common Issues:**
+          - Product or promotion not found
+          - Invalid geographic coordinates
+          - Address not in service area
+          
+          **System Context:** Resource validation at PAPI layer
+        body:
+          application/json:
+            type: error-response
+      500:
+        description: |
+          **API Error Code:** `INTERNAL_SERVER_ERROR`
+          
+          **Common Issues:**
+          - product PAPI timeout (> 62 seconds)
+          - Backend catalog system unavailable
+          - GIS service failure
+          - Database connection issues
+          
+          **System Context:** Error logged with correlation ID for support investigation
+        body:
+          application/json:
+            type: error-response
+
+types:
+  get-productOffering: !include datatypes/request/get-productOffering.raml
+  productOffering: !include datatypes/response/productOffering.raml
+  error-response: !include datatypes/response/error.raml
+  geographicAddress: !include datatypes/response/geographicAddress.raml
+  
+/productOffering:
+    description: |
+      ## Resource Description
+      
+      **Business Purpose:** Manages ETB's product catalog, providing access to product offerings, configurations, and pricing information for all service types (FTTH, FTTC, HFC, DTH).
+      
+      **Data Integration:**
+      - **product-papi-services:** Process layer for product catalog operations
+      - **Product Catalog System:** Master repository for product definitions
+      - **Pricing Engine:** Real-time pricing calculations with taxes
+      
+      **Business Intelligence Features:**
+      - **Dynamic Filtering:** Multi-criteria product search capabilities
+      - **Service Type Categorization:** Automatic classification by technology
+      - **Price Optimization:** Real-time pricing with tax calculations
+      - **Configuration Management:** Product configuration code tracking
+    
+    get:
+      is: [tibcoHeaders, commonResponses]
+      securedBy: [oauth_2_0]
+      displayName: Query Product Offerings
+      description: |
+        ## Operation Summary
+        
+        Retrieves product offerings from the catalog with advanced filtering capabilities. Supports multi-criteria searches for products by type, service, configuration, and pricing. Follows TM Forum TMF620 v2.0.1 standard for product catalog management.
+        
+        ## Use Cases
+        
+        - **E-product Portal:** Display available products for online purchase
+        - **Sales Applications:** Product search for sales representatives
+        - **Mobile Apps:** Browse product catalog with filters
+        - **WhatsApp Channel:** Query products for customer recommendations
+        - **Partner Systems:** B2B product catalog access
+        
+        ## Data Sources
+        
+        - Primary: product-papi-services `/v1/productOffering` endpoint
+        - Backend: Product Catalog Management System
+        - Enrichment: Pricing engine for real-time calculations
+        
+        ## Performance Characteristics
+        
+        - Response time: < 2 seconds for filtered queries
+        - Cache TTL: 300 seconds for product data
+        - Rate limits: 100 requests per second per client
+        - Maximum results: 500 products per query
+      queryParameters:
+        producto:
+          type: string
+          required: false
+          description: |
+            **Business Purpose:** Search products by name or description
+            
+            **Validation Rules:**
+            - Minimum length: 3 characters
+            - Case-insensitive search
+            - Supports partial matching
+            
+            **Usage Examples:**
+            - "DECODIFICADOR" - finds all decoder products
+            - "FTTC 1" - specific FTTC tier 1 products
+            
+            **Channel Variations:** WhatsApp uses simplified product names
+          example: "DECODIFICADOR FTTC 1"
+        cod_configuracion:
+          type: string
+          required: false
+          description: |
+            **Business Purpose:** Internal product configuration code for precise product identification
+            
+            **Format:** 11-digit numeric code
+            - Pattern: ^[0-9]{11}$
+            
+            **Business Logic:** Unique identifier linking to billing and provisioning systems
+            
+            **Usage:** Used by internal systems and B2B integrations
+          example: "23333320327"
+        tipo_servicio:
+          type: string
+          required: false
+          enum: ["FTTC", "FTTH", "HFC", "DTH", "GPON", "ADSL"]
+          description: |
+            **Business Purpose:** Filter products by service technology type
+            
+            **Valid Values:**
+            - FTTC: Fiber to the Cabinet
+            - FTTH: Fiber to the Home
+            - HFC: Hybrid Fiber-Coaxial
+            - DTH: Direct to Home (Satellite)
+            - GPON: Gigabit Passive Optical Network
+            - ADSL: Asymmetric Digital Subscriber Line
+            
+            **Business Logic:** Determines available speeds and service features
+          example: "FTTC"
+        tipo_producto:
+          type: string
+          required: false
+          enum: ["Principal", "Adicional", "Complementario", "Bundle"]
+          description: |
+            **Business Purpose:** Product classification for bundling and pricing rules
+            
+            **Valid Values:**
+            - Principal: Main service products
+            - Adicional: Add-on products
+            - Complementario: Complementary services
+            - Bundle: Package deals
+            
+            **Business Logic:** Principal products required before Adicional can be added
+          example: "Adicional"
+        subtipo_producto:
+          type: string
+          required: false
+          enum: ["PRIMARIO", "SECUNDARIO", "TERCIARIO"]
+          description: |
+            **Business Purpose:** Product sub-classification for hierarchy and dependencies
+            
+            **Valid Values:**
+            - PRIMARIO: Primary product in category
+            - SECUNDARIO: Secondary/dependent product
+            - TERCIARIO: Third-level add-on
+            
+            **Business Logic:** Defines installation order and dependencies
+          example: "SECUNDARIO"
+        subtipo_servicio:
+          type: string
+          required: false
+          description: |
+            **Business Purpose:** Service subcategory for detailed filtering
+            
+            **Format:** Technology + Service Type
+            
+            **Common Values:**
+            - "FTTC TV": FTTC television service
+            - "FTTH Datos": FTTH internet service
+            - "HFC Voice": HFC voice service
+            - "DTH HD": DTH high-definition service
+            
+            **Channel Variations:** Sales apps show technical names, customer portals show friendly names
+          example: "FTTC TV"
+        precio_con_iva:
+          type: string
+          required: false
+          pattern: "^[0-9]+(\\.[0-9]{1,2})?$"
+          description: |
+            **Business Purpose:** Filter products by price including VAT (19% in Colombia)
+            
+            **Format:** Decimal number with up to 2 decimal places
+            - Pattern: ^[0-9]+(\.[0-9]{1,2})?$
+            
+            **Business Logic:** 
+            - Exact match or range queries supported
+            - Prices in Colombian Pesos (COP)
+            - Includes all applicable taxes
+            
+            **Usage Examples:**
+            - "50000" - products priced at COP 50,000
+            - "1.0" - promotional products at COP 1
+          example: "1.0"
+      responses:
+        200:
+          body:
+            application/json:
+              type: productOffering[]
+        400:
+          body:
+            application/json:
+              type: error-response
+/promotion:
+    description: |
+      ## Resource Description
+      
+      **Business Purpose:** Manages promotional offerings, discounts, and special deals for ETB services. Enables dynamic promotion calculation based on customer eligibility and business rules.
+      
+      **Data Integration:**
+      - **product-papi-services:** Process layer for promotion management
+      - **Promotion Engine:** Business rules for eligibility and calculation
+      - **Billing System:** Customer eligibility verification
+      
+      **Business Intelligence Features:**
+      - **Dynamic Eligibility:** Real-time promotion qualification
+      - **Bundle Optimization:** Intelligent package recommendations
+      - **Campaign Management:** Time-based and targeted promotions
+      - **Retention Offers:** Customer-specific retention promotions
+    
+    get:
+      is: [tibcoHeaders, commonResponses]
+      securedBy: [oauth_2_0]
+      displayName: Query Available Promotions
+      description: |
+        ## Operation Summary
+        
+        Retrieves available promotions based on service type, customer segment, and eligibility criteria. Supports complex filtering for targeted promotional campaigns. Follows TM Forum TMF671 v4.1 standard for promotion management.
+        
+        ## Use Cases
+        
+        - **E-product Portal:** Display applicable promotions during checkout
+        - **Sales Applications:** Offer promotions to close deals
+        - **Mobile Apps:** Push personalized promotional notifications
+        - **WhatsApp Channel:** Automated promotion recommendations
+        - **Retention Systems:** Targeted offers to prevent churn
+        
+        ## Data Sources
+        
+        - Primary: product-papi-services `/v1/promotion` endpoint
+        - Backend: Promotion engine with business rules
+        - Validation: Billing system for customer eligibility
+        
+        ## Performance Characteristics
+        
+        - Response time: < 2.5 seconds (includes eligibility calculation)
+        - Cache TTL: 600 seconds for promotion catalog
+        - Rate limits: 50 requests per second per client
+        - Pagination: Supports offset/limit for large result sets
+      queryParameters:
+        ID_Servicio:
+          type: integer
+          required: false
+          example: 2
+          description: ID del servicio relacionado a la promoción
+        ID_Tipo_Servicio:
+          type: integer
+          required: false
+          example: 1
+          description: ID del tipo de servicio
+        Canales:
+          type: string
+          required: false
+          example: MKD
+          description: Canal por el cual se ofrece la promoción
+        ID_Tipo_Activacion:
+          type: integer
+          required: false
+          example: 5
+          description: Tipo de activación para aplicar la promoción
+        ID_Tipo_Promocion:
+          type: integer
+          required: false
+          example: 1
+          description: Tipo de promoción
+        ID_Convenio:
+          type: integer
+          required: false
+          example: 123
+          description: ID de convenio asociado
+        Planes_Aplicar:
+          type: string
+          required: false
+          example: "6378"
+          description: Código de plan al que se le aplica la promoción
+        Tramites_Aplicar:
+          type: string
+          required: false
+          example: VTA
+          description: Trámite que activa la promoción
+        Caracteristicas:
+          type: string
+          required: false
+          example: "TipoAuxiliarDependiente:2,PromocionEmpaquetada:si"
+          description: Características que definen condiciones para aplicar la promoción
+        fields:
+          type: string
+          required: false
+          example: "Nombre,Descripcion"
+          description: Campos específicos que se desean en la respuesta
+        offset:
+          type: integer
+          required: false
+          example: 0
+          description: Índice desde donde se empieza a devolver resultados
+        limit:
+          type: integer
+          required: false
+          example: 10
+          description: Cantidad máxima de resultados a devolver
+          
+/productUsage:
+ /notify:
+   post:
+    is: [tibcoHeaders]
+    securedBy: [oauth_2_0]
+    displayName: Product Notification
+    description: Product Notification
+    queryParameters:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: "Parameter that allows the origin of the request to be identified"
+    body:
+      application/json:
+        type: !include /datatypes/request/notification-product.raml
+        example: !include /examples/request/notification-product.json
+    responses:
+        200:
+          body:
+            application/json:
+              type: !include /datatypes/response/notification-product.raml
+              example: !include /examples/response/notification-product.json
+        400:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-400.json
+        401:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-401.json
+        404:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-404.json
+        500:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-500.json

@@ -153,6 +153,46 @@ mediaType:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
+  /authorizationTdp:
+    post:
+      is: [security_client_id,tibcoHeaders]
+      displayName: Authorization TDP
+      description: Updates the personal data processing decision for a Salesforce customer; receives customer data and returns results.
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: Parameter that allows the origin of the request to be identified
+      body:
+          application/json:
+            type: !include /datatypes/request/authorization-tdp.raml
+            example: !include /examples/request/authorization-tdp.json
+      responses:
+            200:
+              body:
+                application/json:
+                  type: !include /datatypes/response/authorization-tdp.raml
+                  example: !include /examples/response/authorization-tdp.json
+            400:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-400.json
+            401:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-401.json
+            404:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-404.json
+            500:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-500.json
 /productOrder:
     get:
       is: [security_client_id,tibcoHeaders]

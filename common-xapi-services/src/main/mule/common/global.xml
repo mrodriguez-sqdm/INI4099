@@ -19,6 +19,9 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
     <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="e526fe4e-6640-4e0c-a021-6186c74f3813" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi}">
 		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" />
 	</http:request-config>
+	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="51bceb0b-dd3c-4a54-b8c0-835ec925a3a2" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2}">
+		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" />
+	</http:request-config>
     <http:request-config name="mongo_db_sapi_config" doc:name="HTTP Request configuration" doc:id="560ad102-92a7-4d6e-9206-4241ca97c224" basePath="${mongo-db-sapi.base-path}">
 		<http:request-connection protocol="${mongo-db-sapi.protocol}" host="${mongo-db-sapi.host}" port="${mongo-db-sapi.port}" connectionIdleTimeout="300000"/>
 	</http:request-config>
@@ -32,7 +35,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="0cb4e2c1-c130-4993-8530-105aaacfd5f3" >
 		<tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.keyPassword}" />
 	</tls:context>
-    <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9d8d79af-96d2-41b1-b03a-5c52b02a31f9" flowRef="common-xapi-services-main" />
+    <!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9d8d79af-96d2-41b1-b03a-5c52b02a31f9" flowRef="common-xapi-services-main" /> -->
 	
 
 </mule>

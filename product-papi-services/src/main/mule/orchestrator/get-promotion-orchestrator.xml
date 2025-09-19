@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+
+<sub-flow name="get-promotion-orchestratorSub_Flow" doc:id="a7cc622f-720a-48ec-97a6-c6ca102bd462">
+
+    <!-- 1. Leer reglas -->
+    <set-variable value="#[readUrl('classpath://promotion-rules.json', 'application/json')]" 
+                  doc:name="Set Rules" variableName="rules"/>
+
+   <set-variable value="#[(vars.rules default [])[0] default {}]" doc:name="Extract RuleSet" doc:id="15087ff8-a11e-4451-a975-e773d60a1f92" variableName="ruleSet"/>
+		<ee:transform doc:name="Extract Fields" doc:id="2b9b79cd-b4a6-4919-b8e4-5379c15575f2">
+  <ee:variables>
+    <ee:set-variable variableName="filterFields"><![CDATA[%dw 2.0
+output application/java
+---
+(vars.ruleSet.filterFields default [])
+
+]]></ee:set-variable>
+  </ee:variables>
+</ee:transform>
+<logger level="INFO" doc:name="Logger" doc:id="05bc49f1-1938-4dd0-bb6f-be67240736ee" message="#[%dw 2.0 
+output application/json 
+--- 
+vars]"/>
+		<ee:transform doc:name="Set baseFilters">
+  <ee:variables>
+    <ee:set-variable variableName="baseFilters"><![CDATA[%dw 2.0
+output application/java
+---
+(vars.ruleSet.baseFilters default {}) filterObject ((v, k) -> v != null)
+
+]]></ee:set-variable>
+  </ee:variables>
+</ee:transform>
+<logger level="INFO" doc:name="Logger" doc:id="925b8eb4-a1e2-46b0-bca0-d9ba5fd89e10" message="#[%dw 2.0 
+output application/json 
+--- 
+{
+	queryParams: attributes.queryParams,
+  filterFields: vars.filterFields
+  }]"/>
+<logger level="INFO" doc:name="Logger" doc:id="576be619-6383-4868-b44d-b24afa07d928" message='#[%dw 2.0 output application/json 
+--- 
+{ 
+          "isArray": vars.filterFields is Array, 
+          "type": typeOf(vars.filterFields)
+        }]'/>
+		<ee:transform doc:name="Set dynamicFilters">
+  <ee:variables>
+    <ee:set-variable variableName="dynamicFilters"><![CDATA[%dw 2.0
+output application/java
+var queryParams = attributes.queryParams default {}
+var allowedFields = (vars.filterFields default []) map (f) -> f.name as String
+---
+queryParams filterObject ((v, k) -> v != null and (allowedFields contains (k as String)))]]></ee:set-variable>
+  </ee:variables>
+</ee:transform>
+<ee:transform doc:name="Build mongo_query">
+  <ee:variables>
+    <ee:set-variable variableName="mongo_query"><![CDATA[%dw 2.0
+output application/json
+
+var allFilters = vars.baseFilters ++ vars.dynamicFilters
+
+// Validar que filterFields venga como lista de objetos { name, type }
+var fieldMeta = vars.filterFields filter (f) -> f.name? and f."type"?  // evitar strings
+
+// Convertir en mapa: { "Canales": "array", "ID_Servicio": "number", ... }
+var typeMap = fieldMeta map ((f) -> {(f.name): f."type"}) reduce (item, acc = {}) -> acc ++ item
+
+---
+allFilters mapObject ((value, key) ->
+  typeMap[key] match {
+
+    case "array" ->
+      (key): {
+        "\$in":
+          (value match {
+            case is Array -> value
+            else -> (value as String) splitBy "," map (v) -> trim(v)
+          })
+      }
+
+    case "number" ->
+      (key): (value as Number)
+
+    else ->
+      (key): value
+  }
+)
+]]></ee:set-variable>
+  </ee:variables>
+</ee:transform>
+		<ee:transform doc:name="Parse fields, offset and limit" doc:id="b72b8adc-9be6-47ea-b872-58a96ef68424">
+  <ee:variables>
+
+    <ee:set-variable variableName="offset"><![CDATA[%dw 2.0
+output application/java
+---
+(attributes.queryParams.offset default "0") as Number]]></ee:set-variable>
+
+    <ee:set-variable variableName="limit"><![CDATA[%dw 2.0
+output application/java
+---
+(attributes.queryParams.limit default "100") as Number
+]]></ee:set-variable>
+
+    <ee:set-variable variableName="projection"><![CDATA[%dw 2.0
+output application/json
+var fields = attributes.queryParams.fields default ""
+---
+fields splitBy "," filter ((f) -> f != null and f != "") map ((f) -> {(f): 1}) reduce ((item, acc = {}) -> acc ++ item)
+]]></ee:set-variable>
+
+</ee:variables>
+</ee:transform>
+
+
+    <!-- 5. Invocar capa de sistema -->
+    <flow-ref name="get-promotion-clientFlow" doc:name="Call Mongo Layer" doc:id="fc394e62-8667-4f92-afb8-13c8fdf94601">
+  </flow-ref>
+
+</sub-flow>
+
+
+</mule>

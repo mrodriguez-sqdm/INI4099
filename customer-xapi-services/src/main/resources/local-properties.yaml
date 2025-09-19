@@ -18,6 +18,8 @@ customer-papi:
         path: ""
       patch:
         path: ""
+      authorizationTdp:
+        path: "/authorizationTdp"
     productOrder:
       base-path: "/productOrder"
       get:

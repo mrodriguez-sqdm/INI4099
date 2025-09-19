@@ -40,4 +40,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\resourceFunction\configureService:application\json:resource-papi-services-config" doc:id="de365114-de7f-441b-b352-cb9092c18b6e" >
 		<flow-ref doc:name="Flow Reference" doc:id="ddda3d08-4031-4b82-8482-92a0e5e9a1a2" name="post-resource-function-configure-service-orchestratorSub_Flow"/>
 	</flow>
+	<flow name="post:\resourceFunction\configureService\registerDevice:application\json:resource-papi-services-config" doc:id="3c5d9eab-e48f-4702-8d99-7610c3e57c55" >
+		<flow-ref doc:name="Flow Reference" doc:id="8f4537ba-94ca-4683-9893-048b0f0eeb27" name="post-configure-service-register-device-orchestratorSub_Flow"/>
+	</flow>
 </mule>

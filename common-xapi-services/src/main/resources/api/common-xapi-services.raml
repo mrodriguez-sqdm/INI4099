@@ -258,3 +258,45 @@ securitySchemes:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
+/comunicationMessage:   
+  post:
+      is:
+          - tibcoHeaders
+      securedBy: [etb_oauth_2_0]
+      displayName: Notification User
+      description: Sends notification about a procedure; receives customer and procedure data, returns shipment status.
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: "Parameter that allows the origin of the request to be identified"
+      body:
+        application/json:
+          type: !include /datatypes/request/comunication-message.raml
+          example: !include /examples/request/comunication-message.json
+      responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/comunication-message.raml
+                example: !include /examples/response/comunication-message.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json

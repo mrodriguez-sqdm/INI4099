@@ -29,6 +29,9 @@ bot-sapi-2:
     soporte1n:
       base-path: "/soporte1n"
       setwifinetworkstate: "/setwifinetworkstate"
+    services:
+      base-path: "/services"
+      registerdevice: "/registerdevice"
       
   client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
   client_secret: "A2De130A74084573Bc8352790a8C1b56"

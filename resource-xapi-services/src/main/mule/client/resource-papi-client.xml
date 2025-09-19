@@ -39,7 +39,24 @@ attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
 	<sub-flow name="post-resourceFunction-configure-service-clientSub_Flow" doc:id="fea86f5a-c59a-4c43-888f-41cc4e1e03a8" >
-		<http:request method="POST" doc:name="Request" doc:id="608878df-4cf3-4722-bf23-7d183c8ada3c" config-ref="HTTP_Request_configuration_resource-papi" path="${resource-papi.endpoints.resourceFunction.base-path}${resource-papi.endpoints.resourceFunction.configureService}" >
+		<http:request method="POST" doc:name="Request" doc:id="608878df-4cf3-4722-bf23-7d183c8ada3c" config-ref="HTTP_Request_configuration_resource-papi" path="${resource-papi.endpoints.resourceFunction.base-path}${resource-papi.endpoints.resourceFunction.configureService.base-path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('resource-papi.security.client-secret'),
+	"client_id" : p('resource-papi.security.client-id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-resourceFunction-configure-service-registerDevice-clientSub_Flow" doc:id="46012ca1-8e13-4d22-b77b-9a752c3d4a11" >
+		<http:request method="POST" doc:name="Request" doc:id="2478adb8-f1cb-4fd7-911e-7aa2ad90f94b" config-ref="HTTP_Request_configuration_resource-papi" path="${resource-papi.endpoints.resourceFunction.base-path}${resource-papi.endpoints.resourceFunction.configureService.base-path}${resource-papi.endpoints.resourceFunction.configureService.registerDevice.path}" >
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
