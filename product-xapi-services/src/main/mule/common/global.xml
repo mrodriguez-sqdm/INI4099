@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<import doc:name="Import" doc:id="5cb4a0a6-d274-4e3a-bf7d-19e9cd431500" file="loggin.xml" />
 	<import doc:name="Import" doc:id="435d5cc0-311f-44b0-b2f3-317f27956669" file="audits-sapi-client.xml" />
 	<import doc:name="Import" doc:id="e0304cd8-f3f8-4453-a81f-7a4f1e7c719c" file="etb-common-lib.xml" />
-	<!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bbaf2c46-0a33-474d-8dbc-833fa8758483" flowRef="product-xapi-services-main" /> -->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bbaf2c46-0a33-474d-8dbc-833fa8758483" flowRef="product-xapi-services-main" />
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="4f0afd27-38d0-4385-ba30-9ad6b684ddf0" >
 		<tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.password}" />
 	</tls:context>

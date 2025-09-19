@@ -35,7 +35,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="0cb4e2c1-c130-4993-8530-105aaacfd5f3" >
 		<tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.keyPassword}" />
 	</tls:context>
-    <!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9d8d79af-96d2-41b1-b03a-5c52b02a31f9" flowRef="common-xapi-services-main" /> -->
+    <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9d8d79af-96d2-41b1-b03a-5c52b02a31f9" flowRef="common-xapi-services-main" />
 	
 
 </mule>

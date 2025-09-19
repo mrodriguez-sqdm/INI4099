@@ -48,9 +48,9 @@ output application/json
 ---
 {
   codeResponse: vars.httpStatus as String,
-  messageResponse: payload.WSResponseHeader.Service.StatusDetail[0].ErrorMessage,
+  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
   detail: {
-    message: payload.WSResponseHeader.Service.StatusDetail[0].ErrorMessageUser
+    message: payload.WSResponseHeader.Service.StatusDetail[0].errorDetailCode
   }
   
 }]]></ee:set-payload>

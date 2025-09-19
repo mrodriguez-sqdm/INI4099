@@ -22,15 +22,16 @@ output application/json
     "Property": []
   },
 "WSRequestBody": {
-    Contact_Phone: payload.customer.documentType default "", 
-    Contact_Email: payload.customer.documentType default "",
+    Client: { 
     Document_Type: payload.customer.documentType default "",
-    Document_Number: payload.customer.documentNumber default "",
+    Document_Number: payload.customer.documentNumber default ""
+    },
+    Device: { 
     IMEI: payload.device.imei default "",
-    Phone: payload.mobileNumber default "",
     Brand: payload.device.brand default "",
     Model: payload.device.model default "",
-    Trademark: payload.device.manufacturer default "",
+    Trademark: payload.device.manufacturer default ""},
+    Phone: payload.mobileNumber default "",
     "Audit": {
       "Canal": vars.headers.name
     }

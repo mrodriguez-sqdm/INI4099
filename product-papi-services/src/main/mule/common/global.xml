@@ -43,7 +43,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<http:request-config name="HTTP_Request_configuration_product-papi" doc:name="HTTP Request configuration" doc:id="a8f3ae55-cb6c-4825-aa36-710102d08d60" basePath="${normalize-papi.basepath}" responseTimeout="${configurationTimeout.product-sapi}">
 		<http:request-connection protocol="${normalize-papi.protocol}" host="${normalize-papi.host}" port="${normalize-papi.port}" />
 	</http:request-config>
-	<!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="fbb7120d-cd20-4d44-b40f-cf5698b6c957" flowRef="product-papi-services-main" /> -->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="fbb7120d-cd20-4d44-b40f-cf5698b6c957" flowRef="product-papi-services-main" />
 	
 	
 </mule>

@@ -27,7 +27,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<import doc:name="Import" doc:id="e90a696c-3c11-4d54-a67a-50e04bb36205" file="loggin.xml" />
 	<import doc:name="Import" doc:id="65971411-b302-4333-b55d-0c12c3283d6c" file="audits-sapi-client.xml" />
 	<configuration-properties doc:name="Configuration properties" doc:id="12bb5464-0a90-456e-903a-bf1df18f46d3" file="${env}-properties.yaml"/>
-	<!--  <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="0568bc23-ea88-4c9c-b220-9bed49123d27" flowRef="customer-papi-services-main" /> -->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="0568bc23-ea88-4c9c-b220-9bed49123d27" flowRef="customer-papi-services-main" /> 
 	
 	
 </mule>

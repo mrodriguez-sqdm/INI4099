@@ -25,11 +25,9 @@ bot-sapi-2:
   port: "8091"
   basepath: "/bot/v1"
   endpoints:
-    services:
-      base-path: "/services"
-      validateimei: "/validateimei"
-      suspendvoluntarily: "/suspendvoluntarily"
-      suspendbytheft: "/suspendbytheft"
+    notifications:
+      base-path: "/notifications"
+      sendinfosva: "/sendinfosva"
       
   client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
   client_secret: "8917F36fBC2c4105b72c7bC3a165740F"
