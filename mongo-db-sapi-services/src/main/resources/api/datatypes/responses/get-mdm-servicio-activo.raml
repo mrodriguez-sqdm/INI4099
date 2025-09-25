@@ -15,190 +15,91 @@ properties:
       type: object
       properties:
         _id:
-          type: string
-          example: 5a3baa28080e9b2280b20e60
-          required: false
-        Tipo_Documento:
-          type: string
-          example: CC
-          required: false
-        Numero_Identificacion:
-          type: string
-          example: '41415120'
-          required: false
-        Cuenta_Facturacion:
-          type: string
-          example: '1376642'
-          required: false
-        Tecnologia:
-          type: string
-          example: FO
-          required: false
-        Usuario_Creador:
-          type: string
-          example: 0-1
-          required: false
-        Usuario_Modificador:
-          type: string
-          example: 0-1
-          required: false
-        Direccion_Instalacion:
-          type: string
-          example: CL 146 13 16 AP 201
-          required: false
-        Departamento:
-          type: string
-          example: BOGOTA
-          required: false
-        Ciudad:
-          type: string
-          example: BOGOTA D.C.
-          required: false
-        Barrio:
-          type: string
-          example: '008518'
-          required: false
-        Localidad:
-          type: string
-          example: CC-38281206
-          required: false
-        Estrato:
-          type: string
-          example: '4'
-          required: false
-        Pais:
-          type: string
-          example: Colombia
-          required: false
-        Id_Orden_Relacionada:
-          type: string
-          example: ''
-          required: false
-        Id_Activo_Padre:
-          type: string
-          example: 1-IAHYO2W
-          required: false
-        Empaquetado:
-          type: string
-          example: DOBLE 25M
-          required: false
-        Tipo_Producto:
-          type: string
-          example: RAIZ
-          required: false
-        Codigo_Producto_Servicio:
-          type: string
-          example: 6DQS-BCVPU
-          required: false
-        Codigo_Servicio:
-          type: string
-          example: ''
-          required: false
-        Producto:
-          type: string
-          example: VOIP
-          required: false
-        Servicio:
-          type: string
-          example: ''
-          required: false
-        Oferta_Plan:
-          type: string
-          example: PLAN LOCAL ILIMITADO
-          required: false
-        Valor_Oferta:
-          type: string
-          example: '0'
-          required: false
-        Numero_Conexion:
-          type: string
-          example: '5716275110'
-          required: false
-        IMEI:
-          type: string
-          example: ''
-          required: false
-        ICCID:
-          type: string
-          example: ''
-          required: false
-        Duracion_Servicio:
-          type: string
-          example: ''
-          required: false
-        Flag_Facturable:
-          type: string
-          example: S
-          required: false
+          type: object
+          properties:
+            $oid:
+              type: string
+              example: 68cc67ca9ebc2dfe3f3e9219
+              required: false
         Integration_Id:
           type: string
-          example: 1-I7X7S6N
+          example: MDM-MOV-334270-1
           required: false
-        Id_Caracterizacion_Prom:
-          type: string
-          example: ''
-          required: false
-        Fecha_Creacion:
-          type: object
-          properties:
-            $date:
-              type: datetime
-              example: '2017-02-20T18:39:07.000Z'
-              required: false
-        Fecha_Actualizacion:
-          type: object
-          properties:
-            $date:
-              type: datetime
-              example: '2017-02-20T18:39:07.000Z'
-              required: false
-        Fecha_Activacion:
-          type: object
-          properties:
-            $date:
-              type: datetime
-              example: '2017-02-20T05:00:00.000Z'
-              required: false
-        Fecha_Inactivacion:
-          type: string
-          example: ''
-          required: false
-        Modalidad_Servicio:
-          type: string
-          example: ''
-          required: false
-        Flag_Convergencia:
-          type: string
-          example: ''
-          required: false
-        Numero_Anterior:
-          type: string
-          example: ''
-          required: false
-        Clausula_Permanencia:
-          type: string
-          example: ''
-          required: false
-        Id_Activo_Sistema_Origen:
-          type: string
-          example: 1-IAHYO3L
-          required: false
-        Id_Activo_Raiz:
-          type: string
-          example: 1-IAHYO2W
-          required: false
-        Id_Cuenta_Servicio_Origen:
-          type: string
-          example: 1-I7TL8E8
-          required: false
-        Sistema_Origen:
-          type: string
-          example: FIBRA
-          required: false
-        Ruta:
-          type: string
-          example: ''
-          required: false
+        Bundles:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                example: 67ae00b47b67fb15505a610b
+                required: false
+              id_catalogo:
+                type: string
+                example: '6707'
+                required: false
+              nombre:
+                type: string
+                example: MOVIL MIXTO ILIMIGIGAS 11
+                required: false
+              primarios:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: 67ae01177b67fb15505a6116
+                      required: false
+                    id_primario:
+                      type: string
+                      example: '11111'
+                      required: false
+                    nombre:
+                      type: string
+                      example: LTE POSPAGO
+                      required: false
+                    secundarios:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 67ae01177b67fb15505a6119
+                            required: false
+                          id_secundario:
+                            type: string
+                            example: '21111200562'
+                            required: false
+                          nombre:
+                            type: string
+                            example: DATOS ILIMITADOS EN 3G4G
+                            required: false
+              opcionales:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: 6261bc507b67fb35d089d5fa
+                      required: false
+                    id_opcional:
+                      type: string
+                      example: '5733'
+                      required: false
+                    nombre:
+                      type: string
+                      example: DATOS 20 GB
+                      required: false
+                    fecha_activacion:
+                      type: object
+                      properties:
+                        $date:
+                          type: datetime
+                          example: '2025-09-18T20:12:56.114Z'
+                          required: false
         Caracteristica_Servicio:
           type: array
           items:
@@ -206,116 +107,135 @@ properties:
             properties:
               Caracteristica:
                 type: string
-                example: RNE
+                example: MigradoMVNE
                 required: false
               Valor:
                 type: string
                 example: 'true'
                 required: false
-        Estado_Servicio:
+        Codigo_Producto_Servicio:
           type: string
-          example: ''
+          example: '6707'
           required: false
-        Promociones_Servicio:
+        Cuenta_Facturacion:
           type: string
-          example: ''
+          example: '15052963132'
           required: false
-        Descuento_Servicio:
+        Empaquetado:
           type: string
-          example: ''
-          required: false
-        Tipo_Linea:
-          type: string
-          example: ''
-          required: false
-        Segmento_Servicio:
-          type: string
-          example: ''
-          required: false
-        Id_Servicio_Salesforce:
-          type: string
-          example: ''
-          required: false
-        Direccion_Latitud:
-          type: string
-          example: 4,726859
-          required: false
-        Direccion_Longitud:
-          type: string
-          example: '-74,037872'
-          required: false
-        Direccion_GIS:
-          type: string
-          example: '612802304578495377'
-          required: false
-        Molecula:
-          type: string
-          example: FTO15
-          required: false
-        Distrito:
-          type: string
-          example: TOBERIN
-          required: false
-        Estado_Pago:
-          type: string
-          example: '0'
-          required: false
-        Estado_Fraude:
-          type: string
-          example: ''
-          required: false
-        Estado_Robo:
-          type: string
-          example: ''
-          required: false
-        Estado_Perdida:
-          type: string
-          example: ''
-          required: false
-        Estado_Voluntaria:
-          type: string
-          example: ''
-          required: false
-        Estado_Robo_Perdida:
-          type: string
-          example: ''
-          required: false
-        Bundles:
-          type: string
-          example: ''
+          example: LTE
           required: false
         Estado:
           type: string
           example: Activo
           required: false
+        Estado_Fraude:
+          type: string
+          example: '0'
+          required: false
+        Estado_Pago:
+          type: string
+          example: '0'
+          required: false
+        Estado_Robo_Perdida:
+          type: string
+          example: '0'
+          required: false
+        Estado_Voluntaria:
+          type: string
+          example: '0'
+          required: false
+        Fecha_Activacion:
+          type: object
+          properties:
+            $date:
+              type: datetime
+              example: '2025-09-18T20:12:58.027Z'
+              required: false
+        Fecha_Creacion:
+          type: object
+          properties:
+            $date:
+              type: datetime
+              example: '2025-09-18T20:12:58.027Z'
+              required: false
+        ICCID:
+          type: string
+          example: '89571871250020434529'
+          required: false
+        IMEI:
+          type: string
+          example: ''
+          required: false
+        Id_Activo_Padre:
+          type: string
+          example: ''
+          required: false
+        Id_Activo_Raiz:
+          type: string
+          example: ''
+          required: false
+        Id_Activo_Sistema_Origen:
+          type: string
+          example: MDM-MOV-334270
+          required: false
+        Id_Orden_Relacionada:
+          type: string
+          example: MDM-MOV-334270
+          required: false
+        Modalidad_Servicio:
+          type: string
+          example: CONTROL
+          required: false
+        Numero_Conexion:
+          type: string
+          example: '3059202518'
+          required: false
+        Numero_Identificacion:
+          type: string
+          example: '1001278455'
+          required: false
+        Oferta_Plan:
+          type: string
+          example: MOVIL MIXTO ILIMIGIGAS 11
+          required: false
+        Pais:
+          type: string
+          example: COLOMBIA
+          required: false
+        Producto:
+          type: string
+          example: TELEFONIA MOVIL (LTE)
+          required: false
+        Sistema_Origen:
+          type: string
+          example: MDM-MOV
+          required: false
+        Tecnologia:
+          type: string
+          example: LTE
+          required: false
+        Tipo_Documento:
+          type: string
+          example: CC
+          required: false
+        Tipo_Linea:
+          type: string
+          example: Postpago
+          required: false
+        Tipo_Producto:
+          type: string
+          example: RAIZ
+          required: false
+        Usuario_Creador:
+          type: string
+          example: migurod4
+          required: false
+        Valor_Oferta:
+          type: string
+          example: '72900'
+          required: false
         actualizacion_extractor:
           type: string
           example: '1'
-          required: false
-        Fecha_Inicio_Cuenta_Servicio:
-          type: string
-          example: ''
-          required: false
-        Proyecto:
-          type: object
-          properties:
-            Tipo:
-              type: string
-              example: METRO
-              required: false
-            Tramo:
-              type: string
-              example: '1'
-              required: false
-            Marcacion:
-              type: string
-              example: INTERFERENCIA
-              required: false
-            Tecnologia:
-              type: string
-              example: FTTH
-              required: false
-        Riesgo_Churn:
-          type: string
-          example: ''
           required: false

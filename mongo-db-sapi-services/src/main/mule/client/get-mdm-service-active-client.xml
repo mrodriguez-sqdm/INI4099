@@ -15,10 +15,14 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 output application/json
 ---
 if (!isEmpty(vars.parameters.ConnectionNumber)) 
-    { "Numero_Conexion": vars.parameters.ConnectionNumber }
+    { 
+      "Numero_Conexion": vars.parameters.ConnectionNumber,
+      "Tecnologia": vars.parameters.Tecnology
+    }
 else 
     { "Tipo_Documento": vars.parameters.CustomerIdType,
-    	 "Numero_Identificacion": vars.parameters.CustomerId
+    	 "Numero_Identificacion": vars.parameters.CustomerId,
+    	 "Tecnologia": vars.parameters.Tecnology
     }]]]></mongo:query>
 					</mongo:find-documents>
 					<ee:transform doc:name="Set Response Body" doc:id="44b0e4f3-e951-47d2-81c0-6498ff724241">

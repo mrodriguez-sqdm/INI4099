@@ -2,99 +2,102 @@
   "code" : "200",
   "message": "Operacion exitosa",
   
- "services" : [{
-	
-  "_id":  "5a3baa28080e9b2280b20e60",
-  "Tipo_Documento": "CC",
-  "Numero_Identificacion": "41415120",
-  "Cuenta_Facturacion": "1376642",
-  "Tecnologia": "FO",
-  "Usuario_Creador": "0-1",
-  "Usuario_Modificador": "0-1",
-  "Direccion_Instalacion": "CL 146 13 16 AP 201",
-  "Departamento": "BOGOTA",
-  "Ciudad": "BOGOTA D.C.",
-  "Barrio": "008518",
-  "Localidad": "CC-38281206",
-  "Estrato": "4",
-  "Pais": "Colombia",
-  "Id_Orden_Relacionada": "",
-  "Id_Activo_Padre": "1-IAHYO2W",
-  "Empaquetado": "DOBLE 25M",
-  "Tipo_Producto": "RAIZ",
-  "Codigo_Producto_Servicio": "6DQS-BCVPU",
-  "Codigo_Servicio": "",
-  "Producto": "VOIP",
-  "Servicio": "",
-  "Oferta_Plan": "PLAN LOCAL ILIMITADO",
-  "Valor_Oferta": "0",
-  "Numero_Conexion": "5716275110",
-  "IMEI": "",
-  "ICCID": "",
-  "Duracion_Servicio": "",
-  "Flag_Facturable": "S",
-  "Integration_Id": "1-I7X7S6N",
-  "Id_Caracterizacion_Prom": "",
-  "Fecha_Creacion": {
-    "$date": "2017-02-20T18:39:07.000Z"
-  },
-  "Fecha_Actualizacion": {
-    "$date": "2017-02-20T18:39:07.000Z"
-  },
-  "Fecha_Activacion": {
-    "$date": "2017-02-20T05:00:00.000Z"
-  },
-  "Fecha_Inactivacion": "",
-  "Modalidad_Servicio": "",
-  "Flag_Convergencia": "",
-  "Numero_Anterior": "",
-  "Clausula_Permanencia": "",
-  "Id_Activo_Sistema_Origen": "1-IAHYO3L",
-  "Id_Activo_Raiz": "1-IAHYO2W",
-  "Id_Cuenta_Servicio_Origen": "1-I7TL8E8",
-  "Sistema_Origen": "FIBRA",
-  "Ruta": "",
-  "Caracteristica_Servicio": [
-    {
-      "Caracteristica": "RNE",
-      "Valor": "true"
+ "services" : [
+  {
+    "_id": {
+      "$oid": "68cc67ca9ebc2dfe3f3e9219"
     },
-    {
-      "Caracteristica": "NN",
-      "Valor": "prueba"
+    "Integration_Id": "MDM-MOV-334270-1",
+    "Bundles": [
+      {
+        "_id": "67ae00b47b67fb15505a610b",
+        "id_catalogo": "6707",
+        "nombre": "MOVIL MIXTO ILIMIGIGAS 11",
+        "primarios": [
+          {
+            "_id": "67ae01177b67fb15505a6116",
+            "id_primario": "11111",
+            "nombre": "LTE POSPAGO",
+            "secundarios": [
+              {
+                "_id": "67ae01177b67fb15505a6119",
+                "id_secundario": "21111200562",
+                "nombre": "DATOS ILIMITADOS EN 3G4G"
+              },
+              {
+                "_id": "67ae01177b67fb15505a6117",
+                "id_secundario": "21111100436",
+                "nombre": "VOZ ILIMITADA"
+              },
+              {
+                "_id": "67ae01177b67fb15505a611a",
+                "id_secundario": "21111200609",
+                "nombre": "PASAGIGAS (100 MINUTOS + 2 GB)"
+              },
+              {
+                "_id": "67ae01177b67fb15505a6118",
+                "id_secundario": "21111400560",
+                "nombre": "SMS ILIMITADOS"
+              }
+            ]
+          }
+        ],
+        "opcionales": [
+          {
+            "_id": "6261bc507b67fb35d089d5fa",
+            "id_opcional": "5733",
+            "nombre": "DATOS 20 GB",
+            "fecha_activacion": {
+              "$date": "2025-09-18T20:12:56.114Z"
+            }
+          }
+        ]
+      }
+    ],
+    "Caracteristica_Servicio": [
+      {
+        "Caracteristica": "MigradoMVNE",
+        "Valor": "true"
+      },
+      {
+        "Caracteristica": "ANEXO_DIGITAL_DEFINITIVO_SVA",
+        "Valor": "1001278455/MDM-MOV-334270/ANEXO_DIGITAL_DEFINITIVO_SVA.pdf"
+      }
+    ],
+    "Codigo_Producto_Servicio": "6707",
+    "Cuenta_Facturacion": "15052963132",
+    "Empaquetado": "LTE",
+    "Estado": "Activo",
+    "Estado_Fraude": "0",
+    "Estado_Pago": "0",
+    "Estado_Robo_Perdida": "0",
+    "Estado_Voluntaria": "0",
+    "Fecha_Activacion": {
+      "$date": "2025-09-18T20:12:58.027Z"
     },
-    {
-      "Caracteristica": "RVC USO",
-      "Valor": "12"
-    }
-  ],
-  "Estado_Servicio": "",
-  "Promociones_Servicio": "",
-  "Descuento_Servicio": "",
-  "Tipo_Linea": "",
-  "Segmento_Servicio": "",
-  "Id_Servicio_Salesforce": "",
-  "Direccion_Latitud": "4,726859",
-  "Direccion_Longitud": "-74,037872",
-  "Direccion_GIS": "612802304578495377",
-  "Molecula": "FTO15",
-  "Distrito": "TOBERIN",
-  "Estado_Pago": "0",
-  "Estado_Fraude": "",
-  "Estado_Robo": "",
-  "Estado_Perdida": "",
-  "Estado_Voluntaria": "",
-  "Estado_Robo_Perdida": "",
-  "Bundles": "",
-  "Estado": "Activo",
-  "actualizacion_extractor": "1",
-  "Fecha_Inicio_Cuenta_Servicio": "",
-  "Proyecto": {
-    "Tipo": "METRO",
-    "Tramo": "1",
-    "Marcacion": "INTERFERENCIA",
-    "Tecnologia": "FTTH"
-  },
-  "Riesgo_Churn": ""
-}]
+    "Fecha_Creacion": {
+      "$date": "2025-09-18T20:12:58.027Z"
+    },
+    "ICCID": "89571871250020434529",
+    "IMEI": "",
+    "Id_Activo_Padre": "",
+    "Id_Activo_Raiz": "",
+    "Id_Activo_Sistema_Origen": "MDM-MOV-334270",
+    "Id_Orden_Relacionada": "MDM-MOV-334270",
+    "Modalidad_Servicio": "CONTROL",
+    "Numero_Conexion": "3059202518",
+    "Numero_Identificacion": "1001278455",
+    "Oferta_Plan": "MOVIL MIXTO ILIMIGIGAS 11",
+    "Pais": "COLOMBIA",
+    "Producto": "TELEFONIA MOVIL (LTE)",
+    "Sistema_Origen": "MDM-MOV",
+    "Tecnologia": "LTE",
+    "Tipo_Documento": "CC",
+    "Tipo_Linea": "Postpago",
+    "Tipo_Producto": "RAIZ",
+    "Usuario_Creador": "migurod4",
+    "Valor_Oferta": "72900",
+    "actualizacion_extractor": "1"
+  }
+]
 }
