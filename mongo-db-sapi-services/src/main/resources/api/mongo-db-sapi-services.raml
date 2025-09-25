@@ -373,3 +373,31 @@ traits:
               body:
                 application/json:
                   type: !include /datatypes/responses/audit-dijin.raml
+  /serviceActive:
+     is: [security_client_id,request_headers]
+     get:
+      displayName: Get Service Active
+      description: get service active
+      queryParameters:
+        ConnectionNumber:
+          type: string
+          example: "454544"
+          required: false
+        CustomerId:
+          type: string
+          example: "3125702716"
+          required: false
+        CustomerIdType:
+          type: string
+          example: "3125702716"
+          required: false
+      responses:
+        200:
+          body:
+            type: !include /datatypes/responses/get-mdm-servicio-activo.raml
+        404:
+          body:
+            type: !include /datatypes/responses/error.raml
+        500:
+          body:
+            type: !include /datatypes/responses/error.raml

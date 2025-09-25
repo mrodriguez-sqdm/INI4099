@@ -44,6 +44,8 @@ mongoDb-mdm:
     collection-cliente: "MDM_CLIENTE"
   parametros:
     collection-parametro: "MDM_CD_PARAMETRO"
+  servicios:
+    collection-service-active: "MDM_SERVICIO_ACTIVO"
         
 audits-sapi:
   host: "mule-worker-internal-audits-oracle-sapi-services-prod.us-e2.cloudhub.io"

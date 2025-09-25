@@ -81,5 +81,8 @@ output application/json
 	<flow name="get:\v1\parameters:mongo-db-sapi-services-config" doc:id="d0c6a763-e724-422c-9d0f-7ce011b44a67" >
 		<flow-ref doc:name="Flow Reference" doc:id="5fcc7b06-e910-4b8d-8a03-1e295b93d786" name="get-parameters-clientSub_Flow"/>
 	</flow>
+	<flow name="get:\v1\serviceActive:mongo-db-sapi-services-config" doc:id="bb5d6eb3-4df5-478b-a925-e16807368605" >
+		<flow-ref doc:name="Flow Reference" doc:id="6201695e-f1b6-4501-b25e-8f7f18d21e80" name="get-mdm-service-active-clientSub_Flow"/>
+	</flow>
 
 </mule>

@@ -29,7 +29,8 @@ mongoDb-mdm:
     collection-cliente: "MDM_CLIENTE"
   parametros:
     collection-parametro: "MDM_CD_PARAMETRO"
-    
+  servicios:
+    collection-service-active: "MDM_SERVICIO_ACTIVO"
   mulesoft:
     tokens: "MULESOFT_TOKENS"
     clients: "MULESOFT_CLIENTES"
