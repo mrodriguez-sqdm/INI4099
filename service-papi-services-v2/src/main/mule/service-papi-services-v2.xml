@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="service-papi-services-v2-main" doc:id="c811e648-dc62-4be2-b400-51221dec8722" >
+		<http:listener doc:name="Listener" doc:id="6c4d12e9-9f1a-4bb5-ad0d-798179d53b31" config-ref="service-papi-services-v2-httpListenerConfig" path="/v2/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<flow-ref doc:name="Call initial Logger" doc:id="2a5eb826-5561-49d5-af0c-05ffbefc5877" name="initial-loggin-Sub_Flow" />
+		<apikit:router doc:id="b1c6508a-2b66-4183-a761-fd9f7c73b258" config-ref="service-papi-services-v2-config" doc:name="APIkit Router" />
+		<async doc:name="Async" doc:id="feddba00-62a7-4031-a16a-8f23ded6e0d3" >
+			<flow-ref doc:name="Call logger" doc:id="7d2630ca-b9ac-4156-8008-cf1e59efb2e8" name="loggin-client-call" />
+		</async>
+		<error-handler ref="error-handlerError_Handler" />
+	</flow>
+	<flow name="service-papi-services-v2-console" doc:id="15cc69b8-d6af-48b1-a4c1-d6e9418687d2" >
+		<http:listener doc:name="Listener" doc:id="cef8f0fe-c8e8-47d5-9ee6-cc1811782e78" config-ref="service-papi-services-v2-httpListenerConfig" path="/console/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:console doc:id="ba3debd5-6add-439b-a945-a5364689cd9e" config-ref="service-papi-services-v2-config" doc:name="APIkit Console" />
+		<error-handler >
+			<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="6177704c-4815-412b-9cf4-c5b46d59bea7" type="APIKIT:NOT_FOUND" >
+				<ee:transform doc:name="Transform Message" doc:id="ff35a5f1-b94d-4082-9324-fb0f695ea1dd" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Resource not found"}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
+						<ee:set-variable variableName="httpStatus" ><![CDATA[404]]></ee:set-variable>
+					</ee:variables>
+				</ee:transform>
+			</on-error-propagate>
+		</error-handler>
+	</flow>
+	<flow name="get:\service:service-papi-services-v2-config" doc:id="da7fc5e1-5085-4608-b95c-43a921993357" >
+		<flow-ref doc:name="Flow Reference" doc:id="9f666321-64d2-4d69-8ce0-0811fd6c8ed9" name="service-get-orchestadorSub_Flow"/>
+	</flow>
+</mule>
