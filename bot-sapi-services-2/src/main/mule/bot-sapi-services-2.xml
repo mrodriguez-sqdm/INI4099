@@ -53,6 +53,14 @@ output application/json
 	<flow name="post:\soporte1n\setwifinetworkstate:application\json:bot-sapi-services-2-config" doc:id="a121afcd-33c4-460c-9dc2-11f887c9c457" >
 		<flow-ref doc:name="Flow Reference" doc:id="aa8081bd-1e77-4233-ae57-9552700a1d75" name="post-soporte1n-setwifinetworkstate-orchestadorSub_Flow"/>
 	</flow>
+	<flow name="post:\soporte1n\validatelb:application\json:bot-sapi-services-2-config" doc:id="518aaa80-5513-4f1d-80d8-defad0bfad7e" >
+		<flow-ref doc:name="Flow Reference" doc:id="5d574160-1f15-46ea-a6ba-d813144b774f" name="post-soporte1n-validatelb-orchestadorSub_Flow"/>
+
+	</flow>
+	<flow name="post:\soporte1n\setwifinetworkname:application\json:bot-sapi-services-2-config" doc:id="1e4eb5e4-157a-4fa0-8f1a-ceb4ae86355b" >
+		<flow-ref doc:name="Flow Reference" doc:id="0236f3ec-ff39-49ef-b1c9-aa3d957b5371" name="post-soporte1n-setwifinetworkname-orchestadorSub_Flow"/>
+
+	</flow>
 	<flow name="post:\services\suspendbytheft:application\json:bot-sapi-services-2-config" doc:id="4ca8ce17-faae-4177-960e-8fdfca7c1fca" >
 		<flow-ref doc:name="Flow Reference" doc:id="60bc54a8-a565-4884-b82b-8c8107087e43" name="post-services-suspendbytheft-orchestadorSub_Flow"/>
 	</flow>
@@ -65,13 +73,20 @@ output application/json
 	<flow name="post:\services\registerdevice:application\json:bot-sapi-services-2-config" doc:id="f1c8be62-512c-4d4d-9642-420381f9c2ff" >
 		<flow-ref doc:name="Flow Reference" doc:id="1c26c4c3-90c9-4b3e-bd8b-3e9eb18c0c52" name="post-services-registerdevice-orchestadorSub_Flow"/>
 	</flow>
+		<flow name="post:\services\suspendbyloss:application\json:bot-sapi-services-2-config" doc:id="a82d7159-85ed-48de-93ed-7ce920346975" >
+		<flow-ref doc:name="Flow Reference" doc:id="52d1415d-8035-4027-8aa1-0a887d4ce0f6" name="post-services-suspendbyloss-orchestadorSub_Flow"/>
+
+	</flow>
 	<flow name="post:\customers\habeasdata:application\json:bot-sapi-services-2-config" doc:id="3e7fe302-1358-4be5-bff0-0b44314aa0ed">
-		<flow-ref doc:name="Flow Reference" doc:id="bbfe6557-4edd-4f23-b91e-48312b2dfc4f" name="post-services-habeasdata-orchestadorSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="bbfe6557-4edd-4f23-b91e-48312b2dfc4f" name="post-customer-habeasdata-orchestadorSub_Flow"/>
 	</flow>
 	<flow name="post:\notifications\sendinfosva:application\json:bot-sapi-services-2-config" doc:id="212dc1e8-3ba2-4919-852b-7d2db265e10f" >
-		<flow-ref doc:name="Flow Reference" doc:id="bb7c4036-de1d-4570-8f2c-e45413bcd6e3" name="post-services-sendinfosva-orchestadorSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="bb7c4036-de1d-4570-8f2c-e45413bcd6e3" name="post-notifications-sendinfosva-orchestadorSub_Flow"/>
 	</flow>
 	<flow name="post:\notifications\sendnotifyprocedure:application\json:bot-sapi-services-2-config" doc:id="427eef68-816c-4cf5-9a4d-c61780735b86" >
-		<flow-ref doc:name="Flow Reference" doc:id="3f5cd5dc-97b4-425f-951b-7cf0bf373213" name="post-services-sendnotifyprocedure-orchestadorSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="3f5cd5dc-97b4-425f-951b-7cf0bf373213" name="post-notifications-sendnotifyprocedure-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\mietb\updatepassword:application\json:bot-sapi-services-2-config" doc:id="577bcc09-e0dd-4b6d-9048-3d014efb0a10" >
+		<flow-ref doc:name="Flow Reference" doc:id="3fab80f8-1e6b-4256-a506-c29d535486d4" name="post-mietb-updatepassword-orchestadorSub_Flow"/>
 	</flow>
 </mule>

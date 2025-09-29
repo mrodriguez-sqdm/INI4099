@@ -15,4 +15,26 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="botServices-soporte1n-validatelb-clientSub_Flow" doc:id="c82d5aeb-6bfe-41f6-882e-3b45a91c78d1" >
+		<http:request method="POST" doc:name="Call bot soporte1n validatelb" doc:id="992e261e-a009-4069-a98b-da38fc85a77d" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.soporte1n.rootPath}${botServices.resources.soporte1n.validatelb.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="botServices-soporte1n-setwifinetworkname-clientSub_Flow" doc:id="aa5dd47c-d5bc-4366-b307-79c6f64bdbd0" >
+		<http:request method="POST" doc:name="Call bot soporte1n setwifinetworkname" doc:id="c4c504ee-d530-4dd6-8f1b-cdf8abc0ab81" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.soporte1n.rootPath}${botServices.resources.soporte1n.setwifinetworknameV3.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 </mule>

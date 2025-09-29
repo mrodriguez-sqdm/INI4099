@@ -25,11 +25,17 @@ botServices:
         path: "/v2/validateimei"
       registerdevice:
         path: "/v2/registerdevice"
+      suspendbyloss:
+        path: "/v1/suspendbyloss"
 
     soporte1n:
       rootPath: "/soporte1n"
       setWifiNetworkStateV3:
         path: "/v3/setwifinetworkstate"
+      validatelb:
+        path: "/v1/validatelb"
+      setwifinetworknameV3:
+        path: "/v3/setwifinetworkname"
 
     customers:
       rootPath: "/customers"
@@ -42,6 +48,11 @@ botServices:
         path: "/v1/sendinfosva"
       sendnotifyprocedure:
         path: "/v1/sendnotifyprocedure"
+        
+    mietb:
+      rootPath: "/mietb"
+      updatepassword:
+        path: "/v1/updatepassword"
     
 audits-sapi:
   host: "mule-worker-internal-audits-oracle-sapi-services-qa.us-e2.cloudhub.io"

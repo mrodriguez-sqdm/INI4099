@@ -41,6 +41,26 @@
 				"method": "POST",
 				"path": "/bot/v1/notifications/sendnotifyprocedure",
 				"processname": "Send SIM replacement notification"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/services/suspendbyloss",
+				"processname": "Suspend Mobile Line by Loss"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/soporte1n/validatelb",
+				"processname": "Validate Lb"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/soporte1n/setwifinetworkname",
+				"processname": "Set WiFi Network Name"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/mietb/updatepassword",
+				"processname": "Update MiETB Password"
 			}
 			
 		]

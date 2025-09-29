@@ -79,6 +79,22 @@ traits:
             application/json:
               type: !include /datatypes/response/post-suspend-bytheft.raml
               example: !include /examples/response/post-suspend-bytheft.json
+  /suspendbyloss:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Suspend Mobile Line by Loss
+      description: Suspend Mobile Line by Loss
+      body:
+        application/json:
+          type: !include /datatypes/request/post-suspend-byloss.raml
+          example: !include /examples/request/post-suspend-byloss.json
+      responses:
+        200:
+          description: The mobile line was successfully suspended due to theft report, and the IMEI was blocked as requested.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-suspend-byloss.raml
+              example: !include /examples/response/post-suspend-byloss.json
 
 /soporte1n:
   /setwifinetworkstate:
@@ -97,6 +113,38 @@ traits:
             application/json:
               type: !include /datatypes/response/post-setwifi-networkstate.raml
               example: !include /examples/response/post-setwifi-networkstate.json
+  /validatelb:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Validate Lb
+      description: Validate Lb
+      body:
+        application/json:
+          type: !include /datatypes/request/post-validate-lb.raml
+          example: !include /examples/request/post-validate-lb.json
+      responses:
+        200:
+          description: The base line status (number, registration, and state) was successfully validated.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-validate-lb.raml
+              example: !include /examples/response/post-validate-lb.json
+  /setwifinetworkname:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Set WiFi Network Name
+      description: Set WiFi Network Name
+      body:
+        application/json:
+          type: !include /datatypes/request/post-setwifi-networkname.raml
+          example: !include /examples/request/post-setwifi-networkname.json
+      responses:
+        200:
+          description: The WiFi network name (SSID) was successfully updated.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-setwifi-networkname.raml
+              example: !include /examples/response/post-setwifi-networkname.json
 
 /customers:
   /habeasdata:
@@ -149,3 +197,21 @@ traits:
             application/json:
               type: !include /datatypes/response/common-response-header.raml
               example: !include /examples/response/post-send-notifyprocedure.json
+
+/mietb:
+  /updatepassword:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Update MiETB Password
+      description: Update MiETB Password
+      body:
+        application/json:
+          type: !include /datatypes/request/post-update-password.raml
+          example: !include /examples/request/post-update-password.json
+      responses:
+        200:
+          description: The user’s MiETB password was successfully updated.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-update-password.json

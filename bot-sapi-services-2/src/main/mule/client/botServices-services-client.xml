@@ -48,4 +48,15 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="botServices-services-suspendbyloss-clientSub_Flow" doc:id="09e5b4d8-20e1-4745-b7de-43bb1e522904" >
+		<http:request method="POST" doc:name="Call bot services suspendbyloss" doc:id="51e6aaac-6f6b-4dd5-981b-f35dd3150086" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.suspendbyloss.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 </mule>

@@ -3,9 +3,9 @@
 <mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-	<sub-flow name="post-services-habeasdata-orchestadorSub_Flow" doc:id="e4a190a8-d879-4407-ade4-00346fcc90ab" >
+	<sub-flow name="post-customer-habeasdata-orchestadorSub_Flow" doc:id="e4a190a8-d879-4407-ade4-00346fcc90ab" >
 		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="3a3bcd9b-de04-4b85-af16-3defcd6ddb8a" variableName="initialPayload" />
 		<flow-ref doc:name="get-authentication-token" doc:id="b9732113-c8c2-435d-b8cc-15d656e63e91" name="get-authentication-token" />
-		<flow-ref doc:name="Go to generate client" doc:id="b0bb3781-f334-4f51-89f1-dd3270580b2d" name="botServices-services-habeasdata-clientSub_Flow" />
+		<flow-ref doc:name="Go to generate client" doc:id="b0bb3781-f334-4f51-89f1-dd3270580b2d" name="botServices-customer-habeasdata-clientSub_Flow" />
 	</sub-flow>
 </mule>
