@@ -15,8 +15,15 @@ properties:
     required: false
   operation:
     type: object
-    required: false
     properties:
+      type:
+        type: string
+        example: password
+        required: false
+      networkName:
+        type: string
+        example: faf35f4s
+        required: false
       password:
         type: string
         example: faf35f4s
@@ -24,4 +31,16 @@ properties:
       networkType:
         type: string
         example: ''
+        required: false
+      dual:
+        type: boolean
+        example: true
+        required: false
+      serial:
+        type: string
+        example: ''
+        required: false
+      syncUp:
+        type: boolean
+        example: false
         required: false

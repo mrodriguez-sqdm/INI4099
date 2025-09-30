@@ -53,11 +53,11 @@ mediaType:
             application/json:
               type: !include /datatypes/response/error.raml
               example: !include /examples/response/error-500.json
-  /setWifiPassword:
+  /setResourceNetwork:
     post:
       is: [security_client_id,tibcoHeaders]
-      displayName: Set Wifi Password
-      description: Set Wifi Password
+      displayName: Set Resource Network
+      description: Set Resource Network
       queryParameters:
         ORIGIN:
           type: string
@@ -65,8 +65,8 @@ mediaType:
           description: "Parameter that allows the origin of the request to be identified"
       body:
         application/json:
-          type: !include /datatypes/request/set-wifi-password.raml
-          example: !include /examples/request/set-wifi-password.json
+          type: !include /datatypes/request/set-recurso-red.raml
+          example: !include /examples/request/set-recurso-red.json
       responses:
           200:
             body:

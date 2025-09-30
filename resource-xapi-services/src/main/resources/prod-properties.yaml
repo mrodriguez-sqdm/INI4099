@@ -12,7 +12,7 @@ resource-papi:
   endpoints:
     resourceFunction:
       base-path: "/resourceFunction"
-      setWifiPassword: "/setWifiPassword"
+      setResourceNetwork: "/setResourceNetwork"
       configureService: 
         base-path: "/configureService"
         registerDevice:  

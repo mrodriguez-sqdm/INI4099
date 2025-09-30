@@ -32,6 +32,10 @@ bot-sapi-2:
       base-path: "/notifications"
       sendnotifyprocedure: 
        path: "/sendnotifyprocedure"
+    mietb:
+      base-path: "/mietb"
+      updatepassword: 
+        path: "/updatepassword"
 
       
   client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
