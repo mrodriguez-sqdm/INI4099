@@ -9,10 +9,12 @@ service-papi:
   host: "localhost"
   port: "8091"
   base-path: "/services/v1"
-  service:
+  serviceOrder:
     base-path: "/serviceOrder"
   resource:
     base-path: "/resource"
+  service:
+    base-path: "/service"
 
 
   security:

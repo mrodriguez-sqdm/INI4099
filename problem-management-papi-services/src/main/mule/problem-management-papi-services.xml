@@ -41,9 +41,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="get:\serviceProblem\pqr-orders:problem-management-papi-services-config" doc:id="085d9ff5-88fa-40d7-933c-8f0448466fb5" >
 		<flow-ref doc:name="Flow Reference" doc:id="5374d5f5-0c9b-453d-8154-aa018e5b7894" name="get-serviceProblem-pqrs-orders-orchestratorSub_Flow"/>
 	</flow>
-	<flow name="get:\service:problem-management-papi-services-config" doc:id="b88c71ea-9aa1-4d8a-9714-ad15b1ffdcbc" >
-		<flow-ref doc:name="Flow Reference" doc:id="92110cb3-39b3-4249-a5bc-8e08bc1dc10f" name="get-service-orchestratorSub_Flow"/>
-	</flow>
 	<flow name="get:\problemGroup:problem-management-papi-services-config" doc:id="be87d866-8473-40eb-bf03-e74867afb445" >
 		<flow-ref doc:name="Flow Reference" doc:id="8c5c7627-11b0-455b-bccc-3e565f53ffbb" name="get-problem-group-orchestratorSub_Flow"/>
 	</flow>

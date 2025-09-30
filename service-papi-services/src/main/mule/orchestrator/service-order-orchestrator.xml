@@ -10,13 +10,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<flow-ref doc:name="Flow Reference" doc:id="302103f2-678a-48a4-87ec-bbd04c655d71" name="post-reconexion-orchestratorSub_Flow"/>
 			</when>
 			<when expression='#[upper(payload.serviceOrder.orderType) == "TRASLADO"]'>
-				<flow-ref doc:name="Flow Reference" doc:id="eee64e5d-51a2-496d-8e2b-ee214a02d68a" name="post-reconexion-orchestratorSub_Flow"/>
+				<flow-ref doc:name="Flow Reference" doc:id="eee64e5d-51a2-496d-8e2b-ee214a02d68a" name="post-relocate-orchestratorSub_Flow"/>
 			</when>
-			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION VOLUNTARIA"]'>
-				<flow-ref doc:name="Flow Reference" doc:id="e0aa83b3-517e-43ce-a03f-be549cb15903" name="post-suspendvoluntarily-orchestratorSub_Flow"/>
-			</when>
-			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION ROBO"]'>
-				<flow-ref doc:name="Flow Reference" doc:id="77dbca44-3c64-47e3-90d6-92b11e566be2" name="post-suspendbytheft-orchestratorSub_Flow"/>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="e0aa83b3-517e-43ce-a03f-be549cb15903" name="validate-suspension-orchestratorSub_Flow"/>
 			</when>
 			<otherwise >
 				<set-variable value='#[500]' doc:name="Set Http Status1" doc:id="96308fc6-c5f4-4346-bfd5-c89fded2e300" variableName="httpStatus" />
@@ -27,7 +24,35 @@ output application/json
 ---
 {
 	codeResponse: vars.httpStatus as String ,
-	messageResponse: "Ruta no definida segun el campo orderType, valores permitidos RECONEXION,TRASLADO, SUSPENSION VOLUNTARIA, SUSPENSION ROBO"
+	messageResponse: "Ruta no definida segun el campo orderType, valores permitidos RECONEXION,TRASLADO, SUSPENSION"
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<sub-flow name="validate-suspension-orchestratorSub_Flow" doc:id="381d5cdd-15bd-40e7-8231-19d44f03c8e4" >
+		<choice doc:name="Choice" doc:id="fc5a5cc4-c4ef-4f1b-95c8-b8c504b434fa" >
+			<when expression='#[upper(payload.serviceOrder.causal) == "VOLUNTARIA"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="1c656be2-deed-4e57-914c-d6db5a87861c" name="post-suspendvoluntarily-orchestratorSub_Flow"/>
+			</when>
+			<when expression='#[upper(payload.serviceOrder.causal) == "ROBO"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="9442283d-dfff-407f-acd5-e7ed7f1e733f" name="post-suspendbytheft-orchestratorSub_Flow"/>
+			</when>
+			<when expression='#[upper(payload.serviceOrder.causal) == "PERDIDA"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="f9d09a2c-c3bb-4381-b03d-59db2ef87229" name="post-suspendbyloss-orchestratorSub_Flow"/>
+			</when>
+			<otherwise >
+				<set-variable value='#[500]' doc:name="Set Http Status1" doc:id="093254bc-f488-4a3e-b261-5d73f413d56a" variableName="httpStatus" />
+				<ee:transform doc:name="Set Body Response1" doc:id="70ed2800-947d-4e03-9750-0ddef69fd431">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: "Ruta no definida segun el campo causal, valores permitidos ROBO, VOLUNTARIA, PERDIDA"
 	
 }]]></ee:set-payload>
 			</ee:message>
@@ -293,6 +318,61 @@ output application/json
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
 	order: payload.WSResponseBody.Order_Number
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-suspendbyloss-orchestratorSub_Flow" doc:id="98db187a-e345-4c25-83b8-1e1a941128fa" >
+		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="a11486d6-0228-41fe-9fb0-5b6e798a4e04" variableName="headers" />
+		<ee:transform doc:name="Set Body Request" doc:id="fb035913-4d5b-4617-b24a-45db70f321e3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.system,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.system
+    },
+    "Address": payload.serviceOrder.detailOrder.address default null,
+  "IMEI": payload.serviceOrder.detailOrder.imei default null,
+  "City": payload.serviceOrder.detailOrder.city default null,
+  "Contact_Email": payload.serviceOrder.detailOrder.contactEmail default null,
+  "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default null,
+  "Department": payload.serviceOrder.detailOrder.department default null,
+  "Document_Number": payload.serviceOrder.customer.documentNumber default null,
+  "Document_Type": payload.serviceOrder.customer.documentType default null,
+  "Phone": payload.serviceOrder.customer.phone default null
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="bb84d9a2-3dfa-4680-81b2-64f62a89f15f" name="post-suspendbyloss-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="b62fe51c-0488-497d-b4ba-ad836c558d9a" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="8c31b064-249e-4659-b626-949f1e018cc8" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	order: [
+    {
+	    cun: payload.WSResponseBody.CUN default "",
+	    numPqr: payload.WSResponseBody.Num_PQR default "",
+	    orderNumber: payload.WSResponseBody.Order_Number default ""
+    }
+  ]
 	
 }]]></ee:set-payload>
 			</ee:message>

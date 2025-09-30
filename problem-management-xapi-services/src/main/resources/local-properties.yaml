@@ -15,8 +15,6 @@ problemManagement-papi:
       path: "/pqr-orders"
     activity:
       path: "/activity/{id}"
-  service:
-    base-path: "/service"
   serviceOrder:
     base-path: "/serviceOrder"
   problemGroup:

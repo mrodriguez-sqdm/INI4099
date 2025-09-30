@@ -23,6 +23,10 @@ bot-sapi:
     ordenes:
      base-path: "/orders"
      relocate: "/relocate/v1"
+    soporte1n:
+     base-path: "/soporte1n"
+     getwifi: "/getwifi/v1"
+     validatetv: "/validatetv/v1"
      
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
@@ -38,6 +42,10 @@ bot-sapi-2:
       validateimei: "/validateimei"
       suspendvoluntarily: "/suspendvoluntarily"
       suspendbytheft: "/suspendbytheft"
+      suspendbyloss: "/suspendbyloss"
+    soporte1n:
+      base-path: "/soporte1n"
+      validatelb: "/validatelb"
       
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"

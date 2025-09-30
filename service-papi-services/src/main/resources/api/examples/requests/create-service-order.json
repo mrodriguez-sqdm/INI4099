@@ -1,31 +1,39 @@
 {
-  "serviceOrder": {
-    "customer": {
-      "documentNumber": "1023456789",
-      "documentType": "CC",
-      "phone": "+57 3001234567"
-    },
-    "service": {
-      "serviceAccountNumber": "ACC-987654"
-    },
-    "orderType": "installation",
-    "causal": "customer request",
-    "operation": "create",
-    "detailSuspend": {
-      "address": "Ciudadela colsubsidio en el conjunto residencial los Cambulos",
-      "city": "BOGOTA D.C.",
-      "contactEmail": "usuario@ejemplo.com",
-      "contactPhone": "3165364514",
-      "department": "CUNDINAMARCA",
-      "documentNumber": "12345678",
-      "documentType": "CC",
-      "imei": "",
-      "mail": "cliente@test.com",
-      "phone": "3001234567",
-      "violence": false,
-      "younger": false,
-      "weapon": "2",
-      "suspensionPeriod" : 30
+    "serviceOrder": {
+        "customer": {
+            "documentNumber": "1023456789",
+            "documentType": "CC",
+            "phone": "+57 3001234567"
+        },
+        "service": {
+            "serviceAccountNumber": "ACC-987654"
+        },
+        "orderType": "installation",
+        "causal": "customer request",
+        "suspensionPeriod": 30,
+        "operation": "create",
+        "detailOrder": {
+            "address": "Ciudadela colsubsidio en el conjunto residencial los Cambulos",
+            "city": "BOGOTA D.C.",
+            "contactEmail": "usuario@ejemplo.com",
+            "contactPhone": "3165364514",
+            "department": "CUNDINAMARCA",
+            "imei": "358204101466619",
+            "mail": "cliente@test.com",
+            "violence": false,
+            "younger": false,
+            "weapon": "2",
+            "suspensionPeriod": 30,
+            "codDaneCity": "11001",
+            "codDaneDepartment": "11",
+            "keepIps": false,
+            "keepNumber": false,
+            "mailbox": false,
+            "latitude": 4.697586,
+            "longitude": -74.09126,
+            "plan": "",
+            "finishDate": "2025-01-19",
+            "initialDate": "2024-12-19"
+        }
     }
-  }
 }

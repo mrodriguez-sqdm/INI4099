@@ -46,4 +46,32 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="post-validatelb-clientSub_Flow" doc:id="1f392826-00e8-4719-8a25-df421526f69b" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="79619403-d1af-4f4c-a2fb-073238ecc995" config-ref="HTTP_Request_configuration_bot-sapi-2" path="${bot-sapi-2.endpoints.soporte1n.base-path}${bot-sapi-2.endpoints.soporte1n.validatelb}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.system,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.system,
+	"systemId" : "MIGRACION"
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-suspendbyloss-clientSub_Flow" doc:id="6dcc0562-27d2-4091-a8d8-2e45a4f22c10" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="a89f577e-8bce-4d77-868a-c8334d96f63f" config-ref="HTTP_Request_configuration_bot-sapi-2" path="${bot-sapi-2.endpoints.services.base-path}${bot-sapi-2.endpoints.services.suspendbyloss}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.system,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.system,
+	"systemId" : "MIGRACION"
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 </mule>

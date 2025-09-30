@@ -144,4 +144,7 @@ output application/json
 	<flow name="get:\v1\resource:service-papi-services-config" doc:id="5e42d4b3-3d7e-431a-9a95-fa926a498f0b" >
 		<flow-ref doc:name="Flow Reference" doc:id="e8ea28bf-a203-4238-b185-4a2cd2c1209e" name="get-resource-handlerSub_Flow"/>
 	</flow>
+	<flow name="get:\v1\service:service-papi-services-config" doc:id="9f409942-c67f-4075-8d0d-62c8ff99d603" >
+		<flow-ref doc:name="Flow Reference" doc:id="4b3d211e-ae99-42c3-ae67-31bc0c68ea04" name="get-service-orchestratorSub_Flow"/>
+	</flow>
 </mule>

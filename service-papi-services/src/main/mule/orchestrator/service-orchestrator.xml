@@ -12,6 +12,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<when expression='#[attributes.queryParams.RESOURCE_ID == "TV"]'>
 				<flow-ref doc:name="Flow Reference" doc:id="eda50478-7aa1-4ccf-91fd-1a7dc68cd4c5" name="validatetv-orchestratorSub_Flow"/>
 			</when>
+			<when expression='#[attributes.queryParams.RESOURCE_ID == "LB"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="4bd08c20-5fa5-425a-b71b-20303d58a3a3" name="validatelb-orchestratorSub_Flow"/>
+			</when>
 			<otherwise >
 				<ee:transform doc:name="Set Body Response Invalid" doc:id="fb1bdade-fa1c-47a7-a4d6-be2093def4e8">
 					<ee:message>
@@ -140,6 +143,71 @@ output application/json
     }
   ] else []
 }]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="validatelb-orchestratorSub_Flow" doc:id="715cd70b-35bc-4b2f-851d-a334bdfc8b38" >
+		<set-variable value="#[attributes.headers]" doc:name="Set headers" doc:id="2501f628-4a03-4843-a7a0-187040cf7197" variableName="headers" />
+		<set-variable value="#[attributes.queryParams]" doc:name="Set parameters" doc:id="53ba51c5-ed45-49d8-92db-fa0d5eb07097" variableName="parameters" />
+		<ee:transform doc:name="Set Body BOT" doc:id="2b050015-400a-4077-8a9a-bf9b2c38fd88" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+    "Phone": vars.parameters.CONNECTION_NUMBER,
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="52dd175d-8c41-4dc7-baf1-dec7792b7c0b" name="post-validatelb-clientSub_Flow"/>
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="8a703816-89d9-4390-80f3-b50304215abf" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="03ef550f-544e-40b0-875a-4eff78e47ba7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var ws = payload.WSResponseBody
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+serviceResource: if(ws != null)[ {
+    registerLine: {
+      executionDate: ws.REGISTER_LINE.Execution_Date default "",
+      semaphore: ws.REGISTER_LINE.Semaphore default "",
+      semaphoreDescription: ws.REGISTER_LINE.Semaphore_Description default ""
+    },
+    state: {
+      executionDate: ws.STATE.Execution_Date default "",
+      semaphore: ws.STATE.Semaphore default "",
+      semaphoreDescription: ws.STATE.Semaphore_Description default ""
+    },
+    stateProgrammed: {
+      executionDate: ws.STATE_PROGRAMMED.Execution_Date default "",
+      semaphore: ws.STATE_PROGRAMMED.Semaphore default "",
+      semaphoreDescription: ws.STATE_PROGRAMMED.Semaphore_Description default ""
+    },
+    service: {
+      phone: ws.Phone default "",
+      serviceAccount: ws.Service_Account default "",
+      technology: ws.Technology default ""
+    }
+  }
+    ] else []
+}
+]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 	</sub-flow>

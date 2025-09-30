@@ -44,7 +44,4 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="get:\problemGroup:problem-management-xapi-services-config" doc:id="bdeed572-bc97-4e8a-9b7c-05faa97db5ec" >
 		<flow-ref doc:name="Flow Reference" doc:id="812cc97e-1972-4ec8-9b4e-19d40d5b7996" name="problemManagement-papi-get-problemGroup-clientSub_Flow" />
 	</flow>
-	<flow name="get:\service:problem-management-xapi-services-config" doc:id="5a5e31ef-00a2-4421-9779-18fbf3ceaf69" >
-		<flow-ref doc:name="Flow Reference" doc:id="711cf2fd-e8f1-4d31-94cd-74b9017ae2b9" name="problemManagement-papi-get-service-clientSub_Flow"/>
-	</flow>
 </mule>

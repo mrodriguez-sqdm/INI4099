@@ -40,4 +40,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="get:\resource:service-xapi-services-config" doc:id="1d171afc-fe9d-4131-ba62-47d204dc9b0f" >
 		<flow-ref doc:name="Flow Reference" doc:id="146540a8-363c-4d6b-ba80-c9dd94f2d99c" name="get-resource-clientSub_Flow"/>
 	</flow>
+	<flow name="get:\service:service-xapi-services-config" doc:id="f20c64de-4696-411d-8eb9-2206eb703f40" >
+		<flow-ref doc:name="Flow Reference" doc:id="ebbdc1f2-bbd2-4bf8-9b3c-1af82b2ca1cc" name="service-papi-get-service-clientSub_Flow"/>
+	</flow>
 </mule>

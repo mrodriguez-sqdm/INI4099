@@ -9,10 +9,12 @@ service-papi:
   host: "mule-worker-internal-service-papi-services-dev.us-e2.cloudhub.io"
   port: "8091"
   base-path: "/services/v1"
-  service:
+  serviceOrder:
     base-path: "/serviceOrder"
   resource:
     base-path: "/resource"
+  service:
+    base-path: "/service"
 
   security:
     client-id: "9070fd1dac714b1b9e041c0d8fdff6ce"
