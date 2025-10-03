@@ -19,8 +19,8 @@
       "Facebook_User": "string",
       "Twitter_User": "string"
     },
-    "Phone": "string",
-    "Service_Type": "string",
-    "Reconnection_Reason": "string"
+    "Document_Number": "string",
+    "Document_Type": "string",
+    "Phone": "string"
   }
 }

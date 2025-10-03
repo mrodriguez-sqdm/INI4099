@@ -14,10 +14,8 @@
     "Property": []
   },
   "WSResponseBody": {
-    "Reconnection_Status": "string",
-    "Service_Status": "string",
-    "Estimated_Time": "string",
-    "Status": "string",
-    "Message": "string"
+    "CUN": "string",
+    "Num_PQR": "string",
+    "Order_Number": "string"
   }
 }

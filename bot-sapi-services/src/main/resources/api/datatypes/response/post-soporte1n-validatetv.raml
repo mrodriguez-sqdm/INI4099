@@ -7,31 +7,75 @@ properties:
   WSResponseBody:
     type: object
     properties:
-      Num_PQR:
+      ADDITIONAL_CHANNELS:
+        type: object
+        properties:
+          Execution_Date:
+            type: datetime
+            example: '2025-09-15T15:55:16.384Z'
+            required: false
+          Semaphore:
+            type: string
+            example: string
+            required: false
+          Semaphore_Description:
+            type: string
+            example: string
+            required: false
+      ADDITIONAL_SERVICES:
+        type: object
+        properties:
+          Execution_Date:
+            type: datetime
+            example: '2025-09-15T15:55:16.384Z'
+            required: false
+          Semaphore:
+            type: string
+            example: string
+            required: false
+          Semaphore_Description:
+            type: string
+            example: string
+            required: false
+      Phone:
         type: string
         example: string
         required: false
-      Additional_Channels:
+      DECOS:
+        type: object
+        properties:
+          Execution_Date:
+            type: datetime
+            example: '2025-09-15T15:55:16.384Z'
+            required: false
+          Semaphore:
+            type: string
+            example: string
+            required: false
+          Semaphore_Description:
+            type: string
+            example: string
+            required: false
+      Service_Account:
         type: string
         example: string
         required: false
-      Additional_Services:
-        type: string
-        example: string
-        required: false
-      Decos:
-        type: string
-        example: string
-        required: false
-      State_Subscriber_Id:
-        type: string
-        example: string
-        required: false
-      Status:
-        type: string
-        example: string
-        required: false
-      Message:
+      SUSCRIBER_ID_STATE:
+        type: object
+        properties:
+          Execution_Date:
+            type: datetime
+            example: '2025-09-15T15:55:16.384Z'
+            required: false
+          Semaphore:
+            type: string
+            example: string
+            required: false
+          Semaphore_Description:
+            type: string
+            example: string
+            required: false
+      Technology:
         type: string
         example: string
         required: false

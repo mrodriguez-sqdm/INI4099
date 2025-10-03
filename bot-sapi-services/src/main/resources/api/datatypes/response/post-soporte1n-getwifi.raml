@@ -7,66 +7,117 @@ properties:
   WSResponseBody:
     type: object
     properties:
-      Num_PQR:
-        type: string
-        example: string
-        required: false
       Service:
         type: object
         properties:
-          Status:
+          Billing_Account:
             type: string
-            example: string
+            example: '100123456789'
             required: false
-          Message:
+          Phone:
             type: string
-            example: string
+            example: '6018009578'
             required: false
-      Networks:
+          Plan:
+            type: string
+            example: FIBRA_300_SIMETRICO
+            required: false
+          Service_Account:
+            type: string
+            example: SA-100123456789
+            required: false
+          Technology:
+            type: string
+            example: FTTH
+            required: false
+      Equipments:
         type: array
         items:
           type: object
           properties:
-            Network_Name:
+            ACS_Model:
               type: string
-              example: string
+              example: ALCL_BGW320
               required: false
-            Network_State:
+            Brand:
               type: string
-              example: string
+              example: ALCATEL
               required: false
-            MAC_Address:
+            Firmware:
               type: string
-              example: string
+              example: 3.2.1.45
               required: false
-            ONT_Serial:
+            Is_Dual:
+              type: boolean
+              example: true
+              required: false
+            MAC:
               type: string
-              example: string
+              example: 00:1A:2B:3C:4D:5E
               required: false
-            Frequency:
+            Model:
               type: string
-              example: string
+              example: BGW320-500
               required: false
-      Equipment:
-        type: object
-        properties:
-          ONT_Serial:
-            type: string
-            example: string
-            required: false
-          Model:
-            type: string
-            example: string
-            required: false
-          Status:
-            type: string
-            example: string
-            required: false
-      Status:
-        type: string
-        example: string
-        required: false
-      Message:
-        type: string
-        example: string
-        required: false
+            Networks:
+              type: array
+              items:
+                type: object
+                properties:
+                  ACS_Model:
+                    type: string
+                    example: WIFI_BGW320_2G
+                    required: false
+                  Dual:
+                    type: boolean
+                    example: false
+                    required: false
+                  Firmware:
+                    type: string
+                    example: 3.2.1.45
+                    required: false
+                  Is_Available_Set_Network_Name:
+                    type: boolean
+                    example: true
+                    required: false
+                  Is_Available_Set_Network_Password:
+                    type: boolean
+                    example: true
+                    required: false
+                  Is_Available_Set_Network_Wifi:
+                    type: boolean
+                    example: true
+                    required: false
+                  Network_Name:
+                    type: string
+                    example: ETB_WiFi_2.4GHz
+                    required: false
+                  Network_Password:
+                    type: string
+                    example: MiClaveSegura2024
+                    required: false
+                  Network_Type:
+                    type: string
+                    example: '2.4'
+                    required: false
+                  Network_Status:
+                    type: string
+                    example: Encendido
+                    required: false
+            Serial:
+              type: string
+              example: ALCLB545275C
+              required: false
+            Status:
+              type: string
+              example: Encendido
+              required: false
+            Type:
+              type: string
+              example: ONT
+              required: false
+            Type_Modem:
+              type: string
+              example: Modem
+              required: false
+
