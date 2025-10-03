@@ -157,10 +157,9 @@ output application/json
     "Audit": {
       "Canal": vars.headers.system
     },
-    "Network_Type": "",
-    "Phone": payload.serviceOrder.customer.phone,
-    "Service_Type": "",
-    "Reconnection_Reason": ""
+    "Document_Number": payload.serviceOrder.customer.documentNumber,
+    "Document_Type": payload.serviceOrder.customer.documentType,
+    "Phone": payload.serviceOrder.customer.phone
   }
 }]]></ee:set-payload>
 			</ee:message>
@@ -171,11 +170,19 @@ output application/json
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser
 ---
 {
 	codeResponse: vars.httpStatus as String ,
-	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-	order: payload.WSResponseBody.Message
+	messageResponse: if(mensaje != null) mensaje else payload.WSResponseHeader.Service.statusDetail[0].errorMessage default "",
+	order: if(payload.WSResponseBody.CUN != null)[
+		{
+			cun: payload.WSResponseBody.CUN default "",
+			numPqr: payload.WSResponseBody.Num_PQR default "",
+			orderNumber: payload.WSResponseBody.Order_Number default ""
+		}
+	]else []
 	
 }]]></ee:set-payload>
 			</ee:message>

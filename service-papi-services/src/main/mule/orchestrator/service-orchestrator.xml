@@ -51,7 +51,6 @@ output application/json
     "Audit": {
       "Canal": vars.headers.name
     },
-    "Network_Type": "",
     "Phone": vars.parameters.CONNECTION_NUMBER,
   }
 }]]></ee:set-payload>
@@ -63,31 +62,46 @@ output application/json
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser
+
 ---
 {
   codeResponse: vars.httpStatus as String ,
-  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+  messageResponse: if(mensaje != null) mensaje else payload.WSResponseHeader.Service.statusDetail[0].errorMessage default "",
   serviceResource: if(payload.WSResponseBody.Service != null)[
     {
-      numPqr: payload.WSResponseBody.Num_PQR,
       service: {
-        status: payload.WSResponseBody.Service.Status,
-        message: payload.WSResponseBody.Service.Message
+        billingAccount: payload.WSResponseBody.Service.Billing_Account,
+        phone: payload.WSResponseBody.Service.Phone,
+        plan: payload.WSResponseBody.Service.Plan,
+        serviceAccount: payload.WSResponseBody.Service.Service_Account,
+        technology: payload.WSResponseBody.Service.Technology
       },
-      networks: payload.WSResponseBody.Networks map (n) -> {
-        networkName: n.Network_Name,
-        networkState: n.Network_State,
-        macAddress: n.MAC_Address,
-        ontSerial: n.ONT_Serial,
-        frequency: n.Frequency
-      },
-      equipment: {
-        ontSerial: payload.WSResponseBody.Equipment.ONT_Serial,
-        model: payload.WSResponseBody.Equipment.Model,
-        status: payload.WSResponseBody.Equipment.Status
-      },
-      status: payload.WSResponseBody.Status,
-      message: payload.WSResponseBody.Message
+      equipments: payload.WSResponseBody.Equipments map (eq) -> {
+        acsModel: eq.ACS_Model,
+        brand: eq.Brand,
+        firmware: eq.Firmware,
+        isDual: eq.Is_Dual,
+        mac: eq.MAC,
+        model: eq.Model,
+        networks: eq.Networks map (net) -> {
+          acsModel: net.ACS_Model,
+          dual: net.Dual,
+          firmware: net.Firmware,
+          isAvailableSetNetworkName: net.Is_Available_Set_Network_Name,
+          isAvailableSetNetworkPassword: net.Is_Available_Set_Network_Password,
+          isAvailableSetNetworkWifi: net.Is_Available_Set_Network_Wifi,
+          networkName: net.Network_Name,
+          networkPassword: net.Network_Password,
+          networkType: net.Network_Type,
+          networkStatus: net.Network_Status
+        },
+        serial: eq.Serial,
+        status: eq.Status,
+        "type": eq.Type,
+        typeModem: eq.Type_Modem
+      }
     }
   ] else []
 }]]></ee:set-payload>
@@ -115,7 +129,6 @@ output application/json
     "Audit": {
       "Canal": vars.headers.name
     },
-    "Service_Type": "",
     "Phone": vars.parameters.CONNECTION_NUMBER,
   }
 }]]></ee:set-payload>
@@ -127,19 +140,40 @@ output application/json
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser
+
 ---
 {
   codeResponse: vars.httpStatus as String ,
-  messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-  serviceResource: if(payload.WSResponseBody != null)[
+  messageResponse: if(mensaje != null) mensaje else payload.WSResponseHeader.Service.statusDetail[0].errorMessage default "",
+  serviceResource: if(payload.WSResponseBody.Service_Account != null)[
     {
-      numPqr: payload.WSResponseBody.Num_PQR,
-      status: payload.WSResponseBody.Status,
-      message: payload.WSResponseBody.Message,
-      additionalChannels: payload.WSResponseBody.Additional_Channels,
-      additionalServices: payload.WSResponseBody.Additional_Services,
-      decos: payload.WSResponseBody.Decos,
-      stateSubscriberId: payload.WSResponseBody.State_Subscriber_Id
+      additionalChannels: {
+        executionDate: payload.WSResponseBody.ADDITIONAL_CHANNELS.Execution_Date,
+        semaphore: payload.WSResponseBody.ADDITIONAL_CHANNELS.Semaphore,
+        semaphoreDescription: payload.WSResponseBody.ADDITIONAL_CHANNELS.Semaphore_Description
+      },
+      additionalServices: {
+        executionDate: payload.WSResponseBody.ADDITIONAL_SERVICES.Execution_Date,
+        semaphore: payload.WSResponseBody.ADDITIONAL_SERVICES.Semaphore,
+        semaphoreDescription: payload.WSResponseBody.ADDITIONAL_SERVICES.Semaphore_Description
+      },
+      decos: {
+        executionDate: payload.WSResponseBody.DECOS.Execution_Date,
+        semaphore: payload.WSResponseBody.DECOS.Semaphore,
+        semaphoreDescription: payload.WSResponseBody.DECOS.Semaphore_Description
+      },
+      subscriberIdState: {
+        executionDate: payload.WSResponseBody.SUSCRIBER_ID_STATE.Execution_Date,
+        semaphore: payload.WSResponseBody.SUSCRIBER_ID_STATE.Semaphore,
+        semaphoreDescription: payload.WSResponseBody.SUSCRIBER_ID_STATE.Semaphore_Description
+      },
+      service: {
+        phone: payload.WSResponseBody.Phone,
+        serviceAccount: payload.WSResponseBody.Service_Account,
+        technology: payload.WSResponseBody.Technology
+      }
     }
   ] else []
 }]]></ee:set-payload>
