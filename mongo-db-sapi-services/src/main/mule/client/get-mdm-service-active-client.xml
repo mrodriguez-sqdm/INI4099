@@ -38,7 +38,6 @@ output application/json
 ]]></ee:set-payload>
 						</ee:message>
 					</ee:transform>
-					<set-variable value='#[if(payload.code == "200") 200 else 404]' doc:name="Set Variable" doc:id="27ed1d2b-9de6-4acd-80b2-a3c9c347a084" variableName="httpStatus" />
 				</when>
 				<otherwise>
 					<ee:transform doc:name="Response Fail Parameters" doc:id="98a74731-bf5f-4b95-8063-414eebebd0b8">
