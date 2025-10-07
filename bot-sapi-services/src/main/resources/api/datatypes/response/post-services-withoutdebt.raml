@@ -9,15 +9,37 @@ properties:
     properties:
       Billing_Account:
         type: string
-        example: '123456789'
+        example: string
         required: false
+      Collection_Hours:
+        type: object
+        properties:
+          Value:
+            type: integer
+            example: 0
+            required: false
+          Value_Str:
+            type: string
+            example: string
+            required: false
+      Default_Interest:
+        type: object
+        properties:
+          Value:
+            type: integer
+            example: 0
+            required: false
+          Value_Str:
+            type: string
+            example: string
+            required: false
       Link:
         type: string
-        example: https://storage.etb.co/documents/paz-y-salvo-123456.pdf
+        example: string
         required: false
       Pay_Point:
         type: string
-        example: 'Punto de pago: Bancolombia, Davivienda, Efecty'
+        example: string
         required: false
       Pending_Balance:
         type: object
@@ -28,5 +50,6 @@ properties:
             required: false
           Value_Str:
             type: string
-            example: $ 0
+            example: string
             required: false
+

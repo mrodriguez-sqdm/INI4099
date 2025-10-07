@@ -1,22 +1,29 @@
 {
   "WSResponseHeader": {
     "System": {
-      "Name": "string",
-      "CorrelationID": "string",
-      "ProcessingServer": "string"
+      "name": "string",
+      "correlationID": "string",
+      "processingServer": "string"
     },
     "Service": {
-      "Status": "string",
-      "ResponseDate": "string",
-      "ProcessingServer": "string",
-      "statusDetail": []
+      "status": "string",
+      "responseDate": "2025-07-25T12:36:38.9784777Z",
+      "processingServer": "string",
+      "statusDetail": [
+        {
+          "errorCode": "string",
+          "errorDetailCode": "string",
+          "errorMessage": "string",
+          "errorMessageUser": "string"
+        }
+      ]
     },
     "Property": []
   },
   "WSResponseBody": {
-    "Num_PQR": "string",
-    "Traffic_Light_Color": "string",
-    "Status": "string",
-    "Message": "string"
+    "Additional_Channels": "string",
+    "Additional_Services": "string",
+    "Decos": "string",
+    "State_Subscriber_Id": "string"
   }
 }

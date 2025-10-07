@@ -3,26 +3,21 @@
     "System": {
       "name": "MAX",
       "correlationID": "LUZ-0.7658422016757066",
-      "processingServer": null
+      "processingServer": "string"
     },
     "Service": {
       "status": "OK",
       "responseDate": "2025-08-04T13:25:31.6046111Z",
-      "processingServer": null,
+      "processingServer": "string",
       "statusDetail": [
         {
           "errorCode": "OK_01",
           "errorDetailCode": "El cliente fue validado exitosamente",
           "errorMessage": "La solicitud LUZ-0.7658422016757066 fue exitosa",
-          "errorMessageUser": null
+          "errorMessageUser": "string"
         }
       ]
     },
-    "Property": [
-      {
-        "name": "",
-        "value": ""
-      }
-    ]
+    "Property": []
   }
 }

@@ -7,7 +7,7 @@
     },
     "Service": {
       "status": "OK",
-      "responseDate": "2025-04-16T22:25:28.3273172Z",
+      "responseDate": "2025-05-30T11:40:24.0931575Z",
       "processingServer": "SERVER-01",
       "statusDetail": [
         {
@@ -20,12 +20,20 @@
     }
   },
   "WSResponseBody": {
-    "Billing_Account": "123456789",
-    "Link": "https://storage.etb.co/documents/paz-y-salvo-123456.pdf",
-    "Pay_Point": "Punto de pago: Bancolombia, Davivienda, Efecty",
+    "Billing_Account": "string",
+    "Collection_Hours": {
+      "Value": 0,
+      "Value_Str": "string"
+    },
+    "Default_Interest": {
+      "Value": 0,
+      "Value_Str": "string"
+    },
+    "Link": "string",
+    "Pay_Point": "string",
     "Pending_Balance": {
-      "Value": 0.0,
-      "Value_Str": "$ 0"
+      "Value": 0,
+      "Value_Str": "string"
     }
   }
 }

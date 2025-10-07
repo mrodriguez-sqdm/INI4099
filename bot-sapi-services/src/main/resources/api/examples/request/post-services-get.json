@@ -1,28 +1,54 @@
 {
   "WSRequestHeader": {
     "System": {
-      "name": "MIETB",
-      "correlationID": "Identificador único de la petición",
+      "name": "NUEVO-IVR",
+      "correlationID": "1410112162450_19202574630598_14931780",
       "processingServer": ""
     },
     "Property": []
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": "Web",
-      "Id_Device": "",
-      "SO": "",
-      "IP_Address": "",
-      "IP_Latitude": "",
-      "IP_Longitude": "",
-      "WhatsApp_Phone_Number": "",
-      "Facebook_User": "",
-      "Twitter_User": ""
+      "Canal": "NUEVO-IVR"
     },
+    "Billing_Account": "",
     "Filter": {
+      "Address": true,
       "Billing_Account": true,
-      "Contracted_Offer": true
+      "Billing_Account_Address": true,
+      "Bundle": true,
+      "Collections": true,
+      "Contracted_Offer": true,
+      "Contracted_Offer_Filter": {
+        "Execution_Plan": true,
+        "Plan": true,
+        "SVAs": true
+      },
+      "Contracted_Offer_Suggest": true,
+      "Directv": true,
+      "Family_And_Friends": true,
+      "Files": true,
+      "Home": true,
+      "Inventory": true,
+      "MiETB_User": true,
+      "OCS": true,
+      "Pasagigas": true,
+      "Pasagigas_Subscription": true,
+      "Permanence_Clause": true,
+      "Rate_Increase": true,
+      "State": {
+        "Action": true,
+        "Active": true,
+        "Inactive": true,
+        "Pending": true,
+        "Retired": true,
+        "Suspended": true,
+        "Suspended_Fraud": true,
+        "Suspended_Non_Payment": true,
+        "Suspended_Theft_Or_Loss": true,
+        "Suspended_Voluntary": true
+      }
     },
-    "Phone": "6013103732"
+    "Phone": "6014571065"
   }
 }

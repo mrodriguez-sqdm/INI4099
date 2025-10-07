@@ -1,25 +1,19 @@
 {
-  "WSRequestHeader": {
-    "System": {
-      "name": "string",
-      "correlationID": "string",
-      "processingServer": "string"
-    },
-    "Property": []
-  },
-  "WSRequestBody": {
-    "Audit": {
-      "Canal": "string",
-      "Id_Device": "string",
-      "SO": "string",
-      "IP_Address": "string",
-      "IP_Latitude": "string",
-      "IP_Longitude": "string",
-      "WhatsApp_Phone_Number": "string",
-      "Facebook_User": "string",
-      "Twitter_User": "string"
-    },
-    "Phone": "string",
-    "Service_Type": "string"
-  }
+   "WSRequestHeader":{
+      "System":{
+         "name":"Prueba",
+         "correlationID":"Doc_21102022348",
+         "processingServer":""
+      },
+      "Property":[
+         
+      ]
+   },
+   "WSRequestBody":{
+      "Audit":{
+         "Canal":"Web"
+      },
+      "Normalize":true,
+      "Phone":"6019980626"
+   }
 }

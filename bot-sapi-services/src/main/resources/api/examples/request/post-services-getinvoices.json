@@ -1,13 +1,11 @@
 {
   "WSRequestHeader": {
     "System": {
-      "Name": "KIOSKOS",
-      "CorrelationID": "LUZ-21062022-05000545",
-      "ProcessingServer": "server-01"
+      "name": "KIOSKOS",
+      "correlationID": "LUZ-21062022-05000545",
+      "processingServer": ""
     },
-    "Property": [
-      { "Name": "CANAL", "Value": "KIOSKOS" }
-    ]
+    "Property": []
   },
   "WSRequestBody": {
     "Audit": {
@@ -22,8 +20,8 @@
       "Twitter_User": ""
     },
     "Barcode": "",
-    "Billing_Account": "15052876387",
+    "Billing_Account": "",
     "Billing_Number": "",
-    "Phone": ""
+    "Phone": "3057000421"
   }
 }
