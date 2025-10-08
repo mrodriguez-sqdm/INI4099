@@ -1,9 +1,9 @@
 {
   "WSResponseHeader": {
     "System": {
-      "Name": "KIOSKOS",
-      "CorrelationID": "KIOSKOS-26062022-045820",
-      "ProcessingServer": "SERVER-01"
+      "name": "KIOSKOS",
+      "correlationID": "KIOSKOS-26062022-045820",
+      "processingServer": "SERVER-01"
     },
     "Service": {
       "status": "OK",
@@ -21,6 +21,7 @@
   },
   "WSResponseBody": {
     "CUN": "CUN123456789",
+    "Num_PQR": "PQR_123644",
     "Order_Number": "ORD987654321"
   }
 }

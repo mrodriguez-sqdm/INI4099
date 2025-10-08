@@ -1,33 +1,28 @@
 {
   "WSResponseHeader": {
     "System": {
-      "name": "string",
-      "correlationID": "string",
-      "processingServer": "string"
+      "name": "IVR",
+      "correlationID": "IVR-20220623-08313226",
+      "processingServer": "SRV-ETB-01"
     },
     "Service": {
-      "status": "string",
-      "responseDate": "2025-09-18T15:51:00.190Z",
-      "processingServer": "string",
+      "status": "OK",
+      "responseDate": "2025-09-18T15:50:59.797Z",
+      "processingServer": "SRV-ETB-01",
       "statusDetail": [
         {
-          "errorCode": "string",
-          "errorDetailCode": "string",
-          "errorMessage": "string",
-          "errorMessageUser": "string"
+          "errorCode": "OK_01",
+          "errorDetailCode": "SUCCESS",
+          "errorMessage": "Registro de dispositivo exitoso",
+          "errorMessageUser": "El dispositivo ha sido registrado correctamente"
         }
       ]
     },
-    "Property": [
-      {
-        "name": "string",
-        "value": "string"
-      }
-    ]
+    "Property": []
   },
   "WSResponseBody": {
-    "CUN": "string",
-    "Num_PQR": "string",
-    "Order_Number": "string"
+    "CUN": "CUN123456789",
+    "Num_PQR": "PQR-12345",
+    "Order_Number": "ORD987654321"
   }
 }

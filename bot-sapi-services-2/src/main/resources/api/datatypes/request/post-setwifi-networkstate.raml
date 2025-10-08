@@ -8,17 +8,45 @@ properties:
     type: object
     properties:
       Audit:
-        type: !include objects/audit.raml
+        type: object
+        properties:
+          Canal:
+            type: string
+            example: web
+            required: false
+          Id_Device:
+            type: string
+            example: SOPORTE_001
+            required: false
+          SO:
+            type: string
+            example: Windows
+            required: false
+          IP_Address:
+            type: string
+            example: 192.168.1.100
+            required: false
+          WhatsApp_Phone_Number:
+            type: string
+            example: ''
+            required: false
+      Dual:
+        type: boolean
+        example: false
+        required: false
+      New_Network_State:
+        type: boolean
+        example: true
         required: false
       Phone:
         type: string
         example: '3057000421'
         required: false
-      Wifi_State:
+      Serial:
         type: string
-        example: 'ON'
+        example: ONT123456789
         required: false
-      Network_Type:
-        type: string
-        example: 'PRIMARY'
+      SyncUp:
+        type: boolean
+        example: true
         required: false

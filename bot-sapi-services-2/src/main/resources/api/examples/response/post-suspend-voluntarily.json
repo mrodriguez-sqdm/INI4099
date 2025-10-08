@@ -1,9 +1,9 @@
 {
   "WSResponseHeader": {
     "System": {
-      "Name": "MIETB",
-      "CorrelationID": "Identificador único de la petición",
-      "ProcessingServer": "SRV-BOT-01"
+      "name": "MIETB",
+      "correlationID": "REQ-2024-001234",
+      "processingServer": "SRV-BOT-01"
     },
     "Service": {
       "status": "OK",
@@ -12,20 +12,22 @@
       "statusDetail": [
         {
           "errorCode": "OK_01",
-          "errorMessage": "Proceso exitoso",
-          "errorMessageUser": "Suspensión voluntaria procesada correctamente"
+          "errorDetailCode": "SUSP_VOL_SUCCESS",
+          "errorMessage": "Suspensión voluntaria procesada exitosamente",
+          "errorMessageUser": "Su solicitud de suspensión voluntaria ha sido procesada correctamente"
         }
       ]
     },
-    "Property": []
+    "Property": [
+      {
+        "name": "processingTime",
+        "value": "1.2"
+      }
+    ]
   },
-  "Suspension_Result": {
-    "Phone": "6013103732",
-    "Billing_Account": "15052876387",
-    "Suspension_Status": "Procesada",
-    "Suspension_Date": "2024-12-19T10:30:00",
-    "Reactivation_Date": "2025-01-18T10:30:00",
-    "Confirmation_Number": "SUSP-2024-001234",
-    "Notes": "Suspensión voluntaria por viaje temporal"
+  "WSResponseBody": {
+    "CUN": "CUN-2024-001234",
+    "Num_PQR": "",
+    "Order_Number": "ORD-SUSP-2024-001234"
   }
 }

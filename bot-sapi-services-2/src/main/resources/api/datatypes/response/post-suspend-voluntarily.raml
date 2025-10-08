@@ -4,34 +4,20 @@ properties:
   WSResponseHeader:
     type: !include objects/header.raml
     required: true
-  Suspension_Result:
+  WSResponseBody:
     type: object
     properties:
-      Phone:
+      CUN:
         type: string
-        example: '6013103732'
+        example: CUN-2024-001234
         required: false
-      Billing_Account:
+      Num_PQR:
         type: string
-        example: '15052876387'
+        example: ''
         required: false
-      Suspension_Status:
+      Order_Number:
         type: string
-        example: Procesada
+        example: ORD-SUSP-2024-001234
         required: false
-      Suspension_Date:
-        type: datetime-only
-        example: '2024-12-19T10:30:00'
-        required: false
-      Reactivation_Date:
-        type: datetime-only
-        example: '2025-01-18T10:30:00'
-        required: false
-      Confirmation_Number:
-        type: string
-        example: SUSP-2024-001234
-        required: false
-      Notes:
-        type: string
-        example: Suspensión voluntaria por viaje temporal
-        required: false
+
+

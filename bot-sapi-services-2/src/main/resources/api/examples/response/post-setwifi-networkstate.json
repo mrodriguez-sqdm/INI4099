@@ -1,9 +1,9 @@
 {
   "WSResponseHeader": {
     "System": {
-      "Name": "SISTEMA_CLIENTE",
-      "CorrelationID": "SOPORTE-21062022-20451",
-      "ProcessingServer": "SERVER_01"
+      "name": "SISTEMA_CLIENTE",
+      "correlationID": "SOPORTE-21062022-20451",
+      "processingServer": "SERVER_01"
     },
     "Service": {
       "status": "OK",
@@ -20,8 +20,6 @@
     "Property": []
   },
   "WSResponseBody": {
-    "Num_PQR": "",
-    "Status": "SUCCESS",
-    "Message": "Red WiFi activada exitosamente"
+    "Num_PQR": "PQR-2024-001234"
   }
 }
