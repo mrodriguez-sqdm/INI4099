@@ -89,7 +89,7 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
@@ -97,7 +97,7 @@ output application/json
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
     "Filter": {
       "Billing_Account": true,
@@ -147,7 +147,7 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
@@ -155,7 +155,7 @@ output application/json
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
     "Document_Number": payload.serviceOrder.customer.documentNumber,
     "Document_Type": payload.serviceOrder.customer.documentType,
@@ -198,7 +198,7 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
@@ -206,12 +206,17 @@ output application/json
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
-    "Network_Type": "",
-    "Phone": payload.serviceOrder.customer.phone,
-    "Service_Type": "",
-    "Reconnection_Reason": ""
+    "Cod_DANE_City": payload.serviceOrder.detailOrder.codDaneCity default "",
+    "Cod_DANE_Department": payload.serviceOrder.detailOrder.codDaneDepartment default "",
+    "Keep_IPs": payload.serviceOrder.detailOrder.keepIps default "",
+    "Keep_Number": payload.serviceOrder.detailOrder.keepNumber default "",
+    "Mailbox": payload.serviceOrder.detailOrder.mailbox default "",
+    "Latitude": payload.serviceOrder.detailOrder.latitude default "",
+    "Longitude": payload.serviceOrder.detailOrder.longitude default "",
+    "Phone": payload.serviceOrder.customer.phone default "",
+    "Plan": payload.serviceOrder.detailOrder.plan default "",
   }
 }]]></ee:set-payload>
 			</ee:message>
@@ -242,7 +247,7 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
@@ -250,13 +255,18 @@ output application/json
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
-    "Billing_Account": payload.serviceOrder.service.serviceAccountNumber default "",
-    "Phone": payload.serviceOrder.customer.phone default "",
-    "Suspension_Reason": payload.serviceOrder.causal default "",
-    "Suspension_Period": payload.serviceOrder.detailSuspend.suspensionPeriod default ""
-  }
+    
+    "Contact_Email": payload.serviceOrder.detailOrder.contactEmail default "",
+    "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default "",
+    "Document_Number": payload.serviceOrder.customer.documentNumber default "",
+    "Document_Type": payload.serviceOrder.customer.documentType default "",
+    "Finish_Date": payload.serviceOrder.detailOrder.finishDate default "",
+    "Initial_Date": payload.serviceOrder.detailOrder.initialDate default "",
+    "Phone": payload.serviceOrder.customer.phone default ""
+    
+   }
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -270,7 +280,13 @@ output application/json
 {
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-	order: payload.WSResponseBody.Message
+	order: [
+    {
+	    cun: payload.WSResponseBody.CUN default "",
+	    numPqr: payload.WSResponseBody.Num_PQR default "",
+	    orderNumber: payload.WSResponseBody.Order_Number default ""
+    }
+  ]
 	
 }]]></ee:set-payload>
 			</ee:message>
@@ -286,30 +302,30 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
     "Property": []
   },
-  "WSRequestBody": {
+    "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
-    "Address": payload.serviceOrder.detailSuspend.address default "",
-    "City": payload.serviceOrder.detailSuspend.city default "",
-    "Contact_Email": payload.serviceOrder.detailSuspend.contactEmail default "",
-    "Contact_Phone": payload.serviceOrder.detailSuspend.contactPhone default "",
-    "Department": payload.serviceOrder.detailSuspend.department default "",
-    "Document_Number": payload.serviceOrder.detailSuspend.documentNumber default "",
-    "Document_Type": payload.serviceOrder.detailSuspend.documentType default "",
-    "IMEI": payload.serviceOrder.detailSuspend.imei default "",
-    "Mail": payload.serviceOrder.detailSuspend.mail default "",
-    "Phone": payload.serviceOrder.detailSuspend.phone default "",
-    "Violence": payload.serviceOrder.detailSuspend.violence default "",
-    "Younger": payload.serviceOrder.detailSuspend.younger default "",
-    "Weapon": payload.serviceOrder.detailSuspend.weapon default "",
-    "Suspension_Period": payload.serviceOrder.detailSuspend.suspensionPeriod default ""
+    "Address": payload.serviceOrder.detailOrder.address default "",
+    "City": payload.serviceOrder.detailOrder.city default "",
+    "Contact_Email": payload.serviceOrder.detailOrder.contactEmail default "",
+    "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default "",
+    "Department": payload.serviceOrder.detailOrder.department default "",
+    "Document_Number": payload.serviceOrder.customer.documentNumber default "",
+    "Document_Type": payload.serviceOrder.customer.documentType default "",
+    "IMEI": payload.serviceOrder.detailOrder.imei default "",
+    "Mail": payload.serviceOrder.detailOrder.mail default "",
+    "Phone": payload.serviceOrder.customer.phone default "",
+    "Violence": payload.serviceOrder.detailOrder.violence default "",
+    "Younger": payload.serviceOrder.detailOrder.younger default "",
+    "Weapon": payload.serviceOrder.detailOrder.weapon default "",
+    "Suspension_Period": payload.serviceOrder.detailOrder.suspensionPeriod default ""
   }
 }]]></ee:set-payload>
 			</ee:message>
@@ -324,7 +340,13 @@ output application/json
 {
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-	order: payload.WSResponseBody.Order_Number
+	order: [
+    {
+	    cun: payload.WSResponseBody.CUN default "",
+	    numPqr: payload.WSResponseBody.Num_PQR default "",
+	    orderNumber: payload.WSResponseBody.Order_Number default ""
+    }
+  ]
 	
 }]]></ee:set-payload>
 			</ee:message>
@@ -340,7 +362,7 @@ output application/json
 {
   "WSRequestHeader": {
     "System": {
-      "name": vars.headers.system,
+      "name": vars.headers.name,
       "correlationID": vars.headers."X-CORRELATION-ID",
       "processingServer": ""
     },
@@ -348,17 +370,17 @@ output application/json
   },
   "WSRequestBody": {
     "Audit": {
-      "Canal": vars.headers.system
+      "Canal": vars.headers.name
     },
-    "Address": payload.serviceOrder.detailOrder.address default null,
-  "IMEI": payload.serviceOrder.detailOrder.imei default null,
-  "City": payload.serviceOrder.detailOrder.city default null,
-  "Contact_Email": payload.serviceOrder.detailOrder.contactEmail default null,
-  "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default null,
-  "Department": payload.serviceOrder.detailOrder.department default null,
-  "Document_Number": payload.serviceOrder.customer.documentNumber default null,
-  "Document_Type": payload.serviceOrder.customer.documentType default null,
-  "Phone": payload.serviceOrder.customer.phone default null
+    "Address": payload.serviceOrder.detailOrder.address default "",
+  "IMEI": payload.serviceOrder.detailOrder.imei default "",
+  "City": payload.serviceOrder.detailOrder.city default "",
+  "Contact_Email": payload.serviceOrder.detailOrder.contactEmail default "",
+  "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default "",
+  "Department": payload.serviceOrder.detailOrder.department default "",
+  "Document_Number": payload.serviceOrder.customer.documentNumber default "",
+  "Document_Type": payload.serviceOrder.customer.documentType default "",
+  "Phone": payload.serviceOrder.customer.phone default ""
   }
 }]]></ee:set-payload>
 			</ee:message>

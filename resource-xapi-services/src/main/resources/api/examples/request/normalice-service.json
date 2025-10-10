@@ -1,9 +1,5 @@
 {
- "businessSegment" :  "",
- "serviceAccount" : "",
- "phone" : "",
- "resourceID" : "",
- "resourceType" : "",
- "functionType" : "",
- "operation" : ""
+ "phone" : "62145214",
+ "resourceType" : "LB",
+ "serviceType" : "LineaBasica"
 }

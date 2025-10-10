@@ -65,7 +65,7 @@ output application/json
 ---
 {
     codeResponse: vars.httpStatus as String,
-    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
     normalized: {
     	numPqr: payload.WSResponseBody.Num_PQR,
     	diagnostic: if (payload.WSResponseBody.Diagnostic != null) 
@@ -73,7 +73,7 @@ output application/json
             ontOn: payload.WSResponseBody.Diagnostic.ONT_On,
             poorConnection: payload.WSResponseBody.Diagnostic.Poor_Connection,
             speedFault: payload.WSResponseBody.Diagnostic.Speed_Fault
-        } else null,
+        } else {},
     massiveFailure: if (payload.WSResponseBody.Massive_Failure != null) {
         endDate: {
     date: payload.WSResponseBody.Massive_Failure.End_Date.Date,
@@ -139,13 +139,13 @@ output application/json
       format6: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_6
     }
   }
-	} else null,
+	} else {},
     semaphore: if (payload.WSResponseBody.Semaphore != null){
         attenuation: payload.WSResponseBody.Semaphore.Attenuation,
         modem: payload.WSResponseBody.Semaphore.Modem,
         noise: payload.WSResponseBody.Semaphore.Noise,
         potency: payload.WSResponseBody.Semaphore.Potency
-    } else null
+    } else {}
 }
 }]]></ee:set-payload>
 			</ee:message>
@@ -186,10 +186,14 @@ output application/json
 ---
 {
     codeResponse: vars.httpStatus as String,
-    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
 	normalized: {
-		numPqr: payload.WSResponseBody.Num_PQR,
-		trafficLightColor: payload.WSResponseBody.Traffic_Light_Color
+		numPqr: payload.WSResponseBody.Num_PQR default "",
+		trafficLightColor: payload.WSResponseBody.Traffic_Light_Color default "",
+	    "additionalChannels": payload.WSResponseBody.Additional_Channels default "",
+	    "additionalServices": payload.WSResponseBody.Additional_Services default "",
+	    "decos": payload.WSResponseBody.Decos default "",
+	    "stateSubscriberId": payload.WSResponseBody.State_Subscriber_Id default ""
 	}
 }]]></ee:set-payload>
 			</ee:message>
@@ -213,7 +217,8 @@ output application/json
     "Property": []
   },
 "WSRequestBody": {
-    "Phone": payload.phone,
+    "Phone": payload.phone default "",
+    "Service_Type": payload.serviceType default "",
     "Audit": {
       "Canal": vars.headers.name
     }
@@ -221,6 +226,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="f315b009-c26f-4471-a2aa-ccbae0f8ad58" message="#[payload]"/>
 		<flow-ref doc:name="Flow Reference" doc:id="e5358ceb-1fba-459f-9924-53411025b0f7" name="soporte1n-normalizelb-bot-sapi-clientSub_Flow" />
 		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="60295d9f-e5b3-4a4a-a4c0-409b6e36c461" variableName="httpStatus" />
 		<ee:transform doc:name="Transform Message" doc:id="5cd5b621-6c0f-4379-92f1-e3d170ff9194" >
@@ -230,88 +236,14 @@ output application/json
 ---
 {
     codeResponse: vars.httpStatus as String,
-    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
-    normalized: {
-    	numPqr: payload.WSResponseBody.Num_PQR,
-    	diagnostic: if (payload.WSResponseBody.Diagnostic != null) 
-        {
-            ontOn: payload.WSResponseBody.Diagnostic.ONT_On,
-            poorConnection: payload.WSResponseBody.Diagnostic.Poor_Connection,
-            speedFault: payload.WSResponseBody.Diagnostic.Speed_Fault
-        } else null,
-    massiveFailure: if (payload.WSResponseBody.Massive_Failure != null) {
-        endDate: {
-    date: payload.WSResponseBody.Massive_Failure.End_Date.Date,
-    format1: payload.WSResponseBody.Massive_Failure.End_Date.Format_1,
-    format2: payload.WSResponseBody.Massive_Failure.End_Date.Format_2,
-    format3: payload.WSResponseBody.Massive_Failure.End_Date.Format_3,
-    format4: payload.WSResponseBody.Massive_Failure.End_Date.Format_4,
-    day: {
-      format1: payload.WSResponseBody.Massive_Failure.End_Date.Day.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.End_Date.Day.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.End_Date.Day.Format_3
-    },
-    month: {
-      format1: payload.WSResponseBody.Massive_Failure.End_Date.Month.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.End_Date.Month.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.End_Date.Month.Format_3
-    },
-    year: {
-      format1: payload.WSResponseBody.Massive_Failure.End_Date.Year.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.End_Date.Year.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.End_Date.Year.Format_3
-    },
-    hour: {
-      format1: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_3,
-      format4: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_4,
-      format5: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_5,
-      format6: payload.WSResponseBody.Massive_Failure.End_Date.Hour.Format_6
-    }
-  },
-        expectedSolutionTime: payload.WSResponseBody.Massive_Failure.Expected_Solution_Time,
-        priority: payload.WSResponseBody.Massive_Failure.Priority,
-        product: payload.WSResponseBody.Massive_Failure.Product,
-        numPqr: payload.WSResponseBody.Massive_Failure.Num_PQR,
-        startDate: {
-    date: payload.WSResponseBody.Massive_Failure.Start_Date.Date,
-    format1: payload.WSResponseBody.Massive_Failure.Start_Date.Format_1,
-    format2: payload.WSResponseBody.Massive_Failure.Start_Date.Format_2,
-    format3: payload.WSResponseBody.Massive_Failure.Start_Date.Format_3,
-    format4: payload.WSResponseBody.Massive_Failure.Start_Date.Format_4,
-    day: {
-      format1: payload.WSResponseBody.Massive_Failure.Start_Date.Day.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.Start_Date.Day.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.Start_Date.Day.Format_3
-    },
-    month: {
-      format1: payload.WSResponseBody.Massive_Failure.Start_Date.Month.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.Start_Date.Month.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.Start_Date.Month.Format_3
-    },
-    year: {
-      format1: payload.WSResponseBody.Massive_Failure.Start_Date.Year.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.Start_Date.Year.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.Start_Date.Year.Format_3
-    },
-    hour: {
-      format1: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_1,
-      format2: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_2,
-      format3: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_3,
-      format4: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_4,
-      format5: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_5,
-      format6: payload.WSResponseBody.Massive_Failure.Start_Date.Hour.Format_6
-    }
-  }
-	} else null,
-    semaphore: if (payload.WSResponseBody.Semaphore != null){
-        attenuation: payload.WSResponseBody.Semaphore.Attenuation,
-        modem: payload.WSResponseBody.Semaphore.Modem,
-        noise: payload.WSResponseBody.Semaphore.Noise,
-        potency: payload.WSResponseBody.Semaphore.Potency
-    } else null
-}
+    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+    normalized: if(payload.WSResponseBody != null) {
+		numPqr: payload.WSResponseBody.Num_PQR default "",
+		trafficLightColor : payload.WSResponseBody.Traffic_Light_Color default "",
+		status: payload.WSResponseBody.Status default "",
+		message: payload.WSResponseBody.Message default ""
+    	
+    }else {}
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>

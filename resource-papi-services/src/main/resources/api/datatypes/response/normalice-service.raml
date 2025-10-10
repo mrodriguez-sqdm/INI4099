@@ -11,9 +11,11 @@ properties:
     required: false
   normalized:
     type: object
+    required: false
     properties:
       diagnostic:
         type: object
+        required: false
         properties:
           ontOn:
             type: boolean
@@ -27,8 +29,17 @@ properties:
             type: boolean
             example: false
             required: false
+          status:
+            type: string
+            example: string
+            required: false
+          message:
+            type: string
+            example: string
+            required: false
       massiveFailure:
         type: object
+        required: false
         properties:
           endDate:
             type: object
@@ -238,6 +249,7 @@ properties:
                     required: false
       semaphore:
         type: object
+        required: false
         properties:
           attenuation:
             type: string
@@ -261,5 +273,29 @@ properties:
         required: false
       numPqr:
         type: string
-        example: ''
+        example: MDM-PQR-4163009
+        required: false
+      status:
+        type: string
+        example: string
+        required: false
+      message:
+        type: string
+        example: string
+        required: false
+      additionalChannels:
+        type: string
+        example: string
+        required: false
+      additionalServices:
+        type: string
+        example: string
+        required: false
+      decos:
+        type: string
+        example: string
+        required: false
+      stateSubscriberId:
+        type: string
+        example: string
         required: false

@@ -3,87 +3,30 @@
   "messageResponse": "",
   "invoices": [
     {
-      "adjust": {
-        "date": "2025-07-31T15:30:00Z",
-        "numPqr": "PQR123456",
-        "origin": "Sistema",
-        "value": 15000,
-        "valueStr": "$15,000"
+      "billingNumber": "5879271031187",
+      "billingDate": "2024-11-01",
+      "dueDate": "2024-11-15",
+      "status": "Pagada",
+      "value": {
+        "amount": 145000,
+        "currency": "COP",
+        "formatted": "$ 145,000"
       },
-      "barcode": "4157707181500017802010003366498819390000001132709620250806",
-      "billedPeriod": "202507",
-      "billingAccount": "12053999712",
-      "billingAddress": "AC 53 14 80 AP 201",
-      "billingCutoffDate": "16/Agosto/2025",
-      "billingPhone": "3058916659",
-      "billingNumber": "336649881",
-      "billingNumberPse": "10003366498819",
-      "cuotasFactura": [
+      "payments": [
         {
-          "cuota": "1",
-          "estado": "Pagada",
-          "fechaPagoCuota": "2025-07-15",
-          "fechaVencimiento": "2025-07-10",
-          "referenciaPagoCuota": "REF123456",
-          "valorAcumulado": "$500.000",
-          "valorPagado": "$500.000",
-          "valorPagar": "$0"
+          "paymentDate": "2024-11-10",
+          "amount": 145000,
+          "type": "Efectivo"
         }
       ],
-      "creationDate": "2025-07-24T01:13:03.582Z",
-      "deliveryType": "SMS",
-      "email": "KARYLIM_S@HOTMAIL.COM",
-      "extemporaneous": false,
-      "informationValue": [
+      "adjustments": [
         {
-          "date": "2025-07-25T04:03:59.087Z",
-          "message": "Te informamos que a partir de la factura de este mes tu servicio fijo tuvo un incremento de: $ 5.348 antes de IVA."
+          "adjustmentDate": "",
+          "amount": 5454,
+          "type": "",
+          "description": ""
         }
-      ],
-      "invoiceOrigin": "Factura RMCA",
-      "isReceiptOfPayment": false,
-      "paydayLimit": "2025-08-06T00:00:00Z",
-      "payment": {
-        "bank": "Banco de Bogotá",
-        "franchise": "Visa",
-        "paymentDate": "2025-07-30T14:20:00Z",
-        "state": "Aprobado",
-        "type": "Digital",
-        "value": 250000,
-        "valueStr": "$250.000",
-        "visibleNumber": "**** **** **** 1234"
-      },
-      "paymentDate": "2025-08-04T00:00:00Z",
-      "phone": "6012173009",
-      "state": "PENDIENTE",
-      "valueFinal": {
-        "tensSetting": 0,
-        "value": 113270,
-        "valueStr": "$ 113,270",
-        "valuePay": 113270,
-        "valuePayStr": "$ 113,270.00"
-      },
-      "valueOriginal": {
-        "tensSetting": 0,
-        "value": 113270,
-        "valueStr": "$ 113,270",
-        "valuePay": 113270,
-        "valuePayStr": "$ 113,270.00"
-      },
-      "valuePrevious": {
-        "tensSetting": 0,
-        "value": 107920,
-        "valueStr": "$ 107,920",
-        "valuePay": null,
-        "valuePayStr": null
-      },
-      "valueService": {
-        "tensSetting": 0,
-        "value": 158900,
-        "valueStr": "$ 158,900",
-        "valuePay": null,
-        "valuePayStr": null
-      }
+      ]
     }
   ]
 }

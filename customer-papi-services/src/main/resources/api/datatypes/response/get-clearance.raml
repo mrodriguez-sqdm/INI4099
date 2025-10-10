@@ -11,6 +11,7 @@ properties:
     required: false
   balance:
     type: object
+    required: false
     properties:
       billingAccount:
         type: string
@@ -26,6 +27,7 @@ properties:
         required: false
       pendingBalance:
         type: object
+        required: false
         properties:
           value:
             type: integer
@@ -34,4 +36,28 @@ properties:
           valueStr:
             type: string
             example: $ 0
+            required: false
+      collectionHours:
+        type: object
+        required: false
+        properties:
+          value:
+            type: integer
+            example: 0
+            required: false
+          valueStr:
+            type: string
+            example: string
+            required: false
+      defaultInterest:
+        type: object
+        required: false
+        properties:
+          value:
+            type: integer
+            example: 0
+            required: false
+          valueStr:
+            type: string
+            example: string
             required: false

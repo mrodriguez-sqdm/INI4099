@@ -590,7 +590,7 @@ traits:
                 type: !include datatypes/response/recuperacionExperienciaResponse.raml
   /serviceOrder:
      post:
-        is: [security_client_id,commonHeaders]
+        is: [security_client_id,tibcoHeaders]
         displayName: service Inventory
         description: create order service
         queryParameters:
@@ -629,7 +629,7 @@ traits:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/error/error-500.json
      get:
-        is: [security_client_id,commonHeaders]
+        is: [security_client_id,tibcoHeaders]
         displayName: service Order
         description: View detailed information about a service using filters; receive service data and return service information.
         queryParameters:
@@ -683,7 +683,7 @@ traits:
                 example: !include /examples/error/error-500.json  
   /resource:
       get:
-        is: [security_client_id,commonHeaders]
+        is: [security_client_id,tibcoHeaders]
         displayName: Resource Inventory
         description: Resource Inventory.
         queryParameters:

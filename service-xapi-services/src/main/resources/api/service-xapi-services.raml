@@ -32,7 +32,27 @@ securitySchemes:
       body:
         application/json:
           type: !include datatypes/request/create-service-order.raml
-          example: !include examples/request/create-service-order.json
+          examples:
+            example1:
+              displayName: Reconexion
+              description: Example of a reconexion
+              value: !include examples/request/create-service-order-reconexion.json
+            example2:
+              displayName: Traslado
+              description: Example of a traslado
+              value: !include examples/request/create-service-order-traslado.json
+            example3:
+              displayName: Suspension Voluntaria
+              description: Example of a suspension voluntaria
+              value: !include examples/request/create-service-order-susp-vol.json
+            example4:
+              displayName: Suspension Robo
+              description: Example of a suspension robo
+              value: !include examples/request/create-service-order-susp-robo.json
+            example5:
+              displayName: Suspension Perdida
+              description: Example of a suspension perdida
+              value: !include examples/request/create-service-order-susp-perd.json
       responses:
         200:
           body:

@@ -7,7 +7,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<sub-flow name="get-riskManagement-orchestratorSub_Flow" doc:id="89dc52fc-1007-4df4-894a-db2c7a632d1e" >
 		<set-variable value="#[attributes.queryParams]" doc:name="Save Params Values" doc:id="ba3a0b5d-5305-4c6a-b7bd-bb14722aa05c" variableName="parameters" />
 		<set-variable value="#[attributes.headers]" doc:name="Save Headers Values" doc:id="4809376c-03e1-42d5-92f4-2e729455f80d" variableName="headers" />
-		<ee:transform doc:name="Transform Message" doc:id="b348500f-6e60-405c-b7da-7ac3bcafa0fc" >
+		<ee:transform doc:name="Set Body Payload Bot" doc:id="b348500f-6e60-405c-b7da-7ac3bcafa0fc" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
@@ -24,6 +24,7 @@ output application/json
   "WSRequestBody": {
     "Document_Type": (vars.parameters.CUSTOMER_ID_TYPE default ""),
     "Document_Number": (vars.parameters.CUSTOMER_ID default ""),
+    "Pre_Order": (vars.parameters.ORDER_NUMBER default ""),
     "Audit": {
       "Canal": vars.headers.name
  	}

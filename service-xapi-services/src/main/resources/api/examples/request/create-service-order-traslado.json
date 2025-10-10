@@ -1,0 +1,22 @@
+{
+  "serviceOrder": {
+    "customer": {
+      "documentNumber": "1023456789",
+      "documentType": "CC",
+      "phone": "+57 3001234567"
+    },
+    "orderType": "TRASLADO",
+    "causal": "",
+    "operation": "create",
+    "detailOrder": {
+      "codDaneCity": "11001",
+      "codDaneDepartment": "11",
+      "keepIps": false,
+      "keepNumber": false,
+      "mailbox": false,
+      "latitude": 4.697586,
+      "longitude": -74.09126,
+      "plan": ""
+    }
+  }
+}

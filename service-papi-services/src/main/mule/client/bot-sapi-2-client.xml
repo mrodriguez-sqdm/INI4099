@@ -9,12 +9,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"client_secret" : p('bot-sapi.client_secret'),
-	"client_id" : p('bot-sapi.client_id'),
-	"name": vars.headers.system,
+	"client_secret" : p('bot-sapi-2.client_secret'),
+	"client_id" : p('bot-sapi-2.client_id'),
+	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
-	"source": vars.headers.system,
-	"systemId" : "MIGRACION"
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
@@ -23,12 +23,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"client_secret" : p('bot-sapi.client_secret'),
-	"client_id" : p('bot-sapi.client_id'),
-	"name": vars.headers.system,
+	"client_secret" : p('bot-sapi-2.client_secret'),
+	"client_id" : p('bot-sapi-2.client_id'),
+	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
-	"source": vars.headers.system,
-	"systemId" : "MIGRACION"
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
@@ -37,12 +37,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"client_secret" : p('bot-sapi.client_secret'),
-	"client_id" : p('bot-sapi.client_id'),
-	"name": vars.headers.system,
+	"client_secret" : p('bot-sapi-2.client_secret'),
+	"client_id" : p('bot-sapi-2.client_id'),
+	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
-	"source": vars.headers.system,
-	"systemId" : "MIGRACION"
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
@@ -51,12 +51,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"client_secret" : p('bot-sapi.client_secret'),
-	"client_id" : p('bot-sapi.client_id'),
-	"name": vars.headers.system,
+	"client_secret" : p('bot-sapi-2.client_secret'),
+	"client_id" : p('bot-sapi-2.client_id'),
+	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
-	"source": vars.headers.system,
-	"systemId" : "MIGRACION"
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
@@ -65,12 +65,12 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"client_secret" : p('bot-sapi.client_secret'),
-	"client_id" : p('bot-sapi.client_id'),
-	"name": vars.headers.system,
+	"client_secret" : p('bot-sapi-2.client_secret'),
+	"client_id" : p('bot-sapi-2.client_id'),
+	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
-	"source": vars.headers.system,
-	"systemId" : "MIGRACION"
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>

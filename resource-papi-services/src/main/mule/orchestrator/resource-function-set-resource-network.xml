@@ -47,9 +47,12 @@ output application/json
     "Property": []
   },
 "WSRequestBody": {
+	
+    "Dual": payload.operation.dual default true,
+    "New_Network_Password": payload.operation.password default "",
     "Phone": payload.connectionNumber default "",
-    "Password": payload.operation.password default "",
-    "Network_Type": payload.operation.networkType default "",
+    "Serial":  payload.operation.serial default "",
+    "SyncUp": payload.operation.syncUp default false,
     "Audit": {
       "Canal": vars.headers.name
     }
@@ -68,9 +71,7 @@ output application/json
     codeResponse: vars.httpStatus as String,
     messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
 	detail: {
-	 numberPqr: payload.WSResponseBody.Num_PQR default "",
-     status: payload.WSResponseBody.Status default "",
-     message: payload.WSResponseBody.Message default ""
+	 numberPqr: payload.WSResponseBody.Num_PQR default ""
   }
 }]]></ee:set-payload>
 			</ee:message>
@@ -115,11 +116,9 @@ output application/json
 ---
 {
     codeResponse: vars.httpStatus as String,
-    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorCode ,
 	detail: {
-	 numberPqr: payload.WSResponseBody.Num_PQR default "",
-     status: payload.WSResponseBody.Status default "",
-     message: payload.WSResponseBody.Message default ""
+	 numberPqr: payload.WSResponseBody.Num_PQR default ""
   }
 }]]></ee:set-payload>
 			</ee:message>

@@ -8,6 +8,14 @@
     "pendingBalance": {
       "value": 0.0,
       "valueStr": "$ 0"
+    },
+    "collectionHours": {
+      "value": 0,
+      "valueStr": "string"
+    },
+    "defaultInterest": {
+      "value": 0,
+      "valueStr": "string"
     }
   }
 }

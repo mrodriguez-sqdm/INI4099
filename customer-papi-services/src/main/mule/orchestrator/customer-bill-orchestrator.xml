@@ -133,122 +133,29 @@ output application/json
 ---
 {
 	codeResponse: vars.httpStatus as String ,
-	messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
-    invoices: 
-      if(payload.WSResponseBody.Invoices == null and payload.WSResponseBody.Pending_Invoice == null) 
-        []
-	  else
-	     (([payload.WSResponseBody.Pending_Invoice] default []) ++ (payload.WSResponseBody.Invoices default [])) filter ($ != null) map (invoice) -> {
-		    	adjust: (
-		    		if(invoice.Adjust != null and typeOf(invoice.Adjust) == Object) 
-		    		  {
-					      date: invoice.Adjust.Date,
-					      numPqr: invoice.Adjust.Num_PQR,
-					      origin: invoice.Adjust.Origin,
-					      value: invoice.Adjust.Value,
-					      valueStr: invoice.Adjust.Value_Str
-					    } else null ),
-		    		barcode: invoice.Barcode,
-		    		billedPeriod: invoice.Billed_Period,
-  					billingAccount: invoice.Billing_Account,
-					billingAddress: invoice.Billing_Address,
-					billingCutoffDate: invoice.Billing_Cutoff_Date,
-					billingPhone: invoice.Billing_Phone,
-					billingNumber: invoice.Billing_Number,
-					billingNumberPse: invoice.Billing_Number_PSE,
-					cuotasFactura: 
-					  (
-		    		if(invoice.Cuotas_Factura != null and invoice.Cuotas_Factura != "") 
-		    		
-					  (invoice.Cuotas_Factura default []) map (cuota) -> {
-					    cuota: cuota.Cuota,
-					    estado: cuota.Estado,
-					    fechaPagoCuota: cuota.Fecha_Pago_Cuota,
-					    fechaVencimiento: cuota.Fecha_Vencimiento,
-					    referenciaPagoCuota: cuota.Referencia_Pago_Cuota,
-					    valorAcumulado: cuota.Valor_Acumulado,
-					    valorPagado: cuota.Valor_Pagado,
-					    valorPagar: cuota.Valor_Pagar
-					  } 
-					  else null
-						  ),
-					  creationDate: invoice.Creation_Date,
-					  deliveryType: invoice.Delivery_Type,
-					  email: invoice.Email,
-					  extemporaneous: invoice.Extemporaneous,
-					  informationValue: 
-					  (
-		    		if(invoice.Information_Value != null and invoice.Information_Value != "") 
-		    		
-					  (invoice.Information_Value default []) map (info) -> {
-					    date: info.Date,
-					    message: info.Message
-					  } 
-					  else null
-						  ),
-					invoiceOrigin: invoice.Invoice_Origin,
-					isReceiptOfPayment: invoice.Is_Receipt_Of_Payment,
-					paydayLimit: invoice.Payday_Limit,
-					payment: 
-					  (if (invoice.Payment != null and invoice.Payment != "") 
-					  {
-					    bank: invoice.Payment.Bank,
-					    franchise: invoice.Payment.Franchise,
-					    paymentDate: invoice.Payment.Payment_Date,
-					    state: invoice.Payment.State,
-					    "type": invoice.Payment.Type,
-					    value: invoice.Payment.Value,
-					    valueStr: invoice.Payment.Value_Str,
-					    visibleNumber: invoice.Payment.Visible_Number
-					  } 
-					  else null),
-					  paymentDate: invoice.Payment_Date,
-					  phone: invoice.Phone,
-					  state: invoice.State,
-					  valueOriginal: 
-						  if (invoice.Value_Original != null and invoice.Value_Original != "") 
-						  {
-						    tensSetting: invoice.Value_Original.TensSetting,
-						    value: invoice.Value_Original.Value,
-						    valueStr: invoice.Value_Original.Value_Str,
-						    valuePay: invoice.Value_Original.Value_Pay,
-						    valuePayStr: invoice.Value_Original.Value_Pay_Str
-						  } 
-						  else null,
-						
-					  valueFinal: 
-						  if (invoice.Value_Final != null and invoice.Value_Final != "") 
-						  {
-						    tensSetting: invoice.Value_Final.TensSetting,
-						    value: invoice.Value_Final.Value,
-						    valueStr: invoice.Value_Final.Value_Str,
-						    valuePay: invoice.Value_Final.Value_Pay,
-						    valuePayStr: invoice.Value_Final.Value_Pay_Str
-						  } 
-						  else null,
-						
-					  valuePrevious: 
-						  if (invoice.Value_Previous != null and invoice.Value_Previous != "") 
-						  {
-						    tensSetting: invoice.Value_Previous.TensSetting,
-						    value: invoice.Value_Previous.Value,
-						    valueStr: invoice.Value_Previous.Value_Str,
-						    valuePay: invoice.Value_Previous.Value_Pay,
-						    valuePayStr: invoice.Value_Previous.Value_Pay_Str
-						  } 
-						  else null,
-						
-					  valueService: 
-						  if (invoice.Value_Service != null and invoice.Value_Service != "") 
-						  {
-						    tensSetting: invoice.Value_Service.TensSetting,
-						    value: invoice.Value_Service.Value,
-						    valueStr: invoice.Value_Service.Value_Str,
-						    valuePay: invoice.Value_Service.Value_Pay,
-						    valuePayStr: invoice.Value_Service.Value_Pay_Str
-						  } 
-						  else null
-		    	} 
+	messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+   invoices: (payload.Invoices default []) map {
+        billingNumber: $.Billing_Number default "",
+        billingDate: $.Billing_Date default "",
+        dueDate: $.Due_Date default "",
+        status: $.Status default "",
+        value: {
+            amount: $.Value.Amount default "",
+            currency: $.Value.Currency default "",
+            formatted: $.Value.Formatted default ""
+        },
+        payments: ($.Payments default []) map {
+            paymentDate: $.Payment_Date default "",
+            amount: $.Amount default "",
+            "type": $.Type default ""
+        },
+        adjustments: ($.Adjustments default []) map {
+            adjustmentDate: $.Adjustment_Date default "",
+            amount: $.Amount default "",
+            "type": $.Type default "",
+            description: $.Description default ""
+        }
+    }
 		    
 }
 
@@ -405,12 +312,20 @@ var response = payload
   codeResponse: vars.httpStatus as String ,
   messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
   balance: {
-    billingAccount: response.WSResponseBody.Billing_Account,
-    link: response.WSResponseBody.Link,
-    payPoint: response.WSResponseBody.Pay_Point,
+    billingAccount: response.WSResponseBody.Billing_Account default "",
+    link: response.WSResponseBody.Link default "",
+    payPoint: response.WSResponseBody.Pay_Point default "",
     pendingBalance: {
-      value: response.WSResponseBody.Pending_Balance.Value,
-      valueStr: response.WSResponseBody.Pending_Balance.Value_Str
+      value: response.WSResponseBody.Pending_Balance.Value default "",
+      valueStr: response.WSResponseBody.Pending_Balance.Value_Str default ""
+    },
+    collectionHours: {
+      value: response.WSResponseBody.Collection_Hours.Value default "",
+      valueStr: response.WSResponseBody.Collection_Hours.Value_Str default ""
+    },
+    defaultInterest: {
+      value: response.WSResponseBody.Default_Interest.Value default "",
+      valueStr: response.WSResponseBody.Default_Interest.Value_Str default ""
     }
   }
 }
@@ -439,7 +354,7 @@ output application/json
     "Audit": {
       "Canal": vars.headers.name
     },
-    "Phone": (vars.parameters.CONNECTION_NUMBER default "")
+    "Billing_Number": (vars.parameters.BILLING_NUMBER default "")
   }
 }]]></ee:set-payload>
 			</ee:message>
@@ -454,22 +369,71 @@ output application/json
 {
   codeResponse: vars.httpStatus as String ,
   messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
-  debt: if(payload.Payment_Info != null)
-  	{
-        phone: payload.Payment_Info.Phone,
-        billingAccount: payload.Payment_Info.Billing_Account,
-        totalAmount: payload.Payment_Info.Total_Amount,
-        currency: payload.Payment_Info.Currency,
-        dueDate: payload.Payment_Info.Due_Date,
-        status: payload.Payment_Info.Status,
-        reasons: payload.Payment_Info.Reasons map (item) -> {
-        code: item.Code,
-        description: item.Description,
-        amount: item.Amount
+   debt: {
+        adjust: {
+            date: payload.WSResponseBody.Adjust.Date default "",
+            numPqr: payload.WSResponseBody.Adjust.Num_PQR default "",
+            origin: payload.WSResponseBody.Adjust.Origin default "",
+            value: {
+                value: payload.WSResponseBody.Adjust.Value.Value default "",
+                valueStr: payload.WSResponseBody.Adjust.Value.Value_Str default ""
+            }
+        },
+        barcode: payload.WSResponseBody.Barcode default "",
+        billedPeriod: payload.WSResponseBody.Billed_Period default "",
+        billingAccount: payload.WSResponseBody.Billing_Account default "",
+        billingAddress: payload.WSResponseBody.Billing_Address default "",
+        billingCutoffDate: payload.WSResponseBody.Billing_Cutoff_Date default "",
+        billingNumber: payload.WSResponseBody.Billing_Number default "",
+        billingNumberPse: payload.WSResponseBody.Billing_Number_PSE default "",
+        billingPhone: payload.WSResponseBody.Billing_Phone default "",
+        concepts: {
+            reconnected: {
+                cost: payload.WSResponseBody.Concepts.Reconnected.Cost default "",
+                costUsr: payload.WSResponseBody.Concepts.Reconnected.Cost_Usr default "",
+                date: payload.WSResponseBody.Concepts.Reconnected.Date default ""
+            },
+            suspend: {
+                cost: payload.WSResponseBody.Concepts.Suspend.Cost default "",
+                costUsr: payload.WSResponseBody.Concepts.Suspend.Cost_Usr default "",
+                date: payload.WSResponseBody.Concepts.Suspend.Date default ""
+            }
+        },
+        deliveryType: payload.WSResponseBody.Delivery_Type default "",
+        email: payload.WSResponseBody.Email default "",
+        extemporaneous: payload.WSResponseBody.Extemporaneous default "",
+        informationValue: (payload.WSResponseBody.Information_Value default []) map {
+            date: $.Date default "",
+            message: $.Message default ""
+        },
+        invoiceOrigin: payload.WSResponseBody.Invoice_Origin default "",
+        isReceiptOfPayment: payload.WSResponseBody.Is_Receipt_Of_Payment default "",
+        paydayLimit: payload.WSResponseBody.Payday_Limit default "",
+        payment: {
+            bank: payload.WSResponseBody.Payment.Bank default "",
+            paymentDate: payload.WSResponseBody.Payment.Payment_Date default "",
+            "type": payload.WSResponseBody.Payment.Type default "",
+            value: {
+                value: payload.WSResponseBody.Payment.Value.Value default "",
+                valueStr: payload.WSResponseBody.Payment.Value.Value_Str default ""
+            }
+        },
+        paymentDate: payload.WSResponseBody.Payment_Date default "",
+        phone: payload.WSResponseBody.Phone default "",
+        state: payload.WSResponseBody.State default "",
+        valueFinal: {
+            value: payload.WSResponseBody.Value_Final.Value default "",
+            valueStr: payload.WSResponseBody.Value_Final.Value_Str default ""
+        },
+        valueOriginal: {
+            value: payload.WSResponseBody.Value_Original.Value default "",
+            valueStr: payload.WSResponseBody.Value_Original.Value_Str default ""
+        },
+        valueService: {
+            value: payload.WSResponseBody.Value_Service.Value default "",
+            valueStr: payload.WSResponseBody.Value_Service.Value_Str default ""
         }
     }
-  else
-    {}
 }
 ]]></ee:set-payload>
 			</ee:message>

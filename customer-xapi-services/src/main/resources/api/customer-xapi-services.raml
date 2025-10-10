@@ -277,7 +277,7 @@ securitySchemes:
           required: false
         FILTERS:
           type: string
-          example: Barcode:542545454;Phone:12452145;BillingAccount:656565"
+          example: "Barcode:542545454;Phone:12452145;BillingAccount:656565"
           description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
           required: false
         LIMIT:
@@ -464,6 +464,10 @@ securitySchemes:
             BILLING_ACCOUNT:
               type: string
               description: User billing account to retrieve debts
+              required: false
+            BILLING_NUMBER:
+              type: string
+              description: User billing Number to retrieve debts
               required: false
             CONNECTION_NUMBER:
               type: number

@@ -31,7 +31,19 @@ securitySchemes:
     body:
       application/json:
         type: !include /datatypes/request/normalice-service.raml
-        example: !include /examples/request/normalice-service.json
+        examples:
+          example1:
+            displayName: Normalize LB Request
+            description: Example of a service normalization lb
+            value: !include /examples/request/normalice-service.json
+          example2:
+            displayName: Normalize TV Request
+            description: Example of a service normalization tv
+            value: !include /examples/request/normalice-service-tv.json
+          example3:
+            displayName: Normalize INTERNET Request
+            description: Example of a service normalization internet
+            value: !include /examples/request/normalice-service-internet.json
     responses:
         200:
           body:
@@ -75,7 +87,19 @@ securitySchemes:
       body:
         application/json:
           type: !include /datatypes/request/set-recurso-red.raml
-          example: !include /examples/request/set-recurso-red.json
+          examples:
+            example1:
+              displayName: Set Password  Request
+              description: Example for update password
+              value: !include /examples/request/set-recurso-red-password.json
+            example2:
+              displayName: Set Networkname  Request
+              description: Example for update networkname
+              value: !include /examples/request/set-recurso-red-networkname.json
+            example3:
+              displayName: Request Complete
+              description: Example of a request complete
+              value: !include /examples/request/set-recurso-red.json
       responses:
           200:
             body:

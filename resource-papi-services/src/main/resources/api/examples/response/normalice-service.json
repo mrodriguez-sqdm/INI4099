@@ -5,7 +5,9 @@
   "diagnostic": {
     "ontOn": true,
     "poorConnection": false,
-    "speedFault": false
+    "speedFault": false,
+    "status": "string",
+    "message": "string"
   },
   "massiveFailure": {
     "endDate": {
@@ -80,6 +82,12 @@
     "potency": "Verde"
   },
   "trafficLightColor" : "",
-  "numPqr": "MDM-PQR-4163009"
+  "numPqr": "MDM-PQR-4163009",
+  "status": "string",
+  "message": "string",
+  "additionalChannels": "string",
+  "additionalServices": "string",
+  "decos": "string",
+  "stateSubscriberId": "string"
 }
 }

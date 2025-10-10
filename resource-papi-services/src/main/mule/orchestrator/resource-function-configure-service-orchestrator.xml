@@ -22,9 +22,11 @@ output application/json
     "Property": []
   },
 "WSRequestBody": {
+    "Dual": payload.dual default "",
+    "New_Network_State": payload.newNetworkState default "",
     "Phone": payload.connectionNumber default "",
-    "Wifi_State": payload.function default "",
-    "Network_Type": payload.resourceType default "",
+    "Serial": payload.serial default "",
+    "SyncUp": payload.syncUp default "",
     "Audit": {
       "Canal": vars.headers.name
     }
@@ -43,9 +45,7 @@ output application/json
     codeResponse: vars.httpStatus as String,
     messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
 	detail: {
-	 numberPqr: payload.WSResponseBody.Num_PQR default "",
-     status: payload.WSResponseBody.Status default "",
-     message: payload.WSResponseBody.Message default ""
+	 numberPqr: payload.WSResponseBody.Num_PQR default ""
   }
 }]]></ee:set-payload>
 			</ee:message>

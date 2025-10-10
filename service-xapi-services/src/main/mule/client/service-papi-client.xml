@@ -11,8 +11,10 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 {
 	"client_secret" : p('service-papi.security.client-secret'),
 	"client_id" : p('service-papi.security.client-id'),
+	"name": attributes.headers.name,
 	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-	"system": attributes.headers.systemId
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/java
 ---
@@ -26,8 +28,10 @@ attributes.queryParams]]]></http:query-params>
 {
 	"client_secret" : p('service-papi.security.client-secret'),
 	"client_id" : p('service-papi.security.client-id'),
+	"name": attributes.headers.name,
 	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-	"system": attributes.headers.systemId
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/java
 ---
@@ -41,8 +45,10 @@ attributes.queryParams]]]></http:query-params>
 {
 	"client_secret" : p('service-papi.security.client-secret'),
 	"client_id" : p('service-papi.security.client-id'),
+	"name": attributes.headers.name,
 	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-	"system": attributes.headers.systemId
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/java
 ---
