@@ -100,9 +100,42 @@ output application/json
       "Canal": vars.headers.name
     },
     "Filter": {
+      "Address": true,
       "Billing_Account": true,
-      "Contracted_Offer": true
-    },
+      "Billing_Account_Address": true,
+      "Bundle": true,
+      "Collections": true,
+      "Contracted_Offer": true,
+      "Contracted_Offer_Filter": {
+        "Execution_Plan": true,
+        "Plan": true,
+        "SVAs": true
+      },
+      "Contracted_Offer_Suggest": true,
+      "Directv": true,
+      "Family_And_Friends": true,
+      "Files": true,
+      "Home": true,
+      "Inventory": true,
+      "MiETB_User": true,
+      "OCS": true,
+      "Pasagigas": true,
+      "Pasagigas_Subscription": true,
+      "Permanence_Clause": true,
+      "Rate_Increase": true,
+      "State": {
+        "Action": true,
+        "Active": true,
+        "Inactive": true,
+        "Pending": true,
+        "Retired": true,
+        "Suspended": true,
+        "Suspended_Fraud": true,
+        "Suspended_Non_Payment": true,
+        "Suspended_Theft_Or_Loss": true,
+        "Suspended_Voluntary": true
+       }
+      },
     "Phone": payload.filtros.ConecctionNumber default ""
   }
 }]]></ee:set-payload>
@@ -118,18 +151,878 @@ output application/json
 {
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
-	serviceOrder: if(payload.Service != null)[
+	serviceOrder: if(payload.WSResponseBody.Service != null)[
     {
-      phone: payload.Service.Phone,
-      billingAccount: payload.Service.Billing_Account,
-      status: payload.Service.Status,
-      "type": payload.Service.Type,
-      contractedOffer: {
-        name: payload.Service.Contracted_Offer.Name,
-        description: payload.Service.Contracted_Offer.Description,
-        value: payload.Service.Contracted_Offer.Value,
-        currency: payload.Service.Contracted_Offer.Currency
-      }
+         addres: if(payload.WSResponseBody.Service.Address != null){
+            city: {
+            id: payload.WSResponseBody.Service.Address.City.Id,
+            name: payload.WSResponseBody.Service.Address.City.Name
+        },
+        department: {
+            id: payload.WSResponseBody.Service.Address.Department.Id,
+            name: payload.WSResponseBody.Service.Address.Department.Name
+        },
+        coverage: {
+            distanceType: payload.WSResponseBody.Service.Address.Coverage.Distance_Type,
+            gisAddress: payload.WSResponseBody.Service.Address.Coverage.GIS_Address,
+            idPlot: payload.WSResponseBody.Service.Address.Coverage.Id_Plot,
+            latitude: payload.WSResponseBody.Service.Address.Coverage.Latitude,
+            longitude: payload.WSResponseBody.Service.Address.Coverage.Longitude,
+            molecule: payload.WSResponseBody.Service.Address.Coverage.Molecule,
+            name: payload.WSResponseBody.Service.Address.Coverage.Name,
+            olt: payload.WSResponseBody.Service.Address.Coverage.OLT,
+            owner: payload.WSResponseBody.Service.Address.Coverage.Owner,
+            district: payload.WSResponseBody.Service.Address.Coverage.District,
+            locality: payload.WSResponseBody.Service.Address.Coverage.Locality,
+            localityId: payload.WSResponseBody.Service.Address.Coverage.Locality_Id,
+            stratum: payload.WSResponseBody.Service.Address.Coverage.Stratum,
+            technology: payload.WSResponseBody.Service.Address.Coverage.Technology,
+            "type": payload.WSResponseBody.Service.Address.Coverage.Type,
+            zone: payload.WSResponseBody.Service.Address.Coverage.Zone
+        },
+        country: {
+            id: payload.WSResponseBody.Service.Address.Country.Id,
+            name: payload.WSResponseBody.Service.Address.Country.Name
+        },
+        id: payload.WSResponseBody.Service.Address.Id,
+        state: payload.WSResponseBody.Service.Address.State,
+        streetAddress: payload.WSResponseBody.Service.Address.Street_Address,
+        "type": payload.WSResponseBody.Service.Address.Type
+      }else {},
+      billing: 
+        if (payload.WSResponseBody.Service.Billing != null) 
+        {
+            address: {
+                city: {
+                    id: payload.WSResponseBody.Service.Billing.Address.City.Id,
+                    name: payload.WSResponseBody.Service.Billing.Address.City.Name
+                },
+                department: {
+                    id: payload.WSResponseBody.Service.Billing.Address.Department.Id,
+                    name: payload.WSResponseBody.Service.Billing.Address.Department.Name
+                },
+                coverage: {
+                    distanceType: payload.WSResponseBody.Service.Billing.Address.Coverage.Distance_Type,
+                    gisAddress: payload.WSResponseBody.Service.Billing.Address.Coverage.GIS_Address,
+                    idPlot: payload.WSResponseBody.Service.Billing.Address.Coverage.Id_Plot,
+                    latitude: payload.WSResponseBody.Service.Billing.Address.Coverage.Latitude,
+                    longitude: payload.WSResponseBody.Service.Billing.Address.Coverage.Longitude,
+                    molecule: payload.WSResponseBody.Service.Billing.Address.Coverage.Molecule,
+                    name: payload.WSResponseBody.Service.Billing.Address.Coverage.Name,
+                    olt: payload.WSResponseBody.Service.Billing.Address.Coverage.OLT,
+                    owner: payload.WSResponseBody.Service.Billing.Address.Coverage.Owner,
+                    district: payload.WSResponseBody.Service.Billing.Address.Coverage.District,
+                    locality: payload.WSResponseBody.Service.Billing.Address.Coverage.Locality,
+                    localityId: payload.WSResponseBody.Service.Billing.Address.Coverage.Locality_Id,
+                    stratum: payload.WSResponseBody.Service.Billing.Address.Coverage.Stratum,
+                    technology: payload.WSResponseBody.Service.Billing.Address.Coverage.Technology,
+                    "type": payload.WSResponseBody.Service.Billing.Address.Coverage.Type,
+                    zone: payload.WSResponseBody.Service.Billing.Address.Coverage.Zone
+                },
+                country: {
+                    id: payload.WSResponseBody.Service.Billing.Address.Country.Id,
+                    name: payload.WSResponseBody.Service.Billing.Address.Country.Name
+                },
+                id: payload.WSResponseBody.Service.Billing.Address.Id,
+                state: payload.WSResponseBody.Service.Billing.Address.State,
+                streetAddress: payload.WSResponseBody.Service.Billing.Address.Street_Address,
+                "type": payload.WSResponseBody.Service.Billing.Address.Type
+            },
+            billingAccount: payload.WSResponseBody.Service.Billing.Billing_Account,
+            billingAccountFather: payload.WSResponseBody.Service.Billing.Billing_Account_Father,
+            billingDueDay: payload.WSResponseBody.Service.Billing.Billing_Due_Day,
+            billingDueOcsDay: payload.WSResponseBody.Service.Billing.Billing_Due_OCS_Day,
+            billingDueDayUser: payload.WSResponseBody.Service.Billing.Billing_Due_Day_User,
+            canUpdateDeliveryType: payload.WSResponseBody.Service.Billing.Can_Update_Delivery_Type,
+            cycle: payload.WSResponseBody.Service.Billing.Cycle,
+            deliveryType: payload.WSResponseBody.Service.Billing.Delivery_Type,
+            email: payload.WSResponseBody.Service.Billing.Email,
+            idSalesforce: payload.WSResponseBody.Service.Billing.Id_Salesforce,
+            phone: payload.WSResponseBody.Service.Billing.Phone,
+            state: payload.WSResponseBody.Service.Billing.State,
+            stratum: payload.WSResponseBody.Service.Billing.Stratum,
+            "type": payload.WSResponseBody.Service.Billing.Type
+        } 
+        else {},
+    bundle: 
+        if (payload.WSResponseBody.Service.Bundle != null) 
+        {
+            associated: payload.WSResponseBody.Service.Bundle.Associated default "",
+            isbundle: payload.WSResponseBody.Service.Bundle.IsBundle default "",
+            "type": payload.WSResponseBody.Service.Bundle.Type default ""
+        } 
+        else {},
+        
+    charging: payload.WSResponseBody.Service.Charging default "",
+    collections: 
+        if (payload.WSResponseBody.Service.Collections != null) 
+        {
+            dates: 
+                if (payload.WSResponseBody.Service.Collections.Dates != null) 
+                {
+                    cancellationDate: payload.WSResponseBody.Service.Collections.Dates.Cancellation_Date default "",
+                    reconnectionDate: payload.WSResponseBody.Service.Collections.Dates.Reconnection_Date default "",
+                    suspensionDate: 
+                        if (payload.WSResponseBody.Service.Collections.Dates.Suspension_Date != null)
+                        {
+                            date: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Date default "",
+                            format1: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Format_1 default "",
+                            format2: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Format_2 default "",
+                            format3: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Format_3 default "",
+                            format4: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Format_4 default "",
+                            day: 
+                                if (payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Day != null)
+                                {
+                                    format1: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Day.Format_1 default "",
+                                    format2: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Day.Format_2 default "",
+                                    format3: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Day.Format_3 default ""
+                                } 
+                                else {},
+                            month: 
+                                if (payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Month != null)
+                                {
+                                    format1: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Month.Format_1 default "",
+                                    format2: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Month.Format_2 default "",
+                                    format3: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Month.Format_3 default ""
+                                } 
+                                else {},
+                            year: 
+                                if (payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Year != null)
+                                {
+                                    format1: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Year.Format_1 default "",
+                                    format2: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Year.Format_2 default "",
+                                    format3: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Year.Format_3 default ""
+                                } 
+                                else {},
+                            hour: 
+                                if (payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour != null)
+                                {
+                                    format1: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_1 default "",
+                                    format2: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_2 default "",
+                                    format3: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_3 default "",
+                                    format4: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_4 default "",
+                                    format5: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_5 default "",
+                                    format6: payload.WSResponseBody.Service.Collections.Dates.Suspension_Date.Hour.Format_6 default ""
+                                } 
+                                else {}
+                        } 
+                        else {}
+                } 
+                else {},
+            reason: payload.WSResponseBody.Service.Collections.Reason default "",
+            reconnectionAvailable: payload.WSResponseBody.Service.Collections.Reconnection_Available default "",
+            state: payload.WSResponseBody.Service.Collections.State default ""
+        } 
+        else {},
+    contractedOffer: 
+        if (payload.WSResponseBody.Service.Contracted_Offer != null)
+        {
+            plan: 
+                if (payload.WSResponseBody.Service.Contracted_Offer.Plan != null)
+                {
+                    home: 
+                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home != null)
+                        {
+                            internet: 
+                                if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet != null)
+                                {
+                                    capacity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Capacity default "",
+                                    descentSpeed: 
+                                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Descent_Speed != null)
+                                        {
+                                            description: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Descent_Speed.Description default "",
+                                            unity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Descent_Speed.Unity default "",
+                                            value: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Descent_Speed.Value default ""
+                                        } else {},
+                                    isTwin: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Is_Twin default "",
+                                    secundary: 
+                                        (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Secundary default []) map ((item) -> {
+                                            count: item.Count default "",
+                                            desc: item.Desc default "",
+                                            description: item.Description default "",
+                                            icon: item.Icon default "",
+                                            name: item.Name default "",
+                                            "type": item.Type default ""
+                                        }),
+                                    sharedCapacity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Shared_Capacity default "",
+                                    uploadSpeed: 
+                                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Upload_Speed != null)
+                                        {
+                                            description: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Upload_Speed.Description default "",
+                                            unity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Upload_Speed.Unity default "",
+                                            value: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Internet.Upload_Speed.Value default ""
+                                        } else {}
+                                } else {},
+                            tv: 
+                                if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.TV != null)
+                                {
+                                    channels: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.TV.Channels default "",
+                                    numberOfChannels: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.TV.Number_Of_Channels default "",
+                                    planType: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.TV.Plan_Type default "",
+                                    secundary: 
+                                        (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.TV.Secundary default []) map ((item) -> {
+                                            count: item.Count default "",
+                                            desc: item.Desc default "",
+                                            description: item.Description default "",
+                                            icon: item.Icon default "",
+                                            name: item.Name default "",
+                                            "type": item.Type default ""
+                                        })
+                                } else {},
+                            voice: 
+                                if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice != null)
+                                {
+                                    capacity: 
+                                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice.Capacity != null)
+                                        {
+                                            description: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice.Capacity.Description default "",
+                                            unity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice.Capacity.Unity default "",
+                                            value: payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice.Capacity.Value default ""
+                                        } else {},
+                                    secundary: 
+                                        (payload.WSResponseBody.Service.Contracted_Offer.Plan.Home.Voice.Secundary default []) map ((item) -> {
+                                            count: item.Count default "",
+                                            desc: item.Desc default "",
+                                            description: item.Description default "",
+                                            icon: item.Icon default "",
+                                            name: item.Name default "",
+                                            "type": item.Type default ""
+                                        })
+                                } else {}
+                        } else {},
+                    mobile: payload.WSResponseBody.Service.Contracted_Offer.Plan.Mobile default "",
+                    promotions: payload.WSResponseBody.Service.Contracted_Offer.Plan.Promotions default [],
+                    available: payload.WSResponseBody.Service.Contracted_Offer.Plan.Available default "",
+                    contracted: payload.WSResponseBody.Service.Contracted_Offer.Plan.Contracted default "",
+                    description: payload.WSResponseBody.Service.Contracted_Offer.Plan.Description default [],
+                    executionPlan: 
+                        (payload.WSResponseBody.Service.Contracted_Offer.Plan.Execution_Plan default []) map ((item) -> {
+                            features: 
+                                (item.Features default []) map ((f) -> {
+                                    description: f.Description default "",
+                                    differential: f.Differential default "",
+                                    discount: f.Discount default "",
+                                    outstanding: f.Outstanding default "",
+                                    "type": f.Type default ""
+                                }),
+                            month: item.Month default "",
+                            saving: item.Saving default "",
+                            savingStr: item.Saving_Str default "",
+                            state: item.State default "",
+                            value: item.Value default "",
+                            valueStr: item.Value_Str default ""
+                        }),
+                    id: payload.WSResponseBody.Service.Contracted_Offer.Plan.Id default "",
+                    idsPackaging: payload.WSResponseBody.Service.Contracted_Offer.Plan.Ids_Packaging default "",
+                    installationCharges: 
+                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges != null)
+                        {
+                            acceptPermanenceClause: payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges.Accept_Permanence_Clause default "",
+                            installationChargesInternet: payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges.Installation_Charges_Internet default "",
+                            installationChargesTv: payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges.Installation_Charges_Tv default "",
+                            installationChargesVoice: payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges.Installation_Charges_Voice default "",
+                            total: payload.WSResponseBody.Service.Contracted_Offer.Plan.Installation_Charges.Total default ""
+                        } else {},
+                    isPacking: payload.WSResponseBody.Service.Contracted_Offer.Plan.Is_Packing default "",
+                    isZoned: payload.WSResponseBody.Service.Contracted_Offer.Plan.Is_Zoned default "",
+                    name: payload.WSResponseBody.Service.Contracted_Offer.Plan.Name default "",
+                    nameTechnical: payload.WSResponseBody.Service.Contracted_Offer.Plan.Name_Technical default "",
+                    outstanding: payload.WSResponseBody.Service.Contracted_Offer.Plan.Outstanding default "",
+                    price: 
+                        if (payload.WSResponseBody.Service.Contracted_Offer.Plan.Price != null)
+                        {
+                            anticipatedPayment: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Anticipated_Payment default "",
+                            iva: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.IVA default "",
+                            value: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Value default "",
+                            valueStr: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Value_Str default "",
+                            valueWithoutIva: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Value_Without_IVA default "",
+                            valueWithoutIvaStr: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Value_Without_IVA_Str default "",
+                            validity: payload.WSResponseBody.Service.Contracted_Offer.Plan.Price.Validity default ""
+                        } else {},
+                    retencion: payload.WSResponseBody.Service.Contracted_Offer.Plan.Retencion default "",
+                    saving: payload.WSResponseBody.Service.Contracted_Offer.Plan.Saving default "",
+                    savingStr: payload.WSResponseBody.Service.Contracted_Offer.Plan.Saving_Str default "",
+                    stratum: payload.WSResponseBody.Service.Contracted_Offer.Plan.Stratum default "",
+                    subType: payload.WSResponseBody.Service.Contracted_Offer.Plan.SubType default "",
+                    svasFeatured: payload.WSResponseBody.Service.Contracted_Offer.Plan.SVAs_Featured default "",
+                    svasIncluded: payload.WSResponseBody.Service.Contracted_Offer.Plan.SVAs_Included default "",
+                    technology: payload.WSResponseBody.Service.Contracted_Offer.Plan.Technology default "",
+                    "type": payload.WSResponseBody.Service.Contracted_Offer.Plan.Type default "",
+                    value: payload.WSResponseBody.Service.Contracted_Offer.Plan.Value default "",
+                    valueStr: payload.WSResponseBody.Service.Contracted_Offer.Plan.Value_Str default "",
+                    zoned: payload.WSResponseBody.Service.Contracted_Offer.Plan.Zoned default ""
+                } else {},
+            svas: 
+                (payload.WSResponseBody.Service.Contracted_Offer.SVAs default []) map ((item) -> {
+                    mobile: item.Mobile default "",
+                    promotions: item.Promotions default [],
+                    subSvas: item.Sub_SVAs default "",
+                    available: item.Available default "",
+                    description: item.Description default "",
+                    characteristics: 
+					    if (item.Characteristics is Array) 
+					        item.Characteristics map ((c) -> {
+					            characteristic: c.Characteristic default "",
+					            icon: c.Icon default ""
+					        })
+					    else [],
+                    conflicting: item.Conflicting default [],
+                    contracted: item.Contracted default "",
+                    executionPlan: 
+                        (item.Execution_Plan default []) map ((ep) -> {
+                            features: 
+                                (ep.Features default []) map ((f) -> {
+                                    description: f.Description default "",
+                                    differential: f.Differential default "",
+                                    discount: f.Discount default "",
+                                    outstanding: f.Outstanding default "",
+                                    "type": f.Type default ""
+                                }),
+                            month: ep.Month default "",
+                            saving: ep.Saving default "",
+                            savingStr: ep.Saving_Str default "",
+                            state: ep.State default "",
+                            value: ep.Value default "",
+                            valueStr: ep.Value_Str default ""
+                        }),
+                    executionPlanDifferential: item.Execution_Plan_Differential default "",
+                    icon: item.Icon default "",
+                    id: item.Id default "",
+                    idsOld: item.Ids_Old default [],
+                    mandatory: item.Mandatory default "",
+                    name: item.Name default "",
+                    price: 
+                        if (item.Price != null)
+                        {
+                            anticipatedPayment: item.Price.Anticipated_Payment default "",
+                            iva: item.Price.IVA default "",
+                            value: item.Price.Value default "",
+                            valueStr: item.Price.Value_Str default "",
+                            valueWithoutIva: item.Price.Value_Without_IVA default "",
+                            valueWithoutIvaStr: item.Price.Value_Without_IVA_Str default "",
+                            validity: item.Price.Validity default ""
+                        } else {},
+                    quantity: 
+                        if (item.Quantity != null)
+                        {
+                            available: item.Quantity.Available default "",
+                            contracted: item.Quantity.Contracted default ""
+                        } else {},
+                    saving: item.Saving default "",
+                    serviceType: item.Service_Type default "",
+                    value: item.Value default "",
+                    visibility: 
+                        if (item.Visibility != null)
+                        {
+                            action: item.Visibility.Action default "",
+                            conditioned: item.Visibility.Conditioned default "",
+                            plans: item.Visibility.Plans default []
+                        } else {}
+                }),
+            executionPlan: 
+                (payload.WSResponseBody.Service.Contracted_Offer.Execution_Plan default []) map ((item) -> {
+                    features: 
+                        (item.Features default []) map ((f) -> {
+                            description: f.Description default "",
+                            differential: f.Differential default "",
+                            discount: f.Discount default "",
+                            outstanding: f.Outstanding default "",
+                            "type": f.Type default ""
+                        }),
+                    month: item.Month default "",
+                    saving: item.Saving default "",
+                    savingStr: item.Saving_Str default "",
+                    state: item.State default "",
+                    value: item.Value default "",
+                    valueStr: item.Value_Str default ""
+                })
+        } else {},
+        creationDate: 
+    if (payload.WSResponseBody.Service.Creation_Date != null)
+    {
+        date: payload.WSResponseBody.Service.Creation_Date.Date default "",
+        format1: payload.WSResponseBody.Service.Creation_Date.Format_1 default "",
+        format2: payload.WSResponseBody.Service.Creation_Date.Format_2 default "",
+        format3: payload.WSResponseBody.Service.Creation_Date.Format_3 default "",
+        format4: payload.WSResponseBody.Service.Creation_Date.Format_4 default "",
+        day: 
+            if (payload.WSResponseBody.Service.Creation_Date.Day != null)
+            {
+                format1: payload.WSResponseBody.Service.Creation_Date.Day.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Creation_Date.Day.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Creation_Date.Day.Format_3 default ""
+            } else {},
+        month: 
+            if (payload.WSResponseBody.Service.Creation_Date.Month != null)
+            {
+                format1: payload.WSResponseBody.Service.Creation_Date.Month.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Creation_Date.Month.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Creation_Date.Month.Format_3 default ""
+            } else {},
+        year: 
+            if (payload.WSResponseBody.Service.Creation_Date.Year != null)
+            {
+                format1: payload.WSResponseBody.Service.Creation_Date.Year.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Creation_Date.Year.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Creation_Date.Year.Format_3 default ""
+            } else {},
+        hour: 
+            if (payload.WSResponseBody.Service.Creation_Date.Hour != null)
+            {
+                format1: payload.WSResponseBody.Service.Creation_Date.Hour.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Creation_Date.Hour.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Creation_Date.Hour.Format_3 default "",
+                format4: payload.WSResponseBody.Service.Creation_Date.Hour.Format_4 default "",
+                format5: payload.WSResponseBody.Service.Creation_Date.Hour.Format_5 default "",
+                format6: payload.WSResponseBody.Service.Creation_Date.Hour.Format_6 default ""
+            } else {}
+    } else {},
+   customer: 
+    if (payload.WSResponseBody.Service.Customer != null)
+    {
+        atdp: 
+            if (payload.WSResponseBody.Service.Customer.ATDP != null)
+            {
+                channel: payload.WSResponseBody.Service.Customer.ATDP.Channel default "",
+                date: 
+                    if (payload.WSResponseBody.Service.Customer.ATDP.Date != null)
+                    {
+                        date: payload.WSResponseBody.Service.Customer.ATDP.Date.Date default "",
+                        format1: payload.WSResponseBody.Service.Customer.ATDP.Date.Format_1 default "",
+                        format2: payload.WSResponseBody.Service.Customer.ATDP.Date.Format_2 default "",
+                        format3: payload.WSResponseBody.Service.Customer.ATDP.Date.Format_3 default "",
+                        format4: payload.WSResponseBody.Service.Customer.ATDP.Date.Format_4 default "",
+                        day: 
+                            if (payload.WSResponseBody.Service.Customer.ATDP.Date.Day != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.ATDP.Date.Day.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.ATDP.Date.Day.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.ATDP.Date.Day.Format_3 default ""
+                            } else {},
+                        month: 
+                            if (payload.WSResponseBody.Service.Customer.ATDP.Date.Month != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.ATDP.Date.Month.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.ATDP.Date.Month.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.ATDP.Date.Month.Format_3 default ""
+                            } else {},
+                        year: 
+                            if (payload.WSResponseBody.Service.Customer.ATDP.Date.Year != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.ATDP.Date.Year.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.ATDP.Date.Year.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.ATDP.Date.Year.Format_3 default ""
+                            } else {},
+                        hour: 
+                            if (payload.WSResponseBody.Service.Customer.ATDP.Date.Hour != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_3 default "",
+                                format4: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_4 default "",
+                                format5: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_5 default "",
+                                format6: payload.WSResponseBody.Service.Customer.ATDP.Date.Hour.Format_6 default ""
+                            } else {}
+                    } else {},
+                decision: payload.WSResponseBody.Service.Customer.ATDP.Decision default "",
+                pqr: payload.WSResponseBody.Service.Customer.ATDP.PQR default "",
+                user: payload.WSResponseBody.Service.Customer.ATDP.User default ""
+            } else {},
+        birthday: payload.WSResponseBody.Service.Customer.Birthday default "",
+        business: payload.WSResponseBody.Service.Customer.Business default "",
+        collectionCommunications: 
+            if (payload.WSResponseBody.Service.Customer.Collection_Communications != null)
+            {
+                channels: (payload.WSResponseBody.Service.Customer.Collection_Communications.Channels default []) map ((item) -> {
+                    channel: item.Channel default "",
+                    value: item.Value default ""
+                }),
+                creationDate: 
+                    if (payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date != null)
+                    {
+                        date: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Date default "",
+                        format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Format_1 default "",
+                        format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Format_2 default "",
+                        format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Format_3 default "",
+                        format4: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Format_4 default "",
+                        day: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Day != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Day.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Day.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Day.Format_3 default ""
+                            } else {},
+                        month: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Month != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Month.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Month.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Month.Format_3 default ""
+                            } else {},
+                        year: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Year != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Year.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Year.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Year.Format_3 default ""
+                            } else {},
+                        hour: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_3 default "",
+                                format4: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_4 default "",
+                                format5: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_5 default "",
+                                format6: payload.WSResponseBody.Service.Customer.Collection_Communications.Creation_Date.Hour.Format_6 default ""
+                            } else {}
+                    } else {},
+                schedule: payload.WSResponseBody.Service.Customer.Collection_Communications.Schedule default "",
+                updateDate: 
+                    if (payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date != null)
+                    {
+                        date: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Date default "",
+                        format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Format_1 default "",
+                        format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Format_2 default "",
+                        format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Format_3 default "",
+                        format4: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Format_4 default "",
+                        day: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Day != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Day.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Day.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Day.Format_3 default ""
+                            } else {},
+                        month: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Month != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Month.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Month.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Month.Format_3 default ""
+                            } else {},
+                        year: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Year != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Year.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Year.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Year.Format_3 default ""
+                            } else {},
+                        hour: 
+                            if (payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour != null)
+                            {
+                                format1: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_1 default "",
+                                format2: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_2 default "",
+                                format3: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_3 default "",
+                                format4: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_4 default "",
+                                format5: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_5 default "",
+                                format6: payload.WSResponseBody.Service.Customer.Collection_Communications.Update_Date.Hour.Format_6 default ""
+                            } else {}
+                    } else {}
+            } else {},
+        documentNumber: payload.WSResponseBody.Service.Customer.Document_Number default "",
+        documentType: payload.WSResponseBody.Service.Customer.Document_Type default "",
+        email: payload.WSResponseBody.Service.Customer.Email default "",
+        mobilePhone: payload.WSResponseBody.Service.Customer.Mobile_Phone default "",
+        mobilePhone2: payload.WSResponseBody.Service.Customer.Mobile_Phone2 default "",
+        name: 
+    if (payload.WSResponseBody.Service.Customer.Name != null)
+    {
+        completeName: payload.WSResponseBody.Service.Customer.Name.Complete_Name default "",
+        firstName: payload.WSResponseBody.Service.Customer.Name.First_Name default "",
+        firstSurname: payload.WSResponseBody.Service.Customer.Name.First_Surname default "",
+        names: payload.WSResponseBody.Service.Customer.Name.Names default "",
+        secondName: payload.WSResponseBody.Service.Customer.Name.Second_Name default "",
+        secondSurname: payload.WSResponseBody.Service.Customer.Name.Second_Surname default "",
+        surnames: payload.WSResponseBody.Service.Customer.Name.Surnames default ""
+    } else {},
+
+segmentation: 
+    if (payload.WSResponseBody.Service.Customer.Segmentation != null)
+    {
+        attentionScheme: payload.WSResponseBody.Service.Customer.Segmentation.Attention_Scheme default "",
+        category: payload.WSResponseBody.Service.Customer.Segmentation.Category default "",
+        profile: payload.WSResponseBody.Service.Customer.Segmentation.Profile default "",
+        segment: payload.WSResponseBody.Service.Customer.Segmentation.Segment default "",
+        uen: payload.WSResponseBody.Service.Customer.Segmentation.UEN default "",
+        segmentUen: payload.WSResponseBody.Service.Customer.Segmentation.Segment_UEN default ""
+    } else {},
+
+    validationCode: 
+        if (payload.WSResponseBody.Service.Customer.Validation_Code != null)
+        {
+            isBlocked: payload.WSResponseBody.Service.Customer.Validation_Code.Is_Blocked default false,
+            isEnabled: payload.WSResponseBody.Service.Customer.Validation_Code.Is_Enabled default false,
+            lastTry: payload.WSResponseBody.Service.Customer.Validation_Code.Last_Try default "",
+            resetDate: payload.WSResponseBody.Service.Customer.Validation_Code.Reset_Date default "",
+            retries: payload.WSResponseBody.Service.Customer.Validation_Code.Retries default "",
+            retriesRemain: payload.WSResponseBody.Service.Customer.Validation_Code.Retries_Remain default ""
+        } else {}
+
+     } else {} ,
+     directvSubscription: 
+    if (payload.WSResponseBody.Service.Directv_Subscription != null)
+    {
+        countryCode: payload.WSResponseBody.Service.Directv_Subscription.Country_Code default "",
+        creationDate: payload.WSResponseBody.Service.Directv_Subscription.Creation_Date default "",
+        email: payload.WSResponseBody.Service.Directv_Subscription.Email default "",
+        id: payload.WSResponseBody.Service.Directv_Subscription.Id default "",
+        name: 
+            if (payload.WSResponseBody.Service.Directv_Subscription.Name != null)
+            {
+                completeName: payload.WSResponseBody.Service.Directv_Subscription.Name.Complete_Name default "",
+                firstName: payload.WSResponseBody.Service.Directv_Subscription.Name.First_Name default "",
+                firstSurname: payload.WSResponseBody.Service.Directv_Subscription.Name.First_Surname default "",
+                names: payload.WSResponseBody.Service.Directv_Subscription.Name.Names default "",
+                secondName: payload.WSResponseBody.Service.Directv_Subscription.Name.Second_Name default "",
+                secondSurname: payload.WSResponseBody.Service.Directv_Subscription.Name.Second_Surname default "",
+                surnames: payload.WSResponseBody.Service.Directv_Subscription.Name.Surnames default ""
+            } else {},
+        state: payload.WSResponseBody.Service.Directv_Subscription.State default false,
+        subscriptions: payload.WSResponseBody.Service.Directv_Subscription.Subscriptions default "",
+        updateDate: payload.WSResponseBody.Service.Directv_Subscription.Update_Date default "",
+        username: payload.WSResponseBody.Service.Directv_Subscription.Username default ""
+    } else {},
+    
+    files: 
+        payload.WSResponseBody.Service.Files default [] map ((item) -> {
+            description: item.Description default "",
+            name: item.Name default "",
+            path: item.Path default "",
+            size: item.Size default ""
+        }),
+        
+    hasFamilyAndFriends: payload.WSResponseBody.Service.Has_Family_And_Friends default false,
+hasPasaGigas: payload.WSResponseBody.Service.Has_PasaGigas default false,
+home: 
+    if (payload.WSResponseBody.Service.Home != null)
+    {
+        numberDevices: payload.WSResponseBody.Service.Home.Number_Devices default "",
+        numberFloors: payload.WSResponseBody.Service.Home.Number_Floors default 0,
+        numberRooms: payload.WSResponseBody.Service.Home.Number_Rooms default 0,
+        size: payload.WSResponseBody.Service.Home.Size default 0,
+        "type": payload.WSResponseBody.Service.Home.Type default "",
+        usageTime: 
+            if (payload.WSResponseBody.Service.Home.Usage_Time != null)
+            {
+                entertainment: payload.WSResponseBody.Service.Home.Usage_Time.Entertainment default "",
+                study: payload.WSResponseBody.Service.Home.Usage_Time.Study default "",
+                work: payload.WSResponseBody.Service.Home.Usage_Time.Work default ""
+            } else {}
+    } else {},
+    inventory:
+    if (payload.WSResponseBody.Service.Inventory != null)
+    {
+        home: 
+            if (payload.WSResponseBody.Service.Inventory.Home != null)
+            {
+                internet: 
+                    if (payload.WSResponseBody.Service.Inventory.Home.Internet != null)
+                    {
+                        cvlanHuawei: payload.WSResponseBody.Service.Inventory.Home.Internet.CVLAN_HUAWEI default "",
+                        devices: payload.WSResponseBody.Service.Inventory.Home.Internet.Devices default [],
+                        hasIPs: payload.WSResponseBody.Service.Inventory.Home.Internet.Has_IPs default false,
+                        idServiceClass: payload.WSResponseBody.Service.Inventory.Home.Internet.Id_Service_Class default "",
+                        idService: payload.WSResponseBody.Service.Inventory.Home.Internet.Id_Service default "",
+                        IPs: payload.WSResponseBody.Service.Inventory.Home.Internet.IPs default "",
+                        serviceClass: payload.WSResponseBody.Service.Inventory.Home.Internet.Service_Class default "",
+                        speed: 
+                            if (payload.WSResponseBody.Service.Inventory.Home.Internet.Speed != null)
+                            {
+                                downloadSpeed: payload.WSResponseBody.Service.Inventory.Home.Internet.Speed.Download_Speed default "",
+                                loadingCapacity: payload.WSResponseBody.Service.Inventory.Home.Internet.Speed.Loading_Capacity default "",
+                                uploadSpeed: payload.WSResponseBody.Service.Inventory.Home.Internet.Speed.Upload_Speed default ""
+                            } else {}
+                    } else {},
+
+                tv:
+                    if (payload.WSResponseBody.Service.Inventory.Home.TV != null)
+                    {
+                        devices: 
+                            (payload.WSResponseBody.Service.Inventory.Home.TV.Devices default []) map ((item) -> {
+                                firmware: item.Firmware default "",
+                                isAvailableSetWifi: item.Is_Available_Set_Wifi default false,
+                                isDual: item.Is_Dual default false,
+                                isMesh: item.Is_Mesh default false,
+                                isPrincipalAP: item.Is_Principal_AP default false,
+                                networks: item.Networks default "",
+                                serviceClass: item.Service_Class default "",
+                                status: item.Status default false,
+                                acsModel: item.ACS_Model default "",
+                                brand: item.Brand default "",
+                                model: item.Model default "",
+                                serial: item.Serial default "",
+                                technology: item.Technology default "",
+                                "type": item.Type default ""
+                            }),
+                        idServiceClass: payload.WSResponseBody.Service.Inventory.Home.TV.Id_Service_Class default "",
+                        idService: payload.WSResponseBody.Service.Inventory.Home.TV.Id_Service default "",
+                        serviceClass: payload.WSResponseBody.Service.Inventory.Home.TV.Service_Class default "",
+                        subscriberId: payload.WSResponseBody.Service.Inventory.Home.TV.Subscriber_Id default ""
+                    } else {}
+            } else {},
+
+        lte: payload.WSResponseBody.Service.Inventory.LTE default ""
+    } else {},
+    
+        miETBUser: payload.WSResponseBody.Service.MiETBUser default "",
+    ota: payload.WSResponseBody.Service.OTA default "",
+    pasaGigas: payload.WSResponseBody.Service.PasaGigas default "",
+
+    permanenceClause: 
+
+    (payload.WSResponseBody.Service.Permanence_Clause default []) map ((item) -> {
+    currentBalance: item.Current_Balance default "",
+    currentBalanceStr: item.Current_Balance_Str default "",
+    currentInstallment: item.Current_Installment default "",
+    discount: item.Discount default "",
+    discountStr: item.Discount_Str default "",
+    endDate: item.End_Date default "",
+    initialCharge: item.Initial_Charge default "",
+    initialChargeStr: item.Initial_Charge_Str default "",
+    initialDate: item.Initial_Date default "",
+    initialInstallment: item.Initial_Installment default "",
+    technology: item.Technology default ""
+    }),
+    
+    rateIncrease:
+    if (payload.WSResponseBody.Service.Rate_Increase != null)
+    {
+        rates: 
+            (payload.WSResponseBody.Service.Rate_Increase.Rates default []) map ((item) -> {
+                applicationDate: 
+                    if (item.Application_Date != null)
+                    {
+                        date: item.Application_Date.Date default "",
+                        format1: item.Application_Date.Format_1 default "",
+                        format2: item.Application_Date.Format_2 default "",
+                        format3: item.Application_Date.Format_3 default "",
+                        format4: item.Application_Date.Format_4 default "",
+                        day: 
+                            if (item.Application_Date.Day != null)
+                            {
+                                format1: item.Application_Date.Day.Format_1 default "",
+                                format2: item.Application_Date.Day.Format_2 default "",
+                                format3: item.Application_Date.Day.Format_3 default ""
+                            } else {},
+                        month: 
+                            if (item.Application_Date.Month != null)
+                            {
+                                format1: item.Application_Date.Month.Format_1 default "",
+                                format2: item.Application_Date.Month.Format_2 default "",
+                                format3: item.Application_Date.Month.Format_3 default ""
+                            } else {},
+                        year: 
+                            if (item.Application_Date.Year != null)
+                            {
+                                format1: item.Application_Date.Year.Format_1 default "",
+                                format2: item.Application_Date.Year.Format_2 default "",
+                                format3: item.Application_Date.Year.Format_3 default ""
+                            } else {},
+                        hour: 
+                            if (item.Application_Date.Hour != null)
+                            {
+                                format1: item.Application_Date.Hour.Format_1 default "",
+                                format2: item.Application_Date.Hour.Format_2 default "",
+                                format3: item.Application_Date.Hour.Format_3 default "",
+                                format4: item.Application_Date.Hour.Format_4 default "",
+                                format5: item.Application_Date.Hour.Format_5 default "",
+                                format6: item.Application_Date.Hour.Format_6 default ""
+                            } else {}
+                    } else {},
+                id: item.Id default "",
+                value: 
+                    if (item.Value != null)
+                    {
+                        numericalValue: item.Value.Numerical_Value default 0,
+                        valueInCurrencyFormat: item.Value.Value_In_Currency_Format default ""
+                    } else {},
+                valueWithoutIVA:
+                    if (item.Value_Without_IVA != null)
+                    {
+                        numericalValue: item.Value_Without_IVA.Numerical_Value default 0,
+                        valueInCurrencyFormat: item.Value_Without_IVA.Value_In_Currency_Format default ""
+                    } else {}
+            }),
+        total: 
+            if (payload.WSResponseBody.Service.Rate_Increase.Total != null)
+            {
+                numericalValue: payload.WSResponseBody.Service.Rate_Increase.Total.Numerical_Value default 0,
+                valueInCurrencyFormat: payload.WSResponseBody.Service.Rate_Increase.Total.Value_In_Currency_Format default ""
+            } else {},
+        totalWithoutIVA:
+            if (payload.WSResponseBody.Service.Rate_Increase.Total_Without_IVA != null)
+            {
+                numericalValue: payload.WSResponseBody.Service.Rate_Increase.Total_Without_IVA.Numerical_Value default 0,
+                valueInCurrencyFormat: payload.WSResponseBody.Service.Rate_Increase.Total_Without_IVA.Value_In_Currency_Format default ""
+            } else {}
+    } else {},
+    
+    updateDate: 
+    if (payload.WSResponseBody.Service.Update_Date != null)
+    {
+        date: payload.WSResponseBody.Service.Update_Date.Date default "",
+        format1: payload.WSResponseBody.Service.Update_Date.Format_1 default "",
+        format2: payload.WSResponseBody.Service.Update_Date.Format_2 default "",
+        format3: payload.WSResponseBody.Service.Update_Date.Format_3 default "",
+        format4: payload.WSResponseBody.Service.Update_Date.Format_4 default "",
+        day: 
+            if (payload.WSResponseBody.Service.Update_Date.Day != null)
+            {
+                format1: payload.WSResponseBody.Service.Update_Date.Day.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Update_Date.Day.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Update_Date.Day.Format_3 default ""
+            } else {},
+        month:
+            if (payload.WSResponseBody.Service.Update_Date.Month != null)
+            {
+                format1: payload.WSResponseBody.Service.Update_Date.Month.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Update_Date.Month.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Update_Date.Month.Format_3 default ""
+            } else {},
+        year:
+            if (payload.WSResponseBody.Service.Update_Date.Year != null)
+            {
+                format1: payload.WSResponseBody.Service.Update_Date.Year.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Update_Date.Year.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Update_Date.Year.Format_3 default ""
+            } else {},
+        hour:
+            if (payload.WSResponseBody.Service.Update_Date.Hour != null)
+            {
+                format1: payload.WSResponseBody.Service.Update_Date.Hour.Format_1 default "",
+                format2: payload.WSResponseBody.Service.Update_Date.Hour.Format_2 default "",
+                format3: payload.WSResponseBody.Service.Update_Date.Hour.Format_3 default "",
+                format4: payload.WSResponseBody.Service.Update_Date.Hour.Format_4 default "",
+                format5: payload.WSResponseBody.Service.Update_Date.Hour.Format_5 default "",
+                format6: payload.WSResponseBody.Service.Update_Date.Hour.Format_6 default ""
+            } else {}
+    } else {},
+
+billingAccount: payload.WSResponseBody.Service.Billing_Account default "",
+integrationId: payload.WSResponseBody.Service.Integration_Id default "",
+lineType: payload.WSResponseBody.Service.Line_Type default "",
+migrated: payload.WSResponseBody.Service.Migrated default false,
+
+nickname:
+    if (payload.WSResponseBody.Service.Nickname != null)
+    {
+        icon: payload.WSResponseBody.Service.Nickname.Icon default "",
+        nickname: payload.WSResponseBody.Service.Nickname.Nickname default ""
+    } else {},
+
+phone: payload.WSResponseBody.Service.Phone default "",
+retencion: payload.WSResponseBody.Service.Retencion default false,
+serviceAccount: payload.WSResponseBody.Service.Service_Account default "",
+
+state:
+    if (payload.WSResponseBody.Service.State != null)
+    {
+        reason: payload.WSResponseBody.Service.State.Reason default "",
+        state: payload.WSResponseBody.Service.State.State default ""
+    } else {},
+
+technology: payload.WSResponseBody.Service.Technology default ""
+    
     }
   ] else []
 	
