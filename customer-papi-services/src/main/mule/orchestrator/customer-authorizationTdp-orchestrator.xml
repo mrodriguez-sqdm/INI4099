@@ -25,7 +25,9 @@ output application/json
     Decision: if (payload.approval) "Approved" else "Rejected",
     Document_Number: payload.documentNumber default "",
     Document_Type: payload.documentType default "",
-    Expedition_Date: payload.documentIssueDate default "",
+    Expedition_Date: payload.documentIssueDate 
+                     as DateTime {format: "yyyy-MM-dd'T'HH:mm:ss.SSSX"} 
+                     as String {format: "dd/MM/yyyy"} default "",
     First_Name: payload.firstName default "",
     Mail: payload.mail default "",
     Mobile_Phone: payload.mobilePhone default "",
@@ -51,7 +53,7 @@ output application/json
 ---
 {
   code: vars.httpStatus as String,
-  message: payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+  message: payload.WSResponseHeader.Service.statusDetail[0].errorMessage ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
   detail: {
     message: payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser
   }
