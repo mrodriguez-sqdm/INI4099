@@ -53,7 +53,11 @@ mediaType:
             body:
               application/json:
                 type: !include /datatypes/response/get-customer.raml
-                example: !include /examples/response/get-customer.json
+                examples: 
+                  byDocument:
+                    value: !include /examples/response/get-customer-by-documentid.json
+                  byPhone:
+                    value: !include /examples/response/get-customer-by-phone.json
           400:
             body:
               application/json:
