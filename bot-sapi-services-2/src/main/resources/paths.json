@@ -61,6 +61,31 @@
 				"method": "POST",
 				"path": "/bot/v1/mietb/updatepassword",
 				"processname": "Update MiETB Password"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/orders/createchangenumber",
+				"processname": "Create Change Number Order"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/services/setdeliverytypeinvoice",
+				"processname": "Set Invoice Delivery Type"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/services/getcontract",
+				"processname": "Get Mobile Service Contract"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/soporte1n/validateaccess",
+				"processname": "Validate Access Status"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/soporte1n/normalizeaccess",
+				"processname": "Normalize Access"
 			}
 			
 		]

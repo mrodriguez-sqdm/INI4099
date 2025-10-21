@@ -1,25 +1,17 @@
 {
-  "WSRequestHeader": {
-    "System": {
-      "name": "string",
-      "correlationID": "string",
-      "processingServer": "string"
+    "WSRequestHeader": {
+        "System": {
+            "name": "MIETB",
+            "correlationID": "TRAKING-20102025-10754361"
+        },
+        "Property": []
     },
-    "Property": []
-  },
-  "WSRequestBody": {
-    "Audit": {
-      "Canal": "string",
-      "Id_Device": "string",
-      "SO": "string",
-      "IP_Address": "string",
-      "IP_Latitude": "string",
-      "IP_Longitude": "string",
-      "WhatsApp_Phone_Number": "string",
-      "Facebook_User": "string",
-      "Twitter_User": "string"
-    },
-    "Phone": "string",
-    "Service_Type": "string"
-  }
+    "WSRequestBody": {
+        "Audit": {
+            "Canal": "WEB",
+            "WhatsApp_Phone_Number": ""
+        },
+        "Normalize": true,
+        "Phone": "6018008846"
+    }
 }

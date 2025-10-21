@@ -61,6 +61,12 @@ output application/json
 		<flow-ref doc:name="Flow Reference" doc:id="0236f3ec-ff39-49ef-b1c9-aa3d957b5371" name="post-soporte1n-setwifinetworkname-orchestadorSub_Flow"/>
 
 	</flow>
+	<flow name="post:\soporte1n\validateaccess:application\json:bot-sapi-services-2-config" doc:id="e96640d6-c1ae-477f-b46f-375526e0a104">
+		<flow-ref doc:name="Flow Reference" doc:id="47924d36-092b-47e4-ac25-adba8e0b73ee" name="post-soporte1n-validateaccess-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\soporte1n\normalizeaccess:application\json:bot-sapi-services-2-config" doc:id="36dc056f-4707-4b37-8591-7ad8b104d02b">
+		<flow-ref doc:name="Flow Reference" doc:id="7c8ca8c9-2382-4e4b-9e87-401762546d52" name="post-soporte1n-normalizeaccess-orchestadorSub_Flow"/>
+	</flow>
 	<flow name="post:\services\suspendbytheft:application\json:bot-sapi-services-2-config" doc:id="4ca8ce17-faae-4177-960e-8fdfca7c1fca" >
 		<flow-ref doc:name="Flow Reference" doc:id="60bc54a8-a565-4884-b82b-8c8107087e43" name="post-services-suspendbytheft-orchestadorSub_Flow"/>
 	</flow>
@@ -77,6 +83,12 @@ output application/json
 		<flow-ref doc:name="Flow Reference" doc:id="52d1415d-8035-4027-8aa1-0a887d4ce0f6" name="post-services-suspendbyloss-orchestadorSub_Flow"/>
 
 	</flow>
+	<flow name="post:\services\setdeliverytypeinvoice:application\json:bot-sapi-services-2-config" doc:id="bdd4494d-ece8-4e3d-b059-e7d199189184">
+		<flow-ref doc:name="Flow Reference" doc:id="0f1d90d2-119b-4141-a6b3-f5adfbcaff46" name="post-services-setdeliverytypeinvoice-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\services\getcontract:application\json:bot-sapi-services-2-config" doc:id="a34721d4-bc34-44aa-8e11-25e421bf34b3">
+		<flow-ref doc:name="Flow Reference" doc:id="5e33838d-912f-4c5a-b44e-7a2068adee2c" name="post-services-getcontract-orchestadorSub_Flow"/>
+	</flow>
 	<flow name="post:\customers\habeasdata:application\json:bot-sapi-services-2-config" doc:id="3e7fe302-1358-4be5-bff0-0b44314aa0ed">
 		<flow-ref doc:name="Flow Reference" doc:id="bbfe6557-4edd-4f23-b91e-48312b2dfc4f" name="post-customer-habeasdata-orchestadorSub_Flow"/>
 	</flow>
@@ -88,5 +100,8 @@ output application/json
 	</flow>
 	<flow name="post:\mietb\updatepassword:application\json:bot-sapi-services-2-config" doc:id="577bcc09-e0dd-4b6d-9048-3d014efb0a10" >
 		<flow-ref doc:name="Flow Reference" doc:id="3fab80f8-1e6b-4256-a506-c29d535486d4" name="post-mietb-updatepassword-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\orders\createchangenumber:application\json:bot-sapi-services-2-config" doc:id="2e6d64ed-6b22-4458-95de-cb4e722b518f" >
+		<flow-ref doc:name="Flow Reference" doc:id="e0cb8408-acf7-4863-86fd-06c4c30887e1" name="post-orders-createchangenumber-orchestadorSub_Flow"/>
 	</flow>
 </mule>

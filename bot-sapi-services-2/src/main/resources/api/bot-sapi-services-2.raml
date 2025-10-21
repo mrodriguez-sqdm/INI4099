@@ -95,6 +95,38 @@ traits:
             application/json:
               type: !include /datatypes/response/post-suspend-byloss.raml
               example: !include /examples/response/post-suspend-byloss.json
+  /setdeliverytypeinvoice:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Set Invoice Delivery Type
+      description: Set Invoice Delivery Type
+      body:
+        application/json:
+          type: !include /datatypes/request/post-setdelivery-typeinvoice.raml
+          example: !include /examples/request/post-setdelivery-typeinvoice.json
+      responses:
+        200:
+          description: The invoice delivery type was successfully updated.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-setdelivery-typeinvoice.raml
+              example: !include /examples/response/post-setdelivery-typeinvoice.json
+  /getcontract:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Get Mobile Service Contract
+      description: Get Mobile Service Contract
+      body:
+        application/json:
+          type: !include /datatypes/request/post-getcontract.raml
+          example: !include /examples/request/post-getcontract.json
+      responses:
+        200:
+          description: The contract associated with the mobile service was successfully retrieved.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-getcontract.raml
+              example: !include /examples/response/post-getcontract.json
 
 /soporte1n:
   /setwifinetworkstate:
@@ -145,7 +177,38 @@ traits:
             application/json:
               type: !include /datatypes/response/post-setwifi-networkname.raml
               example: !include /examples/response/post-setwifi-networkname.json
-
+  /validateaccess:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Validate Access Status
+      description: Validate Access Status
+      body:
+        application/json:
+          type: !include /datatypes/request/post-validate-access.raml
+          example: !include /examples/request/post-validate-access.json
+      responses:
+        200:
+          description: The access status, including ONT, power, noise, and attenuation, was successfully validated.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-validate-access.raml
+              example: !include /examples/response/post-validate-access.json
+  /normalizeaccess:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Normalize Access
+      description: Normalize Access
+      body:
+        application/json:
+          type: !include /datatypes/request/post-normalize-access.raml
+          example: !include /examples/request/post-normalize-access.json
+      responses:
+        200:
+          description: The access was successfully normalized, including service validation, configuration, and ONT equipment restart.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-normalize-access.raml
+              example: !include /examples/response/post-normalize-access.json
 /customers:
   /habeasdata:
     post:
@@ -215,3 +278,20 @@ traits:
             application/json:
               type: !include /datatypes/response/common-response-header.raml
               example: !include /examples/response/post-update-password.json
+/orders:
+  /createchangenumber:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Create Change Number Order
+      description: Create Change Number Order
+      body:
+        application/json:
+          type: !include /datatypes/request/post-create-changenumber.raml
+          example: !include /examples/request/post-create-changenumber.json
+      responses:
+        200:
+          description: The change number order was successfully created.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-create-changenumber.raml
+              example: !include /examples/response/post-create-changenumber.json

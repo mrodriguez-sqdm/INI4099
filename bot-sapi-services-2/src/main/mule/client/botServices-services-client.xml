@@ -59,4 +59,26 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="botServices-services-setdeliverytypeinvoice-clientSub_Flow" doc:id="564b706c-dfad-4542-b8ba-514c9c08adc5" >
+		<http:request method="POST" doc:name="Call bot services setdeliverytypeinvoice" doc:id="e6bbe3c6-41b8-4674-8fbd-5cf3e8780510" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.setdeliverytypeinvoiceV2.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="botServices-services-getcontract-clientSub_Flow" doc:id="4aeb9fa3-e082-4bb6-a0f1-741dfe51de48" >
+		<http:request method="POST" doc:name="Call bot services getcontract" doc:id="baddcfc3-335b-4f9d-b072-96b50c1603b2" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.getcontract.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 </mule>

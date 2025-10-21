@@ -28,4 +28,14 @@
 		<flow-ref doc:name="get-authentication-token" doc:id="e2345f66-fb3f-4917-b991-f90314e692c4" name="get-authentication-token" />
 		<flow-ref doc:name="Go to generate client" doc:id="8bfbf1e0-9124-4fb6-9d4f-de351908205e" name="botServices-services-suspendbyloss-clientSub_Flow" />
 	</sub-flow>
+	<sub-flow name="post-services-setdeliverytypeinvoice-orchestadorSub_Flow" doc:id="ad12a5f6-6c1c-4a0a-bac7-82a43a25f8d2" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="8103baaf-7ab3-487b-a3b5-82644d09a364" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="1a25e38d-3fbe-4ca7-8b46-33bebb264ea7" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="dc818a4e-0eb5-4fc4-bd6e-ba1de548e057" name="botServices-services-setdeliverytypeinvoice-clientSub_Flow" />
+	</sub-flow>
+	<sub-flow name="post-services-getcontract-orchestadorSub_Flow" doc:id="f1dd102e-6222-46be-ae67-8e4ba82ab58d" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="e903847c-87cb-4907-8e0b-ad1eb206988f" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="16a8bc77-85cf-4d88-b91f-6353f3dc402d" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="cf1d719e-86bf-4c87-bd72-7aa997d9015f" name="botServices-services-getcontract-clientSub_Flow" />
+	</sub-flow>
 </mule>

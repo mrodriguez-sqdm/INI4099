@@ -18,4 +18,14 @@
 		<flow-ref doc:name="get-authentication-token" doc:id="58a0d0c5-2272-4e18-a4f8-ddd529cfadc9" name="get-authentication-token" />
 		<flow-ref doc:name="Go to generate client" doc:id="42e69a32-1584-46f4-ada2-c61221386c01" name="botServices-soporte1n-setwifinetworkname-clientSub_Flow" />
 	</sub-flow>
+	<sub-flow name="post-soporte1n-validateaccess-orchestadorSub_Flow" doc:id="4ec3ea63-9a89-4a2a-8ff6-de27a57a58ae" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="b8655f31-41ff-45c6-8257-5798c023bdaf" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="f675ecf6-6b2a-4aad-abbc-b8f985eacd3b" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="64912553-f154-4b46-a3a7-464df54cd099" name="botServices-soporte1n-validateaccess-clientSub_Flow" />
+	</sub-flow>
+	<sub-flow name="post-soporte1n-normalizeaccess-orchestadorSub_Flow" doc:id="34c85f8e-ee69-4eb1-a626-018281d57ee8" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="446c4be6-17eb-4e33-9e78-1dee7fa75ecf" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="766e4d7b-6866-41b4-bff4-0331605465de" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="134fa85a-c370-4240-87ae-7b6a1e11e50a" name="botServices-soporte1n-normalizeaccess-clientSub_Flow" />
+	</sub-flow>
 </mule>
