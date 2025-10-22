@@ -173,6 +173,7 @@ output application/json
   },
 "WSRequestBody": {
     "Phone": payload.phone,
+    "Normalize": payload.normalized default true,
     "Audit": {
       "Canal": vars.headers.name
     }
@@ -221,7 +222,7 @@ output application/json
   },
 "WSRequestBody": {
     "Phone": payload.phone default "",
-    "Service_Type": payload.serviceType default "",
+    "Normalize": payload.normalized default true,
     "Audit": {
       "Canal": vars.headers.name
     }

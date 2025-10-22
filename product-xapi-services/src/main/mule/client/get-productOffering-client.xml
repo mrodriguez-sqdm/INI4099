@@ -21,11 +21,12 @@ output application/java
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
-	"source" : attributes.headers.'source',
-	"X-CORRELATION-ID": correlationId,
-	"name" : attributes.headers.'name',
-	"systemId": vars.systemId,
-	"system_Id": vars.systemId
+	"client_secret" : p('product-papi.client_secret'),
+	"client_id" : p('product-papi.client_id'),
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId,
+	"name": attributes.headers.name
 }]]]></http:headers>
 			<http:query-params ><![CDATA[#[output application/java
 ---

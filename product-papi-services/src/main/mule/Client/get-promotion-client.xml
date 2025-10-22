@@ -28,8 +28,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"client_secret" : p('mongoDb-sapi.client_secret'),
 	"client_id" : p('mongoDb-sapi.client_id'),
 	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
 	"source": attributes.headers.source,
-	"systemId": "MIGRACION"
+	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 		</http:request>
 		<logger level="INFO" doc:name="Logger" doc:id="ba6cce11-47f9-455d-bc50-dc9578a1f076" message="#[output application/json
