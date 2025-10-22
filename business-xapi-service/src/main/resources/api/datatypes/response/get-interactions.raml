@@ -1,0 +1,56 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  responseCode:
+    type: string
+    example: '200'
+    required: false
+  responseMessage:
+    type: string
+    example: ''
+    required: false
+  interactions:
+    type: array
+    items:
+      type: object
+      properties:
+        client:
+          type: object
+          properties:
+            firstNames:
+              type: string
+              example: Carlos
+              required: false
+            lastNames:
+              type: string
+              example: García
+              required: false
+            documentType:
+              type: string
+              example: CC
+              required: false
+            documentNumber:
+              type: string
+              example: '987654321'
+              required: false
+            email:
+              type: string
+              example: carlos.garcia@example.com
+              required: false
+        accesses:
+          type: array
+          items:
+            type: object
+            properties:
+              action:
+                type: string
+                example: consulta de saldo
+                required: false
+              channel:
+                type: string
+                example: app móvil
+                required: false
+              date:
+                type: string
+                example: '2025-07-23T09:30:00Z'
+                required: false

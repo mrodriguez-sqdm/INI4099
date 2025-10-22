@@ -262,6 +262,47 @@ securitySchemes:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
+    post:
+      is: 
+       - tibcoHeaders
+      securedBy: [etb_oauth_2_0]
+      displayName: Create Product Order
+      description: create product orders
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: Parameter that allows the origin of the request to be identified
+      body:
+          application/json:
+            type: !include /datatypes/request/create-order-product.raml
+            example: !include /examples/request/create-order-product.json
+      responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/create-order-product.raml
+                example: !include /examples/response/create-order-product.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
 /customerBill:
   get:
     is: 
@@ -484,6 +525,48 @@ securitySchemes:
                 type: !include /datatypes/response/get-debts.raml
                 example: !include /examples/response/get-debts.json
           400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+  /billPresentationMedia:
+      post:
+        is: 
+        - tibcoHeaders
+        securedBy: [etb_oauth_2_0]
+        displayName: Update Billing
+        description: Configures the invoice delivery type for a customer; receives delivery type and returns confirmation.
+        queryParameters:
+            ORIGIN:
+              type: string
+              example: "WHATSAPP"
+              description: Parameter that allows the origin of the request to be identified
+        body:
+          application/json:
+            type: !include /datatypes/request/bill-presentation-media.raml
+            example: !include /examples/request/bill-presentation-media.json
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/bill-presentation-media.raml
+                example: !include /examples/response/bill-presentation-media.json
+          400: 
             body:
               application/json:
                 type: !include /datatypes/response/error.raml

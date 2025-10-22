@@ -1,0 +1,43 @@
+{
+  "responseCode": "200",
+  "responseMessage": "",
+  "interactions": [
+    {
+      "client": {
+        "firstNames": "Carlos",
+        "lastNames": "García",
+        "documentType": "CC",
+        "documentNumber": "987654321",
+        "email": "carlos.garcia@example.com"
+      },
+      "accesses": [
+        {
+          "action": "consulta de saldo",
+          "channel": "app móvil",
+          "date": "2025-07-23T09:30:00Z"
+        },
+        {
+          "action": "pago de factura",
+          "channel": "web",
+          "date": "2025-07-22T15:10:00Z"
+        }
+      ]
+    },
+    {
+      "client": {
+        "firstNames": "María",
+        "lastNames": "López",
+        "documentType": "CE",
+        "documentNumber": "1122334455",
+        "email": "maria.lopez@example.com"
+      },
+      "accesses": [
+        {
+          "action": "actualización de datos",
+          "channel": "sucursal",
+          "date": "2025-07-20T11:00:00Z"
+        }
+      ]
+    }
+  ]
+}

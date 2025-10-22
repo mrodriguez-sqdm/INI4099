@@ -30,6 +30,7 @@ bot-sapi-2:
       base-path: "/soporte1n"
       setwifinetworkstate: "/setwifinetworkstate"
       setwifinetworkname: "/setwifinetworkname"
+      normalizeaccess: "/normalizeaccess"
     services:
       base-path: "/services"
       registerdevice: "/registerdevice"

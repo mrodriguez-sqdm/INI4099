@@ -30,6 +30,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<import doc:name="Import" doc:id="e6a7edc5-d94a-4bce-a314-b0b1977099ea" file="audits-sapi-client.xml" />
 	<configuration-properties doc:name="Configuration properties" doc:id="ecc858a3-9174-40cd-ba49-6ab27c121f61" file="${env}-properties.yaml" />
 	
-	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="e2f43dc7-7f8c-4a4c-a653-0ef72c018e70" flowRef="resource-papi-services-main" />
+	<!--  <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="e2f43dc7-7f8c-4a4c-a653-0ef72c018e70" flowRef="resource-papi-services-main" />-->
 	
 </mule>

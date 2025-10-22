@@ -1,0 +1,21 @@
+{
+  "subscription": {
+    "client": {
+      "documentNumber": "1234567890",
+      "documentType": "CC",
+      "names": "sdff",
+      "lastNames": "sdfsdf",
+      "email": "sdfsdf@sdfsdf.com"
+    },
+	"acces":{
+		"name" : "",
+		"parameters": [
+		{
+			"parameter" : "",
+			"value" :""
+		}
+		]
+	},
+    "acceptsTermsAndConditions": true
+  }
+}

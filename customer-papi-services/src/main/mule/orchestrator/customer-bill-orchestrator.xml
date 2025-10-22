@@ -439,4 +439,119 @@ output application/json
 			</ee:message>
 		</ee:transform>
 	</sub-flow>
+	<sub-flow name="post-billPresentationMedia-orchestratorSub_Flow" doc:id="8e817b0a-32f1-41fc-8bcf-b30391ba37e5" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Params Values" doc:id="3c337a21-786c-4a64-b9a6-975517c7333c" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save Headers Values" doc:id="34618f8f-346f-4fdf-be25-06b09eae9739" variableName="headers" />
+		<ee:transform doc:name="build Payload BOT" doc:id="95efe181-49bc-40d3-be72-50b999ccc84e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var method_send = upper(payload.shippingMethod."type")
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+     "Address": {
+      "Address": payload.address.address default "",
+      "City_DANE": payload.address.address default "",
+      "Department_DANE": payload.address.address default ""
+    },
+    "Bill_Email": if(method_send == "EMAIL") payload.shippingMethod.value else "",
+    "Bill_Phone": if(method_send == "SMS" or method_send == "WHATSAPP") payload.shippingMethod.value else "",
+    "Delivery_Type": method_send,
+    "Phone": payload.customer.phone default ""
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="996a278a-67a2-46e0-a769-e2795b9c1da2" name="post-setdeliverytypeinvoice-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="d3297784-a7e0-4455-8ad5-d088bfd9cbb1" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Message" doc:id="aefc2430-c16b-48f7-916c-06c82494d3ed" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+   debt: {
+        adjust: {
+            date: payload.WSResponseBody.Adjust.Date default "",
+            numPqr: payload.WSResponseBody.Adjust.Num_PQR default "",
+            origin: payload.WSResponseBody.Adjust.Origin default "",
+            value: {
+                value: payload.WSResponseBody.Adjust.Value.Value default "",
+                valueStr: payload.WSResponseBody.Adjust.Value.Value_Str default ""
+            }
+        },
+        barcode: payload.WSResponseBody.Barcode default "",
+        billedPeriod: payload.WSResponseBody.Billed_Period default "",
+        billingAccount: payload.WSResponseBody.Billing_Account default "",
+        billingAddress: payload.WSResponseBody.Billing_Address default "",
+        billingCutoffDate: payload.WSResponseBody.Billing_Cutoff_Date default "",
+        billingNumber: payload.WSResponseBody.Billing_Number default "",
+        billingNumberPse: payload.WSResponseBody.Billing_Number_PSE default "",
+        billingPhone: payload.WSResponseBody.Billing_Phone default "",
+        concepts: {
+            reconnected: {
+                cost: payload.WSResponseBody.Concepts.Reconnected.Cost default "",
+                costUsr: payload.WSResponseBody.Concepts.Reconnected.Cost_Usr default "",
+                date: payload.WSResponseBody.Concepts.Reconnected.Date default ""
+            },
+            suspend: {
+                cost: payload.WSResponseBody.Concepts.Suspend.Cost default "",
+                costUsr: payload.WSResponseBody.Concepts.Suspend.Cost_Usr default "",
+                date: payload.WSResponseBody.Concepts.Suspend.Date default ""
+            }
+        },
+        deliveryType: payload.WSResponseBody.Delivery_Type default "",
+        email: payload.WSResponseBody.Email default "",
+        extemporaneous: payload.WSResponseBody.Extemporaneous default "",
+        informationValue: (payload.WSResponseBody.Information_Value default []) map {
+            date: $.Date default "",
+            message: $.Message default ""
+        },
+        invoiceOrigin: payload.WSResponseBody.Invoice_Origin default "",
+        isReceiptOfPayment: payload.WSResponseBody.Is_Receipt_Of_Payment default "",
+        paydayLimit: payload.WSResponseBody.Payday_Limit default "",
+        payment: {
+            bank: payload.WSResponseBody.Payment.Bank default "",
+            paymentDate: payload.WSResponseBody.Payment.Payment_Date default "",
+            "type": payload.WSResponseBody.Payment.Type default "",
+            value: {
+                value: payload.WSResponseBody.Payment.Value.Value default "",
+                valueStr: payload.WSResponseBody.Payment.Value.Value_Str default ""
+            }
+        },
+        paymentDate: payload.WSResponseBody.Payment_Date default "",
+        phone: payload.WSResponseBody.Phone default "",
+        state: payload.WSResponseBody.State default "",
+        valueFinal: {
+            value: payload.WSResponseBody.Value_Final.Value default "",
+            valueStr: payload.WSResponseBody.Value_Final.Value_Str default ""
+        },
+        valueOriginal: {
+            value: payload.WSResponseBody.Value_Original.Value default "",
+            valueStr: payload.WSResponseBody.Value_Original.Value_Str default ""
+        },
+        valueService: {
+            value: payload.WSResponseBody.Value_Service.Value default "",
+            valueStr: payload.WSResponseBody.Value_Service.Value_Str default ""
+        }
+    }
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
 </mule>

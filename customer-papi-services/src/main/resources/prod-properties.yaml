@@ -39,6 +39,12 @@ bot-sapi-2:
     customers:
       base-path: "/customers"
       habeasdata: "/habeasdata"
+    orders:
+      base-path: "/orders"
+      createchangenumber: "/createchangenumber"     
+    services:
+      base-path: "/services"
+      setdeliverytypeinvoice: "/setdeliverytypeinvoice"
 
       
   client_id: "7b167b9c389a4c0099bbf7ea34df88fc"

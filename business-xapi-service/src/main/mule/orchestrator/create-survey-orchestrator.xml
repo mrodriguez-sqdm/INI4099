@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="create-survey-orchestratorSub_Flow" doc:id="bed0a1ba-9701-445c-928d-d12ab7ec4e17" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="b2c1ecc4-4679-4bc0-a92d-a673c132dfa6" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="96d2d8b6-9708-43da-bbc2-bf14f4399bb6" variableName="headers" />
+		<ee:transform doc:name="Transform Message Bot Request" doc:id="d0c80f9b-aee0-4b90-9e83-ea884a40c494" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  WSRequestHeader: {
+    System: {
+      name: vars.headers.name,
+      correlationID: vars.headers."X-CORRELATION-ID",
+      processingServer: ""
+    },
+    Property: [
+      {
+        name: "MotivoContacto",
+        value: payload.reasonSurvey
+      },
+      {
+        name: "NumeroCaso",
+        value: payload.trackingNumber
+      }
+    ]
+  },
+  WSRequestBody: {
+  	 "Customer": {
+	    Document_Type: payload.customer.documentType,
+	    Document_Number: payload.customer.documentNumber
+    },
+    Survey: (payload.survey default []) map (survey) -> {
+    	Question: survey.question,
+        Answer: survey.answer
+    },
+    Audit: {
+      Canal: vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="d57f19b9-4e5d-436e-9e38-f43bb0e2aab0" name="post-survey-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="dbb72ca7-4d45-41eb-bc4c-54c814b84865" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Bot Response" doc:id="708e2dda-2aa1-4a97-ac99-46cadcd3740c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: if(payload.WSResponseHeader.Service.status == "OK") 200 else 500,
+  code: payload.WSResponseHeader.Service.statusDetail[0].errorCode,
+  message: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode
+  
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

@@ -15,6 +15,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<when expression='#[payload.resourceType == "LB"]' >
 				<flow-ref doc:name="Flow Reference" doc:id="f12f79c1-f559-418d-a548-f50802336b53" name="normalice-lb-orchestratorSub_Flow" />
 			</when>
+			<when expression='#[payload.resourceType == "ACCESS_FTTH"]' >
+				<flow-ref doc:name="Flow Reference" doc:id="209e3085-c3f6-4e6c-bc5f-3b62380e0756" name="normalice-access-orchestratorSub_Flow" />
+			</when>
 			<otherwise >
 				<ee:transform doc:name="Set Body Response Invalid" doc:id="79a3df4c-96f3-469c-9d78-2d44666a9124" >
 					<ee:message >
@@ -242,6 +245,59 @@ output application/json
 		trafficLightColor : payload.WSResponseBody.Traffic_Light_Color default "",
 		status: payload.WSResponseBody.Status default "",
 		message: payload.WSResponseBody.Message default ""
+    	
+    }else {}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="normalice-access-orchestratorSub_Flow" doc:id="4a98cef7-54f2-40ad-a825-1277858eb85f" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="3937c5a7-5cf8-4d0a-8bb8-9598d586e135" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="37e48727-07ed-4848-9bcb-67ec20ba4759" variableName="headers" />
+		<ee:transform doc:name="build Payload BOT" doc:id="c437abc1-ca65-4272-aaf0-f7b59db71ea2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+"WSRequestBody": {
+    "Phone": payload.phone default "",
+    "Audit": {
+      "Canal": vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="4a8d94ac-7057-4720-9de9-867055ddb46d" message="#[payload]" />
+		<flow-ref doc:name="Flow Reference" doc:id="e4f4018c-c5c1-4e69-bddc-d7d9a88d962d" name="soporte1n-normalizeaccess-bot-sapi-2-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="73880da8-548d-4fe1-9ea0-799158c1871f" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Message" doc:id="26c5e153-af0b-43cf-a879-8227570dfa5b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    codeResponse: vars.httpStatus as String,
+    messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
+    normalized: if(payload.WSResponseBody != null) {
+		brand: payload.WSResponseBody.Brand default "",
+		phone: payload.WSResponseBody.Phone default "",
+		restarOnt: {
+		 executionDate: payload.WSResponseBody.RESTART_ONT.Execution_Date default "",
+		 state: payload.WSResponseBody.RESTART_ONT.State default "",
+		 stateDescription: payload.WSResponseBody.RESTART_ONT.State_Description default ""
+		},
+		serviceAccount: payload.WSResponseBody.Service_Account default "",
+		technology: payload.WSResponseBody.Technology default ""
     	
     }else {}
 }]]></ee:set-payload>

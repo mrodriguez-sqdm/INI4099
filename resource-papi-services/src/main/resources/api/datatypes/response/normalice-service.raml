@@ -299,3 +299,35 @@ properties:
         type: string
         example: string
         required: false
+      brand:
+        type: string
+        example: ETB
+        required: false
+      phone:
+        type: string
+        example: '3057000421'
+        required: false
+      restarOnt:
+        type: object
+        required: false
+        properties:
+          executionDate:
+            type: datetime-only
+            example: '2024-12-19T10:30:00'
+            required: false
+          state:
+            type: string
+            example: SUCCESS
+            required: false
+          stateDescription:
+            type: string
+            example: ONT reiniciado exitosamente
+            required: false
+      serviceAccount:
+        type: string
+        example: ACC123456789
+        required: false
+      technology:
+        type: string
+        example: FTTH
+        required: false

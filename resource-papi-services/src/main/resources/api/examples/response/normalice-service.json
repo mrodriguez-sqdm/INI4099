@@ -88,6 +88,15 @@
   "additionalChannels": "string",
   "additionalServices": "string",
   "decos": "string",
-  "stateSubscriberId": "string"
+  "stateSubscriberId": "string",
+  "brand": "ETB",
+  "phone": "3057000421",
+  "restarOnt": {
+    "executionDate": "2024-12-19T10:30:00",
+    "state": "SUCCESS",
+    "stateDescription": "ONT reiniciado exitosamente"
+  },
+  "serviceAccount": "ACC123456789",
+  "technology": "FTTH"
 }
 }

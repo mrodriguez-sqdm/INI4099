@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="post-byphone-clientSub_Flow" doc:id="90463178-586b-4dae-95fa-3edc5d55c456" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="82863931-609a-440f-97f7-1238846957c4" config-ref="HTTP_Request_configuration_bot-sapi" path="${bot-sapi.endpoints.whatsapp.base-path}${bot-sapi.endpoints.whatsapp.getbyphone}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-settyc-clientSub_Flow" doc:id="8c5286b9-9584-4aa5-8291-9e165c8b3b70" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="95e244d9-ed60-4710-9e7b-73d975484173" config-ref="HTTP_Request_configuration_bot-sapi" path="${bot-sapi.endpoints.customers.base-path}${bot-sapi.endpoints.customers.settyc}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-survey-clientSub_Flow" doc:id="9b95c5db-7ac3-4fd4-967f-a64f676a12b3" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="5a9093bd-819d-4800-bcd5-880d447f447f" config-ref="HTTP_Request_configuration_bot-sapi" path="${bot-sapi.endpoints.scraping.base-path}${bot-sapi.endpoints.scraping.satisfactionsurvey}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-whatsapp-update-clientSub_Flow" doc:id="3403cfa2-5503-422b-b558-ba859c4b4bff" >
+		<http:request method="POST" doc:name="bot-sapi-services" doc:id="4982c83f-cd81-4dee-b8d9-7ede05947560" config-ref="HTTP_Request_configuration_bot-sapi" path="${bot-sapi.endpoints.whatsapp.base-path}${bot-sapi.endpoints.whatsapp.update}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+</mule>

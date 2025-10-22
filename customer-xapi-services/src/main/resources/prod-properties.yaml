@@ -24,6 +24,8 @@ customer-papi:
       base-path: "/productOrder"
       get:
         path: ""
+      post:
+        path: ""
     customerBill:
       base-path: "/customerBill"
       get:
@@ -34,6 +36,8 @@ customer-papi:
         path: "/clearance"
       debts:
         path: "/debts"
+      billPresentationMedia:
+        path: "/billPresentationMedia"
     riskManagement:
       base-path: "/riskManagement"
       get:

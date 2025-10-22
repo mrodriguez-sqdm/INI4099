@@ -174,4 +174,38 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="customer-papi-post-productOrder-clientSub_Flow" doc:id="62de36e7-cf44-4a8f-aa6d-b180e30ca40e" >
+		<http:request method="POST" doc:name="Request" doc:id="b462804d-30b8-42dc-b5f6-dad21f6ba074" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.productOrder.base-path}${customer-papi.resources.productOrder.post.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-billing-presentation-media-clientSub_Flow" doc:id="05aa69c4-5c57-43a6-81c3-fe6d024fa523" >
+		<http:request method="POST" doc:name="Request" doc:id="54f7e8ba-6464-4ddd-9053-13e2d9073a23" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.customerBill.base-path}${customer-papi.resources.customerBill.billPresentationMedia.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>

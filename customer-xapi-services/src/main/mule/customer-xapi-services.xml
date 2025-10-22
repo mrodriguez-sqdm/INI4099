@@ -65,4 +65,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\customer\authorizationTdp:application\json:customer-xapi-services-config" doc:id="c74f05fc-8376-44a0-be1d-30371b0d20c8" >
 		<flow-ref doc:name="Flow Reference" doc:id="464e6689-1889-4c13-96bd-b1122291be39" name="customer-papi-post-authorizationTDP-clientSub_Flow" />
 	</flow>
+	<flow name="post:\productOrder:application\json:customer-xapi-services-config" doc:id="cd522c5c-94d5-47c4-89ad-c7522ebbf3c3" >
+		<flow-ref doc:name="Flow Reference" doc:id="9a38026f-ef2d-4bbb-ab8d-d2ad8c331d5f" name="customer-papi-post-productOrder-clientSub_Flow"/>
+	</flow>
+	<flow name="post:\customerBill\billPresentationMedia:application\json:customer-xapi-services-config" doc:id="a98520b8-f6be-4dbe-8ad4-95dece21ed99" >
+		<flow-ref doc:name="Flow Reference" doc:id="20e37a55-5309-4c2e-ac29-6b74805a3bf9" name="post-billing-presentation-media-clientSub_Flow"/>
+	</flow>
 </mule>

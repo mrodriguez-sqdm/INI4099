@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd 
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	
+<http:listener-config name="business-xapi-services-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="TLS_Context"/>
+    </http:listener-config>
+    <apikit:config name="business-xapi-services-config" api="business-xapi-services.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="97b3c3ed-3273-4524-8236-d2b1e246b02b" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi}">
+		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" />
+	</http:request-config>
+	
+	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="4f0f42e6-f9c5-4488-b0b3-fbdb4b53849d" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2}">
+		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" />
+	</http:request-config>
+	
+	<import doc:name="Import" doc:id="d29d859c-997a-4370-be20-7218023021b6" file="error-handler.xml" />
+	<import doc:name="Import" doc:id="3ed4e344-c599-40bf-b50f-fa653c3fbcb9" file="etb-common-lib.xml" />
+	<import doc:name="Import" doc:id="84c8b946-3306-4eda-b9bb-e1ecbd1084da" file="loggin.xml" /> 
+	<import doc:name="Import" doc:id="7bc8d628-aceb-4598-9152-23c5d513b29e" file="audits-sapi-client.xml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="89f266fa-049e-423b-87f3-035cede78d5f" file="${env}-properties.yaml" />
+	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="504bd4fd-08fa-4c28-894b-b18e08e775db" >
+		<tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.keyPassword}" />
+	</tls:context>
+	
+    <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bb7c2b0f-44b6-4164-8703-43c3c37fb70a" flowRef="business-xapi-services-main" />
+	
+	
+
+</mule>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<sub-flow name="get-contracts-clientSub_Flow" doc:id="879bfaa1-13c6-4628-919d-9c9e473f8deb" >
+		<http:request method="POST" doc:name="bot-sapi-2-services" doc:id="53cfa8d8-c159-446e-91cb-101fb32334ca" config-ref="HTTP_Request_configuration_bot-sapi-2" path="${bot-sapi-2.endpoints.services.base-path}${bot-sapi-2.endpoints.services.getcontract}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('bot-sapi.client_secret'),
+	"client_id" : p('bot-sapi.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId" : vars.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+</mule>

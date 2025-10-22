@@ -46,6 +46,7 @@ bot-sapi-2:
     soporte1n:
       base-path: "/soporte1n"
       validatelb: "/validatelb"
+      validateaccess: "/validateaccess"
       
   client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
   client_secret: "8917F36fBC2c4105b72c7bC3a165740F"

@@ -34,6 +34,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 		<tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.keyPassword}" />
 	</tls:context>
 	
-	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9de6950f-c2fd-495f-a181-5447110d3dbd" flowRef="resource-xapi-services-main" />
+	<!--  <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="9de6950f-c2fd-495f-a181-5447110d3dbd" flowRef="resource-xapi-services-main" />-->
 	
 </mule>

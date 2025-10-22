@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="business-xapi-services-main" doc:id="6755bb6c-d595-40d4-b7ad-2290501bfd91" >
+		<http:listener doc:name="Listener" doc:id="ef65bc66-c499-4f74-98b0-735a91f323aa" config-ref="business-xapi-services-httpListenerConfig" path="/v1/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<flow-ref doc:name="Flow Reference" doc:id="7bda788d-e341-448c-99ae-8f5a84ffbf51" name="initial-loggin-Sub_Flow"/>
+		<apikit:router doc:name="APIkit Router" doc:id="8cfe064c-b807-45e4-845f-2ea63c25a130" config-ref="business-xapi-services-config"/>
+		<async doc:name="Async" doc:id="7e5d804d-ba97-478e-9b0a-4e282866ffb5" >
+			<flow-ref doc:name="Call logger" doc:id="72eb895c-a2c2-4720-aa4a-ba97d142eef8" name="loggin-client-call" />
+		</async>
+		<error-handler ref="error-handlerError_Handler" />
+	</flow>
+	<flow name="business-xapi-services-console" doc:id="b3258712-2746-41b2-8e3d-c093614e9d87" >
+		<http:listener doc:name="Listener" doc:id="bd177a37-67e0-4757-a620-30bf8c44a955" config-ref="business-xapi-services-httpListenerConfig" path="/console/*" >
+			<http:response statusCode="#[vars.httpStatus default 200]" >
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:response>
+			<http:error-response statusCode="#[vars.httpStatus default 500]" >
+				<http:body ><![CDATA[#[payload]]]></http:body>
+				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+			</http:error-response>
+		</http:listener>
+		<apikit:console doc:id="f2c7832b-f73b-4d53-adc7-4caae48e62ad" doc:name="APIkit Console" config-ref="business-xapi-services-config"/>
+	</flow>
+	<flow name="get:\partyInteraction:business-xapi-services-config" doc:id="5a092605-a4ab-4eca-b53a-0e38ae879711" >
+		<flow-ref doc:name="Flow Reference" doc:id="7ee57768-2e67-46c2-9c00-800ca241dc16" name="get-party-interaction-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="post:\partyInteraction:application\json:business-xapi-services-config" doc:id="d6187bb0-dc52-41ca-930c-77b697d53969" >
+		<flow-ref doc:name="Flow Reference" doc:id="78dcf2a7-d77b-4b0d-a889-e3afa7c7c157" name="post-party-interaction-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="post:\createSurvey:application\json:business-xapi-services-config" doc:id="4db735ac-d248-4afd-a595-2bfbb9fef0e7" >
+		<flow-ref doc:name="Flow Reference" doc:id="a6cb47c0-f998-49ea-bcfe-f67df15b55a6" name="create-survey-orchestratorSub_Flow" />
+	</flow>
+	<flow name="patch:\partyInteraction\(id):application\json:business-xapi-services-config" doc:id="9c5d0be6-822d-4f4a-b243-850f822c6027" >
+		<flow-ref doc:name="Flow Reference" doc:id="e1a832b2-2124-4dbb-863c-babace51fba5" name="patch-party-interaction-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\agreement:business-xapi-services-config" doc:id="b2bb2af0-2587-4c8e-ab88-2e24db62b12c" >
+		<flow-ref doc:name="Flow Reference" doc:id="f3935f4c-90a9-4368-bb47-28c11a01842f" name="get-agreement-orchestratorSub_Flow"/>
+	</flow>
+</mule>
