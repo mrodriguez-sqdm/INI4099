@@ -1,0 +1,61 @@
+[
+	{
+		"systemId": "OTINICIATIVAS",
+		"data": [
+			{
+				"method": "POST",
+				"path": "/mongo/v1/orders/(orderNumber)",
+				"processname": "create order mongo"
+			},
+			{
+				"method": "PATCH",
+				"path": "/mongo/v1/orders/(orderNumber)",
+				"processname": "update status order mongo"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/serviceProblem/pqrs",
+				"processname": "get pqrs by document"
+			},
+			{
+				"method": "PATCH",
+				"path": "/mongo/v1/serviceProblem/pqrs/(id)",
+				"processname": "updates partially a PQRS"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/serviceProblem/orders",
+				"processname": "get MDM_CD_ORDEN with appointment"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/serviceProblem/consecutive",
+				"processname": "generate consecutive"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/customer",
+				"processname": "get customer data"
+			},{
+				"method": "POST",
+				"path": "/mongo/v1/customer",
+				"processname": "Create customer "
+			},
+			{
+				"method": "PATCH",
+				"path": "/mongo/v1/customer",
+				"processname": "Update customer data"
+			},
+			{
+				"method": "POST",
+				"path": "/mongo/v1/audit/dijin",
+				"processname": "record audit dijin"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/parameters",
+				"processname": "get parameters data"
+			}
+		]
+	}
+]		

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="post-bolsaCompartidaLTECorp-test-suite.xml" />
+	<munit:test name="post-bolsaCompartidaLTECorp-test-suite-delete:\v1\bolsaCompartidaLTECorp:service-papi-services-configTest" doc:id="e355d5e8-377b-4a64-9118-55cba3ad6686" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get token" doc:id="a0487c3e-ad32-4468-9c29-c744da4c3fcc" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="5e8d9364-8ad9-4015-bc11-c21dd65278eb" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",      &#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]      &#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="8688a677-b818-46f4-8732-05dbf3be804b" >
+				<munit:attributes value='#[{queryParams: {"integrationId": "AC-0000000"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" doc:id="bf48d0df-79fd-4776-a198-d70331060d54" name="post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3ebbb0a2-0fe1-4711-b20a-d9fb44869492" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="post-bolsaCompartidaLTECorp-test-suite-delete:\v1\bolsaCompartidaLTECorp:service-papi-services-configTest1" doc:id="865ceba2-5bf8-453e-938f-f71ce44fea58" description="Test" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get token" doc:id="b76606ce-e970-4db2-bfcf-501cd488ae18" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a0904c22-a3d7-4db1-937f-39c97089e3b8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="jscToken" value='#["Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYW1wYWlnbnMiLCJzdWIiOiI2aXc4d2tkSjY3ZGdoYWplcnQ5MDJqYWQ5blJFYWlkaGZvciIsImlzcyI6IiIsImV4cCI6MTcxOTMzOTkyNX0.EP83zflrqnApTpfqRwbzcfK8yVs5Js7lSJzjLVIF72k"]' mediaType="application/java" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscription" doc:id="7f8e416f-f3cc-4944-af11-433664a3374d" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2a6f3410-1023-471f-a692-c18b2850a358" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "links": [&#10;    {&#10;      "rel": "string",&#10;      "href": "string",&#10;      "hreflang": "string",&#10;      "media": "string",&#10;      "title": "string",&#10;      "type": "string",&#10;      "deprecation": "string",&#10;      "profile": "string",&#10;      "name": "string"&#10;    }&#10;  ],&#10;  "content": [&#10;    {&#10;      "id": "1234",&#10;      "name": "Name",&#10;      "domain": "string",&#10;      "status": "PRE_ACTIVE",&#10;      "networkStatus": "PRE_ACTIVE",&#10;      "type": "RETAIL",&#10;      "portabilityStatus": "NO_PORTABILITY",&#10;      "billingType": "PREPAY",&#10;      "creationDate": "2022-04-20T10:13:15.686Z",&#10;      "firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;      "terminationDate": "2022-04-20T10:13:15.686Z",&#10;      "balance": 15.45,&#10;      "balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;      "lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;      "externalName": "Prepay Mobile",&#10;      "language": "en_US",&#10;      "ntwID": "555112",&#10;      "publicIdentity": "555112",&#10;      "externalID": "555112",      &#10;      "subscriber": {&#10;        "id": "1234",&#10;        "name": "Name",&#10;        "links": [&#10;          {&#10;            "rel": "string",&#10;            "href": "string",&#10;            "hreflang": "string",&#10;            "media": "string",&#10;            "title": "string",&#10;            "type": "string",&#10;            "deprecation": "string",&#10;            "profile": "string",&#10;            "name": "string"&#10;          }&#10;        ]      &#10;      },&#10;      "lastUpdate": "2022-04-20T10:13:15.686Z",&#10;      "links": [&#10;        {&#10;          "rel": "string",&#10;          "href": "string",&#10;          "hreflang": "string",&#10;          "media": "string",&#10;          "title": "string",&#10;          "type": "string",&#10;          "deprecation": "string",&#10;          "profile": "string",&#10;          "name": "string"&#10;        }&#10;      ]&#10;    }&#10;  ],&#10;  "page": {&#10;    "size": 0,&#10;    "totalElements": 0,&#10;    "totalPages": 0,&#10;    "number": 0&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="GET PKGID" doc:id="591c9eeb-6ab1-41f2-93c8-28bf379816ef" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Get subscription" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="3e255e92-7e96-4da6-bc0a-1b2385a56081" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;    "links": [&#10;        {&#10;            "rel": "self",&#10;            "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscription?externalID=MDM-MOV-0000000001-1&amp;page=0&amp;size=10"&#10;        }&#10;    ],&#10;    "content": [&#10;        {&#10;            "id": "SID309866_TS1708013394500_0",&#10;            "name": "Plan Pospago 1",&#10;            "domain": "Test_ETBMVNE2",&#10;            "status": "PRE_ACTIVE",&#10;            "networkStatus": "PRE_ACTIVE",&#10;            "type": "RETAIL",&#10;            "portabilityStatus": "NO_PORTABILITY",&#10;            "billingType": "POST",&#10;            "creationDate": "2024-02-15T16:28:48.000Z",&#10;            "balance": {&#10;                "amount": 0.000000&#10;            },&#10;            "balanceExpirationDate": "2025-02-14T16:28:48.000Z",&#10;            "language": "es-ES",&#10;            "ntwID": "SID309866_TS1708013394500_0",&#10;            "externalID": "MDM-MOV-0000000001-1",&#10;            "priceplan": {&#10;                "id": "PP_TestETBMVNE_Pospago",&#10;                "name": "Plan de precios base pospago"&#10;            },&#10;            "salesData": {&#10;                "salesChannel": "OWN_CALLCENTER"&#10;            },&#10;            "packageList": [&#10;                {&#10;                    "id": "PKGID950301_TS1708013394615",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPackage",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/pkgi/PKGID950301_TS1708013394615"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "msisdnList": [&#10;                {&#10;                    "id": "3336025008",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getMsisdn",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "simList": [&#10;                {&#10;                    "id": "8957287000000000015",&#10;                    "links": [&#10;                        {&#10;                            "rel": "getPkgi",&#10;                            "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                        }&#10;                    ]&#10;                }&#10;            ],&#10;            "subscriber": {&#10;                "id": "223194",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSubscriber",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/subscriber/223194"&#10;                    }&#10;                ]&#10;            },&#10;            "msisdn": {&#10;                "id": "3336025008",&#10;                "links": [&#10;                    {&#10;                        "rel": "getMsisdn",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/msisdn/3336025008"&#10;                    }&#10;                ]&#10;            },&#10;            "sim": {&#10;                "id": "8957287000000000015",&#10;                "links": [&#10;                    {&#10;                        "rel": "getSim",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/sim/8957287000000000015"&#10;                    }&#10;                ]&#10;            },&#10;            "billingAccount": {&#10;                "id": "366592",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBillingAccount",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/billing/ba/366592"&#10;                    }&#10;                ]&#10;            },&#10;            "brand": {&#10;                "id": "Test_ETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getBrand",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/brand/Test_ETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "pos": {&#10;                "id": "PDV_TestETBMVNE2",&#10;                "name": "PDV_TestETBMVNE2",&#10;                "links": [&#10;                    {&#10;                        "rel": "getPos",&#10;                        "href": "https://pre.ioscolombia.com.co/bssrest/v1/pos/PDV_TestETBMVNE2"&#10;                    }&#10;                ]&#10;            },&#10;            "lastUpdate": "2024-04-09T03:30:02.000Z",&#10;            "links": []&#10;        }&#10;    ],&#10;    "page": {&#10;        "size": 10,&#10;        "totalElements": 1,&#10;        "totalPages": 1,&#10;        "number": 0&#10;    }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get SID" doc:id="b5816d06-a244-45d4-a01c-51442192918e" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f72c92e9-c7e9-4dda-a425-db729da10a86" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;  "id": "1234",&#10;  "name": "Name",&#10;  "cancellationDate": "2022-04-20T10:13:15.686Z",&#10;  "provisioningDate": "2022-04-20T10:13:15.686Z",&#10;  "applicationDate": "2022-04-20T10:13:15.686Z",&#10;  "billingIgnore": true,&#10;  "contractStartDate": "2022-04-20T10:13:15.686Z",&#10;  "contractEndDate": "2022-04-20T10:13:15.686Z",&#10;  "status": "FREE",&#10;  "packageType": "INITIAL",&#10;  "isVisible": true,&#10;  "renewable": true,&#10;  "prices": {},&#10;  "renewalOption": "ACTIVATED",&#10;  "isTariff": true,&#10;  "permanencyDate": "2022-04-20T10:13:15.686Z",&#10;  "groupMember": {&#10;    "id": "#SID4_TS1707843473032_2",&#10;    "name": "Name",&#10;    "links": [&#10;      {&#10;        "rel": "string",&#10;        "href": "string",&#10;        "hreflang": "string",&#10;        "media": "string",&#10;        "title": "string",&#10;        "type": "string",&#10;        "deprecation": "string",&#10;        "profile": "string",&#10;        "name": "string"&#10;      }&#10;    ]&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Get subscription by SID" doc:id="ef7c2ab9-c55a-44f8-a9b2-75537cd55a0f" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="79529845-e3a8-4feb-8a39-d9493b15e9c3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;	"id": "1234",&#10;	"name": "Name",&#10;	"domain": "string",&#10;	"status": "PRE_ACTIVE",&#10;	"networkStatus": "PRE_ACTIVE",&#10;	"type": "RETAIL",&#10;	"portabilityStatus": "NO_PORTABILITY",&#10;	"billingType": "PREPAY",&#10;	"creationDate": "2022-04-20T10:13:15.686Z",&#10;	"firstActivationDate": "2022-04-20T10:13:15.686Z",&#10;	"terminationDate": "2022-04-20T10:13:15.686Z",&#10;	"balance": 15.45,&#10;	"balanceExpirationDate": "2022-04-20T10:13:15.686Z",&#10;	"lastTrafficDate": "2022-04-20T10:13:15.686Z",&#10;	"externalName": "Prepay Mobile",&#10;	"language": "en_US",&#10;	"ntwID": "555112",&#10;	"publicIdentity": "555112",&#10;	"externalID": "555112",&#10;	"groupInstance": {&#10;		"id": "123456",&#10;		"name": "Name",&#10;		"links": [&#10;			{&#10;				"rel": "string",&#10;				"href": "string",&#10;				"hreflang": "string",&#10;				"media": "string",&#10;				"title": "string",&#10;				"type": "string",&#10;				"deprecation": "string",&#10;				"profile": "string",&#10;				"name": "string"&#10;			}&#10;		]&#10;	}&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Consultar member del group" doc:id="ab3eb95b-55e7-48ed-9530-b671cc4315b1" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="a5fc77f1-9915-4515-9cfe-7c2d24c43606" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;{&#10;	&#10;	"content": [&#10;		{&#10;			"id": "1234",&#10;			"name": "Name",&#10;			"msisdn": "string",&#10;			"extension": "string",&#10;			"groupInstance": {&#10;				"id": "1234",&#10;				"name": "Name",&#10;				"links": [&#10;					{&#10;						"rel": "string",&#10;						"href": "string",&#10;						"hreflang": "string",&#10;						"media": "string",&#10;						"title": "string",&#10;						"type": "string",&#10;						"deprecation": "string",&#10;						"profile": "string",&#10;						"name": "string"&#10;					}&#10;				]&#10;			}			&#10;		}&#10;	]&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Adicionar linea hija al grupo" doc:id="82e437f4-28f2-4664-add5-d43fedecb88c" processor="http:request" >
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Link to group" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="ebfe17a1-1c18-4097-962f-9fda307d53b9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="71259ba3-46e1-4f7b-84bc-7edaaa580828" >
+				<munit:attributes value='#[{queryParams: { "parentPkgInstanceId": "3336025008", "integrationId": "AC-0000000", "MSISDN": "3336025008"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" doc:id="e85aeef3-9687-456e-99d0-a298dcbbd8a5" name="post:\v1\bolsaCompartidaLTECorp:service-papi-services-config" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="c0faab40-3225-466d-bd2a-8d271c65f188" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="
+        http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+        http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="get-promotion-orchestratorFlow" doc:id="1fbc073c-6ba7-4fe3-b3fc-73f0147106b2">
+
+        <!-- 1. Set TMF query params -->
+        <set-variable variableName="fields" value="#[attributes.queryParams.fields default null]" doc:name="Set Fields"/>
+        <set-variable variableName="offset" value="#[attributes.queryParams.offset default 0]" doc:name="Set Offset"/>
+        <set-variable variableName="limit" value="#[if ((attributes.queryParams.limit default 100) as Number &gt; 100) 100 
+else (attributes.queryParams.limit default 100) as Number]" doc:name="Set Limit"/>
+
+        <!-- 2. Call process layer -->
+        <flow-ref name="get-promotion-clientSub_Flow" doc:name="Call Process Layer" doc:id="1c2b1841-3513-4160-99b7-1bbaa94e9d81"/>
+
+        <!-- 3. Apply 'fields' (projection) if provided -->
+
+        <logger level="INFO" doc:name="Log Result" message="#[payload]" />
+
+    </flow>
+</mule>

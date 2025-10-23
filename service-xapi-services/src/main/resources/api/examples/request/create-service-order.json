@@ -1,0 +1,31 @@
+{
+  "serviceOrder": {
+    "customer": {
+      "documentNumber": "1023456789",
+      "documentType": "CC",
+      "phone": "+57 3001234567"
+    },
+    "service": {
+      "serviceAccountNumber": "ACC-987654"
+    },
+    "orderType": "installation",
+    "causal": "customer request",
+    "operation": "create",
+    "detailSuspend": {
+      "address": "Ciudadela colsubsidio en el conjunto residencial los Cambulos",
+      "city": "BOGOTA D.C.",
+      "contactEmail": "usuario@ejemplo.com",
+      "contactPhone": "3165364514",
+      "department": "CUNDINAMARCA",
+      "documentNumber": "12345678",
+      "documentType": "CC",
+      "imei": "",
+      "mail": "cliente@test.com",
+      "phone": "3001234567",
+      "violence": false,
+      "younger": false,
+      "weapon": "2",
+      "suspensionPeriod" : 30
+    }
+  }
+}

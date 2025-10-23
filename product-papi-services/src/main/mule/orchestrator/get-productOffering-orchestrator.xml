@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-productOffering-orchestratorSub_Flow" doc:id="ff0a5167-56ce-4c7a-bd66-f95b04c28235" >
+		<set-variable value='#[readUrl("classpath://rules.json", "application/json")]' doc:name="Set Variable" doc:id="0ddf2460-9624-483d-a077-96ed7c0fbbe6" variableName="rules"/>
+		<set-variable value="#[flatten(vars.rules.data)]" doc:name="Set Variable" doc:id="b74f77fe-17b2-416f-a5f9-5868ca152882" variableName="methodRulesArray"/>
+		<ee:transform doc:name="Transform Message" doc:id="cb3f06de-dfc9-4bf3-a513-89c011fcb6bb" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="rules" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.methodRulesArray filter ((item, index) -> 
+							item.method == vars.currentMethod and 
+							sizeOf(item.path splitBy("/")) == sizeOf(vars.currentPathSections)
+						)]]></ee:set-variable>
+				<ee:set-variable variableName="mongoDB_tipo_servicio" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.methodRulesArray.mongoDB_tipo_servicio
+]]></ee:set-variable>
+				<ee:set-variable variableName="tipo_servicio" ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams.tipo_servicio]]></ee:set-variable>
+				<ee:set-variable variableName="mongo_query_fields" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.rules[0].data[1].mongo_query_fields]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="c2b91183-e9fe-45e3-a39c-4ec0270e7de5" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="isValidMongoDB" ><![CDATA[%dw 2.0
+output application/java
+---
+if (
+  (vars.mongoDB_tipo_servicio[0] default null) is Array<String> 
+  and (vars.tipo_servicio default "") is String
+)
+  vars.mongoDB_tipo_servicio[0] contains (vars.tipo_servicio as String)
+else
+  true]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="d30239b5-8278-4ea8-baf0-c9a43ea70a39" >
+			<when expression='#[vars.isValidMongoDB== true]'>
+				<flow-ref doc:name="Flow Reference" doc:id="a83a288d-c023-4abc-8dea-57b93b7cb010" name="get-productOffering-generateQuerySub_Flow"/>
+			
+</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="dd3cc54c-4a9a-4078-94de-2ba77299fb3d" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  code: "503",
+  reason: "Service Unavailable",
+  message: "Base de datos no disponible",
+  status: "Service Unavailable",
+  referenceError: "DB_CONN_503",
+  timestamp: now() as String {format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"}
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<sub-flow name="get-productOffering-generateQuerySub_Flow" doc:id="41a4beef-1f5f-4f11-8e06-206f7cc858a6" >
+		<ee:transform doc:name="Transform Message" doc:id="d9d689ec-5a83-4fe6-97cb-6e269aaf19af" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="mongo_query" ><![CDATA[%dw 2.0
+output application/json
+var base = vars.mongo_query_fields default {}
+var fromQueryParams = attributes.queryParams 
+  filterObject ((v, k) -> v != null and v != "" and lower(k) != "limit")
+---
+base ++ fromQueryParams]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="80aa7559-8454-4c96-85f3-8b4a210336de" name="get-productOffering-clientSub_Flow" />
+		<logger level="INFO" doc:name="Logger" doc:id="3a9f359a-3940-4d09-a394-45849b9469f0" message="#[payload.response.response]"/>
+		<ee:transform doc:name="Transform Message" doc:id="bdb995c4-2b18-49c3-9e48-94c87a221662" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[payload.response.response]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="43d818b1-ca25-4594-b706-01fba8329c4d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+// Convertimos el payload de texto a JSON (Array)
+var parsed = read(payload, "application/json")
+var raw = parsed[0]
+
+// Extraer el ObjectId de forma segura
+var idMongo = 
+  if (raw["_id"] != null and raw["_id"] is Object and raw["_id"]["\$oid"] != null)
+    raw["_id"]["\$oid"]
+  else 
+    raw["_id"] default ""
+
+---
+{
+  id: idMongo,
+  name: raw.producto default "",
+  description: raw.display default "",
+  lifecycleStatus: (raw.estado default raw.Estado) default "Inactive",
+  validFor: {
+    startDateTime: raw.fecha_ini_vigencia default null,
+    endDateTime: raw.fecha_fin_vigencia default null
+  },
+  productSpecification: {
+    id: raw.id_producto default "",
+    name: raw.producto default "",
+    tipoProducto: raw.tipo_producto default "",
+    tipoServicio: raw.tipo_servicio default "",
+    subtipoServicio: raw.subtipo_servicio default "",
+    subtipoProducto: raw.subtipo_producto default "",
+    "@type": "ProductSpecificationRef"
+  },
+  productOfferingPrice: (raw.precio_oferta default []) map (p) -> {
+    price: {
+      dutyFreeAmount: {
+        value: p.precio_sin_iva default 0,
+        unit: "COP"
+      },
+      taxIncludedAmount: {
+        value: p.precio_con_iva default 0,
+        unit: "COP"
+      }
+    }
+  },
+  characteristic: (raw.caracteristicas_producto_oferta default []) map (c) -> {
+    name: c.caracteristica default "",
+    value: c.valor default ""
+  },
+  "@type": "ProductOffering"
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="d796d0be-015c-4272-9dae-ceb2c2f301f0" message="#[payload]"/>
+	
+</sub-flow>
+</mule>

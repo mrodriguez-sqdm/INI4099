@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-agreement-orchestratorSub_Flow" doc:id="17d09d83-2f28-4c8c-8803-906295ada237" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="87012e3f-6c51-44c7-82cd-1c4359f526c0" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="14e61936-a55c-4358-bfc3-38efaf4de891" variableName="headers" />
+		<ee:transform doc:name="Transform Message Bot Request" doc:id="beacc79b-9957-4386-be01-441b98d72e6a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  WSRequestHeader: {
+    System: {
+      name: vars.headers.name,
+      correlationID: vars.headers."X-CORRELATION-ID",
+      processingServer: ""
+    },
+    Property: []
+  },
+  WSRequestBody: {
+	"Phone": vars.parameters.MOBILE_NUMBER,
+    Audit: {
+      Canal: vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="1d2da884-e83f-4209-b032-52fbd3d59538" name="get-contracts-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="5a602891-8f3e-47a1-bf71-3db94e19ea27" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Bot Response" doc:id="a1e315ac-aeae-42b0-9be9-a16c49471f1b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser
+
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: if(mensaje != null) mensaje else payload.WSResponseHeader.Service.statusDetail[0].errorMessage default "",
+  numberPqr: payload.WSResponseBody.Num_PQR default "",
+  contractDetail: if(payload.WSResponseBody.Link != null)[
+    {
+     link: payload.WSResponseBody.Link default ""
+    }
+  ] else []
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

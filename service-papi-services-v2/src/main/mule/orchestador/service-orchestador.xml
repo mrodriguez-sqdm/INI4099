@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="service-get-orchestadorSub_Flow" doc:id="d0089800-8035-4474-9b3e-5900e979115d" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="cab6be7b-d0a7-4783-8568-2c94c0a8293a" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="f8bc00f0-0e11-4f42-9377-5b5fd1c61d88" variableName="headers" />
+		<choice doc:name="Choice" doc:id="af2454da-447d-4532-8ae7-24bb37095496" >
+			<when expression="#[vars.parameters.OPERATION == 'LTE']">
+				<flow-ref doc:name="Flow Reference" doc:id="4a37ac27-0422-4f3c-9a29-d7e52809db77" name="mongo-db-sapi-get-service-clientSub_Flow"/>
+				<ee:transform doc:name="Transform Message" doc:id="ddbb7ad3-88df-4ad1-872a-d3f5a67e16b2" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+fun unwrap(v) =
+    if (v is Object) (v pluck ((val,key) -> val))[0]
+    else v
+
+---
+{
+  code: payload.code,
+  message: payload.message,
+  services: payload.services map (s) -> {
+    id: unwrap(s."_id"),
+    integrationId: s.Integration_Id,
+    bundles: s.Bundles map (b) -> {
+      id: b."_id",
+      catalogId: b.id_catalogo,
+      name: b.nombre,
+      primary: b.primarios map (p) -> {
+        id: p."_id",
+        primaryId: p.id_primario,
+        name: p.nombre,
+        secondary: p.secundarios map (sec) -> {
+          id: sec."_id",
+          secondaryId: sec.id_secundario,
+          name: sec.nombre
+        }
+      },
+      optional: b.opcionales map (o) -> {
+        id: o."_id",
+        optionalId: o.id_opcional,
+        name: o.nombre,
+        activationDate: {
+          date: unwrap(o.fecha_activacion)
+        }
+      }
+    },
+    serviceCharacteristic: s.Caracteristica_Servicio map (c) -> {
+      characteristic: c.Caracteristica,
+      value: c.Valor
+    },
+    productServiceCode: s.Codigo_Producto_Servicio,
+    billingAccount: s.Cuenta_Facturacion,
+    packaging: s.Empaquetado,
+    status: s.Estado,
+    fraudStatus: s.Estado_Fraude,
+    paymentStatus: s.Estado_Pago,
+    lossTheftStatus: s.Estado_Robo_Perdida,
+    voluntaryStatus: s.Estado_Voluntaria,
+    activationDate: {
+      date: unwrap(s.Fecha_Activacion)
+    },
+    creationDate: {
+      date: unwrap(s.Fecha_Creacion)
+    },
+    iccid: s.ICCID,
+    imei: s.IMEI,
+    parentAssetId: s.Id_Activo_Padre,
+    rootAssetId: s.Id_Activo_Raiz,
+    sourceSystemAssetId: s.Id_Activo_Sistema_Origen,
+    relatedOrderId: s.Id_Orden_Relacionada,
+    serviceMode: s.Modalidad_Servicio,
+    connectionNumber: s.Numero_Conexion,
+    identificationNumber: s.Numero_Identificacion,
+    planOffer: s.Oferta_Plan,
+    country: s.Pais,
+    product: s.Producto,
+    sourceSystem: s.Sistema_Origen,
+    technology: s.Tecnologia,
+    documentType: s.Tipo_Documento,
+    lineType: s.Tipo_Linea,
+    productType: s.Tipo_Producto,
+    createdByUser: s.Usuario_Creador,
+    offerValue: s.Valor_Oferta,
+    extractorUpdate: s.actualizacion_extractor
+  }
+}
+]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="ca7e5cf4-a07a-43cd-ae15-e001672800b5" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: 500 ,
+  messageResponse: "Operación no definida"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+</mule>

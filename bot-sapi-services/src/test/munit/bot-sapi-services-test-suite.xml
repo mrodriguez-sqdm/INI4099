@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="bot-sapi-services-test-suite.xml" />
+	<munit:test name="bot-sapi-services-test-suite-get:\operations\v1\generateRegisterUrl\(email):bot-sapi-services-configTest" doc:id="39c9ec24-e059-433d-8fc1-36fa87a9f000" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Auth" doc:id="de946cca-b5b9-4852-8fb3-bedb8c08f2de" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e4dbc5bf-f65c-45ef-b68b-2a6ae4e0086c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="generatedToken" value='#[output application/json --- {"WSResponseHeader":{"System":{"name":"Mulesoft","correlationID":"Mulesoft-20230725114102-406","processingServer":null},"Service":{"status":"OK","responseDate":"2023-07-25T09:41:04.8704938","processingServer":null,"statusDetail":null},"Property":[]},"WSResponseBody":{"MinutesExpire":"1440","SecurityToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Ik1VTEVTT0ZUIiwibmJmIjoxNjkwMjk2MDY0LCJleHAiOjE2OTAzODI0NjQsImlhdCI6MTY5MDI5NjA2NCwiaXNzIjoiaHR0cDovL2JvdGRldi5wb3J0YWxsdGVxYS5wLmF6dXJld2Vic2l0ZXMubmV0IiwiYXVkIjoiaHR0cDovL2JvdGRldi5wb3J0YWxsdGVxYS5wLmF6dXJld2Vic2l0ZXMubmV0In0._0MKklNj8xBquLl2f2_BfPxfvh8eIZuv_ocgxH5YVy4"}}]' mediaType="application/json" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="generate URL" doc:id="d7283e3c-aa30-41e6-88c4-e05ef8ee29a0" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="03d46a2d-b03f-4735-8cb8-df6a12daa07f" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json --- {&#10;  "WSResponseHeader": {&#10;    "System": {&#10;      "name": "Mulesoft",&#10;      "correlationID": "Mulesoft-20230725114123-460",&#10;      "processingServer": null&#10;    },&#10;    "Service": {&#10;      "status": "OK",&#10;      "responseDate": "2023-07-25T09:41:23.4374901",&#10;      "processingServer": null,&#10;      "statusDetail": [&#10;        {&#10;          "errorCode": "OK_01",&#10;          "errorDetailCode": "La solicitud fue exitosa",&#10;          "errorMessage": "La solicitud Mulesoft-20230725114123-460 fue exitosa. Se generó el link de activación"&#10;        }&#10;      ]&#10;    },&#10;    "Property": []&#10;  },&#10;  "WSResponseBody": {&#10;    "Url": "http://microfrontsdev.portallteqa.p.azurewebsites.net///Home//ActivarRegistroMiETB?k=kGm+nsmc9xwnQj6S2wAIggg4XSz/nC6PH1tn16rI6Uf+ooQN79vCc8F5XphxXDVJBhjLOQzPCDBJEw/DEZXxTg==&amp;Id=R9SUfS3lYZ5pp8wbno7JX2WV7krmQ6mUSFWylFXp7B8=&amp;From=R9SUfS3lYZ4zBCyruR/U7Q==&amp;Canal=SmBy0j+31oI="&#10;  }&#10;}]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Loggers" doc:id="cb651b14-4ccb-421a-9a14-62d158939294" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="4a6f6c21-b5a9-48d1-bea2-1b52ff34ee2a" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="a1f450e8-9cd8-46e3-8775-86cdec46d03c" >
+				<munit:attributes value="#[{&#10;	'uriParams': {&#10;		'email': 'nicolascastiblancob@gmail.com'&#10;	}&#10;}]" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\operations\v1\generateRegisterUrl\(email):bot-sapi-services-config" doc:id="955b1dfb-4c02-4da9-8ece-14d6cde53e18" name="get:\operations\v1\generateRegisterUrl\(email):bot-sapi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert expression" doc:id="d2f6190b-07e0-47d2-9af5-476529b205f7" >
+				<munit-tools:that ><![CDATA[#[import * from dw::test::Asserts 
+ ---
+payload must equalTo({
+  "WSResponseHeader": {
+    "System": {
+      "name": "Mulesoft",
+      "correlationID": "Mulesoft-20230725114123-460",
+      "processingServer": null
+    },
+    "Service": {
+      "status": "OK",
+      "responseDate": "2023-07-25T09:41:23.4374901",
+      "processingServer": null,
+      "statusDetail": [
+        {
+          "errorCode": "OK_01",
+          "errorDetailCode": "La solicitud fue exitosa",
+          "errorMessage": "La solicitud Mulesoft-20230725114123-460 fue exitosa. Se generó el link de activación"
+        }
+      ]
+    },
+    "Property": []
+  },
+  "WSResponseBody": {
+    "Url": "http://microfrontsdev.portallteqa.p.azurewebsites.net///Home//ActivarRegistroMiETB?k=kGm+nsmc9xwnQj6S2wAIggg4XSz/nC6PH1tn16rI6Uf+ooQN79vCc8F5XphxXDVJBhjLOQzPCDBJEw/DEZXxTg==&Id=R9SUfS3lYZ5pp8wbno7JX2WV7krmQ6mUSFWylFXp7B8=&From=R9SUfS3lYZ4zBCyruR/U7Q==&Canal=SmBy0j+31oI="
+  }
+})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

@@ -1,0 +1,22 @@
+[
+	{
+		"systemId": "OTINICIATIVAS",
+		"data": [
+			{
+				"method": "GET",
+				"path": "/v1/productOffering",
+				"processname": "productOffering"
+			},
+			{
+				"method": "GET",
+				"path": "/v1/normalizeAddress",
+				"processname": "normalizeAddress"
+			},
+			{
+				"method": "GET",
+				"path": "/v1/geographicCoverage",
+				"processname": "geographicCoverage"
+			}
+		]
+	}
+]		

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="get-referred-suite.xml" />
+	<munit:test name="get-referred-suite-get:\v1\referred:service-papi-services-configTest" doc:id="7d232c23-bc8a-426a-8d39-513713d1bbc7" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Get clients" doc:id="b18ae170-c21b-4ce1-82d1-d65f6d0cf5d6" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="6aaeae02-c9e6-4117-b8a9-166b69e35812" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[{&#10;    "_id" : "591d21fdec96a3693730df02",&#10;    "Tipo_Documento" : "CC",&#10;    "Tipo_Cliente" : "FIBRA",&#10;    "Numero_Identificacion" : "1090409964",&#10;    "Nombre_Cliente" : "GRACE PATRICIA GONZALEZ",&#10;    "Estado" : "LOCALIDAD",&#10;    "Segmento" : "NO_MIGRADO",&#10;    "Segmento_UEN" : "NO_MIGRADO",&#10;    "UEN" : "NO_MIGRADO",&#10;    "Cliente_Valor" : "",&#10;    "Telefono_Fijo" : "00000000",&#10;    "Telefono_Movil" : "3166300053",&#10;    "Correo_Electronico" : "GRACEGONZALEZORTIZ@GMAIL.COM",&#10;    "Direccion" : "KR 00 000 00",&#10;    "Cobertura" : "FIBRA",&#10;    "Pais" : "Colombia",&#10;    "Departamento" : "BOGOTA",&#10;    "Ciudad" : "BOGOTA D.C.",&#10;    "Barrio" : "BARRION",&#10;    "Localidad" : "LOCALIDAD",&#10;    "Estrato" : "LOCALIDAD",&#10;    "Usuario_Creador" : "PortalLTE",&#10;    "Usuario_Modificador" : "admin",&#10;    "Autorizacion_Datacredito" : "true",&#10;    "Fecha_Expedicion_Documento" : "2023-01-21T00:00:00.000-05:00",&#10;    "Fecha_Nacimiento" : "1989-10-10",&#10;    "Genero" : "FEMENINO",&#10;    "Rango_Edad" : "",&#10;    "Estado_Civil" : "",&#10;    "Ciudad_Exp_Documento" : "",&#10;    "Depto_Exp_Documento" : "",&#10;    "Scoring" : "",&#10;    "Tipo_Scoring" : "",&#10;    "Clasificacion_Scoring" : "",&#10;    "Fecha_Scoring" : "",&#10;    "Fecha_Actualizacion" : "2018-10-16T11:16:27.898+0000",&#10;    "Sistema_Origen" : [],&#10;    "Contacto" : [],&#10;    "Modificado_MDM" : "0",&#10;    "Id_Cuenta_Facturacion_Salesforce" : null,&#10;    "Ejecutivo_Experiencia" : "MDM_PLTE",&#10;    "actualizacion_extractor" : "2023-01-21T00:00:00.000-05:00",&#10;    "Nombres" : "GRACE",&#10;    "Primer_Apellido" : "PATRICIA",&#10;    "Segundo_Apellido" : " GONZALEZ",&#10;    "Direcciones" : [ ],&#10;    "Categoria" : null,&#10;    "EsquemaAtencion" : null,&#10;    "ServiciosPS" : null,&#10;    "Referidos_Empleado" : [&#10;	    {&#10;		"Tipo_Documento" : "CC",&#10;		"Numero_Documento" : "17054684",&#10;		"Nombres" : "Juan",&#10;		"Primer_Apellido" : "Lopez",&#10;		"Segundo_Apellido" : " Barrera",&#10;		"Telefono_Movil" : "3002044852",&#10;		"Fecha_Registro" : "2023-01-21T00:00:00.000-05:00",&#10;		},&#10;		{&#10;		"Tipo_Documento" : "CC",&#10;		"Numero_Documento" : "19433246",&#10;		"Nombres" : "Daniela",&#10;		"Primer_Apellido" : "Castro",&#10;		"Segundo_Apellido" : "peña",&#10;		"Telefono_Movil" : "3145668899",&#10;		"Fecha_Registro" : "2023-05-25T00:00:00.000-05:00"&#10;		}&#10;	]&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="get info referido" doc:id="cb10b4a5-0bbe-4f98-b941-b10784f2933a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="b79ea020-ad37-4ad7-8f01-fb858c36019b" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value='#[output application/json&#10;---&#10;[{&#10;    "Tipo_Documento_Empleado" : "CC",&#10;    "Numero_Documento_Empleado" : "123456789",&#10;    "Codigo_Empleado" : "36578",&#10;    "Tipo_Documento_Referido" : "CC",&#10;    "Numero_Documento_Referido" : "987654321",&#10;    "Integration_Id" : "MDM-MOV-123654-1",&#10;    "Estado_Activo" : "1" ,   &#10;    "Fecha_Activacion" : "2023-06-02T08:08:00.987-05:00",&#10;    "Fecha_Inactivacion" : "2023-11-02T08:08:00.987-05:00",&#10;    "Orden_Retiro" : "MDM-MOV-123456"&#10;}]]' mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="4e40e34c-228b-414e-a076-a26e95f711f4">
+				<munit:attributes value='#[{queryParams: {tipoDocumento: "CC", numeroDocumento: "1090409964"}}]' />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to get:\v1\referred:service-papi-services-config" doc:id="7ab207cf-debd-40cd-abd3-0e83afe90677" name="get:\v1\referred:service-papi-services-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="84a53074-0e7d-4f60-8442-077df9d7d8f1" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

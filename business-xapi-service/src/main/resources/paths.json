@@ -1,0 +1,30 @@
+[
+	{
+		"systemId": "MIGRACION",
+		"data": [
+			{
+				"method": "GET",
+				"path": "/v1/partyInteraction",
+				"processname": "Get interactions client"
+			},
+			{
+				"method": "POST",
+				"path": "/v1/partyInteraction",
+				"processname": "Suscribe interactions client"
+			},
+			{
+				"method": "PATCH",
+				"path": "/v1/partyInteraction/{id}",
+				"processname": "Update interactions client"
+			},
+			{
+				"method": "POST",
+				"path": "/v1/createSurvey",
+				"processname": "create survey"
+			}
+			
+			
+			
+		]
+	}
+]		
