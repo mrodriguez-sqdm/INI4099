@@ -31,3 +31,5 @@ replay_pid*
 /.tooling-apps-cache/
 
 test*/
+
+#Este me va a servir de ejemplo para validar los cambios entre ramas
