@@ -1,0 +1,535 @@
+#%RAML 1.0 DataType 
+type: array
+items:
+  type: object
+  properties:
+    id:
+      type: string
+      required: false
+    extractorUpdate:
+      type: string
+      required: false
+    assignment:
+      type: object
+      properties:
+        assignments:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                required: false
+              level:
+                type: integer
+                required: false
+              user:
+                type: string
+                required: false
+        assignedUser:
+          type: string
+          required: false
+    retentionCustomer:
+      type: object
+      properties:
+        city:
+          type: string
+          required: false
+        department:
+          type: string
+          required: false
+        address:
+          type: string
+          required: false
+        addresses:
+          type: array
+          items:
+            type: object
+            properties:
+              coverage:
+                type: object | integer | string | boolean
+              daneCode:
+                type: string
+                required: false
+              departmentCode:
+                type: string
+                required: false
+              addressCode:
+                type: string
+                required: false
+              municipalityCode:
+                type: string
+                required: false
+              countryCode:
+                type: string
+                required: false
+              department:
+                type: string
+                required: false
+              normalizedAddress:
+                type: string
+                required: false
+              status:
+                type: string
+                required: false
+              addressId:
+                type: integer
+                required: false
+              municipality:
+                type: string
+                required: false
+              addressName:
+                type: string
+                required: false
+              selected:
+                type: boolean
+                required: false
+              addressType:
+                type: string
+                required: false
+              availableCoverages:
+                type: string
+                required: false
+              usageCode:
+                type: string
+                required: false
+              distanceType:
+                type: string
+                required: false
+        email:
+          type: string
+          required: false
+        names:
+          type: string
+          required: false
+        documentNumber:
+          type: string
+          required: false
+        landlinePhoneNumber:
+          type: string
+          required: false
+        mobilePhoneNumber:
+          type: string
+          required: false
+        documentType:
+          type: string
+          required: false
+        uen:
+          type: string
+          required: false
+        segmentoUEN:
+          type: string
+          required: false
+    retentionStatus:
+      type: object
+      properties:
+        code:
+          type: integer
+          required: false
+        description:
+          type: string
+          required: false
+        updateDate:
+          type: string
+          required: false
+        creationDate:
+          type: string
+          required: false
+        observations:
+          type: string
+          required: false
+        user:
+          type: string
+          required: false
+        closureDate:
+          type: string
+          required: false
+    creationDate:
+      type: string
+      required: false
+    modificationDate:
+      type: string
+      required: false
+    level:
+      type: integer
+      required: false
+    retentionNumber:
+      type: string
+      required: false
+    retention:
+      type: object
+      properties:
+        retentionCharacteristics:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                required: false
+              value:
+                type: string
+                required: false
+        classifications:
+          type: array
+          items: {}
+        reason:
+          type: integer
+          required: false
+        reasonDescription:
+          type: string
+          required: false
+        steps:
+          type: array
+          items:
+            type: object
+            properties:
+              actions:
+                type: object
+                properties:
+                  action:
+                    type: integer
+                    required: false
+                  classification:
+                    type: integer
+                    required: false
+                  levels:
+                    type: array
+                    items:
+                      type: integer
+              retentionActions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      required: false
+                    extractorUpdate:
+                      type: string
+                      required: false
+                    class:
+                      type: integer
+                      required: false
+                    classification:
+                      type: integer
+                      required: false
+                    actionData:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          code:
+                            type: string
+                            required: false
+                          description:
+                            type: string
+                            required: false
+                          name:
+                            type: string
+                            required: false
+                    description:
+                      type: string
+                      required: false
+                    creationDate:
+                      type: string
+                      required: false
+                    modificationDate:
+                      type: string
+                      required: false
+                    actionId:
+                      type: integer
+                      required: false
+                    levels:
+                      type: array
+                      items:
+                        type: integer
+                    name:
+                      type: string
+                      required: false
+                    type:
+                      type: integer
+                      required: false
+                    creationUser:
+                      type: string
+                      required: false
+                    modificationUser:
+                      type: string
+                      required: false
+              description:
+                type: string
+                required: false
+              status:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    required: false
+                  description:
+                    type: string
+                    required: false
+                  actionDate:
+                    type: string
+                    required: false
+                  stepDate:
+                    type: string
+                    required: false
+                  observations:
+                    type: string
+                    required: false
+                  user:
+                    type: string
+                    required: false
+                  history:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: integer
+                          required: false
+                        description:
+                          type: string
+                          required: false
+                        actionDate:
+                          type: string
+                          required: false
+                        stepDate:
+                          type: string
+                          required: false
+                        observations:
+                          type: string
+                          required: false
+                        user:
+                          type: string
+                          required: false
+              stepId:
+                type: integer
+                required: false
+              levels:
+                type: array
+                items:
+                  type: integer
+              name:
+                type: string
+                required: false
+              sequence:
+                type: integer
+                required: false
+              type:
+                type: integer
+                required: false
+              creationUser:
+                type: string
+                required: false
+              modificationUser:
+                type: string
+                required: false
+        subReason:
+          type: integer
+          required: false
+        subReasonDescription:
+          type: string
+          required: false
+        typifications:
+          type: array
+          items: {}
+    retentionService:
+      type: object
+      properties:
+        installationNeighborhood:
+          type: string
+          required: false
+        churnQualification:
+          type: integer
+          required: false
+        installationCity:
+          type: string
+          required: false
+        cityCode:
+          type: string
+          required: false
+        departmentCode:
+          type: string
+          required: false
+        billingAccount:
+          type: string
+          required: false
+        installationDepartment:
+          type: string
+          required: false
+        installationAddress:
+          type: string
+          required: false
+        status:
+          type: string
+          required: false
+        statuses:
+          type: array
+          items:
+            type: object
+            properties:
+              description:
+                type: string
+                required: false
+              date:
+                type: string
+                required: false
+              reconnectionDate:
+                type: string
+                required: false
+              type:
+                type: string
+                required: false
+        installationStratum:
+          type: string
+          required: false
+        serviceStartDate:
+          type: string
+          required: false
+        serviceAccountId:
+          type: string
+          required: false
+        integrationId:
+          type: string
+          required: false
+        installationLocality:
+          type: string
+          required: false
+        markers:
+          type: object
+          properties:
+            seniority:
+              type: boolean
+              required: false
+            retentionBenefit:
+              type: boolean
+              required: false
+            expirationBenefit:
+              type: array
+              items: {}
+            temporarySuspensionCount:
+              type: integer
+              required: false
+            controlAccount:
+              type: boolean
+              required: false
+            duo:
+              type: boolean
+              required: false
+            lte:
+              type: boolean
+              required: false
+            months:
+              type: integer
+              required: false
+            retentionPlan:
+              type: boolean
+              required: false
+            single:
+              type: boolean
+              required: false
+            originSystem:
+              type: string
+              required: false
+            trio:
+              type: boolean
+              required: false
+            integrationId:
+              type: string
+              required: false
+            monthsOfPermanenceClause:
+              type: integer
+              required: false
+            groupingNumber:
+              type: integer
+              required: false
+            speed:
+              type: integer
+              required: false
+        connectionNumber:
+          type: string
+          required: false
+        installationCountry:
+          type: string
+          required: false
+        promotions:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                required: false
+              attachments:
+                type: array
+                items: {}
+              agreementCode:
+                type: string
+                required: false
+              description:
+                type: string
+                required: false
+              status:
+                type: string
+                required: false
+              date:
+                type: string
+                required: false
+              endDate:
+                type: string
+                required: false
+              startDate:
+                type: string
+                required: false
+              benefitId:
+                type: string
+                required: false
+              name:
+                type: string
+                required: false
+              configurationCode:
+                type: string
+                required: false
+              promotionTypeId:
+                type: integer
+                required: false
+              groupingNumber:
+                type: integer
+                required: false
+        bundleRoute:
+          type: string
+          required: false
+        currentRate:
+          type: string
+          required: false
+        technology:
+          type: string
+          required: false
+        serviceType:
+          type: string
+          required: false
+        uen:
+          type: string
+          required: false
+        convergence:
+          type: object
+          properties:
+            isConvergent:
+              type: boolean
+              required: false
+            convergenceType:
+              type: string
+              required: false
+        serviceId:
+          type: string
+          required: false
+    creationUser:
+      type: string
+      required: false
+    modificationUser:
+      type: string
+      required: false
+    orderNumber:
+      type: string
+      required: false

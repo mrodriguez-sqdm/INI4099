@@ -1,0 +1,238 @@
+#%RAML 1.0 DataType 
+type: object
+properties:
+  code:
+    type: string
+    example: '200'
+    required: false
+  message:
+    type: string
+    example: Operacion exitosa
+    required: false
+  services:
+    type: array
+    items:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 68cc67ca9ebc2dfe3f3e9219
+          required: false
+        integrationId:
+          type: string
+          example: MDM-MOV-334270-1
+          required: false
+        bundles:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                example: 67ae00b47b67fb15505a610b
+                required: false
+              catalogId:
+                type: string
+                example: '6707'
+                required: false
+              name:
+                type: string
+                example: MOVIL MIXTO ILIMIGIGAS 11
+                required: false
+              primary:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 67ae01177b67fb15505a6116
+                      required: false
+                    primaryId:
+                      type: string
+                      example: '11111'
+                      required: false
+                    name:
+                      type: string
+                      example: LTE POSPAGO
+                      required: false
+                    secondary:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: 67ae01177b67fb15505a6119
+                            required: false
+                          secondaryId:
+                            type: string
+                            example: '21111200562'
+                            required: false
+                          name:
+                            type: string
+                            example: DATOS ILIMITADOS EN 3G4G
+                            required: false
+              optional:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: 6261bc507b67fb35d089d5fa
+                      required: false
+                    optionalId:
+                      type: string
+                      example: '5733'
+                      required: false
+                    name:
+                      type: string
+                      example: DATOS 20 GB
+                      required: false
+                    activationDate:
+                      type: object
+                      properties:
+                        date:
+                          type: datetime
+                          example: '2025-09-18T20:12:56.114Z'
+                          required: false
+        serviceCharacteristic:
+          type: array
+          items:
+            type: object
+            properties:
+              characteristic:
+                type: string
+                example: MigradoMVNE
+                required: false
+              value:
+                type: string
+                example: 'true'
+                required: false
+        productServiceCode:
+          type: string
+          example: '6707'
+          required: false
+        billingAccount:
+          type: string
+          example: '15052963132'
+          required: false
+        packaging:
+          type: string
+          example: LTE
+          required: false
+        status:
+          type: string
+          example: Activo
+          required: false
+        fraudStatus:
+          type: string
+          example: '0'
+          required: false
+        paymentStatus:
+          type: string
+          example: '0'
+          required: false
+        lossTheftStatus:
+          type: string
+          example: '0'
+          required: false
+        voluntaryStatus:
+          type: string
+          example: '0'
+          required: false
+        activationDate:
+          type: object
+          properties:
+            date:
+              type: datetime
+              example: '2025-09-18T20:12:58.027Z'
+              required: false
+        creationDate:
+          type: object
+          properties:
+            date:
+              type: datetime
+              example: '2025-09-18T20:12:58.027Z'
+              required: false
+        iccid:
+          type: string
+          example: '89571871250020434529'
+          required: false
+        imei:
+          type: string
+          example: ''
+          required: false
+        parentAssetId:
+          type: string
+          example: ''
+          required: false
+        rootAssetId:
+          type: string
+          example: ''
+          required: false
+        sourceSystemAssetId:
+          type: string
+          example: MDM-MOV-334270
+          required: false
+        relatedOrderId:
+          type: string
+          example: MDM-MOV-334270
+          required: false
+        serviceMode:
+          type: string
+          example: CONTROL
+          required: false
+        connectionNumber:
+          type: string
+          example: '3059202518'
+          required: false
+        identificationNumber:
+          type: string
+          example: '1001278455'
+          required: false
+        planOffer:
+          type: string
+          example: MOVIL MIXTO ILIMIGIGAS 11
+          required: false
+        country:
+          type: string
+          example: COLOMBIA
+          required: false
+        product:
+          type: string
+          example: TELEFONIA MOVIL (LTE)
+          required: false
+        sourceSystem:
+          type: string
+          example: MDM-MOV
+          required: false
+        technology:
+          type: string
+          example: LTE
+          required: false
+        documentType:
+          type: string
+          example: CC
+          required: false
+        lineType:
+          type: string
+          example: Postpago
+          required: false
+        productType:
+          type: string
+          example: RAIZ
+          required: false
+        createdByUser:
+          type: string
+          example: migurod4
+          required: false
+        offerValue:
+          type: string
+          example: '72900'
+          required: false
+        extractorUpdate:
+          type: string
+          example: '1'
+          required: false

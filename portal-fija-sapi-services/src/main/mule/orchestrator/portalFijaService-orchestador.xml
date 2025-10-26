@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="consultaPermanencia-orchestadorSub_Flow" doc:id="4a6c45d3-c463-4200-aecd-7a1238560f56" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Params Values" doc:id="0731e25c-fae1-454c-912e-dd56d034a4ad" variableName="parameters" />
+		<ee:transform doc:name="Transform Message" doc:id="4e840f30-debb-4e05-9714-a8d0f3f2b5d7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns lte http://PortalFijaWS.etb.com/lte
+
+var qp = vars.parameters
+---
+lte#consultaPermanencia: {
+    xmlString: "<![CDATA[" ++
+        write({
+            portalfija_data: {
+                clausula: {
+                    cuenta_padre: qp.cuentaPadre default "",
+                    integration_id: qp.integrationId default "",
+                    active_date: qp.activeDate default "",
+                    valor_penalidad: qp.valorPenalidad default ""
+                }
+            }
+        }, "application/xml")
+        ++ "]" ++ "]" ++ ">"
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="c22c1009-f540-4d18-9583-d5f055e5f3e9" name="portalFijaService-consultaPermanencia-clientSub_Flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="d076b43d-79fc-4f37-928b-b4b0ddc067e6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+ns ns2 http://PortalFijaWS.etb.com/lte
+
+var rawXml = read(payload.body.ns2#consultaPermanenciaResponse.ns2#return, "application/xml")
+var data = rawXml.replies.reply.response.portalfija_data
+---
+{
+    clausula: {
+        cuenta_padre: data.clausula.cuenta_padre default "",
+        integration_id: data.clausula.integration_id default "",
+        Internet: {
+            CargoInicial: data.clausula.Internet.CargoInicial default "",
+            SaldoActual: data.clausula.Internet.SaldoActual default "",
+            CuotasInicial: data.clausula.Internet.CuotasInicial default "",
+            CuotasActual: data.clausula.Internet.CuotasActual default "",
+            fecha_inicio: data.clausula.Internet.fecha_inicio default "",
+            fecha_fin: data.clausula.Internet.fecha_fin default ""
+        },
+        valor_penalidad: data.clausula.Internet.SaldoActual default ""
+    },
+    resultado: data.resultado default "",
+    descError: data.descError default ""
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	
+	<sub-flow name="consultaPermanencia-orchestadorSub_Flow2" doc:id="1c557598-83fc-4003-a998-836057b20f2e">
+    <set-variable value="#[attributes.queryParams]" variableName="parameters"/>
+    <ee:transform doc:name="Transform Message" doc:id="cc0d678e-9f33-44a9-a681-7101f0a1cfa6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output text/plain
+ns soapenv http://schemas.xmlsoap.org/soap/envelope/
+ns lte http://PortalFijaWS.etb.com/lte
+
+var qp = vars.parameters
+---
+write(
+    {
+        soapenv#Envelope: {
+            soapenv#Header: {},
+            soapenv#Body: {
+                lte#consultaPermanencia: {
+                    xmlString: "<![CDATA[" ++
+                        write(
+                            {
+                                portalfija_data: {
+                                    clausula: {
+                                        cuenta_padre: qp.cuentaPadre default "",
+                                        integration_id: qp.integrationId default "",
+                                        active_date: qp.activeDate default "",
+                                        valor_penalidad: qp.valorPenalidad default ""
+                                    }
+                                }
+                            },
+                            "application/xml",
+                            { writeDeclaration: false, indent: false }
+                        )
+                        ++ "]]" ++ ">"
+                }
+            }
+        }
+    },
+    "application/xml",
+    { writeDeclaration: false, indent: false }
+)
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="87c44db6-eae9-487d-9b47-77315d100898" name="portalFijaService-consultaPermanencia-clientSub_Flow" />
+		<ee:transform>
+        <ee:message>
+            <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+
+var returnNode = payload.body.*consultaPermanenciaResponse.*return default ""
+var rawXml = if (isEmpty(returnNode)) "" else read(returnNode, "application/xml")
+var data = if (isEmpty(rawXml)) {} else rawXml.replies.reply.response.portalfija_data
+---
+{
+    clausula: {
+        cuenta_padre: data.clausula.cuenta_padre default "",
+        integration_id: data.clausula.integration_id default "",
+        Internet: {
+            CargoInicial: data.clausula.Internet.CargoInicial default "",
+            SaldoActual: data.clausula.Internet.SaldoActual default "",
+            CuotasInicial: data.clausula.Internet.CuotasInicial default "",
+            CuotasActual: data.clausula.Internet.CuotasActual default "",
+            fecha_inicio: data.clausula.Internet.fecha_inicio default "",
+            fecha_fin: data.clausula.Internet.fecha_fin default ""
+        },
+        valor_penalidad: data.clausula.Internet.SaldoActual default ""
+    },
+    resultado: data.resultado default "",
+    descError: data.descError default ""
+}
+]]></ee:set-payload>
+        </ee:message>
+    </ee:transform>
+
+</sub-flow>
+	
+	</mule>

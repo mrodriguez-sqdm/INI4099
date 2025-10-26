@@ -1,0 +1,792 @@
+[
+  {
+    "id": "string",
+    "extractorUpdate": "string",
+    "assignment": {
+      "assignments": [
+        {
+          "date": "2022-05-12T19:21:55.190Z",
+          "level": 0,
+          "user": "string"
+        },
+        {
+          "date": "2022-05-12T19:21:55.190Z",
+          "level": 0,
+          "user": "string"
+        }
+      ],
+      "assignedUser": "string"
+    },
+    "retentionCustomer": {
+      "city": "string",
+      "department": "ABCD",
+      "address": "string",
+      "addresses": [
+        {
+          "coverage": {},
+          "daneCode": "string",
+          "departmentCode": "string",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": true,
+          "daneCode": "string",
+          "departmentCode": "string",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "string",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": false,
+          "daneCode": "ABCD",
+          "departmentCode": "string",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "string",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": {},
+          "daneCode": "ABCD",
+          "departmentCode": "string",
+          "addressCode": "string",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "",
+          "selected": true,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": 0,
+          "daneCode": "string",
+          "departmentCode": "string",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "string",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": 0.0,
+          "daneCode": "string",
+          "departmentCode": "string",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "string",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": "string",
+          "daneCode": "",
+          "departmentCode": "ABCD",
+          "addressCode": "",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "string",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "string",
+          "selected": true,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        },
+        {
+          "coverage": true,
+          "daneCode": "",
+          "departmentCode": "string",
+          "addressCode": "ABCD",
+          "municipalityCode": "string",
+          "countryCode": "string",
+          "department": "string",
+          "normalizedAddress": "string",
+          "status": "",
+          "addressId": 0,
+          "municipality": "string",
+          "addressName": "",
+          "selected": false,
+          "addressType": "string",
+          "availableCoverages": "",
+          "usageCode": "string",
+          "distanceType": "string"
+        }
+      ],
+      "email": "string",
+      "names": "string",
+      "documentNumber": "string",
+      "landlinePhoneNumber": "string",
+      "mobilePhoneNumber": "ABCDEFG",
+      "documentType": "string",
+      "uen": "ABCDEF",
+      "segmentoUEN": "ABCDE"
+    },
+    "retentionStatus": {
+      "code": 0,
+      "description": "string",
+      "updateDate": "2022-05-12T19:21:55.190Z",
+      "creationDate": "2022-05-12T19:21:55.190Z",
+      "observations": "string",
+      "user": "string",
+      "closureDate": "2022-05-12T19:21:55.190Z"
+    },
+    "creationDate": "2022-05-12T19:21:55.190Z",
+    "modificationDate": "2022-05-12T19:21:55.190Z",
+    "level": 0,
+    "retentionNumber": "ABCDEFG",
+    "retention": {
+      "retentionCharacteristics": [
+        {
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "key": "string",
+          "value": "string"
+        },
+        {
+          "key": "string",
+          "value": "string"
+        }
+      ],
+      "classifications": [],
+      "reason": 0,
+      "reasonDescription": "string",
+      "steps": [
+        {
+          "actions": {
+            "levels": []
+          },
+          "retentionActions": [
+            {
+              "id": "string",
+              "extractorUpdate": "",
+              "class": 0,
+              "classification": 0,
+              "actionData": [
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                }
+              ],
+              "description": "string",
+              "creationDate": "2022-05-12T19:21:55.190Z",
+              "modificationDate": "2022-05-12T19:21:55.190Z",
+              "actionId": 0,
+              "levels": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "name": "string",
+              "type": 0,
+              "creationUser": "",
+              "modificationUser": ""
+            }
+          ],
+          "description": "string",
+          "status": {
+            "code": 0,
+            "description": "string",
+            "actionDate": "2022-05-12T19:21:55.190Z",
+            "stepDate": "2022-05-12T19:21:55.190Z",
+            "observations": "string",
+            "user": "string",
+            "history": [
+              {
+                "code": 0,
+                "description": "string",
+                "actionDate": "2022-05-12T19:21:55.190Z",
+                "stepDate": "2022-05-12T19:21:55.190Z",
+                "observations": "string",
+                "user": "string"
+              },
+              {
+                "code": 0,
+                "description": "string",
+                "actionDate": "2022-05-12T19:21:55.190Z",
+                "stepDate": "2022-05-12T19:21:55.190Z",
+                "observations": "string",
+                "user": "string"
+              },
+              {
+                "code": 0,
+                "description": "string",
+                "actionDate": "2022-05-12T19:21:55.190Z",
+                "stepDate": "2022-05-12T19:21:55.190Z",
+                "observations": "string",
+                "user": "string"
+              }
+            ]
+          },
+          "stepId": 0,
+          "levels": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "name": "string",
+          "sequence": 0,
+          "type": 0,
+          "creationUser": "string",
+          "modificationUser": "string"
+        },
+        {
+          "actions": {
+            "action": 0,
+            "classification": 0,
+            "levels": [
+              0,
+              0
+            ]
+          },
+          "retentionActions": [
+            {
+              "id": "string",
+              "extractorUpdate": "",
+              "class": 0,
+              "classification": 0,
+              "actionData": [
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "ABCD",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                }
+              ],
+              "description": "string",
+              "creationDate": "2022-05-12T19:21:55.190Z",
+              "modificationDate": "2022-05-12T19:21:55.190Z",
+              "actionId": 0,
+              "levels": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "name": "string",
+              "type": 0,
+              "creationUser": "",
+              "modificationUser": ""
+            },
+            {
+              "id": "string",
+              "extractorUpdate": "",
+              "class": 0,
+              "classification": 0,
+              "actionData": [
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "ABCD",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                }
+              ],
+              "description": "string",
+              "creationDate": "2022-05-12T19:21:55.190Z",
+              "modificationDate": "2022-05-12T19:21:55.190Z",
+              "actionId": 0,
+              "levels": [
+                0,
+                0
+              ],
+              "name": "string",
+              "type": 0,
+              "creationUser": "",
+              "modificationUser": ""
+            },
+            {
+              "id": "string",
+              "extractorUpdate": "2022-05-12T19:21:55.190Z",
+              "class": 0,
+              "classification": 0,
+              "actionData": [
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "string",
+                  "name": "string"
+                }
+              ],
+              "description": "string",
+              "creationDate": "2022-05-12T19:21:55.190Z",
+              "modificationDate": "2022-05-12T19:21:55.190Z",
+              "actionId": 0,
+              "levels": [],
+              "name": "string",
+              "type": 0,
+              "creationUser": "",
+              "modificationUser": ""
+            },
+            {
+              "id": "string",
+              "extractorUpdate": "",
+              "class": 0,
+              "classification": 0,
+              "actionData": [
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "string"
+                },
+                {
+                  "code": "string",
+                  "description": "",
+                  "name": "ABCD"
+                }
+              ],
+              "description": "string",
+              "creationDate": "2022-05-12T19:21:55.190Z",
+              "modificationDate": "2022-05-12T19:21:55.190Z",
+              "actionId": 0,
+              "levels": [
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              "name": "string",
+              "type": 0,
+              "creationUser": "",
+              "modificationUser": ""
+            }
+          ],
+          "description": "string",
+          "status": {
+            "code": 0,
+            "description": "string",
+            "actionDate": "2022-05-12T19:21:55.190Z",
+            "stepDate": "2022-05-12T19:21:55.190Z",
+            "observations": "string",
+            "user": "string",
+            "history": [
+              {
+                "code": 0,
+                "description": "string",
+                "actionDate": "2022-05-12T19:21:55.190Z",
+                "stepDate": "2022-05-12T19:21:55.190Z",
+                "observations": "string",
+                "user": "string"
+              }
+            ]
+          },
+          "stepId": 0,
+          "levels": [],
+          "name": "string",
+          "sequence": 0,
+          "type": 0,
+          "creationUser": "string",
+          "modificationUser": "string"
+        }
+      ],
+      "subReason": 0,
+      "subReasonDescription": "string",
+      "typifications": []
+    },
+    "retentionService": {
+      "installationNeighborhood": "string",
+      "churnQualification": 0,
+      "installationCity": "string",
+      "cityCode": "string",
+      "departmentCode": "",
+      "billingAccount": "ABCDEFGH",
+      "installationDepartment": "string",
+      "installationAddress": "string",
+      "status": "string",
+      "statuses": [
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "ABCDE"
+        },
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "string"
+        },
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "string"
+        },
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "string"
+        },
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "string"
+        },
+        {
+          "description": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "reconnectionDate": "2022-05-12T19:21:55.190Z",
+          "type": "string"
+        }
+      ],
+      "installationStratum": "string",
+      "serviceStartDate": "2022-05-12T19:21:55.190Z",
+      "serviceAccountId": "string",
+      "integrationId": "string",
+      "installationLocality": "string",
+      "markers": {
+        "seniority": false,
+        "retentionBenefit": true,
+        "expirationBenefit": [],
+        "temporarySuspensionCount": 0,
+        "controlAccount": true,
+        "duo": false,
+        "lte": false,
+        "months": 0,
+        "retentionPlan": true,
+        "single": false,
+        "originSystem": "ABCDEFG",
+        "trio": true,
+        "integrationId": "string",
+        "monthsOfPermanenceClause": 0,
+        "groupingNumber": 0,
+        "speed": 0
+      },
+      "connectionNumber": "string",
+      "installationCountry": "ABCD",
+      "promotions": [
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "ABCD",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "ABCD",
+          "status": "",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        },
+        {
+          "id": "string",
+          "attachments": [],
+          "agreementCode": "string",
+          "description": "string",
+          "status": "string",
+          "date": "2022-05-12T19:21:55.190Z",
+          "endDate": "2022-05-12T19:21:55.190Z",
+          "startDate": "2022-05-12T19:21:55.190Z",
+          "benefitId": "string",
+          "name": "string",
+          "configurationCode": "string",
+          "promotionTypeId": 0,
+          "groupingNumber": 0
+        }
+      ],
+      "bundleRoute": "string",
+      "currentRate": "string",
+      "technology": "string",
+      "serviceType": "string",
+      "uen": "string",
+      "convergence": {
+        "isConvergent": true,
+        "convergenceType": "string"
+      },
+      "serviceId": "ABCDEF"
+    },
+    "creationUser": "string",
+    "modificationUser": "string",
+    "orderNumber": "string"
+  }
+]

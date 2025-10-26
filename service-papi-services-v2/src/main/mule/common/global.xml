@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	    <http:listener-config name="service-papi-services-v2-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${http.private.port}" />
+    </http:listener-config>	
+    <apikit:config name="service-papi-services-v2-config" api="service-papi-services-v2.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <http:request-config name="HTTP_Request_configuration_mongo-db-sapi" doc:name="HTTP Request configuration" doc:id="d4a69eec-9bd1-4ac4-a732-c2e346dfd049" basePath="${mongo-db-sapi.base-path}" responseTimeout="${configurationTimeout.bot-sapi}">
+		<http:request-connection protocol="${mongo-db-sapi.protocol}" host="${mongo-db-sapi.host}" port="${mongo-db-sapi.port}" />
+	</http:request-config>
+	<import doc:name="Import" doc:id="fc570983-bc37-455d-8038-110da1a128c2" file="error-handler.xml" />
+	<import doc:name="Import" doc:id="fc6ec8c3-63e5-429b-8310-05cc33ecb76f" file="etb-common-lib.xml" />
+	<import doc:name="Import" doc:id="9b4c94f2-c5cc-44e2-95f2-49ec1565ff72" file="loggin.xml" /> 
+	<import doc:name="Import" doc:id="fab0a017-bf35-43ce-80d2-524c8d9e8ad1" file="audits-sapi-client.xml" />
+	<configuration-properties doc:name="Configuration properties" doc:id="e555f0df-8b36-4816-a9ab-5db3c945e18c" file="${env}-properties.yaml" />
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="ac11eeae-d46d-405e-bfc0-d5ce88651043" flowRef="service-papi-services-v2-main" />
+</mule>
