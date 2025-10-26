@@ -7,15 +7,17 @@ properties:
     required: false
   Asignacion:
     type: object
+    required: false
     properties:
       Asignaciones:
         type: array
+        required: false
         items:
           type: object
           properties:
             Fecha:
-              type: string
-              example: ''
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             Nivel:
               type: integer
@@ -31,6 +33,7 @@ properties:
         required: false
   Cliente_Retencion:
     type: object
+    required: false
     properties:
       Ciudad:
         type: string
@@ -46,6 +49,7 @@ properties:
         required: false
       Direcciones:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -150,6 +154,7 @@ properties:
         required: false
   Estado_Retencion:
     type: object
+    required: false
     properties:
       Codigo:
         type: integer
@@ -160,12 +165,12 @@ properties:
         example: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
         required: false
       Fecha_Actualizacion:
-        type: string
-        example: ABCDEFGHIJKLMNOPQRST
+        type: datetime
+        example: '2024-10-26T12:00:00Z'
         required: false
       Fecha_Creacion:
-        type: string
-        example: ABCDEFGHIJ
+        type: datetime
+        example: '2024-10-26T12:00:00Z'
         required: false
       Observaciones:
         type: string
@@ -176,16 +181,16 @@ properties:
         example: ABCDEFGHI
         required: false
       Fecha_Cierre:
-        type: string
-        example: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+        type: datetime
+        example: '2024-10-26T12:00:00Z'
         required: false
   Fecha_Creacion:
-    type: string
-    example: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
+    type: datetime
+    example: '2024-10-26T12:00:00Z'
     required: false
   Fecha_Modificacion:
-    type: string
-    example: ABCDEFGHIJKLMNOPQRSTUVWXY
+    type: datetime
+    example: '2024-10-26T12:00:00Z'
     required: false
   Nivel:
     type: integer
@@ -197,9 +202,11 @@ properties:
     required: false
   Retencion:
     type: object
+    required: false
     properties:
       Caracteristicas_Retencion:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -212,6 +219,7 @@ properties:
               example: ABCDEFGHIJKLMNOPQR
               required: false
       Clasificaciones:
+        required: false
         type: array
       Motivo:
         type: integer
@@ -223,6 +231,7 @@ properties:
         required: false
       Pasos:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -231,6 +240,7 @@ properties:
               items: {}
             AccionesRetencion:
               type: array
+              required: false
               items:
                 type: object
                 properties:
@@ -248,6 +258,7 @@ properties:
                     required: false
                   DatosAccion:
                     type: array
+                    required: false
                     items:
                       type: object
                       properties:
@@ -268,12 +279,12 @@ properties:
                     example: ABCDEFGHIJKLMNOPQR
                     required: false
                   Fecha_Creacion:
-                    type: string
-                    example: ''
+                    type: datetime
+                    example: '2024-10-26T12:00:00Z'
                     required: false
                   Fecha_Modificacion:
-                    type: string
-                    example: ''
+                    type: datetime
+                    example: '2024-10-26T12:00:00Z'
                     required: false
                   Id_Accion:
                     type: integer
@@ -281,6 +292,7 @@ properties:
                     required: false
                   Niveles:
                     type: array
+                    required: false
                     items:
                       type: integer
                   Nombre:
@@ -305,6 +317,7 @@ properties:
               required: false
             Estado:
               type: object
+              required: false
               properties:
                 Codigo:
                   type: integer
@@ -315,12 +328,12 @@ properties:
                   example: ABCDEFGHIJKLMNOPQ
                   required: false
                 Fecha_Accion:
-                  type: string
-                  example: ABCDEFGHIJKLMNOPQR
+                  type: datetime
+                  example: '2024-10-26T12:00:00Z'
                   required: false
                 Fecha_Paso:
-                  type: string
-                  example: ABCDEFGHIJKLMNOPQRSTUVWXY
+                  type: datetime
+                  example: '2024-10-26T12:00:00Z'
                   required: false
                 Observaciones:
                   type: string
@@ -332,6 +345,7 @@ properties:
                   required: false
                 Historico:
                   type: array
+                  required: false
                   items:
                     type: object
                     properties:
@@ -344,12 +358,12 @@ properties:
                         example: ABCDEFGHIJKLMNOPQRSTUVWXYZABC
                         required: false
                       Fecha_Accion:
-                        type: string
-                        example: ABCDEFGHIJKLMNOPQRSTU
+                        type: datetime
+                        example: '2024-10-26T12:00:00Z'
                         required: false
                       Fecha_Paso:
-                        type: string
-                        example: ABCDEF
+                        type: datetime
+                        example: '2024-10-26T12:00:00Z'
                         required: false
                       Observaciones:
                         type: string
@@ -396,9 +410,11 @@ properties:
         example: ABCDEFGHIJKLMNOPQRSTUVWXY
         required: false
       Tipificaciones:
+        required: false
         type: array
   Servicio_Retencion:
     type: object
+    required: false
     properties:
       BarrioInstalacion:
         type: string
@@ -438,6 +454,7 @@ properties:
         required: false
       Estados:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -446,12 +463,12 @@ properties:
               example: ABCDEFGHIJKLMNOPQ
               required: false
             Fecha:
-              type: string
-              example: ABCDEFGHIJ
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             FechaReconexion:
-              type: string
-              example: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             Tipo:
               type: string
@@ -462,8 +479,8 @@ properties:
         example: ABCDEFGHIJKL
         required: false
       Fecha_Inicio_Servicio:
-        type: string
-        example: ABCDEFGHIJKLMNOPQRS
+        type: datetime
+        example: '2024-10-26T12:00:00Z'
         required: false
       Id_Cuenta_Servicio:
         type: string
@@ -479,6 +496,7 @@ properties:
         required: false
       Marcas:
         type: object
+        required: false
         properties:
           Antiguedad:
             type: boolean
@@ -553,6 +571,7 @@ properties:
         required: false
       Promociones:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -578,16 +597,16 @@ properties:
               example: ''
               required: false
             Fecha:
-              type: string
-              example: ''
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             FechaFinal:
-              type: string
-              example: ABCDEFGHI
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             FechaInicial:
-              type: string
-              example: ABCDEFGHIJKLMNOPQ
+              type: datetime
+              example: '2024-10-26T12:00:00Z'
               required: false
             IdBeneficio:
               type: string
@@ -631,6 +650,7 @@ properties:
         required: false
       Convergencia:
         type: object
+        required: false
         properties:
           EsConvergente:
             type: boolean

@@ -16,5 +16,37 @@ output application/json
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="Flow Reference" doc:id="601ee5e1-f4d6-4a33-8023-c39c71f1d3ee" name="post-retention-create-clientSub_Flow"/>
+		<ee:transform doc:name="Set payload Response" doc:id="047285ad-206f-4c3c-8695-77b8198cd52f" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codigo: "200",
+	mensaje: "Retencion creada con exito",
+	numeroRetencion: payload.Numero_Retencion
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="retention-orchestratorSub_Flow" doc:id="cf2055b5-f218-439b-8abd-751b5de90b70" >
+		<flow-ref doc:name="Flow Reference" doc:id="60d1e2c5-a091-4e7c-9a58-f93d8045fa73" name="patch-retention-update-clientSub_Flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="1a2b066f-966a-4c95-a00d-1adbcd489167" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+---
+{
+	codigo: if(payload.matched == 0) "404" else "200",
+	mensaje: if(payload.matched == 0) 
+	           "No se encontro una retencion creada con el valor enviado" 
+	         else if(payload.modified == 0)
+	           "No se realizo ninguna modificacion"
+	         else
+	           "Operacion realizada correctamente" 
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
 	</sub-flow>
 </mule>

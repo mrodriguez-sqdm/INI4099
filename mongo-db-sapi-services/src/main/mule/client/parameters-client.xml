@@ -124,7 +124,7 @@ output application/json
 				<mongo:query><![CDATA[#[%dw 2.0
 output application/json
 ---
-{ "Tipo_Parametro": attributes.queryParams.parameterType }]]]></mongo:query>
+{ "Tipo_Parametro": (attributes.queryParams.parameterType as Number) }]]]></mongo:query>
 				<mongo:sort-by><![CDATA[#[%dw 2.0
 output application/json
 ---

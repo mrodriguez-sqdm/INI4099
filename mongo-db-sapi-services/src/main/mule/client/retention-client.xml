@@ -69,6 +69,34 @@ output application/json
 			</error-handler>
 		</try>
 	</sub-flow>
+	<sub-flow name="patch-retention-update-clientSub_Flow" doc:id="2fcda881-2531-4688-b17f-d0c5988ba374" >
+		<try doc:name="Try" doc:id="f2a1bbff-e7ca-4e55-80d1-7ac6b7b51883" >
+			<mongo:update-documents doc:name="Update documents" doc:id="56bbbb9f-6d0a-432b-b161-4b7e957ff7aa" config-ref="mdm_db_Config" collectionName="${mongoDb-mdm.retenciones.collection-retencion}">
+				<mongo:query ><![CDATA[#[%dw 2.0
+output application/json
+---
+{
+ "Numero_Retencion": payload.Numero_Retencion
+}]]]></mongo:query>
+			</mongo:update-documents>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="57db0448-13df-4945-ac5a-0a0f4c21d654" type="ANY" >
+					<ee:transform doc:name="Set Response Fail Body" doc:id="9ea19da5-fd68-4cc9-9421-fae3680601b9" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codigo: "500",
+	mensaje: error.description
+}]]></ee:set-payload>
+						</ee:message>
+					</ee:transform>
+					<set-variable value="500" doc:name="Set http status code" doc:id="684290a5-3732-4d50-bd86-1b4aa9943606" variableName="httpStatus" />
+				</on-error-continue>
+			</error-handler>
+		</try>
+	</sub-flow>
 	
 	
 	
