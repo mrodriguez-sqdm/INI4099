@@ -25,5 +25,5 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 	<import doc:name="Import" doc:id="9060bfe4-a45c-4d7a-a2f9-1a91957849b5" file="loggin.xml" /> 
 	<import doc:name="Import" doc:id="2dda70ac-c687-41b0-bae7-bbefcf52c581" file="audits-sapi-client.xml" />
 	<configuration-properties doc:name="Configuration properties" doc:id="cb9bc0a5-fb03-4b35-9f98-5d1cf31dd592" file="${env}-properties.yaml" />
-	<!--  <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="adb9e1e6-5a1f-4787-8e97-461c5e7588c2" flowRef="business-xapi-services-main" />-->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="adb9e1e6-5a1f-4787-8e97-461c5e7588c2" flowRef="business-xapi-services-main" />
 </mule>

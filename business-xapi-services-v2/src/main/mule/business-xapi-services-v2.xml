@@ -10,7 +10,12 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <apikit:router config-ref="business-xapi-services-config" />
+        <flow-ref doc:name="Call initial Logger" doc:id="a7f232fa-b352-425b-9077-a015c63d0a0d" name="initial-loggin-Sub_Flow" />
+		<apikit:router config-ref="business-xapi-services-config" />
+		<async doc:name="Async" doc:id="16ee4743-5e23-483f-a3f2-5c11f1c79597" >
+			<flow-ref doc:name="Call logger" doc:id="998e6969-a309-42c8-a6e6-9b4f484396e8" name="loggin-client-call" />
+		</async>
+		<error-handler ref="error-handlerError_Handler" />
     
 </flow>
     <flow name="business-xapi-services-console">

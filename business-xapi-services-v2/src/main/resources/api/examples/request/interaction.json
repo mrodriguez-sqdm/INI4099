@@ -1,792 +1,259 @@
-[
-  {
-    "id": "string",
-    "extractorUpdate": "string",
-    "assignment": {
-      "assignments": [
-        {
-          "date": "string",
-          "level": 0,
-          "user": "string"
+{
+  "id": "RET-2025-0001",
+  "extractorUpdate": "2025-10-26T18:45:10.000Z",
+  "assignment": {
+    "assignments": [
+      {
+        "date": "2025-10-25T09:30:00.000Z",
+        "level": 1,
+        "user": "jrodriguez"
+      },
+      {
+        "date": "2025-10-26T08:15:00.000Z",
+        "level": 2,
+        "user": "mluna"
+      }
+    ],
+    "assignedUser": "mramirez"
+  },
+  "retentionCustomer": {
+    "city": "Bogotá",
+    "department": "Cundinamarca",
+    "address": "Calle 93 #15-45",
+    "addresses": [
+      {
+        "coverage": {
+          "fiber": true
         },
-        {
-          "date": "string",
-          "level": 0,
-          "user": "string"
-        }
-      ],
-      "assignedUser": "string"
-    },
-    "retentionCustomer": {
-      "city": "string",
-      "department": "ABCD",
-      "address": "string",
-      "addresses": [
-        {
-          "coverage": {},
-          "daneCode": "string",
-          "departmentCode": "string",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
+        "daneCode": "11001",
+        "departmentCode": "11",
+        "addressCode": "AD123",
+        "municipalityCode": "001",
+        "countryCode": "CO",
+        "department": "Cundinamarca",
+        "normalizedAddress": "Calle 93 #15-45, Bogotá",
+        "status": "ACTIVE",
+        "addressId": 1,
+        "municipality": "Bogotá",
+        "addressName": "Principal",
+        "selected": true,
+        "addressType": "Residencial",
+        "availableCoverages": "FTTH, LTE",
+        "usageCode": "RES",
+        "distanceType": "URBANO"
+      },
+      {
+        "coverage": {
+          "fiber": true
         },
-        {
-          "coverage": true,
-          "daneCode": "string",
-          "departmentCode": "string",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "string",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": false,
-          "daneCode": "ABCD",
-          "departmentCode": "string",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "string",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": {},
-          "daneCode": "ABCD",
-          "departmentCode": "string",
-          "addressCode": "string",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "",
-          "selected": true,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": 0,
-          "daneCode": "string",
-          "departmentCode": "string",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "string",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": 0.0,
-          "daneCode": "string",
-          "departmentCode": "string",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "string",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": "string",
-          "daneCode": "",
-          "departmentCode": "ABCD",
-          "addressCode": "",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "string",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "string",
-          "selected": true,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        },
-        {
-          "coverage": true,
-          "daneCode": "",
-          "departmentCode": "string",
-          "addressCode": "ABCD",
-          "municipalityCode": "string",
-          "countryCode": "string",
-          "department": "string",
-          "normalizedAddress": "string",
-          "status": "",
-          "addressId": 0,
-          "municipality": "string",
-          "addressName": "",
-          "selected": false,
-          "addressType": "string",
-          "availableCoverages": "",
-          "usageCode": "string",
-          "distanceType": "string"
-        }
-      ],
-      "email": "string",
-      "names": "string",
-      "documentNumber": "string",
-      "landlinePhoneNumber": "string",
-      "mobilePhoneNumber": "ABCDEFG",
-      "documentType": "string",
-      "uen": "ABCDEF",
-      "segmentoUEN": "ABCDE"
-    },
-    "retentionStatus": {
-      "code": 0,
-      "description": "string",
-      "updateDate": "string",
-      "creationDate": "string",
-      "observations": "string",
-      "user": "string",
-      "closureDate": "string"
-    },
-    "creationDate": "string",
-    "modificationDate": "string",
-    "level": 0,
-    "retentionNumber": "ABCDEFG",
-    "retention": {
-      "retentionCharacteristics": [
-        {
-          "key": "string",
-          "value": "string"
-        },
-        {
-          "key": "string",
-          "value": "string"
-        },
-        {
-          "key": "string",
-          "value": "string"
-        },
-        {
-          "key": "string",
-          "value": "string"
-        },
-        {
-          "key": "string",
-          "value": "string"
-        }
-      ],
-      "classifications": [],
-      "reason": 0,
-      "reasonDescription": "string",
-      "steps": [
-        {
-          "actions": {
-            "levels": []
-          },
-          "retentionActions": [
-            {
-              "id": "string",
-              "extractorUpdate": "",
-              "class": 0,
-              "classification": 0,
-              "actionData": [
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                }
-              ],
-              "description": "string",
-              "creationDate": "",
-              "modificationDate": "",
-              "actionId": 0,
-              "levels": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "name": "string",
-              "type": 0,
-              "creationUser": "",
-              "modificationUser": ""
-            }
-          ],
-          "description": "string",
-          "status": {
-            "code": 0,
-            "description": "string",
-            "actionDate": "string",
-            "stepDate": "string",
-            "observations": "string",
-            "user": "string",
-            "history": [
+        "daneCode": "11001",
+        "departmentCode": "11",
+        "addressCode": "AD124",
+        "municipalityCode": "001",
+        "countryCode": "CO",
+        "department": "Cundinamarca",
+        "normalizedAddress": "Carrera 15 #90-10, Bogotá",
+        "status": "INACTIVE",
+        "addressId": 2,
+        "municipality": "Bogotá",
+        "addressName": "Oficina",
+        "selected": false,
+        "addressType": "Comercial",
+        "availableCoverages": "FTTC",
+        "usageCode": "COM",
+        "distanceType": "URBANO"
+      }
+    ],
+    "email": "cliente.etb@example.com",
+    "names": "Carlos Pérez",
+    "documentNumber": "1020304050",
+    "landlinePhoneNumber": "6013456789",
+    "mobilePhoneNumber": "3004567890",
+    "documentType": "CC",
+    "uen": "HOGARES",
+    "segmentoUEN": "MASIVO"
+  },
+  "retentionStatus": {
+    "code": 200,
+    "description": "Caso en análisis",
+    "updateDate": "2025-10-26T17:00:00.000Z",
+    "creationDate": "2025-10-25T08:00:00.000Z",
+    "observations": "Cliente solicita revisión de plan actual",
+    "user": "jrodriguez",
+    "closureDate": "2025-10-27T18:00:00.000Z"
+  },
+  "creationDate": "2025-10-25T07:00:00.000Z",
+  "modificationDate": "2025-10-26T17:00:00.000Z",
+  "level": 2,
+  "retentionNumber": "RET-000567",
+  "retention": {
+    "retentionCharacteristics": [
+      {
+        "key": "Motivo",
+        "value": "Alto costo mensual"
+      },
+      {
+        "key": "Antigüedad",
+        "value": "3 años"
+      },
+      {
+        "key": "TipoServicio",
+        "value": "Internet 200Mb"
+      },
+      {
+        "key": "ContactoPreferido",
+        "value": "Email"
+      },
+      {
+        "key": "PromociónActual",
+        "value": "Descuento 15%"
+      }
+    ],
+    "classifications": [],
+    "reason": 101,
+    "reasonDescription": "Cliente considera cambiar de proveedor",
+    "steps": [
+      {
+        "actions": ["1", "2"],
+        "retentionActions": [
+          {
+            "id": "ACT-001",
+            "extractorUpdate": "2025-10-25T10:00:00.000Z",
+            "class": 1,
+            "classification": 10,
+            "actionData": [
               {
-                "code": 0,
-                "description": "string",
-                "actionDate": "string",
-                "stepDate": "string",
-                "observations": "string",
-                "user": "string"
+                "code": "OF-001",
+                "description": "Oferta descuento 20%",
+                "name": "Retención 20%"
               },
               {
-                "code": 0,
-                "description": "string",
-                "actionDate": "string",
-                "stepDate": "string",
-                "observations": "string",
-                "user": "string"
-              },
-              {
-                "code": 0,
-                "description": "string",
-                "actionDate": "string",
-                "stepDate": "string",
-                "observations": "string",
-                "user": "string"
+                "code": "LL-001",
+                "description": "Llamada de seguimiento",
+                "name": "Contacto"
               }
-            ]
-          },
-          "stepId": 0,
-          "levels": [
-            0,
-            0,
-            0,
-            0
-          ],
-          "name": "string",
-          "sequence": 0,
-          "type": 0,
-          "creationUser": "string",
-          "modificationUser": "string"
-        },
-        {
-          "actions": {
-            "action": 0,
-            "classification": 0,
-            "levels": [
-              0,
-              0
-            ]
-          },
-          "retentionActions": [
+            ],
+            "description": "Ofrecer plan con descuento para evitar cancelación",
+            "creationDate": "2025-10-25T10:00:00.000Z",
+            "modificationDate": "2025-10-26T09:00:00.000Z",
+            "actionId": 101,
+            "levels": [1],
+            "name": "Ofrecer descuento",
+            "type": 1,
+            "creationUser": "mluna",
+            "modificationUser": "mramirez"
+          }
+        ],
+        "description": "Primer contacto con cliente",
+        "status": {
+          "code": 1,
+          "description": "Pendiente de respuesta",
+          "actionDate": "2025-10-26T09:00:00.000Z",
+          "stepDate": "2025-10-26T09:00:00.000Z",
+          "observations": "Cliente solicitó más información",
+          "user": "mluna",
+          "history": [
             {
-              "id": "string",
-              "extractorUpdate": "",
-              "class": 0,
-              "classification": 0,
-              "actionData": [
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "ABCD",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                }
-              ],
-              "description": "string",
-              "creationDate": "",
-              "modificationDate": "",
-              "actionId": 0,
-              "levels": [
-                0,
-                0,
-                0,
-                0
-              ],
-              "name": "string",
-              "type": 0,
-              "creationUser": "",
-              "modificationUser": ""
-            },
-            {
-              "id": "string",
-              "extractorUpdate": "",
-              "class": 0,
-              "classification": 0,
-              "actionData": [
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "ABCD",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                }
-              ],
-              "description": "string",
-              "creationDate": "",
-              "modificationDate": "",
-              "actionId": 0,
-              "levels": [
-                0,
-                0
-              ],
-              "name": "string",
-              "type": 0,
-              "creationUser": "",
-              "modificationUser": ""
-            },
-            {
-              "id": "string",
-              "extractorUpdate": "",
-              "class": 0,
-              "classification": 0,
-              "actionData": [
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "string",
-                  "name": "string"
-                }
-              ],
-              "description": "string",
-              "creationDate": "",
-              "modificationDate": "",
-              "actionId": 0,
-              "levels": [],
-              "name": "string",
-              "type": 0,
-              "creationUser": "",
-              "modificationUser": ""
-            },
-            {
-              "id": "string",
-              "extractorUpdate": "",
-              "class": 0,
-              "classification": 0,
-              "actionData": [
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "string"
-                },
-                {
-                  "code": "string",
-                  "description": "",
-                  "name": "ABCD"
-                }
-              ],
-              "description": "string",
-              "creationDate": "",
-              "modificationDate": "",
-              "actionId": 0,
-              "levels": [
-                0,
-                0,
-                0,
-                0,
-                0
-              ],
-              "name": "string",
-              "type": 0,
-              "creationUser": "",
-              "modificationUser": ""
+              "code": 0,
+              "description": "Inicio del caso",
+              "actionDate": "2025-10-25T08:00:00.000Z",
+              "stepDate": "2025-10-25T08:00:00.000Z",
+              "observations": "Caso asignado",
+              "user": "jrodriguez"
             }
-          ],
-          "description": "string",
-          "status": {
-            "code": 0,
-            "description": "string",
-            "actionDate": "string",
-            "stepDate": "string",
-            "observations": "string",
-            "user": "string",
-            "history": [
-              {
-                "code": 0,
-                "description": "string",
-                "actionDate": "string",
-                "stepDate": "string",
-                "observations": "string",
-                "user": "string"
-              }
-            ]
-          },
-          "stepId": 0,
-          "levels": [],
-          "name": "string",
-          "sequence": 0,
-          "type": 0,
-          "creationUser": "string",
-          "modificationUser": "string"
-        }
-      ],
-      "subReason": 0,
-      "subReasonDescription": "string",
-      "typifications": []
-    },
-    "retentionService": {
-      "installationNeighborhood": "string",
-      "churnQualification": 0,
-      "installationCity": "string",
-      "cityCode": "string",
-      "departmentCode": "",
-      "billingAccount": "ABCDEFGH",
-      "installationDepartment": "string",
-      "installationAddress": "string",
-      "status": "string",
-      "statuses": [
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "ABCDE"
+          ]
         },
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "string"
-        },
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "string"
-        },
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "string"
-        },
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "string"
-        },
-        {
-          "description": "string",
-          "date": "string",
-          "reconnectionDate": "string",
-          "type": "string"
-        }
-      ],
-      "installationStratum": "string",
-      "serviceStartDate": "string",
-      "serviceAccountId": "string",
-      "integrationId": "string",
-      "installationLocality": "string",
-      "markers": {
-        "seniority": false,
-        "retentionBenefit": true,
-        "expirationBenefit": [],
-        "temporarySuspensionCount": 0,
-        "controlAccount": true,
-        "duo": false,
-        "lte": false,
-        "months": 0,
-        "retentionPlan": true,
-        "single": false,
-        "originSystem": "ABCDEFG",
-        "trio": true,
-        "integrationId": "string",
-        "monthsOfPermanenceClause": 0,
-        "groupingNumber": 0,
-        "speed": 0
+        "stepId": 1,
+        "levels": [1],
+        "name": "Contacto inicial",
+        "sequence": 1,
+        "type": 1,
+        "creationUser": "jrodriguez",
+        "modificationUser": "mluna"
+      }
+    ],
+    "subReason": 10,
+    "subReasonDescription": "Competencia ofrece mejor precio",
+    "typifications": []
+  },
+  "retentionService": {
+    "installationNeighborhood": "Chicó Norte",
+    "churnQualification": 85,
+    "installationCity": "Bogotá",
+    "cityCode": "11001",
+    "departmentCode": "11",
+    "billingAccount": "BA-45678",
+    "installationDepartment": "Cundinamarca",
+    "installationAddress": "Carrera 15 #93-45",
+    "status": "ACTIVO",
+    "statuses": [
+      {
+        "description": "Instalado y operativo",
+        "date": "2024-11-01T09:00:00.000Z",
+        "reconnectionDate": "2024-11-01T09:00:00.000Z",
+        "type": "ACTIVE"
       },
-      "connectionNumber": "string",
-      "installationCountry": "ABCD",
-      "promotions": [
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "string",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "string",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "ABCD",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "ABCD",
-          "status": "",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        },
-        {
-          "id": "string",
-          "attachments": [],
-          "agreementCode": "string",
-          "description": "string",
-          "status": "string",
-          "date": "",
-          "endDate": "string",
-          "startDate": "string",
-          "benefitId": "string",
-          "name": "string",
-          "configurationCode": "string",
-          "promotionTypeId": 0,
-          "groupingNumber": 0
-        }
-      ],
-      "bundleRoute": "string",
-      "currentRate": "string",
-      "technology": "string",
-      "serviceType": "string",
-      "uen": "string",
-      "convergence": {
-        "isConvergent": true,
-        "convergenceType": "string"
-      },
-      "serviceId": "ABCDEF"
+      {
+        "description": "Sin reconexiones recientes",
+        "date": "2025-09-01T09:00:00.000Z",
+        "reconnectionDate": "2025-09-01T09:00:00.000Z",
+        "type": "CHECK"
+      }
+    ],
+    "installationStratum": "5",
+    "serviceStartDate": "2022-02-15T10:00:00.000Z",
+    "serviceAccountId": "SVC-998877",
+    "integrationId": "INT-554433",
+    "installationLocality": "Chapinero",
+    "markers": {
+      "seniority": true,
+      "retentionBenefit": true,
+      "expirationBenefit": [],
+      "temporarySuspensionCount": 0,
+      "controlAccount": false,
+      "duo": true,
+      "lte": false,
+      "months": 36,
+      "retentionPlan": true,
+      "single": false,
+      "originSystem": "CRM_ETB",
+      "trio": false,
+      "integrationId": "INT-554433",
+      "monthsOfPermanenceClause": 12,
+      "groupingNumber": 1,
+      "speed": 200
     },
-    "creationUser": "string",
-    "modificationUser": "string",
-    "orderNumber": "string"
-  }
-]
+    "connectionNumber": "601998877",
+    "installationCountry": "CO",
+    "promotions": [
+      {
+        "id": "PROM-2025-01",
+        "attachments": [],
+        "agreementCode": "AG-7777",
+        "description": "Descuento del 20% por fidelidad",
+        "status": "ACTIVE",
+        "date": "2025-01-01T00:00:00.000Z",
+        "endDate": "2025-12-31T00:00:00.000Z",
+        "startDate": "2025-01-01T00:00:00.000Z",
+        "benefitId": "BEN-1234",
+        "name": "Fidelidad 20%",
+        "configurationCode": "CFG-001",
+        "promotionTypeId": 2,
+        "groupingNumber": 1
+      }
+    ],
+    "bundleRoute": "FTTH-BOG-01",
+    "currentRate": "$120000",
+    "technology": "FTTH",
+    "serviceType": "INTERNET",
+    "uen": "HOGARES",
+    "convergence": {
+      "isConvergent": true,
+      "convergenceType": "DUO"
+    },
+    "serviceId": "SVC-0001"
+  },
+  "creationUser": "jrodriguez",
+  "modificationUser": "mramirez",
+  "orderNumber": "ORD-998877"
+}

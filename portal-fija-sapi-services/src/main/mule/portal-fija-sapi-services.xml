@@ -10,9 +10,12 @@
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
             </http:error-response>
         </http:listener>
-        <flow-ref doc:name="Call capture log vars" doc:id="95afa8bb-bce0-48dc-8321-8ffeda46950d" name="processAndSystem-logginSub_Flow"/>
+		<flow-ref doc:name="Call initial Logger" doc:id="eb32f5f4-92d9-4a60-b840-94659250b1cf" name="initial-loggin-Sub_Flow" />
 		<apikit:router config-ref="portal-fija-sapi-services-config" />
-        <error-handler ref="error-handlerError_Handler" />
+		<async doc:name="Async" doc:id="89dc2146-19a4-41a8-bcbd-dbd28cd68159" >
+			<flow-ref doc:name="Call logger" doc:id="f68a28df-f978-4826-ac48-4727ceadd103" name="loggin-client-call" />
+		</async>
+		<error-handler ref="error-handlerError_Handler" />
     </flow>
     <flow name="portal-fija-sapi-services-console">
         <http:listener path="/console/*" config-ref="portal-fija-sapi-services-httpListenerConfig">
@@ -52,7 +55,7 @@ output application/json
         <flow-ref doc:name="Go to handler" doc:id="54bde9fa-c59a-4e2e-81de-25c586ca8a4a" name="get-health-check-handler" />
     </flow>
 	<flow name="get:\v1\agreement\getPermanenceClause:portal-fija-sapi-services-config" doc:id="1a1bfd8f-ea2a-4e48-9095-b2c4e80ce502" >
-		<flow-ref doc:name="Flow Reference" doc:id="ee3945a3-fdba-4a63-9e42-5e69e88f95e2" name="consultaPermanencia-orchestadorSub_Flow2"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ee3945a3-fdba-4a63-9e42-5e69e88f95e2" name="consultaPermanencia-orchestadorSub_Flow"/>
 	</flow>
 
 </mule>

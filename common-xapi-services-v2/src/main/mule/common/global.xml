@@ -26,5 +26,5 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<import doc:name="Import" doc:id="e0de86a1-1bea-4b6c-93ec-b917fa57a719" file="loggin.xml" /> 
 	<import doc:name="Import" doc:id="323bec79-d813-4962-b39d-2677bff952f1" file="audits-sapi-client.xml" />
 	<configuration-properties doc:name="Configuration properties" doc:id="f2c40a07-2c7e-4fda-8e36-991d5603dd9c" file="${env}-properties.yaml" />
-	<!--  <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="8556ebe7-34cd-482b-ac3c-de61687eaa50" flowRef="common-xapi-services-main" />-->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="8556ebe7-34cd-482b-ac3c-de61687eaa50" flowRef="common-xapi-services-main" />
 	</mule>

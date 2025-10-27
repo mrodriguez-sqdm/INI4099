@@ -2,18 +2,39 @@ http:
   private:
     port: "8091"
   
-autodiscovery: "4545"
+autodiscovery: ""
 
 mongo-db-sapi:
   protocol: "HTTP"
   host: "localhost"
-  port: "8092"
+  port: "8095"
   base-path: "/mongo/v1"
   resources:  
-    serviceActive:
-      base-path: "/serviceActive"
+    retention:
+      base-path: "/retention"
+      post:
+        path: ""
+      patch:
+        path: ""
+    billingAccount:
+      base-path: "/billingAccount"
       get:
         path: ""
+
+  security:
+    client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+    client_secret: "A2De130A74084573Bc8352790a8C1b56"
+
+portal-fija-sapi:
+  protocol: "HTTP"
+  host: "localhost"
+  port: "8081"
+  base-path: "/fija/v1"
+  resources:  
+    agreements:
+      base-path: "/agreement"
+      getPermanenceClause:
+        path: "/getPermanenceClause"
 
   security:
     client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
@@ -31,7 +52,12 @@ audits-sapi:
 credentials:
   client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
   client_secret: "A2De130A74084573Bc8352790a8C1b56"
-
+  
 configurationTimeout:
-  bot-sapi: "62000"
-  bot-sapi-2: "62000"
+  business-papi-v2-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  portal-fija-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
