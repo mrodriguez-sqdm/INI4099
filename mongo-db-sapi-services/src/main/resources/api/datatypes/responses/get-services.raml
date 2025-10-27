@@ -22,8 +22,31 @@ properties:
           type: string
           required: false
         Adjuntos:
-          type: boolean
+          type: array
           required: false
+          items:
+            type: object
+            properties:
+              Nombre_Archivo:
+                type: string
+                example: CONTRATO_DIGITAL_DEFINITIVO
+                required: false
+              Ruta:
+                type: string
+                example: 1118294579/MDM-FIBRA-000068347/CONTRATO_DIGITAL_DEFINITIVO
+                required: false
+              Descripcion:
+                type: string
+                example: CONTRATO DIGITAL DEFINIVITO
+                required: false
+              Tamano:
+                type: string
+                example: '68562'
+                required: false
+              Enviar:
+                type: boolean
+                example: true
+                required: false
         Adjuntos_Cliente:
           type: string
           required: false
@@ -1570,7 +1593,7 @@ properties:
           type: string
           required: false
         Promociones:
-          type: boolean
+          type: array
           required: false
         Promociones_Condicionadas:
           type: array
@@ -1999,8 +2022,16 @@ properties:
           type: string
           required: false
         Sistema_Origen:
-          type: boolean
-          required: false
+            type: object
+            properties:
+              Id_Sistema_Origen:
+                type: string
+                example: CS-1004539
+                required: false
+              Sistema_Origen_Nombre:
+                type: string
+                example: PORTALFIJA
+                required: false
         Telefono_Fijo:
           type: string
           required: false

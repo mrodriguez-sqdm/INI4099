@@ -7,7 +7,15 @@
   },
   "actualizacion_extractor": "ABCDEFGHI",
   "Actualizacion_Extractor": "ABCDEF",
-  "Adjuntos": true,
+  "Adjuntos": [
+              {
+                  "Nombre_Archivo": "CONTRATO_DIGITAL_DEFINITIVO",
+                  "Ruta": "1118294579/MDM-FIBRA-000068347/CONTRATO_DIGITAL_DEFINITIVO",
+                  "Descripcion": "CONTRATO DIGITAL DEFINIVITO",
+                  "Tamano": "68562",
+                  "Enviar": true
+              }
+          ],
   "Adjuntos_Cliente": "",
   "ATDP": {
     "CANAL": "ABCDEFGHIJKLMNOP",
@@ -651,7 +659,7 @@
   "Pais": "ABCDEFGHIJ",
   "PrecioFinal": 0,
   "Primer_Apellido": "ABCDEFGHIJKLMNOPQRST",
-  "Promociones": true,
+  "Promociones": [],
   "Promociones_Condicionadas": [
     [],
     0.0,
@@ -855,7 +863,10 @@
       "Integration_Id": "ABCD"
     }],
   "ServiciosPS": "",
-  "Sistema_Origen": false,
+  "Sistema_Origen": {
+    "Id_Sistema_Origen": "CS-1004539",
+    "Sistema_Origen_Nombre": "PORTALFIJA"
+        },
   "Telefono_Fijo": "ABCD",
   "Telefono_Movil": "ABCDEFGHIJKLMNOPQRSTUVWX",
   "Telefono_Movil2": "ABCDEFGHIJKLMNOPQRST",

@@ -1,6 +1,7 @@
 http:
   private:
     port: "8091"
+  time-out: "30000"
 
 configurationTimeout:
   mdm-db: "60000"
