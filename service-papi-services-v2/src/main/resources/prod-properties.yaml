@@ -14,6 +14,10 @@ mongo-db-sapi:
       base-path: "/serviceActive"
       get:
         path: ""
+    service:
+      base-path: "/service"
+      get:
+        path: ""
 
   security:
     client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
@@ -35,3 +39,7 @@ credentials:
 configurationTimeout:
   bot-sapi: "62000"
   bot-sapi-2: "62000"
+  business-papi-v2-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"

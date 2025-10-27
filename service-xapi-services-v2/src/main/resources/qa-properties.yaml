@@ -37,3 +37,9 @@ tls:
   path: "security/keystore.jks"
   keyPassword: "password"
   password: "password"
+  
+configurationTimeout:
+  service-xapi-v2-listener: "62000"
+  service-papi-v2:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"

@@ -38,6 +38,11 @@ mediaType:
           example: "12552454"
           description: "number account service"
           required: false
+        BILLING_ACCOUNT:
+          type: string
+          example: "12552454"
+          description: "number billing account"
+          required: false
         CONNECTION_NUMBER:
           type: string
           example: "542545454"
@@ -61,7 +66,11 @@ mediaType:
           body:
             application/json:
               type: !include /datatypes/response/get-service.raml
-              example: !include /examples/response/get-service.json
+              examples:
+                LTE:
+                  value: !include /examples/response/get-service-lte.json
+                FTTH:
+                  value: !include /examples/response/get-service-ftth.json
         400:
           body:
             application/json:

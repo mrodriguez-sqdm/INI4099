@@ -7,11 +7,15 @@ autodiscovery: "4545"
 mongo-db-sapi:
   protocol: "HTTP"
   host: "localhost"
-  port: "8092"
+  port: "8095"
   base-path: "/mongo/v1"
   resources:  
     serviceActive:
       base-path: "/serviceActive"
+      get:
+        path: ""
+    service:
+      base-path: "/service"
       get:
         path: ""
 
@@ -35,3 +39,7 @@ credentials:
 configurationTimeout:
   bot-sapi: "62000"
   bot-sapi-2: "62000"
+  service-papi-v2-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
