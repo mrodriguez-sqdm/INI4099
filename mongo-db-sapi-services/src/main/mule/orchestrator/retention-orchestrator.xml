@@ -44,7 +44,7 @@ output application/json
 	         else if(payload.modified == 0)
 	           "No se realizo ninguna modificacion"
 	         else
-	           "Operacion realizada correctamente" 
+	           "Retencion actualizada con exito." 
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
