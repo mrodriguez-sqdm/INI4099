@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<groupId>com.etb</groupId>
 	<artifactId>common-papi-services-v2</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>mule-application</packaging>
@@ -15,6 +15,7 @@
 
 		<app.runtime>4.9.9</app.runtime>
 		<mule.maven.plugin.version>4.3.0</mule.maven.plugin.version>
+		<munit.version>2.3.9</munit.version>
 	</properties>
 
 	<build>
@@ -29,6 +30,59 @@
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
+				<configuration>
+					<cloudHubDeployment>
+						<objectStoreV2>true</objectStoreV2>
+						<uri>https://anypoint.mulesoft.com</uri>
+						<muleVersion>${app.runtime}</muleVersion>
+						<username>${username}</username>
+						<password>${password}</password>
+						<applicationName>${app.name}</applicationName>
+						<environment>${environment}</environment>
+						<region>${region}</region>
+						<workers>${workers}</workers>
+						<workerType>${workerType}</workerType>
+						<properties>
+							<env>${env}</env>
+							<autodiscovery>${autodiscovery}</autodiscovery>
+							<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
+							<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
+							<anypoint.platform.config.analytics.agent.enabled>${anypoint.platform.config.analytics.agent.enabled}</anypoint.platform.config.analytics.agent.enabled>
+						</properties>
+					</cloudHubDeployment>
+					<classifier>mule-application</classifier>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mulesoft.munit.tools</groupId>
+				<artifactId>munit-maven-plugin</artifactId>
+				<version>${munit.version}</version>
+				<executions>
+					<!--<execution>
+						<id>test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+							<goal>coverage-report</goal>
+						</goals>
+					</execution>-->
+				</executions>
+				<configuration>
+					<coverage>
+						<runCoverage>true</runCoverage>
+						<formats>
+							<format>html</format>
+						</formats>
+						<ignoreFiles>
+							<ignoreFile>error-handler.xml</ignoreFile>
+							<ignoreFile>loggin.xml</ignoreFile>
+						</ignoreFiles>
+						<ignoreFlows>
+							<ignoreFlow>${app.name}-main</ignoreFlow>
+							<ignoreFlow>${app.name}-console</ignoreFlow>
+						</ignoreFlows>
+					</coverage>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -44,6 +98,18 @@
 			<groupId>org.mule.connectors</groupId>
 			<artifactId>mule-sockets-connector</artifactId>
 			<version>1.2.6</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.etb</groupId>
+			<artifactId>etb-common-lib</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>org.mule.modules</groupId>
+			<artifactId>mule-apikit-module</artifactId>
+			<version>1.11.7</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>

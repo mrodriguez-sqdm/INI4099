@@ -10,10 +10,31 @@ mongo-db-sapi:
   port: "8091"
   base-path: "/mongo/v1"
   resources:  
-    serviceActive:
-      base-path: "/serviceActive"
+    retention:
+      base-path: "/retention"
+      post:
+        path: ""
+      patch:
+        path: ""
+    billingAccount:
+      base-path: "/billingAccount"
       get:
         path: ""
+
+  security:
+    client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
+    client_secret: "8917F36fBC2c4105b72c7bC3a165740F"
+    
+portal-fija-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-portal-fija-sapi-services-prod.us-e2.cloudhub.io"
+  port: "8091"
+  base-path: "/fija/v1"
+  resources:  
+    agreements:
+      base-path: "/agreement"
+      getPermanenceClause:
+        path: "/getPermanenceClause"
 
   security:
     client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
@@ -33,5 +54,10 @@ credentials:
   client_secret: "8917F36fBC2c4105b72c7bC3a165740F"
 
 configurationTimeout:
-  bot-sapi: "62000"
-  bot-sapi-2: "62000"
+  business-papi-v2-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  portal-fija-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"

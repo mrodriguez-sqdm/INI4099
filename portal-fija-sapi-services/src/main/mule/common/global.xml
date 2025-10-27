@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/
 	<http:request-config name="HTTP_Request_configuration_portal" doc:name="HTTP Request configuration" doc:id="89b69dac-3d63-4771-ab37-e99e205ab1ed" basePath="${portal-fija-client.basePath}" responseTimeout="${configurationTimeout.portal-fija}">
 		<http:request-connection protocol="${portal-fija-client.protocol}" host="${portal-fija-client.host}" port="${portal-fija-client.port}" />
 	</http:request-config>
-	<!-- <api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bb1c0db7-a7ef-480c-b0dc-7b9d7ea2d99f" flowRef="portal-fija-sapi-services-main" /> -->
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="bb1c0db7-a7ef-480c-b0dc-7b9d7ea2d99f" flowRef="portal-fija-sapi-services-main" />
 	<http:listener-config name="portal-fija-sapi-services-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${http.private.port}" />
     </http:listener-config>
@@ -22,8 +22,5 @@ http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/
 	<import doc:name="Import" doc:id="5ff5f4af-f984-4864-abda-4502f6785579" file="loggin.xml" />
 	<import doc:name="Import" doc:id="3f4a397f-59db-4ef8-b128-949c14eff54b" file="audits-sapi-client.xml" />
 	<import doc:name="Import" doc:id="90412d81-bbf7-4acd-a411-b8a19eeb816d" file="etb-common-lib.xml" />
-	<wsc:config name="Web_Service_Consumer_Config_portal-fija-soap" doc:name="Web Service Consumer Config" doc:id="c13c9306-6d40-4e6c-8768-7249e2772355" >
-		<wsc:connection wsdlLocation="${portal-fija-soap.soapProtocol}://${portal-fija-soap.host}:${portal-fija-soap.port}${portal-fija-soap.basepath}/${portal-fija-soap.services.portalFijaService.serviceName}?wsdl" service="${portal-fija-soap.services.portalFijaService.serviceName}" port="${portal-fija-soap.services.portalFijaService.portName}" address="${portal-fija-soap.soapProtocol}://${portal-fija-soap.host}:${portal-fija-soap.port}${portal-fija-soap.basepath}/${portal-fija-soap.services.portalFijaService.serviceName}"/>
-	</wsc:config>
 
 </mule>

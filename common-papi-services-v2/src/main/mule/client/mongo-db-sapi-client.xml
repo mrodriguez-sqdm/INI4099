@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<sub-flow name="get-parametersRetention-mongo-db-sapi-clientSub_Flow" doc:id="900202ad-cc99-40c3-bdc8-b12a4eadf6f6" >
+		<http:request method="GET" doc:name="Request" doc:id="56050274-0baa-4a42-a055-39f98947dda2" config-ref="HTTP_Request_configuration_mongo-db-sapi" path="${mongo-db-sapi.resources.parametersRetention.base-path}${mongo-db-sapi.resources.parametersRetention.get.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('mongo-db-sapi.security.client_secret'),
+	"client_id" : p('mongo-db-sapi.security.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId": vars.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	parameterType : vars.parameterType
+}]]]></http:query-params>
+		
+</http:request>
+	</sub-flow>
+
+</mule>

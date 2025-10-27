@@ -32,7 +32,7 @@ portal-fija-sapi:
   base-path: "/fija/v1"
   resources:  
     agreements:
-      base-path: "/agreements"
+      base-path: "/agreement"
       getPermanenceClause:
         path: "/getPermanenceClause"
 
@@ -56,5 +56,8 @@ credentials:
 configurationTimeout:
   business-papi-v2-listener: "62000"
   mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  portal-fija-sapi:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"
