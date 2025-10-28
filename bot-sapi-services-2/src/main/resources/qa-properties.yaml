@@ -31,6 +31,8 @@ botServices:
         path: "/v2/setdeliverytypeinvoice"
       getcontract:
         path: "/v1/getcontract"
+      sva:
+        path: "/v1/sva"
 
     soporte1n:
       rootPath: "/soporte1n"
@@ -66,6 +68,13 @@ botServices:
       rootPath: "/orders"
       createchangenumberV2:
         path: "/v2/createchangenumber"
+        
+    saleorder:
+      rootPath: "/saleorder"
+      store:
+        rootPath: "/v1/store"
+        nipportability:
+          path: "/nipportability"
   
 audits-sapi:
   host: "mule-worker-internal-audits-oracle-sapi-services-qa.us-e2.cloudhub.io"

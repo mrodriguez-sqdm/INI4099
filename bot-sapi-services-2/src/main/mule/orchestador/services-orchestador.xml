@@ -38,4 +38,9 @@
 		<flow-ref doc:name="get-authentication-token" doc:id="16a8bc77-85cf-4d88-b91f-6353f3dc402d" name="get-authentication-token" />
 		<flow-ref doc:name="Go to generate client" doc:id="cf1d719e-86bf-4c87-bd72-7aa997d9015f" name="botServices-services-getcontract-clientSub_Flow" />
 	</sub-flow>
+	<sub-flow name="post-services-sva-orchestadorSub_Flow" doc:id="ef31b934-b9ce-4fcd-9294-cf6a33d0e4e4" >
+		<set-variable value="#[payload]" doc:name="set initial payload" doc:id="49b2a7b6-bebb-4cf1-b2c5-d2f1b14984a7" variableName="initialPayload" />
+		<flow-ref doc:name="get-authentication-token" doc:id="5b858743-16c2-4a6c-82b9-b5b462f8c362" name="get-authentication-token" />
+		<flow-ref doc:name="Go to generate client" doc:id="52d15689-a700-44f2-b72f-2c7875c4f801" name="botServices-services-sva-clientSub_Flow" />
+	</sub-flow>
 </mule>

@@ -17,6 +17,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			</http:error-response>
 		</http:listener>
 		<apikit:router doc:name="APIkit Router" doc:id="2d5140b3-3f00-485b-893d-1be9b288d5a8" config-ref="resource-papi-services-config" />
+		<flow-ref doc:name="Flow Reference" doc:id="53e0a732-e7b2-46e4-873c-e022d46ecf6e" name="initial-loggin-Sub_Flow" />
+		<async doc:name="Async" doc:id="e1f9e1d0-56e8-4cc6-9283-f7cce174cead" >
+			<flow-ref doc:name="Call logger" doc:id="722e7b0a-6f0d-4f53-8e35-e17d55783cce" name="loggin-client-call" />
+		</async>
 		<error-handler ref="error-handlerError_Handler" />
 	</flow>
 	<flow name="resource-papi-services-console" doc:id="a43b85c1-854d-4158-9ca6-2cf9e23e0157" >

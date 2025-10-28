@@ -86,6 +86,16 @@
 				"method": "POST",
 				"path": "/bot/v1/soporte1n/normalizeaccess",
 				"processname": "Normalize Access"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/services/sva",
+				"processname": "Manage Value-Added Services (SVA)"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/saleorder/store/nipportability",
+				"processname": "Manage NIP Portability"
 			}
 			
 		]

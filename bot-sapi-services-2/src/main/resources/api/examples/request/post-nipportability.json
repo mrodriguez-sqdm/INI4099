@@ -1,0 +1,40 @@
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": "MAX",
+      "correlationID": "LUZ-0.9795856250670754",
+      "processingServer": ""
+    },
+    "Property": [
+      {
+        "name": "",
+        "value": ""
+      },
+      {
+        "name": "",
+        "value": ""
+      }
+    ]
+  },
+  "WSRequestBody": {
+    "Document_Type": "CC",
+    "Document_Number": "1000363262",
+    "From_Operator": "00002",
+    "Order_Number": "MDM-PLTE-235152",
+    "Phone": 3186901615,
+    "Request_Date": "2025-09-12T14:05:25.6852238Z",
+    "Audit": {
+      "Canal": "whatsapp",
+      "IP_Address": "169.60.82.89",
+      "IP_Latitud": "4.8094",
+      "IP_Longitude": "-74.0980",
+      "IP_City": "COTA",
+      "IP_Country": "COLOMBIA",
+      "Date": "2025-09-12",
+      "Hour": "",
+      "WhatsApp_Phone_Number": "",
+      "Facebook_User": "{au_facebook_user}",
+      "Twitter_User": "{au_twitter_user}"
+    }
+  }
+}

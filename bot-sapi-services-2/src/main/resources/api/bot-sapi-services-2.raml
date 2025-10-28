@@ -127,7 +127,22 @@ traits:
             application/json:
               type: !include /datatypes/response/post-getcontract.raml
               example: !include /examples/response/post-getcontract.json
-
+  /sva:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Manage Value-Added Services (SVA)
+      description: Manage Value-Added Services (SVA)
+      body:
+        application/json:
+          type: !include /datatypes/request/post-sva.raml
+          example: !include /examples/request/post-sva.json
+      responses:
+        200:
+          description: The value-added service was successfully managed.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-sva.raml
+              example: !include /examples/response/post-sva.json
 /soporte1n:
   /setwifinetworkstate:
     post:
@@ -295,3 +310,21 @@ traits:
             application/json:
               type: !include /datatypes/response/post-create-changenumber.raml
               example: !include /examples/response/post-create-changenumber.json
+/saleorder:
+  /store:
+    /nipportability:
+      post:
+        is: [security_client_id, request_headers]
+        displayName: Manage NIP Portability
+        description: Manage NIP Portability
+        body:
+          application/json:
+            type: !include /datatypes/request/post-nipportability.raml
+            example: !include /examples/request/post-nipportability.json
+        responses:
+          200:
+            description: The portability NIP was successfully managed.
+            body:
+              application/json:
+                type: !include /datatypes/response/post-nipportability.raml
+                example: !include /examples/response/post-nipportability.json

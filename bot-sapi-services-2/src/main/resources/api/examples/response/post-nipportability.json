@@ -1,0 +1,29 @@
+{
+  "WSResponseHeader": {
+    "System": {
+      "name": "MAX",
+      "correlationID": "LUZ-0.9795856250670754",
+      "processingServer": "SERVER_01"
+    },
+    "Service": {
+      "status": "OK",
+      "responseDate": "2025-09-12T14:05:25.6852238Z",
+      "processingServer": "SERVER_01",
+      "statusDetail": [
+        {
+          "errorCode": "OK_01",
+          "errorMessage": "La solicitud LUZ-0.9795856250670754 fue exitosa",
+          "errorMessageUser": "NIP generado exitosamente para portabilidad"
+        }
+      ]
+    },
+    "Property": []
+  },
+  "WSResponseBody": {
+    "NIP_Generated": "123456",
+    "Order_Status": "PENDING",
+    "Portability_Status": "NIP_SENT",
+    "Status": "SUCCESS",
+    "Message": "NIP generado exitosamente para portabilidad del número 3186901615"
+  }
+}

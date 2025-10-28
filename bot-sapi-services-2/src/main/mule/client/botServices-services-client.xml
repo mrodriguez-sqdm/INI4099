@@ -81,4 +81,15 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="botServices-services-sva-clientSub_Flow" doc:id="62920076-03e6-4ee7-a986-931dc76ce138" >
+		<http:request method="POST" doc:name="Call bot services sva" doc:id="534d8f0d-0902-413c-937d-5d8c4dfb578e" config-ref="HTTP_Request_configuration_botServices" path="${botServices.resources.services.rootPath}${botServices.resources.services.sva.path}" responseTimeout="#[p('botServices.responseTimeout')]" >
+			<http:body ><![CDATA[#[vars.initialPayload]]]></http:body>
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"x_civ_request" : vars.headers."x_civ_request",
+	"Authorization" : "Bearer " ++ vars.generatedToken.WSResponseBody.SecurityToken
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 </mule>
