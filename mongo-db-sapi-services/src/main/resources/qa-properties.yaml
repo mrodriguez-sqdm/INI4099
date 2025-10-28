@@ -52,6 +52,9 @@ mongoDb-mdm:
     collection-service-ftth: "MDM_CD_SERVICIO"
   facturas:
     collection-facturacion: "MDM_CUENTA_FACTURACION"
+  retenciones:
+    collection-retencion: "CD_RETENCION"
+    collection-retencion-consecutivo: "MDM_CD_CONSECUTIVO"
 
 mongoDb-zonag:
   host-list:
