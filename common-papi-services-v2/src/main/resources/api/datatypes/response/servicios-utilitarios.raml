@@ -11,15 +11,14 @@ properties:
     required: false
   utilitys:
     type: object
-    required: false
     properties:
-      parameters:
+      parametersRetention:
         type: array
         required: false
         items:
           type: object
           properties:
-            _id:
+            id:
               type: string
               example: 63aa250b68e75244f4e3621a
               required: false
@@ -137,8 +136,44 @@ properties:
       operators:
         type: array
         required: false
-        items: {}
-      bussinesdays:
+        items:
+          type: object
+          properties:
+            code:
+              type: string
+              example: '00001'
+              required: false
+            operator:
+              type: string
+              example: Avantel
+              required: false
+            nrn:
+              type: string
+              example: '110'
+              required: false
+      businessDays:
         type: array
         required: false
-        items: {}
+        items:
+          type: object
+          properties:
+            date:
+              type: datetime-only
+              example: '2024-12-19T00:00:00'
+              required: false
+            day:
+              type: string
+              example: '19'
+              required: false
+            month:
+              type: string
+              example: '12'
+              required: false
+            monthNameShort:
+              type: string
+              example: Dic
+              required: false
+            year:
+              type: string
+              example: '2024'
+              required: false

@@ -14,6 +14,14 @@ mongo-db-sapi:
       base-path: "/parametersRetention"
       get:
         path: ""
+    operators:
+      base-path: "/operators"
+      get:
+        path: ""
+    bussinessDays:
+      base-path: "/bussinessDays"
+      get:
+        path: ""
 
   security:
     client_id: "7b167b9c389a4c0099bbf7ea34df88fc"

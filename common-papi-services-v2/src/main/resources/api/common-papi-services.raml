@@ -40,7 +40,7 @@ mediaType:
             operators:
               value: "OPERADORES"
             bussinessdays:
-              value: "FESTIVOS"
+              value: "DIAS_HABILES"
           description: "parameter used to identify the target query collection, "
           required: false
         LIMIT:
@@ -56,7 +56,13 @@ mediaType:
             body:
               application/json:
                 type: !include /datatypes/response/servicios-utilitarios.raml
-                example: !include /examples/response/servicios-utilitarios.json
+                examples:
+                  parametersRetention: 
+                    value: !include /examples/response/get-parametersRetention.json
+                  businessDays: 
+                    value: !include /examples/response/get-businessDays.json
+                  operators: 
+                    value: !include /examples/response/get-operators.json
           400:
             body:
               application/json:
