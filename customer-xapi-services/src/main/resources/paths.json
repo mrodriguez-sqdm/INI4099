@@ -46,6 +46,11 @@
 				"method": "GET",
 				"path": "/v1/riskManagement",
 				"processname": "Get riskManagement"
+			},
+			{
+				"method": "POST",
+				"path": "/v1/productOrder/nip",
+				"processname": "Generate nip"
 			}
 		]
 	}
