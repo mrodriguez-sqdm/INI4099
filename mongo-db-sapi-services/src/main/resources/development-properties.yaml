@@ -27,6 +27,8 @@ mongoDb-mdm:
   collection-esim-log: "MDM_ACTIVACION_ESIM_LOG"
   portabilidadProcesos: "MDM_PORTABILIDAD_SOLICITUDES"
   #portabilidadProcesos: "MDM_PORTABILIDAD_PROCESOS"
+  collection-operators: "PAR_OPERADORES_PORTABILIDAD"
+  collection-bussiness-days: "PAR_DIA_FESTIVO"
  
   mayoristas:
     collection-order: "MDM_CD_ORDEN"       

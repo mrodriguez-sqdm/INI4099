@@ -688,3 +688,23 @@ traits:
               body:
                 application/json:
                   type: !include /datatypes/responses/retention-model.raml
+  /operators:
+      is: [security_client_id,request_headers]
+      get:
+        displayName: Get operators
+        description: Get operators
+        responses:
+          200:
+            body:
+              type: !include /datatypes/responses/get-operators.raml
+              example: !include examples/responses/get-operators.json
+  /bussinessDays:
+      is: [security_client_id,request_headers]
+      get:
+        displayName: Get bussinessDays
+        description: Get bussinessDays
+        responses:
+          200:
+            body:
+              type: !include /datatypes/responses/get-bussinessDays.raml
+              example: !include examples/responses/get-bussinessDays.json

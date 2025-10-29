@@ -120,4 +120,10 @@ output application/json
 	<flow name="post:\v1\retention:application\json:mongo-db-sapi-services-config" doc:id="b6aaa81a-a535-41b1-8529-d23f12eb86e7" >
 		<flow-ref doc:name="Flow Reference" doc:id="fae0307b-6dcb-4ee2-9869-dda9931d2262" name="post-retention-orchestratorSub_Flow"/>
 	</flow>
+	<flow name="get:\v1\bussinessDays:mongo-db-sapi-services-config" doc:id="afe1341b-2e5c-48f2-9350-d040acfe6bc7" >
+		<flow-ref doc:name="Flow Reference" doc:id="c8b2c961-8df1-4f15-b0f0-99c52c97cf12" name="get-bussiness-days-clientSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\operators:mongo-db-sapi-services-config" doc:id="a0ae5c97-e5c3-4e52-b822-3077f022cb59" >
+		<flow-ref doc:name="Flow Reference" doc:id="b39763a7-1e4a-4443-9808-a7315fb12bf1" name="get-operators-clientSub_Flow"/>
+	</flow>
 </mule>

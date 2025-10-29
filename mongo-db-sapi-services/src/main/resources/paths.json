@@ -100,6 +100,16 @@
 				"method": "PATCH",
 				"path": "/mongo/v1/retention",
 				"processname": "update retention"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/bussinessDays",
+				"processname": "get bussinessDays data"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/operators",
+				"processname": "get operators data"
 			}
 		]
 	}

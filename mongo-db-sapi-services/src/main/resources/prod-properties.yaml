@@ -28,6 +28,8 @@ mongoDb-mdm:
   portabilidadProcesos: "MDM_PORTABILIDAD_SOLICITUDES"
   collection-order: "MDM_ORDEN"
   #portabilidadProcesos: "MDM_PORTABILIDAD_PROCESOS"
+  collection-operators: "PAR_OPERADORES_PORTABILIDAD"
+  collection-bussiness-days: "PAR_DIA_FESTIVO"
   
  
   mayoristas:
