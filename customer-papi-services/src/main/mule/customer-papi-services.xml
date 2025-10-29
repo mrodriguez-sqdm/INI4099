@@ -71,4 +71,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\customerBill\billPresentationMedia:application\json:customer-papi-services-config" doc:id="a109b5b9-0a7b-4499-8d9c-82d847052755" >
 		<flow-ref doc:name="Flow Reference" doc:id="1774ecab-5b63-4b05-b03b-c56bf2a6c288" name="post-billPresentationMedia-orchestratorSub_Flow"/>
 	</flow>
+	<flow name="post:\productOrder\nip:application\json:customer-papi-services-config" doc:id="bc80784e-b05b-4f19-b6f1-919dd5aa5257" >
+		<flow-ref doc:name="Flow Reference" doc:id="8e2708f3-fa13-40ff-af7b-24a058a96c5a" name="post-product-order-npi-orchestratorSub_Flow"/>
+	</flow>
 </mule>

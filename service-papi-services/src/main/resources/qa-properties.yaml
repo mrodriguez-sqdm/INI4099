@@ -43,6 +43,7 @@ bot-sapi-2:
       suspendvoluntarily: "/suspendvoluntarily"
       suspendbytheft: "/suspendbytheft"
       suspendbyloss: "/suspendbyloss"
+      sva: "/sva"
     soporte1n:
       base-path: "/soporte1n"
       validatelb: "/validatelb"

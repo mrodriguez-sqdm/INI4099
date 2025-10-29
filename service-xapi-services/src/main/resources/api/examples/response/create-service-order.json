@@ -7,6 +7,7 @@
       "numPqr": "PQR_123644",
       "orderNumber": "ORD987654321",
       "executionDate": "2024-12-25T00:00:00Z",
+      "agenda": true,
       "promotions": [
         {
           "description": "Promoción de traslado",

@@ -45,6 +45,11 @@ bot-sapi-2:
     services:
       base-path: "/services"
       setdeliverytypeinvoice: "/setdeliverytypeinvoice"
+    saleorder:
+       base-path: "/saleorder"
+       store:
+        path: "/store"
+        nipportability: "/nipportability"
 
       
   client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"

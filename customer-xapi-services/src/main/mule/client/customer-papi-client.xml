@@ -208,4 +208,21 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="post-product-order-nip-clientSub_Flow" doc:id="8b0affc1-a2da-490d-929e-cbfa05069a74" >
+		<http:request method="POST" doc:name="Request" doc:id="b6f23bba-9bb6-4ec4-96a0-a87c5a99d905" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.productOrder.base-path}${customer-papi.resources.productOrder.nip}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>

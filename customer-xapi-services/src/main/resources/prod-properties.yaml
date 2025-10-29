@@ -26,6 +26,7 @@ customer-papi:
         path: ""
       post:
         path: ""
+      nip: "/nip"
     customerBill:
       base-path: "/customerBill"
       get:

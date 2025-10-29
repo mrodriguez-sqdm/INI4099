@@ -15,6 +15,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			<when expression='#[upper(payload.serviceOrder.orderType) == "SUSPENSION"]'>
 				<flow-ref doc:name="Flow Reference" doc:id="e0aa83b3-517e-43ce-a03f-be549cb15903" name="validate-suspension-orchestratorSub_Flow"/>
 			</when>
+			<when expression='#[upper(payload.serviceOrder.orderType) == "SVA"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="47c00dbd-644d-4d8e-a17e-4028ed8d897e" name="post-svas-orchestratorSub_Flow"/>
+			</when>
 			<otherwise >
 				<set-variable value='#[500]' doc:name="Set Http Status1" doc:id="96308fc6-c5f4-4346-bfd5-c89fded2e300" variableName="httpStatus" />
 				<ee:transform doc:name="Set Body Response1" doc:id="8b830410-216a-4624-8a64-991ddc6f3423">
@@ -1293,6 +1296,56 @@ output application/json
 	    cun: payload.WSResponseBody.CUN default "",
 	    numPqr: payload.WSResponseBody.Num_PQR default "",
 	    orderNumber: payload.WSResponseBody.Order_Number default ""
+    }
+  ]
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-svas-orchestratorSub_Flow" doc:id="73543f65-e7be-47fa-be99-db22c01e3c79" >
+		<set-variable value="#[attributes.headers]" doc:name="Set Variable" doc:id="8308f1dc-0c99-4ab7-87a5-2fe6f7009017" variableName="headers" />
+		<ee:transform doc:name="Set Body Request" doc:id="fb8ba1de-5bf0-42d4-8736-6abaea2fa6e4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+	"Action": payload.serviceOrder.operation,
+    "Agrupation_Number": payload.serviceOrder.detailOrder.agrupationNumber,
+    "Phone": payload.serviceOrder.customer.phone
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="df53490f-7c64-4127-883f-1dbaf6fce17f" name="post-services-sva-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Http Status" doc:id="406b96f1-4a27-477a-8d8f-270ff541f2ae" variableName="httpStatus" />
+		<ee:transform doc:name="Set Body Response" doc:id="66657743-9dc5-4657-a3d0-adf5584ed397" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	codeResponse: vars.httpStatus as String ,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	order: [
+    {
+	    cun: payload.WSResponseBody.CUN default "",
+	    numPqr: payload.WSResponseBody.Num_PQR default "",
+	    orderNumber: payload.WSResponseBody.Num_Order default "",
+	    agenda: payload.WSResponseBody.Agenda
     }
   ]
 	
