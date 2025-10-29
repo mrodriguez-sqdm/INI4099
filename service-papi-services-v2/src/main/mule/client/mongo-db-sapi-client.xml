@@ -6,7 +6,7 @@
 	xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	<sub-flow name="mongo-db-sapi-get-service-clientSub_Flow" doc:id="900202ad-cc99-40c3-bdc8-b12a4eadf6f6" >
-		<http:request method="GET" doc:name="Request" doc:id="56050274-0baa-4a42-a055-39f98947dda2" config-ref="HTTP_Request_configuration_mongo-db-sapi" path="${mongo-db-sapi.resources.service.base-path}${mongo-db-sapi.resources.service.get.path}" >
+		<http:request method="GET" doc:name="Request" doc:id="56050274-0baa-4a42-a055-39f98947dda2" config-ref="HTTP_Request_configuration_mongo-db-sapi" path="${mongo-db-sapi.resources.serviceActive.base-path}${mongo-db-sapi.resources.serviceActive.get.path}" >
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
@@ -26,10 +26,10 @@ if (vars.parameters.CUSTOMER_ID? and vars.parameters.CUSTOMER_ID_TYPE?)
         CustomerId: vars.parameters.CUSTOMER_ID,
         CustomerIdType: vars.parameters.CUSTOMER_ID_TYPE
     }
-else if (vars.parameters.SERVICE_ACCOUNT?) 
+else if (vars.parameters.CONNECTION_NUMBER?) 
     {
         Tecnology: vars.parameters.OPERATION,
-        ConnectionNumber: vars.parameters.SERVICE_ACCOUNT
+        ConnectionNumber: vars.parameters.CONNECTION_NUMBER
     }
 else {}]]]></http:query-params>
 		</http:request>
