@@ -216,18 +216,12 @@ removeNulls({
 output application/json
 ---
 {
-    status: payload.codigo as Number,
-    code: "Ok",
-    message: {
-        message: payload.mensaje default ""
-    },
-    messageServer: payload.numeroRetencion default "",
-    cause: [
-        {
-            origin: "",
-            message: ""
-        }
-    ]
+    (status: "OK") if (payload.codigo? and payload.codigo == 200),
+    (code: payload.codigo as Number) if (payload.codigo?),
+    (message: {
+        (message: payload.mensaje) if (payload.mensaje?),
+        (retentionNumber: payload.numeroRetencion) if (payload.numeroRetencion?)
+    }) if (payload.mensaje? or payload.numeroRetencion?)
 }
 ]]></ee:set-payload>
 			</ee:message>
