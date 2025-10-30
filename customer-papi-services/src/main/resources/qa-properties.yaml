@@ -90,3 +90,7 @@ credentials:
 configurationTimeout:
   bot-sapi: "62000"
   bot-sapi-2: "62000"
+  customer-papi-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
