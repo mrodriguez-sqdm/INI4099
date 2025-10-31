@@ -101,6 +101,11 @@
 				"method": "GET",
 				"path": "/mvne/operations/v1/sendMessage/(id)",
 				"processname": "Obtener estado del registro"
+			},
+			{
+				"method": "PATCH",
+				"path": "/mvne/operations/v1/suscriber/(suscriberId)",
+				"processname": "Actualizar suscriber"
 			}
 		]
 	}
