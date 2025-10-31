@@ -20,6 +20,7 @@ jsc:
     login: "/auth/login"
     post-order: "/order"
     post-subscriber: "/subscriber"
+    patch-subscriber: "/subscriber/{id}"
     post-msisdn: "/msisdn"
     patch-msisdn: "/msisdn/{msisdn}/{order_id}"
     patch-msisdn-status: "/msisdn/{msisdn}"

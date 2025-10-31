@@ -161,6 +161,11 @@
 				"method": "POST",
 				"path": "/jsc/v1/smpp/sendMessage",
 				"processname": "Enviar mensaje"
+			},
+			{
+				"method": "PATCH",
+				"path": "/jsc/v1/subscriber/(id)",
+				"processname": "Update Subscriber"
 			}
 		]
 	}

@@ -98,6 +98,19 @@ traits:
           body:
             application/json:
               example: !include examples/responses/post-subscriber-response.json
+    /{id}:
+      patch:
+        is: [security_client_id]
+        displayName: Update Subscriber
+        description: Update Subscriber
+        body:
+          application/json:
+            type: !include datatypes/requests/update-subscriber.raml
+        responses:
+          202:
+            body:
+              application/json:
+                example: {}
   /msisdn:
     post:
       is: [security_client_id]

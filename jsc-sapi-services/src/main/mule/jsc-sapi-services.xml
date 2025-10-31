@@ -164,4 +164,7 @@ output application/json
     <flow name="post:\v1\smpp\sendMessage:application\json:jsc-sapi-services-config">
 		<flow-ref doc:name="Go to smpp handler" doc:id="882df7b3-f0ae-4e99-9358-2364b5ce5b68" name="post-sendMessage-handlerSub_Flow"/>
     </flow>
+	<flow name="patch:\v1\subscriber\(id):application\json:jsc-sapi-services-config" doc:id="6d7bf0ec-7ddb-49cd-90cd-8a8d155587b8" >
+		<flow-ref doc:name="Flow Reference" doc:id="99b485c2-f425-44cd-b183-b6b20d92539b" name="patch-subscriber-clientSub_Flow"/>
+	</flow>
 </mule>
