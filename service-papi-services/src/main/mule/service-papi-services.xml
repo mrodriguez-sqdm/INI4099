@@ -189,4 +189,7 @@ output application/json
 		</scheduler>
 		<flow-ref doc:name="Go to Delete Messages in EnrutadorMessages" doc:id="3c84761a-6fda-4d60-9aff-21570f13ace4" name="delete-processed-messages-handlerSub_Flow"/>
 	</flow>
+	<flow name="patch:\v1\suscriber\(suscriberId):application\json:service-papi-services-config" doc:id="b29fe12c-2767-44d9-b847-7fff2da58a56" >
+		<flow-ref doc:name="Flow Reference" doc:id="907557e7-fce0-411b-914e-13e58c851729" name="suscriber-orchestratorSub_Flow"/>
+	</flow>
 </mule>

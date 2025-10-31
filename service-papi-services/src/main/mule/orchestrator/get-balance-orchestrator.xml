@@ -19,7 +19,8 @@ output application/json
     "status": payload.content[0].status,
     "billingType": payload.content[0].billingType,
     "balance": (payload.content[0].balance.amount default 0) as String {format: "0.000000"},
-    "externalID":payload.content[0].externalID
+    "externalID":payload.content[0].externalID,
+    "suscriberId": payload.content[0].subscriber.id
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>

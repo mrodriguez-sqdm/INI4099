@@ -1,7 +1,7 @@
 http:
   private:
-    port: "8091"
-    
+    port: "8081"
+
 variable:
   add: "ADD"
   delete: "DELETE"
@@ -12,8 +12,8 @@ variable:
 
 bot-sapi:
   protocol: "HTTP"
-  host: "localhost"
-  port: "8082"
+  host: "mule-worker-internal-bot-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
   basepath: "/api"
   endpoints:
     services:
@@ -28,13 +28,13 @@ bot-sapi:
      getwifi: "/getwifi/v1"
      validatetv: "/validatetv/v1"
      
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
-
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
 bot-sapi-2:
   protocol: "HTTP"
-  host: "localhost"
-  port: "8082"
+  host: "mule-worker-internal-bot-sapi-services-2-qa.us-e2.cloudhub.io"
+  port: "8091"
   basepath: "/bot/v1"
   endpoints:
     services:
@@ -48,17 +48,26 @@ bot-sapi-2:
       validatelb: "/validatelb"
       validateaccess: "/validateaccess"
       
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
 
 global:
   renoRepo:
     packageId: "ETB_ChangeSim"
   condicionPortado: "VENTA LTE NCP"
   condicionNuevo: "VENTA LTE"
-
+  msgPerCall: "5"
+  desencoladorFrec: "5"
+  trxResetQueue: "1"
+  deleteEncolador: "1"
+  txrMaxPorHora: "100"
+  timeToDeliveyPerCategories:
+    otp: "80000"
+    regulatory: "86400"
+    campaign: "3600"
+  
 orderSubType: "Venta LTE NCP;Cambio Numero LTE NCP;PORTABILIDAD;CAMBIO NUMERO PORTADO"
-
+      
 configurationTimeout:
   jsc-sapi: "61000"
   mongo-sapi: "61000"
@@ -66,17 +75,19 @@ configurationTimeout:
   mongo-cf-sapi: "61000"
   bot-sapi: "62000"
   bot-sapi-2: "62000"
+  mongo-db-sapi: "61000"
+  orquestador-sapi: "61000"
 
-autodiscovery: "19442699"
+autodiscovery: "19430281"
 
 subscriberCancel:
   status: "TERMINATED"
   action: "CHANGE_STATUS"
   actionTerminate: "TERMINATE"
-  
+    
 jsc-sapi:
   protocol: "HTTP"
-  port: "8092"
+  port: "8091"
   host: "localhost"
   basePath: "/jsc/v1"
   recharge:
@@ -87,6 +98,7 @@ jsc-sapi:
     path: "/subscriber"
     subscriberType: "EXTERNAL"
     errorMessage: "Error retrieving subscriber"
+    patch-resource: "/suscriber/{id}"
   subscription:
     path: "/subscription"
     getBySID: "/subscription/group/{SID}"
@@ -172,22 +184,34 @@ jsc-sapi:
     channel: "BALANCE_TRANSFER"
     comment: "Transferencia de saldo"
     currency: "COP"
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
+  smpp:
+    path: "/smpp/sendMessage"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
   
 mongo-sapi:
   protocol: "HTTP"
   port: "8091"
-  host: "mule-worker-internal-mongo-sapi-services-dev.us-e2.cloudhub.io"
+  host: "mule-worker-internal-mongo-sapi-services-qa.us-e2.cloudhub.io"
   basePath: "/mongo/v1"
+  sendMessage:
+    path: "/send-message"
+  enrutadorDatos:
+    path: "/enrutadorMensajes"
+    path_patch: "/enrutadorMensajes/{id}"
+  logMessages:
+    path: "/logMessages"
+    sentInfo: "/logMessages/infoMessage"
+  #client_id: "b8665f3c588a4a709576760a1cc5a582"
+  #client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  getToken:
+    path: "/token"
+    errorMessage: "Error retrieving token"
   path:
     commercialCatalog: "/commercialCatalog"
     productOffer: "/productOfferByGroupingNumber"
     services: "/referred/services"
     typeParameter: "/parameters/{typeParameter}"
-  getToken:
-    path: "/token"
-    errorMessage: "Error retrieving token"
   offers:
     path: "/offers/{id}"
   getCatalog:
@@ -203,35 +227,35 @@ mongo-sapi:
   getOrderByCtaFact:
     path: "/order/{cuentaFacturacion}"  
   postPkgByPromotion:
-    path: "/promoUser"  
+    path: "/promoUser"
 
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
   getClient:
     path: "/clients"
   getReferral:
     path: "/referred"
-    
+
 referred:
   typeParameter: "EMPLEADOS_REFERIDOS"
   
 audits-sapi:
   protocol: "HTTP"
-  host: "mule-worker-internal-audits-mongo-sapi-services-dev.us-e2.cloudhub.io"
+  host: "mule-worker-internal-audits-mongo-sapi-services-qa.us-e2.cloudhub.io"
   port: "8091"
   basePath: "/audits/v1/logs"
   path: "/systems/{system_id}/apis/{api_id}"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
   
 sisext-sapi:
   protocol: "HTTP"
-  host: "mule-worker-internal-sisext-sapi-services-dev.us-e2.cloudhub.io"
+  host: "mule-worker-internal-sisext-sapi-services-qa.us-e2.cloudhub.io"
   port: "8091"
   basePath: "/sisext/v1"
   path: "/referred/{integrationId}"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
 
 global-vars:
   tecnologiaHogar: "FTTC,FTTH,COBRE"
@@ -240,7 +264,7 @@ global-vars:
 mongo-cf-sapi:
   protocol: "HTTP"
   port: "8091"
-  host: "mule-worker-internal-mongo-cf-sapi-services-dev.us-e2.cloudhub.io"
+  host: "mule-worker-internal-mongo-cf-sapi-services-qa.us-e2.cloudhub.io"
   basePath: "/mongo/v1"
   path:
     exclusionClientes: "/clients/excluded"
@@ -264,5 +288,32 @@ mongo-cf-sapi:
       primero: "SemClienteRecurrente_Agendamiento"
       segundo: "RECURRENTE_CONSULTA_AGENDA_TMR_DIGITAL"
     visitasTecnicas: "RECURRENTE_CONSULTA_AGENDA_VISITA_DIGITAL"
-  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
-  client_secret: "A2De130A74084573Bc8352790a8C1b56"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+
+mongo-db-sapi:
+  protocol: "HTTP"
+  port: "8091"
+  host: "mule-worker-internal-mongo-db-sapi-services-qa.us-e2.cloudhub.io"
+  basePath: "/mongo/v1"
+  path:
+    get-esim: "/esim/{iccid}"
+    get-orders: "/orders/{orderNumber}"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+orquestador-sapi:
+  protocol: "HTTP"
+  port: "8091"
+  host: "mule-worker-internal-orquestador-sapi-services-qa.us-e2.cloudhub.io"
+  basePath: "/orquestador/v1"
+  path:
+    post-orderActivate: "/order/activate"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+parameters-esim:
+  portabilidad: "PORTABILIDAD"
+  fase-portacion: "PORTACION"
+  id-vta: "PortalLTE_Activacion_Linea"
+  id-reno: "PortalLTE_Activacion_RenoSIM"

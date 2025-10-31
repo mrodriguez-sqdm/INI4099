@@ -13,6 +13,7 @@ types:
   recarga-paquetes: !include datatypes/request/recargar-paquete.raml
 
 traits:
+  tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
   disponibilidad: !include traits/disponibilidad.raml
   commonHeaders: !include traits/headers.raml
   channel-headers: !include /exchange_modules/35a39a92-efa9-49b6-8f13-d66508fd2f35/channelheaders/1.0.1/channelheaders.raml
@@ -416,3 +417,52 @@ securitySchemes:
             500:
               body:
                 type: !include datatypes/response/internalServerError.raml
+    /suscriber:
+      /{suscriberId}:
+          uriParameters:
+            suscriberId:
+              type: string
+              required: true
+              description: Identificador del suscriptor
+              example: "123"      
+          patch:
+              is: 
+                - tibcoHeaders
+              securedBy: [etb_oauth_2_0]
+              displayName: Update suscriber
+              description: Update suscriber
+              queryParameters:
+                ORIGIN:
+                  type: string
+                  example: "WHATSAPP"
+                  description: "Parameter that allows the origin of the request to be identified"
+              body:
+                application/json:
+                  type: !include /datatypes/request/patch-suscriber.raml
+                  example: !include /examples/request/patch-suscriber.json
+              responses:
+                200:
+                 body:
+                    application/json:
+                      type: !include /datatypes/response/patch-suscriber.raml
+                      example: !include /examples/response/patch-suscriber.json   
+                400:
+                  body:
+                    application/json:
+                      type: !include /datatypes/response/error.raml
+                      example: !include /examples/error/error-400.json
+                401:
+                  body:
+                    application/json:
+                      type: !include /datatypes/response/error.raml
+                      example: !include /examples/error/error-401.json
+                404:
+                  body:
+                    application/json:
+                      type: !include /datatypes/response/error.raml
+                      example: !include /examples/error/error-404.json
+                500:
+                  body:
+                    application/json:
+                      type: !include /datatypes/response/error.raml
+                      example: !include /examples/error/error-500.json     

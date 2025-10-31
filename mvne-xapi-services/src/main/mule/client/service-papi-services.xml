@@ -89,9 +89,29 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	"client_id" : p('service-papi-services.client_id'),
 	"systemId": vars.systemId
 }]]]></http:headers>
-			<http:query-params ><![CDATA[#[{
-	messageId: vars.id
-}]]]></http:query-params>
+			<http:query-params ><![CDATA[#[attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="patch-suscriber-clientSub_Flow" doc:id="70580911-8de6-44d3-bf35-12dc45506319" >
+		<http:request method="PATCH" doc:name="service-papi" doc:id="a12edeff-21a2-4218-b22a-6e6e01644804" config-ref="HTTP_Request_configuration-service-papi-services" path="${service-papi-services.path.suscriber}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('service-papi-services.client_secret'),
+	"client_id" : p('service-papi-services.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"suscriberId" : attributes.uriParams.suscriberId
+}]]]></http:uri-params>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
 </mule>

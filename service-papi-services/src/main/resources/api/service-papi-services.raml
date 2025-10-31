@@ -860,4 +860,50 @@ traits:
           body:
             application/json:
               type: !include /datatypes/response/logMessage.raml
-      
+  /suscriber:
+    /{suscriberId}:
+        uriParameters:
+          suscriberId:
+            type: string
+            required: true
+            description: Identificador del suscriptor
+            example: "123"
+        patch:
+            is: [security_client_id,tibcoHeaders]
+            displayName: Update suscriber
+            description: Update suscriber
+            queryParameters:
+              ORIGIN:
+                type: string
+                example: "WHATSAPP"
+                description: "Parameter that allows the origin of the request to be identified"
+            body:
+              application/json:
+                type: !include /datatypes/request/patch-suscriber.raml
+                example: !include /examples/requests/patch-suscriber.json
+            responses:
+              200:
+                body:
+                  application/json:
+                    type: !include /datatypes/response/patch-suscriber.raml
+                    example: !include /examples/responses/patch-suscriber.json   
+              400:
+                body:
+                  application/json:
+                    type: !include /datatypes/response/error.raml
+                    example: !include /examples/error/error-400.json
+              401:
+                body:
+                  application/json:
+                    type: !include /datatypes/response/error.raml
+                    example: !include /examples/error/error-401.json
+              404:
+                body:
+                  application/json:
+                    type: !include /datatypes/response/error.raml
+                    example: !include /examples/error/error-404.json
+              500:
+                body:
+                  application/json:
+                    type: !include /datatypes/response/error.raml
+                    example: !include /examples/error/error-500.json

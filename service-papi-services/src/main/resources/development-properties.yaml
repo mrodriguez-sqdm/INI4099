@@ -98,6 +98,7 @@ jsc-sapi:
     path: "/subscriber"
     subscriberType: "EXTERNAL"
     errorMessage: "Error retrieving subscriber"
+    patch-resource: "/suscriber/{id}"
   subscription:
     path: "/subscription"
     getBySID: "/subscription/group/{SID}"

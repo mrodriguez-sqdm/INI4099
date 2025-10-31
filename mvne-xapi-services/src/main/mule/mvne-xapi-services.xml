@@ -100,4 +100,7 @@
 	<flow name="get:\operations\v1\sendMessage\(id):mvne-xapi-services-config" doc:id="b0995582-6985-4727-91fb-53e9878b864e" >
 		<flow-ref doc:name="Go to Message Status Handler" doc:id="b6136288-e1aa-4263-aa46-68476592f7fb" name="get-message-status-handlerSub_Flow"/>
 	</flow>
+	<flow name="patch:\operations\v1\suscriber\(suscriberId):application\json:mvne-xapi-services-config" doc:id="9bdf98fe-37fe-4122-9cee-22e5f42411fb" >
+		<flow-ref doc:name="Flow Reference" doc:id="497706ba-fc32-4f65-8848-33cda27ca8b2" name="patch-suscriber-clientSub_Flow"/>
+	</flow>
 </mule>

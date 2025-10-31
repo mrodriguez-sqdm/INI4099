@@ -4,5 +4,6 @@
     "status": "PRE_ACTIVE",
     "billingType": "ACCOUNT_CONTROL",
     "balance": "0.000000",
-    "externalID": "MDM-MOV-3118651-1"
+    "externalID": "MDM-MOV-3118651-1",
+    "suscriberId": "54545454"
 }
