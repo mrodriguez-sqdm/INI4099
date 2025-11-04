@@ -14,9 +14,9 @@
     "Property": []
   },
   "WSResponseBody": {
-    "Num_PQR": "string",
-    "Traffic_Light_Color": "string",
-    "Status": "string",
-    "Message": "string"
+    "Modem_Phone_Programmed": "string",
+    "State_VoIP_ACS": "string",
+    "State_VoIP_IMS": "string",
+    "State_MSS_Inventory": "string"
   }
 }

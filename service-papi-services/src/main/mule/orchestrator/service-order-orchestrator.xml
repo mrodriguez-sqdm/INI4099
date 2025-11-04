@@ -1104,6 +1104,7 @@ output application/json
     "Audit": {
       "Canal": vars.headers.name
     },
+    "Address": payload.serviceOrder.detailOrder.address default "",
     "Cod_DANE_City": payload.serviceOrder.detailOrder.codDaneCity default "",
     "Cod_DANE_Department": payload.serviceOrder.detailOrder.codDaneDepartment default "",
     "Keep_IPs": payload.serviceOrder.detailOrder.keepIps default "",

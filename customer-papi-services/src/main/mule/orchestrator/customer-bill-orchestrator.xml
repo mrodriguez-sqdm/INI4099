@@ -25,7 +25,7 @@ var resultado = filtrados reduce (pair, acc = {}) -> acc ++ {
 ]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<set-variable value='#[%dw 2.0&#10;output application/java&#10;---&#10;if(vars.parameters.BILLING_NUMBER != null and vars.parameters.BILLING_NUMBER != "")&#10; if(sizeOf((payload.filtros default {}) pluck ((v,k) -&gt; v)) &gt; 1)&#10;  false&#10; else&#10;  true &#10;else&#10; if(sizeOf((payload.filtros default {}) pluck ((v,k) -&gt; v)) &gt; 0)&#10;  true&#10; else&#10;  false]' doc:name="Set Variable" doc:id="25d2ef02-b82e-4049-b0db-06317c4b613e" variableName="call_bot" />
+		<set-variable value='#[%dw 2.0&#10;output application/java&#10;---&#10;if(vars.parameters.BILLING_NUMBER != null and vars.parameters.BILLING_NUMBER != "")&#10;  true &#10;else&#10; if(sizeOf((payload.filtros default {}) pluck ((v,k) -&gt; v)) &gt; 0)&#10;  true&#10; else&#10;  false]' doc:name="Set Variable" doc:id="25d2ef02-b82e-4049-b0db-06317c4b613e" variableName="call_bot" />
 		<choice doc:name="Choice" doc:id="35f918b4-482f-4c81-9f95-52acce19d826" >
 			<when expression="#[vars.call_bot]">
 				<choice doc:name="Choice1" doc:id="3fa91463-dcb1-4d27-b14b-aa11db37d225">

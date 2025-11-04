@@ -81,6 +81,10 @@
     "noise": "",
     "potency": "Verde"
   },
+  "modemPhoneProgrammed": "string",
+  "stateVoipAcs": "string",
+  "stateVoipIms": "string",
+  "stateMssInventory": "string",
   "trafficLightColor" : "",
   "numPqr": "MDM-PQR-4163009",
   "status": "string",

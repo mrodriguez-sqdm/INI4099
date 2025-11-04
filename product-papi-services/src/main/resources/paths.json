@@ -10,12 +10,12 @@
 			{
 				"method": "GET",
 				"path": "/v1/promotion",
-				"processname": "normalizeAddress"
+				"processname": "promotion"
 			},
 			{
 				"method": "POST",
 				"path": "/v1/productUsage/notify",
-				"processname": "geographicCoverage"
+				"processname": "notify usage"
 			}
 		]
 	}

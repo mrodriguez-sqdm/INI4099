@@ -242,10 +242,10 @@ output application/json
     codeResponse: vars.httpStatus as String,
     messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++', '++ payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
     normalized: if(payload.WSResponseBody != null) {
-		numPqr: payload.WSResponseBody.Num_PQR default "",
-		trafficLightColor : payload.WSResponseBody.Traffic_Light_Color default "",
-		status: payload.WSResponseBody.Status default "",
-		message: payload.WSResponseBody.Message default ""
+	    modemPhoneProgrammed: payload.WSResponseBody.Modem_Phone_Programmed default "",
+	    stateVoipAcs: payload.WSResponseBody.State_VoIP_ACS default "",
+	    stateVoipIms: payload.WSResponseBody.State_VoIP_IMS default "",
+	    stateMssInventory: payload.WSResponseBody.State_MSS_Inventory default ""
     	
     }else {}
 }]]></ee:set-payload>

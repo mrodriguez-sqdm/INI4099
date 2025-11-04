@@ -35,10 +35,10 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		</http:listener>
 		<apikit:console doc:id="37e84f66-9b7a-4ff6-b3db-eb99e25296ab" config-ref="product-papi-services-config" doc:name="APIkit Console" />
 	</flow>
-	<flow name="get:\productOffering:commerce-papi-services-config" doc:id="e9d54c2b-646d-4e34-8212-fe4e38350787" >
+	<flow name="get:\productOffering:product-papi-services-config" doc:id="e9d54c2b-646d-4e34-8212-fe4e38350787" >
 		<flow-ref doc:name="Flow Reference" doc:id="b7df27e1-ff34-4314-8b85-1ebbcfddb04e" name="get-productOffering-handlerSub_Flow" />
 	</flow>
-	<flow name="get:\promotion:commerce-papi-services-config" doc:id="fda1d294-bd20-4cb0-88c4-d1e0eb6cfe40" >
+	<flow name="get:\promotion:product-papi-services-config" doc:id="fda1d294-bd20-4cb0-88c4-d1e0eb6cfe40" >
 		<flow-ref doc:name="Flow Reference" doc:id="29bcd2a7-14bb-4233-90ea-3ceb0baa8952" name="get-promotion-orchestratorSub_Flow" />
 	</flow>
 	<flow name="post:\productUsage\notify:application\json:product-papi-services-config" doc:id="813daf0e-43e8-422c-b9cd-96fd80b149e8" >

@@ -9,6 +9,7 @@
     "causal": "",
     "operation": "create",
     "detailOrder": {
+      "address": "kra 10 # 12 54",
       "codDaneCity": "11001",
       "codDaneDepartment": "11",
       "keepIps": false,

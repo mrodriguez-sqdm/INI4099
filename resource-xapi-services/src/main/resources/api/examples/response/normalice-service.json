@@ -75,6 +75,10 @@
       }
     }
   },
+  "modemPhoneProgrammed": "string",
+  "stateVoipAcs": "string",
+  "stateVoipIms": "string",
+  "stateMssInventory": "string",
   "semaphore": {
     "attenuation": "",
     "modem": "Verde",
