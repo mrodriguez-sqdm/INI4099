@@ -307,3 +307,47 @@ traits:
                 application/json:
                   type: !include datatypes/responses/envioGeneralResponse.raml
                   example: !include examples/response/envioGeneralResponse.json
+  /resources:
+    /{id}:
+      get:
+        is: [securityClient]
+        displayName: Get employee
+        description: Get employee
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include datatypes/responses/get-resources-id.raml
+                example: !include examples/response/get-resources-id.json
+    /inArea:
+      get:
+        is: [securityClient]
+        displayName: Get Technician Crews by Area
+        description: Get Technician Crews by Area
+        queryParameters:
+          lat:
+            type: string
+            required: true
+            example: "4.75026014400004"
+          lng:
+            type: string
+            required: true
+            example: "74.0817942529999"
+          radius:
+            type: string
+            required: true
+            example: "10000"
+          limit:
+            type: string
+            required: true
+            example: "10"
+          timeDiff:
+            type: string
+            required: true
+            example: "30"
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include datatypes/responses/get-resources-inArea.raml
+                example: !include examples/response/get-resources-inArea.json

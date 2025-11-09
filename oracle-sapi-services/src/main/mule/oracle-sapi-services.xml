@@ -104,5 +104,11 @@ output application/json
 	<flow name="post:\v1\api\responsys\enviogeneral:oracle-sapi-services-config" doc:id="5434e452-f15a-4e22-852b-0124658d3239" >
 		<flow-ref doc:name="Flow Reference" doc:id="3f798679-c891-4f6d-8ade-217b6c517fad" name="post-responsys-enviogeneral-handlerSub_Flow"/>
 	</flow>
+	<flow name="get:\v1\resources\(id):oracle-sapi-services-config" doc:id="9b3af6fb-12bd-4e02-ada3-5eab8dfdb28c" >
+		<flow-ref doc:name="Flow Reference" doc:id="57f7a85f-4d4c-4895-903a-b6ea6019ec97" name="get-resources-id-orchestratorSub_Flow"/>
+	</flow>
+	<flow name="get:\v1\resources\inArea:oracle-sapi-services-config" doc:id="279f94fd-3941-47e7-9324-2469155cc535" >
+		<flow-ref doc:name="Flow Reference" doc:id="dc957416-3198-43b3-ad55-1f0c4dc71136" name="get-resources-inArea-orchestratorSub_Flow"/>
+	</flow>
 
 </mule>
