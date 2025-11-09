@@ -1,8 +1,0 @@
-{
-  "CancelOrderInput": {
-    "Bucket": "CHICO",
-    "Order": {
-      "id": "MDM-PQR-26658648"
-    }
-  }
-}
