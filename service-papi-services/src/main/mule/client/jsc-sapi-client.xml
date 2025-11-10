@@ -911,7 +911,7 @@ payload]"/>
 		</try>
 	</sub-flow>
 	<sub-flow name="patch-subscriber-client" doc:id="eb71911e-a154-4d80-b7ff-e75fa5a3a8d3" >
-		<http:request method="PATCH" doc:name="Patch subscriber" doc:id="d801ec12-fde3-400c-86c8-79c68fc25de2" config-ref="HTTP_Request_configuration_jsc" path="${jsc-sapi.subscriber.patch-resource}" target="subscriberObject" >
+		<http:request method="PATCH" doc:name="Patch subscriber" doc:id="d801ec12-fde3-400c-86c8-79c68fc25de2" config-ref="HTTP_Request_configuration_jsc" path="${jsc-sapi.subscriber.patch-resource}">
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
