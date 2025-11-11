@@ -67,6 +67,16 @@ oracle-ocs:
     user: "USER"
     company: "COMPANY"
     pass: "PASSWORD"
+  resourcesId:
+    path: "/rest/ofscCore/v1/resources/{id}"  
+    user: "USER"
+    company: "COMPANY"
+    pass: "PASSWORD"
+  resourcesInArea:
+    path: "/rest/ofscCore/v1/resources/custom-actions/resourcesInArea"  
+    user: "USER"
+    company: "COMPANY"
+    pass: "PASSWORD"
   createAssuranceOrder:
     path: "/rest/ofscCore/v1/activities"
     path_put: "/rest/ofscCore/v1/activities/{Activity_ID}/XA_adjunto"
