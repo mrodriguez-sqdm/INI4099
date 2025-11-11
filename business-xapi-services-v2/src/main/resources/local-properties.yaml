@@ -7,7 +7,7 @@ autodiscovery: "4545"
 business-papi-v2:
   protocol: "HTTP"
   host: "localhost"
-  port: "8091"
+  port: "8081"
   base-path: "/v2"
   resources:  
     partyInteraction:
@@ -24,6 +24,12 @@ business-papi-v2:
       base-path: "/agreement"
       get:
         path: ""
+    party:
+      base-path: "/party"
+      get:
+        path: ""
+      party-id:
+        path: "/{id}"
 
   security:
     client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"

@@ -225,3 +225,91 @@ securitySchemes:
               application/json:
                 type: !include /datatypes/response/error.raml
                 example: !include /examples/response/error-500.json
+/party:
+  get:
+    is: 
+    - tibcoHeaders
+    securedBy: [etb_oauth_2_0]
+    displayName: verification of field crews
+    description: verification of field crews
+    queryParameters:
+        LONGITUDE:
+          type: number
+          format: double
+          example: 45.621
+          description: "Number Interaction"
+          required: true
+        LATITUDE:
+          type: number
+          format: double
+          example: 545.25
+          description: "Parent account number associated with the customer"
+          required: true
+        RADIUS:
+          type: number
+          example: 10
+          description: "meters around"
+          required: true
+        LIMIT:
+          type: number
+          description: "Limit on orders to display"
+          required: false
+    responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/get-party.raml
+                example: !include /examples/response/get-party.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+  /{id}:
+    get:
+      is: 
+       - tibcoHeaders
+      securedBy: [etb_oauth_2_0]
+      displayName: secure employee validation
+      description: secure employee validation
+      responses:
+            200:
+              body:
+                application/json:
+                  type: !include /datatypes/response/get-employee.raml
+                  example: !include /examples/response/get-employee.json
+            400:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-400.json
+            401:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-401.json
+            404:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-404.json
+            500:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-500.json

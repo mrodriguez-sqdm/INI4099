@@ -49,6 +49,36 @@ audits-sapi:
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
   
+oracle-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-oracle-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basepath: "/oracle/v1"
+  resources:
+    basepath: "/resources"
+    get:
+     path: "/{id}"
+    inArea:
+     path: "/inArea"
+     
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  configurationTimeout: "62000"
+
+sisext-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-sisext-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basepath: "/sisext/v1"
+  employees:
+    basepath: "/employees"
+    get:
+     path: "/{id}"
+     
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  configurationTimeout: "62000"
+  
 credentials:
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"

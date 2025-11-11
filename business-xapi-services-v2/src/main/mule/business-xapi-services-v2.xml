@@ -47,4 +47,10 @@
 		<flow-ref doc:name="Flow Reference" doc:id="2d152ea7-1767-4eec-add5-846b86be153c" name="agreement-get-business-papi-v2-clientSub_Flow"/>
 
     </flow>
+	<flow name="get:\party:business-xapi-services-config" doc:id="1556c980-8b60-46d3-a236-1d2ef98aca00" >
+		<flow-ref doc:name="Flow Reference" doc:id="142c2b9c-2ccf-4f17-af16-cdd334d7ab09" name="party-get-business-papi-v2-clientSub_Flow"/>
+	</flow>
+	<flow name="get:\party\(id):business-xapi-services-config" doc:id="0e7514d6-fbea-45d7-8539-92a3a469eff1" >
+		<flow-ref doc:name="Flow Reference" doc:id="052dab55-b51e-4599-9dee-d72a9d05dfa3" name="party-id-get-business-papi-v2-clientSub_Flow"/>
+	</flow>
 </mule>

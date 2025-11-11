@@ -21,6 +21,16 @@
 				"method": "GET",
 				"path": "/v2/agreement",
 				"processname": "Retrieve Agreement Information"
+			},
+			{
+				"method": "GET",
+				"path": "/v2/party",
+				"processname": "verification of field crews"
+			},
+			{
+				"method": "GET",
+				"path": "/v2/party/{id}",
+				"processname": "secure employee validation"
 			}
 		]
 	}
