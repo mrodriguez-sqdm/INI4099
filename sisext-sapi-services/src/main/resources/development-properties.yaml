@@ -309,4 +309,15 @@ atp:
   days: "1"
   muleValidation: "bookingFeasibility|createBooking|activateOnt|activateService|deactivateOnt|deactivateService|resetONT|consultLevels|consultSpeed|consultState|consultNeighbors|serviceSuspension|serviceReactivation|speedChange"
   #consultBooking|cancelBooking|speedChangeFeasibility|speedChangeCreateBooking|speedChangeCancelBooking
+
+ldap:
+  url: "ldap://10.113.57.20:389"
+  principalDn: "cn=userdataintegrator,ou=Grupos,o=etb"
+  password: "Mayo2013"
+  authentication: "simple"
+  baseDn: "o=etb"
+  pool:
+    initial: "1"
+    max: "5"
+    timeout: "60000"
   

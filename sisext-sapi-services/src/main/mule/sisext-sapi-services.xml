@@ -178,4 +178,7 @@ output application/json
 	<flow name="post:\v1\atp\speedChange:application\json:sisext-sapi-services-config" doc:id="8ce1d6c5-290a-486b-b21f-ffb9ecef34ca" >
 		<flow-ref doc:name="Go to Handler" doc:id="73b8d5e4-f1b7-49b2-930f-09fc4df88c03" name="post-atpSpeedChange-handlerSub_Flow" />
 	</flow>
+	<flow name="get:\v1\employees\(id):sisext-sapi-services-config" doc:id="5d35da47-fd81-445c-afce-a1f8550245fe" >
+		<flow-ref doc:name="Flow Reference" doc:id="7a033a2f-f6b1-4c16-88ef-4207ccc3f1a4" name="get-employee-orchestadorSub_Flow"/>
+	</flow>
 </mule>

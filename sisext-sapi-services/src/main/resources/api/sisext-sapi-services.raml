@@ -648,3 +648,15 @@ types:
             body:
               application/json:
                 type: !include examples/response/atpSpeedChange.json
+  /employees:
+    /{id}:
+      get:
+        is: [security_client_id, tibcoRequestHeaders]
+        displayName: Get Employee by Workforce ID
+        description: Retrieves the employee information from ETB's LDAP directory using the unique identifier `workforceId`.
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include datatypes/response/get-employees-id.raml
+                example: !include examples/response/get-employees-id.json
