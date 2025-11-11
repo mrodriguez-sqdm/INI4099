@@ -19,6 +19,16 @@ smallworld:
     zonaAltoRiesgo:
       serviceName: "WsConsultarZonaAltoRiesgoService"
       portName: "WsConsultarZonaAltoRiesgoService-SOAP11port_http"
+      
+smallworld-2:
+  host: "10.112.1.67"
+  port: "8080"
+  basepath: "/gss/web/services"
+  soapProtocol: "http"
+  services:
+    zonaAltoRiesgo:
+      serviceName: "WsConsultarZonaAltoRiesgoService"
+      portName: "WsConsultarZonaAltoRiesgoService-SOAP11port_http"
 
 audits-sapi:
   host: "mule-worker-internal-audits-oracle-sapi-services-prod.us-e2.cloudhub.io"

@@ -27,7 +27,7 @@ http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/
 	<import doc:name="Import" doc:id="0c02c979-aa94-4846-9987-e437f04f082c" file="loggin.xml" />
 	<import doc:name="Import" doc:id="94ae261e-36ce-4a3c-91af-8f996c21a7c7" file="audits-sapi-client.xml" />
 	<import doc:name="Import" doc:id="85e72367-d46e-4379-a5eb-db023cf073a1" file="etb-common-lib.xml" />
-	<wsc:config name="Web_Service_Consumer_Config_smallworld" doc:name="Web Service Consumer Config" doc:id="06ce5088-fb29-42df-8812-b129c6fb250d" >
-		<wsc:connection wsdlLocation="${smallworld.soapProtocol}://${smallworld.host}:${smallworld.port}${smallworld.basepath}/${smallworld.services.zonaAltoRiesgo.serviceName}?wsdl" service="${smallworld.services.zonaAltoRiesgo.serviceName}" port="${smallworld.services.zonaAltoRiesgo.portName}" address="${smallworld.soapProtocol}://${smallworld.host}:${smallworld.port}${smallworld.basepath}/${smallworld.services.zonaAltoRiesgo.serviceName}"/>
+	<wsc:config name="Web_Service_Consumer_Config_smallworld" doc:name="Web Service Consumer Config" doc:id="24d6fb23-67ac-4882-bf56-5576b835555e" >
+		<wsc:connection wsdlLocation="${smallworld-2.soapProtocol}://${smallworld-2.host}:${smallworld-2.port}${smallworld-2.basepath}/${smallworld-2.services.zonaAltoRiesgo.serviceName}?wsdl" service="${smallworld-2.services.zonaAltoRiesgo.serviceName}" port="${smallworld-2.services.zonaAltoRiesgo.portName}" address="${smallworld-2.soapProtocol}://${smallworld-2.host}:${smallworld-2.port}${smallworld-2.basepath}/${smallworld-2.services.zonaAltoRiesgo.serviceName}"/>
 	</wsc:config>
 </mule>
