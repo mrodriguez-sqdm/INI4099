@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="bcfeba3e-9f24-4672-a607-5d73fa062f69" file="${env}-properties.yaml" />
+		<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="9c8bda19-393c-42db-8ae9-0458252878b2" basePath="${smallworld.basepath}" responseTimeout="${configurationTimeout.smallworld}">
+		<http:request-connection protocol="${smallworld.protocol}" host="${smallworld.host}" port="${smallworld.port}" connectionIdleTimeout="${configurationTimeout.smallworld}"/>
+	</http:request-config>
+		<http:listener-config
+		name="smallworld-sapi-services-httpListenerConfig">
+		<http:listener-connection host="${http.host}"
+			port="${http.private.port}" />
+	</http:listener-config>
+	<apikit:config name="smallworld-sapi-services-config"
+		api="smallworld-sapi-services.raml"
+		outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="7fefb804-5234-47b2-be9e-a5a89b85b253" flowRef="smallworld-sapi-services-main" />
+	<import doc:name="Import" doc:id="70737820-97c0-427f-b1b6-3059c4391d9e" file="error-handler.xml" />
+	<import doc:name="Import" doc:id="0c02c979-aa94-4846-9987-e437f04f082c" file="loggin.xml" />
+	<import doc:name="Import" doc:id="94ae261e-36ce-4a3c-91af-8f996c21a7c7" file="audits-sapi-client.xml" />
+	<import doc:name="Import" doc:id="85e72367-d46e-4379-a5eb-db023cf073a1" file="etb-common-lib.xml" />
+	<wsc:config name="Web_Service_Consumer_Config_smallworld" doc:name="Web Service Consumer Config" doc:id="06ce5088-fb29-42df-8812-b129c6fb250d" >
+		<wsc:connection wsdlLocation="${smallworld.soapProtocol}://${smallworld.host}:${smallworld.port}${smallworld.basepath}/${smallworld.services.zonaAltoRiesgo.serviceName}?wsdl" service="${smallworld.services.zonaAltoRiesgo.serviceName}" port="${smallworld.services.zonaAltoRiesgo.portName}" address="${smallworld.soapProtocol}://${smallworld.host}:${smallworld.port}${smallworld.basepath}/${smallworld.services.zonaAltoRiesgo.serviceName}"/>
+	</wsc:config>
+</mule>
