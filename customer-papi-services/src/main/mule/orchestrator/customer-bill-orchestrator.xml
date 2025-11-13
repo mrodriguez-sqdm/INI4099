@@ -134,7 +134,7 @@ output application/json
 {
 	codeResponse: vars.httpStatus as String ,
 	messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorMessageUser else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
-   invoices: (payload.Invoices default []) map {
+   invoices: (payload.WSResponseBody.Invoices default []) map {
         billingNumber: $.Billing_Number default "",
         billingDate: $.Billing_Date default "",
         dueDate: $.Due_Date default "",

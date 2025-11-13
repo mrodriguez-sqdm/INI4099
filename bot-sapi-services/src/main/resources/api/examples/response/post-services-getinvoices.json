@@ -19,6 +19,7 @@
     },
     "Property": []
   },
+  "WSResponseBody": {
   "Invoices": [
     {
       "Billing_Number": "5879271031188",
@@ -53,4 +54,5 @@
       "Adjustments": []
     }
   ]
+  }
 }
