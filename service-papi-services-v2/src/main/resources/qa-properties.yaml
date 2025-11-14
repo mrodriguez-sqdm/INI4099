@@ -1,0 +1,46 @@
+http:
+  private:
+    port: "8091"
+  time-out: "30000"
+  
+autodiscovery: "20554786"
+
+mongo-db-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-mongo-db-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  base-path: "/mongo/v1"
+  resources:  
+    serviceActive:
+      base-path: "/serviceActive"
+      get:
+        path: ""
+    service:
+      base-path: "/service"
+      get:
+        path: ""
+ 
+  security:
+    client_id: "b8665f3c588a4a709576760a1cc5a582"
+    client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"    
+    
+audits-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-audits-oracle-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  basePath: "/api/v1/logs"
+  path: "/systems/{system_id}/apis/{api_id}"
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+credentials:
+  client_id: "b8665f3c588a4a709576760a1cc5a582"
+  client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+
+configurationTimeout:
+  bot-sapi: "62000"
+  bot-sapi-2: "62000"
+  service-papi-v2-listener: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
