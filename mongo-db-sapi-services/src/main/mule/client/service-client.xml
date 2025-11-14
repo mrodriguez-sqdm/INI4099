@@ -8,7 +8,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<sub-flow name="get-mdm-service-clientSub_Flow" doc:id="3ac788a8-fce0-4b4e-9e56-c8f5e691b6ca" >
 		<set-variable value="#[attributes.queryParams]" doc:name="Set Variable" doc:id="cce1ec84-4c31-45a9-b397-d53a2d469de4" variableName="parameters" />
 		<choice doc:name="Choice" doc:id="95e2ceff-959b-49a4-b8b0-6223c05d1da0" >
-			<when expression="#[(vars.parameters.ServiceAccountId != null) or (vars.parameters.BillingAccountId != null) or (vars.parameters.CustomerId != null)]">
+			<when expression="#[(vars.parameters.ServiceAccountId != null) or (vars.parameters.BillingAccountId != null) or (vars.parameters.CustomerId != null) or (vars.parameters.ConnectionNumber != null)]">
 				<try doc:name="Try" doc:id="b1839390-2370-401c-b7de-225fceee2e93">
 			<ee:transform doc:name="Set Query Payload" doc:id="0eccbd7b-3535-498b-ad0b-bda3694d7ed6">
 				<ee:message>
@@ -20,8 +20,15 @@ if(!isEmpty(vars.parameters.CustomerIdType) and !isEmpty(vars.parameters.Custome
  "Cliente.Tipo_Documento": vars.parameters.CustomerIdType
 }else if(!isEmpty(vars.parameters.BillingAccountId)) 
     { "Id_Cuenta_Facturacion": vars.parameters.BillingAccountId }
-else 
-    { "Id_Cuenta_Servicio": vars.parameters.ServiceAccountId }]]></ee:set-payload>
+else if(!isEmpty(vars.parameters.ServiceAccountId))
+    { "Id_Cuenta_Servicio": vars.parameters.ServiceAccountId }
+else
+{"Bundle.Primarios": {
+    "\$elemMatch": {
+      Nombre: "LINEA TELEFONICA",
+      Numero: vars.parameters.ConnectionNumber
+    }
+}}]]></ee:set-payload>
 				</ee:message>
 			</ee:transform>
 					<mongo:find-documents collectionName="${mongoDb-mdm.servicios.collection-service-ftth}" fields="," doc:name="Find documents" doc:id="88906436-72e1-4cbb-b2c2-394e0f6852f1" config-ref="mdm_db_Config">

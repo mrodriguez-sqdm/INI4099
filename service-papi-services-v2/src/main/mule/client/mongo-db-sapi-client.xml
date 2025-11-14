@@ -62,6 +62,10 @@ else if (vars.parameters.BILLING_ACCOUNT?)
     {
         BillingAccountId: vars.parameters.BILLING_ACCOUNT
     }
+else if (vars.parameters.CONNECTION_NUMBER?) 
+    {
+        ConnectionNumber: vars.parameters.CONNECTION_NUMBER
+    }
 else {}]]]></http:query-params>
 		</http:request>
 	</sub-flow>
