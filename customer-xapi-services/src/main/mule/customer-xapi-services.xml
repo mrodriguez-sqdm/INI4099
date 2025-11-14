@@ -74,4 +74,62 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<flow name="post:\productOrder\nip:application\json:customer-xapi-services-config" doc:id="fedfdc01-ea31-487b-9db6-8b39ff387266" >
 		<flow-ref doc:name="Flow Reference" doc:id="9bf81ae7-0f79-4276-add5-e0edaa09aa69" name="post-product-order-nip-clientSub_Flow"/>
 	</flow>
+	<flow name="get:\paymentMethod:customer-xapi-services-config" doc:id="7a70c406-6b11-4fa2-b56b-01cb1a709858" >
+		<ee:transform doc:name="Transform Message" doc:id="ce8874e0-cc00-4c9e-a7f1-6bbb55b8c5f7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: "200",
+  messageResponse: "Métodos de pago consultados exitosamente.",
+  paymentMethod: {
+    id: "",
+    services: [
+      {
+        billingAccount: "1234567890",
+        icon: "mobile",
+        nickname: "Mi Línea Principal",
+        phone: "6019980626",
+        plan: "Plan Postpago 30GB",
+        scheduledPayment: {
+          creditCard: "****1234",
+          creditCardCompany: "VISA"
+        }
+      }
+    ]
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="post:\paymentMethod:application\json:customer-xapi-services-config" doc:id="f8485b4e-1e1e-4a98-a3fe-c0a59733bde6" >
+		<ee:transform doc:name="Transform Message" doc:id="edbe355c-a78f-4f6e-8389-9bc981e18766" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: "200",
+  messageResponse: "El método de pago ha sido creado exitosamente",
+  paymentMethod: {
+    id: "12313133"
+  }
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="post:\paymentMethod\inactive:application\json:customer-xapi-services-config" doc:id="1828587e-bd8b-41f6-8c47-1b167eceab4a" >
+		<ee:transform doc:name="Transform Message" doc:id="2dbafd3d-e744-4bbf-a131-33b5feeba7ba" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  codeResponse: "200",
+  messageResponse: "El método de pago ha sido inactivado exitosamente."
+} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
 </mule>
