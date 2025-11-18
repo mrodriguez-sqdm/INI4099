@@ -136,11 +136,11 @@ var service = payload.servicios
                 maritalStatus: s.Estado_Civil,
                 stratum: s.Estrato,
                 extension: s.Extension,
-                activationDate: s.Fecha_Activacion."\$date",
-                updateDate: s.Fecha_Actualizacion."\$date",
-                creationDate: s.Fecha_Creacion."\$date",
+                activationDate: s.Fecha_Activacion,
+                updateDate: s.Fecha_Actualizacion,
+                creationDate: s.Fecha_Creacion,
                 documentIssueDate: s.Fecha_Expedicion_Documento,
-                modificationDate: s.Fecha_Modificacion."\$date",
+                modificationDate: s.Fecha_Modificacion,
                 birthDate: s.Fecha_Nacimiento,
                 scoringDate: s.Fecha_Scoring,
                 identityValidationDate: s.Fecha_Validacion_Identidad,
@@ -188,11 +188,11 @@ var service = payload.servicios
                 validateLisimCode: s.ValidaCodigoLISIM,
 	            atdp: {
 	            channel: s.ATDP.CANAL,
-	            date: s.ATDP.FECHA."\$date",
+	            date: s.ATDP.FECHA,
 	            habeasData: s.ATDP.HABEAS_DATA
 	            },
 	            stringAttributes: (s.AtributosCadena default []) map (a) -> {
-	                subscriptionDate: a.FechaSuscripcion."\$date",
+	                subscriptionDate: a.FechaSuscripcion,
 	                key: a.Llave,
 	                value: a.Valor
 	            },
@@ -318,7 +318,7 @@ var service = payload.servicios
 						offerFilterGroup: s.Bundle.Agrupa_filtros_oferta,
 						attributes: s.Bundle.Atributos,
 						discount: s.Bundle.Descuento,
-						assignmentDate: s.Bundle.Fecha_Asignacion."\$date",
+						assignmentDate: s.Bundle.Fecha_Asignacion,
 						creationDate: s.Bundle.Fecha_Creacion,
 						modificationDate: s.Bundle.Fecha_Modificacion,
 						finalPrice: s.Bundle.PrecioFinal,
@@ -384,7 +384,7 @@ var service = payload.servicios
 			                addresses: s.Cliente.Direcciones default "",
 			                email: s.Cliente.Email default "",
 			                documentIssueDate: s.Cliente.Fecha_Expedicion default "",
-			                modificationDate: s.Cliente.Fecha_Modificacion."\$date" default "",
+			                modificationDate: s.Cliente.Fecha_Modificacion default "",
 			                identityValidationDate: s.Cliente.Fecha_Validacion_Identidad default "",
 			                names: s.Cliente.Nombres default "",
 			                firstSurname: s.Cliente.Primer_Apellido default "",
@@ -404,7 +404,7 @@ var service = payload.servicios
 			                contactAttachments: c.Adjuntos_Contacto,
 			                atdp: {
 			                    channel: c.ATDP.CANAL,
-			                    date: c.ATDP.FECHA."\$date",
+			                    date: c.ATDP.FECHA,
 			                    habeasData: c.ATDP.HABEAS_DATA,
 			                    associatedPqr: c.ATDP.PQR_ASOCIADA,
 			                    user: c.ATDP.USUARIO
@@ -419,8 +419,8 @@ var service = payload.servicios
 			                status: if(c.Estado) 1 else 0,
 			                stratum: c.Estrato,
 			                contactFax: c.Fax_Contacto,
-			                modificationDate: c.Fecha_Modificacion."\$date",
-			                mobileModificationDate: c.Fecha_Modificacion_Movil."\$date",
+			                modificationDate: c.Fecha_Modificacion,
+			                mobileModificationDate: c.Fecha_Modificacion_Movil,
 			                locality: c.Localidad,
 			                mobilePhone: c.Movil_Contacto,
 			                mobilePhone2: c.Movil_Contacto2,
@@ -547,7 +547,7 @@ var service = payload.servicios
 						    extractorUpdate: o.Actualizacion_Extractor,
 						    offerFilterGrouping: o.Agrupa_filtros_oferta,
 						    discount: o.Descuento,
-						    assignmentDate: o.Fecha_Asignacion."\$date",
+						    assignmentDate: o.Fecha_Asignacion,
 						    creationDate: o.Fecha_Creacion,
 						    modificationDate: o.Fecha_Modificacion,
 						    finalPrice: o.PrecioFinal,
@@ -620,14 +620,14 @@ var service = payload.servicios
 							        additionalType: aux.Bundle.tipo_adicional,
 							        productType: aux.Bundle.Tipo_Producto,
 							        serviceType: aux.Bundle.Tipo_Servicio,
-							        assignmentDate: aux.Bundle.Fecha_Asignacion."\$date" default ""
+							        assignmentDate: aux.Bundle.Fecha_Asignacion default ""
 							    },
 							    serviceCharacteristics: aux.Caracteristica_Servicio map (c) -> {
 							        characteristic: c.Caracteristica,
 							        value: c.Valor
 							    },
 							    creationDate: aux.Fecha_Creacion,
-							    modificationDate: aux.Fecha_Modificacion."\$date" default "",
+							    modificationDate: aux.Fecha_Modificacion default "",
 							    billingAccountId: aux.Id_Cuenta_Facturacion,
 							    serviceAccountId: aux.Id_Cuenta_Servicio,
 							    installationAddressId: aux.Id_Direccion_Instalacion,
@@ -686,7 +686,7 @@ var service = payload.servicios
 							        additionalType: o.tipo_adicional,
 							        productType: o.Tipo_Producto,
 							        serviceType: o.Tipo_Servicio,
-							        assignmentDate: o.Fecha_Asignacion."\$date" default ""
+							        assignmentDate: o.Fecha_Asignacion default ""
 							    },
 							    promotions: aux.Promociones default [],
 							    conditionalPromotions: aux.Promociones_Condicionadas default [],
