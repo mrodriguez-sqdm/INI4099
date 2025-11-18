@@ -73,7 +73,11 @@ securitySchemes:
           body:
             application/json:
               type: !include /datatypes/response/get-service.raml
-              example: !include /examples/response/get-service.json
+              examples:
+                LTE:
+                  value: !include /examples/response/get-service-lte.json
+                FTTH:
+                  value: !include /examples/response/get-service-ftth.json
         400:
           body:
             application/json:

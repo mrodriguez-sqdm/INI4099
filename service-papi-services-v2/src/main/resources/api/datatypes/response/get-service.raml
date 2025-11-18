@@ -1696,9 +1696,99 @@ properties:
             example: ''
             required: false
           status:
-            type: integer
-            example: 0
+            type: object
             required: false
+            properties:
+              main:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T14:38:17.108Z'
+                    required: false
+              payment:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T13:01:00.651Z'
+                    required: false
+              fraud:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T13:01:00.651Z'
+                    required: false
+              procedure:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T14:38:17.108Z'
+                    required: false
+              voluntary:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T13:01:00.651Z'
+                    required: false
+              theftLoss:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: '1'
+                    required: false
+                  description:
+                    type: string
+                    example: Active
+                    required: false
+                  date:
+                    type: datetime
+                    example: '2025-07-31T13:01:00.651Z'
+                    required: false
           maritalStatus:
             type: string
             example: ABCDEFGH

@@ -326,6 +326,38 @@ var service = payload.servicios
 						modificationUser: s.Bundle.Usuario_Modificacion,
 						offerTechnicalSpecValue: s.Bundle.Valor_Especificacion_Tecnica_Oferta	
 	            },
+				status: {
+					main: {
+						code: s.Estado.Principal.Codigo,
+						description: s.Estado.Principal.Descripcion,
+						date: s.Estado.Principal.Fecha
+					},
+					payment: {
+						code: s.Estado.Pago.Codigo,
+						description: s.Estado.Pago.Descripcion,
+						date: s.Estado.Pago.Fecha
+					},
+					fraud: {
+						code: s.Estado.Fraude.Codigo,
+						description: s.Estado.Fraude.Descripcion,
+						date: s.Estado.Fraude.Fecha
+					},
+					procedure: {
+						code: s.Estado.Tramite.Codigo,
+						description: s.Estado.Tramite.Descripcion,
+						date: s.Estado.Tramite.Fecha
+					},
+					voluntary: {
+						code: s.Estado.Voluntaria.Codigo,
+						description: s.Estado.Voluntaria.Descripcion,
+						date: s.Estado.Voluntaria.Fecha
+					},
+					theftLoss: {
+						code: s.Estado.RoboPerdida.Codigo,
+						description: s.Estado.RoboPerdida.Descripcion,
+						date: s.Estado.RoboPerdida.Fecha
+					}
+				},				
 					 customerCharacteristics: (s.Caracteristica_Cliente default []) map (c) -> {
 					    characteristic: c.Caracteristica,
 					    value: c.Valor
