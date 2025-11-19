@@ -1159,8 +1159,17 @@ output application/json
     "Contact_Phone": payload.serviceOrder.detailOrder.contactPhone default "",
     "Document_Number": payload.serviceOrder.customer.documentNumber default "",
     "Document_Type": payload.serviceOrder.customer.documentType default "",
-    "Finish_Date": payload.serviceOrder.detailOrder.finishDate default "",
-    "Initial_Date": payload.serviceOrder.detailOrder.initialDate default "",
+    "Finish_Date": 
+        (payload.serviceOrder.detailOrder.finishDate 
+            as DateTime {format: "yyyy-MM-dd'T'HH:mm:ssX"})
+                as String {format: "yyyy-dd-MM"} 
+                    default "",
+
+    "Initial_Date": 
+        (payload.serviceOrder.detailOrder.initialDate 
+            as DateTime {format: "yyyy-MM-dd'T'HH:mm:ssX"})
+                as String {format: "yyyy-dd-MM"} 
+                    default "",
     "Phone": payload.serviceOrder.customer.phone default ""
     
    }
@@ -1173,10 +1182,13 @@ output application/json
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorMessage default ""
+
 ---
 {
 	codeResponse: vars.httpStatus as String ,
-	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	messageResponse: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode ++ ' '++ mensaje,
 	order: [
     {
 	    cun: payload.WSResponseBody.CUN default "",
