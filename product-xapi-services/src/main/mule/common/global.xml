@@ -11,7 +11,7 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 		<http:listener-connection host="0.0.0.0" port="${https.port}" tlsContext="TLS_Context" protocol="HTTPS"/>
 	</http:listener-config>
 	<configuration-properties doc:name="Configuration properties" doc:id="f8a298fb-0ea8-406c-916b-2c8f08ebb5fb" file="${env}-properties.yaml" />
-	<apikit:config outboundHeadersMapName="outboundHeadersMapName" httpStatusVarName="httpStatus" doc:name="product-xapi-services-config" doc:id="171b031f-9dd3-407c-8070-6d7fe6db4850" name="product-xapi-services-config" api="product-xapi-services.raml" />
+	<apikit:config outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" doc:name="product-xapi-services-config" doc:id="171b031f-9dd3-407c-8070-6d7fe6db4850" name="product-xapi-services-config" api="product-xapi-services.raml" />
 	<http:request-config name="HTTP_Request_configuration_product-papi" doc:name="HTTP Request configuration" doc:id="0ddbf09c-725c-4297-b28a-fca439f02a89" basePath="${product-papi.basepath}" responseTimeout="${configurationTimeout.product-sapi}">
 		<http:request-connection protocol="${product-papi.protocol}" host="${product-papi.host}" port="${product-papi.port}" />
 	</http:request-config>
