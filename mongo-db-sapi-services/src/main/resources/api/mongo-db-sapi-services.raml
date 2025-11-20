@@ -405,3 +405,32 @@ traits:
         500:
           body:
             type: !include /datatypes/responses/error.raml
+  /pqrAgendaTmr:
+   is: [security_client_id,request_headers]
+   get:
+    displayName: Get Pqr agenda TMR
+    description: Get Pqr agenda TMR
+    queryParameters:
+      OrderNumber:
+        type: string
+        example: "454544"
+        required: false
+      CustomerId:
+        type: string
+        example: "3125702716"
+        required: false
+      CustomerIdType:
+        type: string
+        example: "CC"
+        required: false
+    responses:
+      200:
+        body:
+          type: !include /datatypes/responses/get-pqr-agenda-tmr.raml
+          example: !include examples/responses/pqr-agenda-tmr.json
+      404:
+        body:
+          type: !include /datatypes/responses/error.raml
+      500:
+        body:
+          type: !include /datatypes/responses/error.raml
