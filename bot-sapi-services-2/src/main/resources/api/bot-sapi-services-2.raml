@@ -1,4 +1,4 @@
-#%RAML 1.0
+  #%RAML 1.0
 title: bot-sapi-services-2
 version: v1
 baseUri: http://bot-sapi-services-{env}.us-e2.cloudhub.io/bot/{version}
@@ -241,6 +241,22 @@ traits:
             application/json:
               type: !include /datatypes/response/common-response-header.raml
               example: !include /examples/response/post-update-habeasdata.json
+  /createcontactphone:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Create or Update Contact Phone
+      description: Create or Update Contact Phone
+      body:
+        application/json:
+          type: !include /datatypes/request/post-createcontactphone.raml
+          example: !include /examples/request/post-createcontactphone.json
+      responses:
+        200:
+          description: The contact phone was created or updated successfully.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-createcontactphone.json
 
 /notifications:
   /sendinfosva:
@@ -328,3 +344,52 @@ traits:
               application/json:
                 type: !include /datatypes/response/post-nipportability.raml
                 example: !include /examples/response/post-nipportability.json
+/ScheduledPayments:
+  /get:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Get Scheduled Payment
+      description: Get Scheduled Payment
+      body:
+        application/json:
+          type: !include /datatypes/request/post-get-scheduledPayments.raml
+          example: !include /examples/request/post-get-scheduledPayments.json
+      responses:
+        200:
+          description: The scheduled payment information was retrieved successfully.
+          body:
+            application/json:
+              type: !include /datatypes/response/post-get-scheduledPayments.raml
+              example: !include /examples/response/post-get-scheduledPayments.json
+  /inactive:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Inactive Scheduled Payment
+      description: Inactive Scheduled Payment
+      body:
+        application/json:
+          type: !include /datatypes/request/post-inactive-scheduledPayments.raml
+          example: !include /examples/request/post-inactive-scheduledPayments.json
+      responses:
+        200:
+          description: The scheduled payment was inactivated successfully.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-inactive-scheduledPayments.json
+  /insert:
+    post:
+      is: [security_client_id, request_headers]
+      displayName: Create Scheduled Payment
+      description: Create Scheduled Payment
+      body:
+        application/json:
+          type: !include /datatypes/request/post-insert-scheduledPayments.raml
+          example: !include /examples/request/post-insert-scheduledPayments.json
+      responses:
+        200:
+          description: The scheduled payment was created successfully.
+          body:
+            application/json:
+              type: !include /datatypes/response/common-response-header.raml
+              example: !include /examples/response/post-insert-scheduledPayments.json

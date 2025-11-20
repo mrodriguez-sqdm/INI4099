@@ -16,7 +16,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
 			</http:error-response>
 		</http:listener>
-		<flow-ref doc:name="Call initial Logger" doc:id="1dc368f1-26e2-4169-b23b-4840da077038" name="initial-loggin-Sub_Flow" />
+		<choice doc:name="Choice" doc:id="1135ec74-b9c6-45db-a507-c6fe56bfbc8e" >
+			<when expression='#[attributes.requestUri != "/bot/v1/ScheduledPayments/insert"]'>
+				<flow-ref doc:name="Call initial Logger" doc:id="1dc368f1-26e2-4169-b23b-4840da077038" name="initial-loggin-Sub_Flow" />
+			</when>
+		</choice>
 		<apikit:router doc:id="f0cd6a41-3f4d-4af9-818b-27e6bd02dec9" config-ref="bot-sapi-services-2-config" doc:name="APIkit Router" />
 		<async doc:name="Async" doc:id="4a935bde-10e1-4be4-9517-2914c2a8dddb" >
 			<flow-ref doc:name="Call logger" doc:id="7d5d7c45-fe47-4843-b08e-83fc474ee06e" name="loggin-client-call" />
@@ -109,5 +113,17 @@ output application/json
 	</flow>
 	<flow name="post:\saleorder\store\nipportability:application\json:bot-sapi-services-2-config" doc:id="e46eed18-ba24-4934-a9df-72a0823e0717" >
 		<flow-ref doc:name="Flow Reference" doc:id="74c12370-8ce0-41f9-88b4-f8ddf8b5cc78" name="post-saleorder-store-nipportability-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\customers\createcontactphone:application\json:bot-sapi-services-2-config" doc:id="4e77c6a4-28e8-4569-a0ba-a253b9127a7c">
+		<flow-ref doc:name="Flow Reference" doc:id="39e30c76-2a43-4f7d-aebc-22ef93ec6f78" name="post-customer-createcontactphone-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\ScheduledPayments\get:application\json:bot-sapi-services-2-config" doc:id="abf51ae1-48a3-4fc3-8d52-35a278530398">
+		<flow-ref doc:name="Flow Reference" doc:id="69ebe980-5ea7-4921-ac75-1864c3a24dd4" name="post-ScheduledPayments-getSchedPay-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\ScheduledPayments\inactive:application\json:bot-sapi-services-2-config" doc:id="de4b7f1e-a562-4110-8bfa-ca149b84fc7b">
+		<flow-ref doc:name="Flow Reference" doc:id="aa608769-4b69-41cb-bb1a-364dfa353813" name="post-ScheduledPayments-inactive-orchestadorSub_Flow"/>
+	</flow>
+	<flow name="post:\ScheduledPayments\insert:application\json:bot-sapi-services-2-config" doc:id="c04f3c9c-003d-4020-93e3-b4fff8c5eee7" >
+		<flow-ref doc:name="Flow Reference" doc:id="33f33310-87bb-4978-ba01-0dd2692db306" name="post-ScheduledPayments-insert-orchestadorSub_Flow"/>
 	</flow>
 </mule>

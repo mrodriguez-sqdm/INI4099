@@ -96,6 +96,26 @@
 				"method": "POST",
 				"path": "/bot/v1/saleorder/store/nipportability",
 				"processname": "Manage NIP Portability"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/customers/createcontactphone",
+				"processname": "Create or Update Contact Phone"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/ScheduledPayments/get",
+				"processname": "Get Scheduled Payment"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/ScheduledPayments/inactive",
+				"processname": "Inactive Scheduled Payment"
+			},
+			{
+				"method": "POST",
+				"path": "/bot/v1/ScheduledPayments/insert",
+				"processname": "Create Scheduled Payment"
 			}
 			
 		]
