@@ -35,6 +35,9 @@ mongoDb-mdm:
     tokens: "MULESOFT_TOKENS"
     clients: "MULESOFT_CLIENTES"
     systems: "MULESOFT_SISTEMAS"
+
+  agendas:
+    collection-pqr-agenda-tmr: "PQR_AGENDA_TMR"
     
   serviceProblem: 
     collection-pqr: "PQR_PQR"

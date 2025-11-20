@@ -33,6 +33,9 @@ mongoDb-mdm:
     collection-pqr: "PQR_PQR"
     collection-consecutives: "PAR_CONSECUTIVOS"   
     
+  agendas:
+    collection-pqr-agenda-tmr: "PQR_AGENDA_TMR"
+    
   audits:
     collection-dijin: "MDM_AUDITORIA_DIJIN"
   clientes:

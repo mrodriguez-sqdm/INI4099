@@ -84,5 +84,8 @@ output application/json
 	<flow name="get:\v1\serviceActive:mongo-db-sapi-services-config" doc:id="bb5d6eb3-4df5-478b-a925-e16807368605" >
 		<flow-ref doc:name="Flow Reference" doc:id="6201695e-f1b6-4501-b25e-8f7f18d21e80" name="get-mdm-service-active-clientSub_Flow"/>
 	</flow>
+	<flow name="get:\v1\pqrAgendaTmr:mongo-db-sapi-services-config" doc:id="4530532b-6a1a-47a5-9209-d2850880550c" >
+		<flow-ref doc:name="Flow Reference" doc:id="54b006b7-b41e-4e54-9e6c-be2e056cfc4b" name="get-pqr-agenda-tmr-clientSub_Flow"/>
+	</flow>
 
 </mule>

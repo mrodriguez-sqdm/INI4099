@@ -55,6 +55,11 @@
 				"method": "GET",
 				"path": "/mongo/v1/parameters",
 				"processname": "get parameters data"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/pqrAgendaTmr",
+				"processname": "get Pqr agenda TMR"
 			}
 		]
 	}
