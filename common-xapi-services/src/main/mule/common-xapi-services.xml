@@ -51,6 +51,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="Flow Reference" doc:id="789ce36f-be34-4484-b2c3-9ff30da95d6a" name="audit-dijin-orchestadorSub_Flow"/>
 	</flow>
 	<flow name="post:\comunicationMessage:application\json:common-xapi-services-config" doc:id="f0154aa6-9628-4d29-a389-e7a2b2dd505b" >
-		<flow-ref doc:name="Flow Reference" doc:id="c2694627-eb60-40e4-9f9a-b730c4a1247e" name="post-comunicationMessage-orchestadorSub_Flow"/>
+		<flow-ref doc:name="Flow Reference" doc:id="c2694627-eb60-40e4-9f9a-b730c4a1247e" name="comunicationMessage-orchestadorSub_Flow"/>
 	</flow>
 </mule>

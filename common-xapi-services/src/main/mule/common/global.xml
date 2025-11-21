@@ -13,14 +13,14 @@ http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/
 http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	
 	 <http:listener-config name="common-xapi-services-httpListenerConfig">
-       <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="TLS_Context"/>
+       <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="TLS_Context" readTimeout="${configurationTimeout.common-xapi-listener}"/>
     </http:listener-config>
     
-    <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="e526fe4e-6640-4e0c-a021-6186c74f3813" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi}">
-		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" />
+    <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="e526fe4e-6640-4e0c-a021-6186c74f3813" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi.responseTimeout}">
+		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" connectionIdleTimeout="${configurationTimeout.bot-sapi.connectionIdleTimeout}"/>
 	</http:request-config>
-	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="51bceb0b-dd3c-4a54-b8c0-835ec925a3a2" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2}">
-		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" />
+	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="51bceb0b-dd3c-4a54-b8c0-835ec925a3a2" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2.responseTimeout}">
+		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" connectionIdleTimeout="${configurationTimeout.bot-sapi-2.connectionIdleTimeout}"/>
 	</http:request-config>
     <http:request-config name="mongo_db_sapi_config" doc:name="HTTP Request configuration" doc:id="560ad102-92a7-4d6e-9206-4241ca97c224" basePath="${mongo-db-sapi.base-path}">
 		<http:request-connection protocol="${mongo-db-sapi.protocol}" host="${mongo-db-sapi.host}" port="${mongo-db-sapi.port}" connectionIdleTimeout="300000"/>

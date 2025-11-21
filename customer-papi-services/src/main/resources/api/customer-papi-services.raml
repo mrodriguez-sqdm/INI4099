@@ -664,4 +664,154 @@ mediaType:
             body:
               application/json:
                 type: !include /datatypes/response/error.raml
-                example: !include /examples/response/error-500.json    
+                example: !include /examples/response/error-500.json  
+/paymentMethod:
+  get:
+    is: [security_client_id,tibcoHeaders]
+    displayName: Get Payment Methods
+    description: Retrieves the list of available payment methods.
+    
+    queryParameters:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: Parameter that allows the origin of the request to be identified.
+
+      CUSTOMER_ID:
+        type: string
+        required: false
+        example: "12552454"
+        description: Customer identification number (ID card or tax ID number).
+
+      CUSTOMER_ID_TYPE:
+        type: string
+        enum: ["CC", "CE", "PASAPORTE", "NIT", "RUT", "TI"]
+        required: false
+        example: "CC"
+        description: Type of customer identification document.
+
+      CONTRACT_NUMBER:
+        type: string
+        required: false
+        example: "1354863"
+        description: Contract number.
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include /datatypes/response/paymentMethod.raml
+            example: !include /examples/response/get-paymentMethod.json
+
+      400:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-400.json
+
+      401:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-401.json
+
+      404:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-404.json
+
+      500:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-500.json    
+  post:
+    is: [security_client_id,tibcoHeaders]
+    displayName: Create Payment Methods
+    description: Creates a new payment method record in the system.
+    queryParameters:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: Parameter that allows the origin of the request to be identified.
+    body:
+      application/json:
+        type: !include /datatypes/request/paymentMethod.raml
+        example: !include /examples/request/create-paymentMethod.json
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include /datatypes/response/paymentMethod.raml
+            example: !include /examples/response/post-paymentMethod.json
+
+      400:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-400.json
+
+      401:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-401.json
+
+      404:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-404.json
+
+      500:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-500.json
+  /inactive:
+    post:
+      is: [security_client_id,tibcoHeaders]
+      displayName: Inactive Payment Method
+      description: Inactive Payment Method
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: Parameter that allows the origin of the request to be identified.
+      body:
+        application/json:
+          type: !include /datatypes/request/paymentMethod.raml
+          example: !include /examples/request/inactive-paymentMethod.json
+
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include /datatypes/response/paymentMethod.raml
+              example: !include /examples/response/patch-paymentMethod.json
+
+        400:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-400.json
+
+        401:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-401.json
+
+        404:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-404.json
+
+        500:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-500.json  

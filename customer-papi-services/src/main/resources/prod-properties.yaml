@@ -50,6 +50,14 @@ bot-sapi-2:
        store:
         path: "/store"
         nipportability: "/nipportability"
+    scheduledPayments:
+      base-path: "/scheduledPayments"
+      get:
+       path: "/get"
+      inactive:
+       path: "/inactive"
+      insert:
+       path: "/insert"
 
       
   client_id: "7b167b9c389a4c0099bbf7ea34df88fc"

@@ -43,6 +43,14 @@ customer-papi:
       base-path: "/riskManagement"
       get:
         path: ""
+    paymentMethod:
+      base-path: "/paymentMethod"
+      get:
+        path: ""
+      post:
+        path: ""
+      inactive:
+        path: "/inactive"
 
   security:
     client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"

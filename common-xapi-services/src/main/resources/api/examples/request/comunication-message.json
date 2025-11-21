@@ -12,5 +12,7 @@
     "pqr": "PQR12345"
   },
   "notificationType": "SIMCARD_REPLACEMENT",
-  "notificationMessage": "Your SIM card replacement request has been received"
+  "notificationMessage": "Your SIM card replacement request has been received",
+  "id" : "",
+  "procedure" : ""
 }

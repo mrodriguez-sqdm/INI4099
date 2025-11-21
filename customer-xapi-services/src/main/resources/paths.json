@@ -51,6 +51,21 @@
 				"method": "POST",
 				"path": "/v1/productOrder/nip",
 				"processname": "Generate nip"
+			},
+			{
+				"method": "GET",
+				"path": "/v1/paymentMethod",
+				"processname": "Get paymentMethod"
+			},
+			{
+				"method": "POST",
+				"path": "/v1/paymentMethod",
+				"processname": "post paymentMethod"
+			},
+			{
+				"method": "POST",
+				"path": "/v1/paymentMethod/inactive",
+				"processname": "update paymentMethod"
 			}
 		]
 	}

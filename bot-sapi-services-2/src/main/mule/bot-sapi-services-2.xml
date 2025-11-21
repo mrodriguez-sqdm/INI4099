@@ -117,13 +117,13 @@ output application/json
 	<flow name="post:\customers\createcontactphone:application\json:bot-sapi-services-2-config" doc:id="4e77c6a4-28e8-4569-a0ba-a253b9127a7c">
 		<flow-ref doc:name="Flow Reference" doc:id="39e30c76-2a43-4f7d-aebc-22ef93ec6f78" name="post-customer-createcontactphone-orchestadorSub_Flow"/>
 	</flow>
-	<flow name="post:\ScheduledPayments\get:application\json:bot-sapi-services-2-config" doc:id="abf51ae1-48a3-4fc3-8d52-35a278530398">
+	<flow name="post:\scheduledPayments\get:application\json:bot-sapi-services-2-config" doc:id="abf51ae1-48a3-4fc3-8d52-35a278530398">
 		<flow-ref doc:name="Flow Reference" doc:id="69ebe980-5ea7-4921-ac75-1864c3a24dd4" name="post-ScheduledPayments-getSchedPay-orchestadorSub_Flow"/>
 	</flow>
-	<flow name="post:\ScheduledPayments\inactive:application\json:bot-sapi-services-2-config" doc:id="de4b7f1e-a562-4110-8bfa-ca149b84fc7b">
+	<flow name="post:\scheduledPayments\inactive:application\json:bot-sapi-services-2-config" doc:id="de4b7f1e-a562-4110-8bfa-ca149b84fc7b">
 		<flow-ref doc:name="Flow Reference" doc:id="aa608769-4b69-41cb-bb1a-364dfa353813" name="post-ScheduledPayments-inactive-orchestadorSub_Flow"/>
 	</flow>
-	<flow name="post:\ScheduledPayments\insert:application\json:bot-sapi-services-2-config" doc:id="c04f3c9c-003d-4020-93e3-b4fff8c5eee7" >
+	<flow name="post:\scheduledPayments\insert:application\json:bot-sapi-services-2-config" doc:id="c04f3c9c-003d-4020-93e3-b4fff8c5eee7" >
 		<flow-ref doc:name="Flow Reference" doc:id="33f33310-87bb-4978-ba01-0dd2692db306" name="post-ScheduledPayments-insert-orchestadorSub_Flow"/>
 	</flow>
 </mule>

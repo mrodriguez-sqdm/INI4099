@@ -16,7 +16,11 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<http:headers ><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
 			</http:error-response>
 		</http:listener>
-		<flow-ref doc:name="Flow Reference" doc:id="23476213-bc25-48cd-9233-964479d03e54" name="initial-loggin-Sub_Flow"/>
+		<choice doc:name="Choice" doc:id="f6f79414-61e8-4f97-bb87-a022e21d7c05" >
+			<when expression='#[attributes.requestPath != "/v1/paymentMethod"]'>
+				<flow-ref doc:name="Flow Reference" doc:id="13f8c5b3-deb6-4c10-8f7e-e9e33e4f0d85" name="initial-loggin-Sub_Flow"/>
+			</when>
+		</choice>
 		<apikit:router doc:id="ce0de7bb-9a4a-4a41-beeb-43d5a5603738" config-ref="customer-xapi-services-config"/>
 		<async doc:name="Async" doc:id="992d0c21-05d4-4081-bbfb-f4b9ad297dc5" >
 			<flow-ref doc:name="Call logger" doc:id="62ebe84a-0062-4c9f-985b-98a3e5b200b3" name="loggin-client-call" />
@@ -75,61 +79,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="Flow Reference" doc:id="9bf81ae7-0f79-4276-add5-e0edaa09aa69" name="post-product-order-nip-clientSub_Flow"/>
 	</flow>
 	<flow name="get:\paymentMethod:customer-xapi-services-config" doc:id="7a70c406-6b11-4fa2-b56b-01cb1a709858" >
-		<ee:transform doc:name="Transform Message" doc:id="ce8874e0-cc00-4c9e-a7f1-6bbb55b8c5f7" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-  codeResponse: "200",
-  messageResponse: "Métodos de pago consultados exitosamente.",
-  paymentMethod: {
-    id: "",
-    services: [
-      {
-        billingAccount: "1234567890",
-        icon: "mobile",
-        nickname: "Mi Línea Principal",
-        phone: "6019980626",
-        plan: "Plan Postpago 30GB",
-        scheduledPayment: {
-          creditCard: "****1234",
-          creditCardCompany: "VISA"
-        }
-      }
-    ]
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="ecfa200c-3e8a-4f6d-86fe-da98d339ba15" name="get-paymentMethod-clientSub_Flow"/>
 	</flow>
 	<flow name="post:\paymentMethod:application\json:customer-xapi-services-config" doc:id="f8485b4e-1e1e-4a98-a3fe-c0a59733bde6" >
-		<ee:transform doc:name="Transform Message" doc:id="edbe355c-a78f-4f6e-8389-9bc981e18766" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-  codeResponse: "200",
-  messageResponse: "El método de pago ha sido creado exitosamente",
-  paymentMethod: {
-    id: "12313133"
-  }
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="02517433-e602-4f71-b586-75ec6eea49ce" name="post-paymentMethod-clientSub_Flow"/>
 	</flow>
 	<flow name="post:\paymentMethod\inactive:application\json:customer-xapi-services-config" doc:id="1828587e-bd8b-41f6-8c47-1b167eceab4a" >
-		<ee:transform doc:name="Transform Message" doc:id="2dbafd3d-e744-4bbf-a131-33b5feeba7ba" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-  codeResponse: "200",
-  messageResponse: "El método de pago ha sido inactivado exitosamente."
-} as Object {encoding: "UTF-8", mediaType: "application/json"}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="9d0f20cc-b84d-4f36-964b-107da820036c" name="post-paymentMethod-inactive-clientSub_Flow"/>
 	</flow>
 </mule>

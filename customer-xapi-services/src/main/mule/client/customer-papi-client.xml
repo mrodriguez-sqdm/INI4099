@@ -225,4 +225,55 @@ attributes.queryParams]]]></http:query-params>
 attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
+	<sub-flow name="post-paymentMethod-clientSub_Flow" doc:id="d6fe7339-0738-4b6b-a79f-f46eac4df657" >
+		<http:request method="POST" doc:name="Request" doc:id="bc448c02-afff-4464-a175-0658ba9e98bd" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.paymentMethod.base-path}${customer-papi.resources.paymentMethod.post.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="post-paymentMethod-inactive-clientSub_Flow" doc:id="39c2c214-80f6-4ce0-894f-50310e095457" >
+		<http:request method="POST" doc:name="Request" doc:id="e2a7e7f4-da94-4000-a33c-0af6768647bd" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.paymentMethod.base-path}${customer-papi.resources.paymentMethod.inactive.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="get-paymentMethod-clientSub_Flow" doc:id="fd06fb68-9b33-4bc2-9366-c355e765d5cf" >
+		<http:request method="GET" doc:name="Request" doc:id="e2fccbda-edc7-4ccd-8bc7-c3d841a8f8cd" config-ref="HTTP_Request_configuration_customer-papi" path="${customer-papi.resources.paymentMethod.base-path}${customer-papi.resources.paymentMethod.get.path}" >
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('customer-papi.security.client_secret'),
+	"client_id" : p('customer-papi.security.client_id'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+attributes.queryParams]]]></http:query-params>
+		</http:request>
+	</sub-flow>
 </mule>
