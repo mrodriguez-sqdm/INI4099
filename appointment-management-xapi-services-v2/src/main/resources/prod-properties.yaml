@@ -4,20 +4,20 @@ https:
   
 autodiscovery: ""
 
-appointment-management-papi-v2:
+mongo-db-sapi:
   protocol: "HTTP"
-  host: "mule-worker-internal-customer-papi-services-v2-prod.us-e2.cloudhub.io"
+  host: "mule-worker-internal-mongo-db-sapi-services-prod.us-e2.cloudhub.io"
   port: "8091"
-  base-path: "/v2"
+  base-path: "/mongo/v1"
   resources:  
-    customer:
-      base-path: "/appointment"
+    pqrAgendaTmr:
+      base-path: "/pqrAgendaTmr"
       get:
         path: ""
 
   security:
-    client_id: "7b167b9c389a4c0099bbf7ea34df88fc"
-    client_secret: "8917F36fBC2c4105b72c7bC3a165740F"
+    client-id: "7b167b9c389a4c0099bbf7ea34df88fc"
+    client-secret: "8917F36fBC2c4105b72c7bC3a165740F"
 
 audits-sapi:
   protocol: "HTTP"
@@ -41,5 +41,8 @@ tls:
 configurationTimeout:
   appointment-management-xapi-v2-listener: "62000"
   appointment-management-papi-v2:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  mongo-db-sapi:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"

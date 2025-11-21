@@ -14,8 +14,8 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 	<http:listener-config name="appointment-management-xapi-services-v2-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="${https.port}" readTimeout="${configurationTimeout.appointment-management-xapi-v2-listener}" tlsContext="TLS_Context" protocol="HTTPS"/>
     </http:listener-config>
-    <http:request-config name="HTTP_Request_configuration_appointment-management-papi-services-v2" doc:name="HTTP Request configuration" doc:id="98e0ceae-d46b-41bb-a708-ae353ec3ff9b" basePath="${appointment-management-papi-v2.base-path}" responseTimeout="${configurationTimeout.appointment-management-papi-v2.responseTimeout}">
-		<http:request-connection protocol="${appointment-management-papi-v2.protocol}" host="${appointment-management-papi-v2.host}" port="${appointment-management-papi-v2.port}" connectionIdleTimeout="${configurationTimeout.appointment-management-papi-v2.connectionIdleTimeout}"/>
+	<http:request-config name="mongo_db_sapi_config" doc:name="HTTP Request configuration" doc:id="33baa6cc-8240-4289-b9d3-789101a4eaba" basePath="${mongo-db-sapi.base-path}" responseTimeout="${configurationTimeout.mongo-db-sapi.responseTimeout}">
+		<http:request-connection protocol="${mongo-db-sapi.protocol}" host="${mongo-db-sapi.host}" port="${mongo-db-sapi.port}" connectionIdleTimeout="${configurationTimeout.mongo-db-sapi.connectionIdleTimeout}"/>
 	</http:request-config>
      <apikit:config name="appointment-management-xapi-services-config" api="appointment-management-xapi-services.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="10400f79-f404-40fa-9b09-f4a9ca6d0781" >
