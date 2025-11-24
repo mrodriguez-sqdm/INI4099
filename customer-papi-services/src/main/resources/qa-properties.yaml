@@ -96,9 +96,13 @@ credentials:
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
 
 configurationTimeout:
-  bot-sapi: "62000"
-  bot-sapi-2: "62000"
   customer-papi-listener: "62000"
+  bot-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  bot-sapi-2:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
   mongo-db-sapi:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"

@@ -130,3 +130,9 @@ audits-sapi:
 commons:
   systemName: "Mulesoft"
   auditsChannel: "WEB"
+  
+configurationTimeout:
+  bot-sapi-listener: "62000"
+  botServices:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
