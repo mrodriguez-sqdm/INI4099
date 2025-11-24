@@ -11,17 +11,17 @@ http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 
     <http:listener-config name="resource-papi-services-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="${http.private.port}" />
+        <http:listener-connection host="0.0.0.0" port="${http.private.port}" readTimeout="${configurationTimeout.resource-papi-listener}"/>
     </http:listener-config>	
     
     <apikit:config name="resource-papi-services-config" api="resource-papi-services.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
 
-    <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="116f9af5-7796-4fe9-8d54-f2e9a2dbea6e" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi}">
-		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" />
+    <http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="116f9af5-7796-4fe9-8d54-f2e9a2dbea6e" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi.responseTimeout}">
+		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" connectionIdleTimeout="${configurationTimeout.bot-sapi.connectionIdleTimeout}"/>
 	</http:request-config>
 	
-	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="63da0006-bb61-46b3-bbb9-2673ea85aebf" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2}">
-		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" />
+	<http:request-config name="HTTP_Request_configuration_bot-sapi-2" doc:name="HTTP Request configuration 2" doc:id="63da0006-bb61-46b3-bbb9-2673ea85aebf" basePath="${bot-sapi-2.basepath}" responseTimeout="${configurationTimeout.bot-sapi-2.responseTimeout}">
+		<http:request-connection protocol="${bot-sapi-2.protocol}" host="${bot-sapi-2.host}" port="${bot-sapi-2.port}" connectionIdleTimeout="${configurationTimeout.bot-sapi-2.connectionIdleTimeout}"/>
 	</http:request-config>
 	
 	<import doc:name="Import" doc:id="2e000bfa-80d1-4e71-bb83-d8715f4e47d5" file="error-handler.xml" />

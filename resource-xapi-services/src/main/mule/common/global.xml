@@ -13,11 +13,11 @@ http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/m
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
 	
    <http:listener-config name="resource-xapi-services-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="TLS_Context"/>
+        <http:listener-connection host="0.0.0.0" port="${https.port}" protocol="HTTPS" tlsContext="TLS_Context" readTimeout="${configurationTimeout.resource-xapi-listener}"/>
     </http:listener-config>	
     
-	<http:request-config name="HTTP_Request_configuration_resource-papi" doc:name="HTTP Request configuration" doc:id="65136ae4-2300-4e9b-b6ae-51273dff1782" basePath="${resource-papi.base-path}">
-		<http:request-connection protocol="${resource-papi.protocol}" host="${resource-papi.host}" port="${resource-papi.port}"/>
+	<http:request-config name="HTTP_Request_configuration_resource-papi" doc:name="HTTP Request configuration" doc:id="65136ae4-2300-4e9b-b6ae-51273dff1782" basePath="${resource-papi.base-path}" responseTimeout="${configurationTimeout.resource-papi.responseTimeout}">
+		<http:request-connection protocol="${resource-papi.protocol}" host="${resource-papi.host}" port="${resource-papi.port}" connectionIdleTimeout="${configurationTimeout.resource-papi.connectionIdleTimeout}"/>
 	</http:request-config>
     
     
