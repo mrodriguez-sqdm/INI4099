@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="post-product-order-npi-orchestratorSub_Flow" doc:id="ff6055e1-b47e-4306-afb1-154cf1c82b37" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Params Values" doc:id="4fcfe900-208d-4b49-94ec-8b3f2d6bad0e" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save Headers Values" doc:id="249179cc-6591-4d20-8f37-854524d51d4a" variableName="headers" />
+		<ee:transform doc:name="build Payload BOT" doc:id="3def3e36-2d83-4a4f-965b-225c5d6975a4" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Audit": {
+      "Canal": vars.headers.name
+    },
+        "Document_Type": payload.customer.documentType,
+        "Document_Number": payload.customer.documentNumber,
+        "From_Operator": payload.service.fromOperator,
+        "Order_Number": payload.orderNumber,
+        "Phone": payload.customer.phone as Number,
+        "Request_Date": payload.service.requestDate
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="faf72155-8b3e-43aa-960a-49ee9d39e5ef" name="post-nipportability-clientSub_Flow" />
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL" and payload.WSResponseHeader.Service.statusDetail[0].errorCode == "BOTERROR")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="92aba68e-121f-4a6d-9cdb-97d4755e9235" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Message" doc:id="1bccd877-417f-44e0-91be-b8d9761e7505" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+var mensaje = payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode
+
+---
+{
+  codeResponse: vars.httpStatus as String ,
+  messageResponse: if(payload.WSResponseHeader.Service.status == "OK") mensaje else payload.WSResponseHeader.Service.statusDetail[0].errorMessage default "",
+  detail: {
+    nipGenerated: payload.WSResponseBody.NIP_Generated default "",
+	orderStatus: payload.WSResponseBody.Order_Status default "",
+	portabilityStatus: payload.WSResponseBody.Portability_Status default "",
+	status: payload.WSResponseBody.Status default "",
+	message: payload.WSResponseBody.Message default "",
+  }
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>
