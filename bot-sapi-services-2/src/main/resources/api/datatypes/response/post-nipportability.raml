@@ -1,30 +1,10 @@
-#%RAML 1.0 DataType 
+#%RAML 1.0 DataType
 type: object
 properties:
   WSResponseHeader:
     type: !include objects/header.raml
     required: true
   WSResponseBody:
-    type: object
-    properties:
-      NIP_Generated:
-        type: string
-        example: '123456'
-        required: false
-      Order_Status:
-        type: string
-        example: PENDING
-        required: false
-      Portability_Status:
-        type: string
-        example: NIP_SENT
-        required: false
-      Status:
-        type: string
-        example: SUCCESS
-        required: false
-      Message:
-        type: string
-        example: NIP generado exitosamente para portabilidad del número 3186901615
-        required: false
-
+    type: any
+    required: true
+    example: "pIkAfpKLrybXiO0RPqT1+m9S5J1KgMMp5wL3ZoBaUKC8qc8uM/snlMfiWo53xGR6vxXd2r47DieBJQ5K5uyTjzvPyu/ANBj00JclcYhxOHrh6vO2NmqF6OUFAwYx1AOf"

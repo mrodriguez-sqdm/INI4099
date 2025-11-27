@@ -1,6 +1,6 @@
 http:
   private:
-    port: "8081"
+    port: "8083"
   
 autodiscovery: "0000"
 
@@ -82,6 +82,16 @@ mongo-db-sapi:
   security:
     client-id: "9070fd1dac714b1b9e041c0d8fdff6ce"
     client-secret: "A2De130A74084573Bc8352790a8C1b56"
+
+azure-sapi:
+  protocol: "HTTP"
+  host: "localhost"
+  port: "8091"
+  basepath: "/azure/v1"
+  path:
+    keyVault: "/keyVault/{key}"
+  client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+  client_secret: "A2De130A74084573Bc8352790a8C1b56"
     
 audits-sapi:
   protocol: "HTTP"
@@ -105,5 +115,8 @@ configurationTimeout:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"
   mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
+  azure-sapi:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"

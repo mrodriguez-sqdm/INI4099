@@ -1,40 +1,13 @@
 {
   "WSRequestHeader": {
     "System": {
-      "name": "MAX",
-      "correlationID": "LUZ-0.9795856250670754",
-      "processingServer": ""
+      "Name": "TIENDA",
+      "CorrelationID": "TIENDA-261120251154-469515075",
+      "ProcessingServer": ""
     },
     "Property": [
-      {
-        "name": "",
-        "value": ""
-      },
-      {
-        "name": "",
-        "value": ""
-      }
+      
     ]
   },
-  "WSRequestBody": {
-    "Document_Type": "CC",
-    "Document_Number": "1000363262",
-    "From_Operator": "00002",
-    "Order_Number": "MDM-PLTE-235152",
-    "Phone": 3186901615,
-    "Request_Date": "2025-09-12T14:05:25.6852238Z",
-    "Audit": {
-      "Canal": "whatsapp",
-      "IP_Address": "169.60.82.89",
-      "IP_Latitud": "4.8094",
-      "IP_Longitude": "-74.0980",
-      "IP_City": "COTA",
-      "IP_Country": "COLOMBIA",
-      "Date": "2025-09-12",
-      "Hour": "",
-      "WhatsApp_Phone_Number": "",
-      "Facebook_User": "{au_facebook_user}",
-      "Twitter_User": "{au_twitter_user}"
-    }
-  }
+  "WSRequestBody": "/DbqONn3ShXTSPiSYhmI3X7198KwVmMTwRcK661etWKwPvv4VgxdH43c43m2gcBXMaxJEw0CGsibLulOefx7Gxdo4DmPiRM6xhnzUvtw0NZ0I7GKdmZ01eU8pDKSV67OSGvZXih9NCqT9uF/qg6I0E7NjQH/e/EBKYpM5Qj/1kPlXu1rBZmnTVL+3adqWJvSbXt9hdjKcFpVigexkDRUALJG5VKWa8visJQ8LTPry1iuk2uX6IB9EyE3Wm3ukuffPHcZpWS8AheJD/IbcAPevypfgoJtSi3p7sJB5BT7dptIFHONBGjWXSedgsbXXEPi"
 }

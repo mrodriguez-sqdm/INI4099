@@ -51,6 +51,7 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			<http:headers ><![CDATA[#[output application/java
 ---
 {
+	"x_civ_request" : vars.encryptedRequest[1],
 	"client_secret" : p('bot-sapi-2.client_secret'),
 	"client_id" : p('bot-sapi-2.client_id'),
 	"name": vars.headers.name,
