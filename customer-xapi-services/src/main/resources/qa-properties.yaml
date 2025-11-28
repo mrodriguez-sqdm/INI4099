@@ -78,5 +78,5 @@ tls:
 configurationTimeout:
   customer-xapi-listener: "62000"
   customer-papi:
-    responseTimeout: "30000"
+    responseTimeout: "60000"
     connectionIdleTimeout: "60000"

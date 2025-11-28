@@ -108,10 +108,10 @@ credentials:
 configurationTimeout:
   customer-papi-listener: "62000"
   bot-sapi:
-    responseTimeout: "30000"
+    responseTimeout: "60000"
     connectionIdleTimeout: "60000"
   bot-sapi-2:
-    responseTimeout: "45000"
+    responseTimeout: "60000"
     connectionIdleTimeout: "60000"
   mongo-db-sapi:
     responseTimeout: "30000"

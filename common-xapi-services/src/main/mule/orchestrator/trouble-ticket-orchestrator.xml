@@ -61,7 +61,6 @@ output application/json
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="Flow Reference" doc:id="e91ada10-6675-4c6e-9675-f755176e4aca" name="pqr-create-bot-sapi-clientSub_Flow"/>
-		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="661a73bb-0a46-4839-8a45-13b3d16713f9" variableName="httpStatus" />
 		<ee:transform doc:name="Transform Bot Response" doc:id="63f8cb5b-ca83-4db7-ae1e-f70e2103dee2" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
