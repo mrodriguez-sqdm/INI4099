@@ -111,7 +111,7 @@ configurationTimeout:
     responseTimeout: "30000"
     connectionIdleTimeout: "60000"
   bot-sapi-2:
-    responseTimeout: "30000"
+    responseTimeout: "45000"
     connectionIdleTimeout: "60000"
   mongo-db-sapi:
     responseTimeout: "30000"

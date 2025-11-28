@@ -113,13 +113,13 @@ output application/json
   },
 "WSRequestBody": {
     "Customer": {
-      "Document_Type": vars.parameters.CUSTOMER_ID_TYPE,
-      "Document_Number": vars.parameters.CUSTOMER_ID
+      "Document_Type": vars.parameters.CUSTOMER_ID_TYPE default "",
+      "Document_Number": vars.parameters.CUSTOMER_ID default ""
     },
-    "CUN": vars.parameters.CUN,
-    "Num_PQR": vars.parameters.PQR_ID,
-    "Phone": vars.parameters.PHONE,
-    "Billing_Account": vars.parameters.BILLING_ACCOUNT,
+    "CUN": vars.parameters.CUN default "",
+    "Num_PQR": vars.parameters.PQR_ID default "",
+    "Phone": vars.parameters.PHONE default "",
+    "Billing_Account": vars.parameters.BILLING_ACCOUNT default "",
     "Filter": {
       "Start_Date": "",
       "End_Date": "",

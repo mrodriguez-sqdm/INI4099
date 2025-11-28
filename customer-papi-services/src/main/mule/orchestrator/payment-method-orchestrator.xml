@@ -132,7 +132,7 @@ output application/json
     "Property": []
   },
   "WSRequestBody": {
-    "Token": payload.paymentMethod.token default "",
+    "Token": payload.paymentMethod.token default null,
     "Phone": payload.customer.phone default "",
     "Audit": {
       "Canal": vars.headers.name
