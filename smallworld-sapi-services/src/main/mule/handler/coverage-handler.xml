@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-coverage-handlerSub_Flow" doc:id="93915097-b17d-464f-b7fd-b0464a7f6d38" >
+		<ee:transform doc:name="Set soap payload" doc:id="9c87c573-70b7-48de-a4e2-64189dddc50e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/xml
+ns soap http://www.w3.org/2003/05/soap-envelope
+ns gis http://www.etb.net.co/gis
+---
+soap#Envelope: {
+	soap#Header: {},
+	soap#Body: {
+		gis#"wsValidarCoberturas-RQ": {
+			gis#Latitud: attributes.queryParams.latitude,
+			gis#Longitud: attributes.queryParams.longitude
+		}
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Go to orchestrator" doc:id="fd580913-4159-4923-b14a-c7f2d2b7c605" name="get-coverage-orchestratorSub_Flow"/>
+		<ee:transform doc:name="Transform SOAP to JSON" doc:id="6558b171-8be5-438d-a273-302238fc7c64" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+ns soapenv http://www.w3.org/2003/05/soap-envelope
+ns ns1 http://www.etb.net.co/gis
+var soapResponse = payload.soapenv#Envelope.soapenv#Body.ns1#"wsValidarCoberturas-RS" default {}
+var respuestaFactibilidad = soapResponse.ns1#RespuestaFactibilidad default {}
+var gisRespuestaProceso = soapResponse.ns1#GisRespuestaProceso default {}
+var fechaRespuesta = gisRespuestaProceso.ns1#FechaRespuesta default {}
+---
+{
+	fechaSolicitud: soapResponse.ns1#FechaSolicitud default "",
+	idNap: soapResponse.ns1#IdNap default "",
+	nombreNap: soapResponse.ns1#NombreNap default "",
+	mayorista: soapResponse.ns1#Mayorista default "",
+	tecnologias: (payload.soapenv#Envelope.soapenv#Body.ns1#"wsValidarCoberturas-RS".ns1#Tecnologias.*ns1#Tecnologia) map {
+		tipo: $.ns1#Tipo default "",
+		propietario: $.ns1#Propietario default "",
+		estratoPredominante: $.ns1#EstratoPredominante default "",
+		tipoCobertura: $.ns1#TipoCobertura default "",
+		cobertura: $.ns1#Cobertura default "",
+		nombreCobertura: $.ns1#NombreCobertura default "",
+		tipoArea: $.ns1#TipoArea default "",
+		area: $.ns1#Area default "",
+		migracionOLT: $.ns1#MigracionOLT default "",
+		nombreOLT: $.ns1#NombreOLT default ""
+	},
+	respuestaFactibilidad: {
+		factible: respuestaFactibilidad.ns1#Factible default "",
+		tecnologia: respuestaFactibilidad.ns1#Tecnologia default "",
+		motivo: respuestaFactibilidad.ns1#Motivo default ""
+	},
+	gisRespuestaProceso: {
+		codigoRespuesta: gisRespuestaProceso.ns1#CodigoRespuesta default "",
+		fechaRespuesta: {
+			date: fechaRespuesta.ns1#date default ""
+		},
+		codigoError: gisRespuestaProceso.ns1#CodigoError default "",
+		descripcionError: gisRespuestaProceso.ns1#DescripcionError default ""
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

@@ -1,0 +1,105 @@
+#%RAML 1.0 DataType
+type: object
+properties:
+  fechaSolicitud?:
+    type: string
+    description: Request date
+    example: "2025/9/17"
+  idNap?:
+    type: string
+    description: NAP identifier
+    example: "612802304584424293"
+  nombreNap?:
+    type: string
+    description: NAP name
+    example: "N4CO34_C7"
+  mayorista?:
+    type: string
+    description: Wholesaler information
+    example: "ETB,TIGO"
+  tecnologias:
+    type: array
+    description: Available technologies
+    items:
+      type: object
+      properties:
+        tipo?:
+          type: string
+          description: Technology type
+          example: "FIBRA"
+        propietario?:
+          type: string
+          description: Technology owner
+          example: "ETB"
+        estratoPredominante?:
+          type: string
+          description: Predominant stratum
+          example: ""
+        tipoCobertura?:
+          type: string
+          description: Coverage type
+          example: "MOLECULA"
+        cobertura?:
+          type: string
+          description: Coverage
+          example: "MOLECULA"
+        nombreCobertura?:
+          type: string
+          description: Coverage name
+          example: "FCO34"
+        tipoArea?:
+          type: string
+          description: Area type
+          example: "NODO"
+        area?:
+          type: string
+          description: Area
+          example: "CHICO"
+        migracionOLT?:
+          type: string
+          description: OLT migration status
+          example: "True"
+        nombreOLT?:
+          type: string
+          description: OLT name
+          example: "BOCOZTC30001"
+  respuestaFactibilidad:
+    type: object
+    description: Feasibility response
+    properties:
+      factible?:
+        type: string
+        description: Feasibility status
+        example: "VIABLE"
+      tecnologia?:
+        type: string
+        description: Recommended technology
+        example: "FIBRA"
+      motivo?:
+        type: string
+        description: Reason for feasibility
+        example: "NO TIENE SPLITTER"
+  gisRespuestaProceso:
+    type: object
+    description: GIS process response
+    properties:
+      codigoRespuesta?:
+        type: string
+        description: Response code
+        example: "La transaccion se ejecuto exitosamente, tiempo transcurrido: 474 ms"
+      fechaRespuesta?:
+        type: object
+        description: Response date
+        properties:
+          date?:
+            type: string
+            description: Response date in format YYYYMMDDHHMMSS
+            example: "20250917082859"
+      codigoError?:
+        type: string
+        description: Error code
+        example: ""
+      descripcionError?:
+        type: string
+        description: Error description
+        example: ""

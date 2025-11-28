@@ -10,6 +10,7 @@ properties:
         required: false
       customerAttachments:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -35,6 +36,7 @@ properties:
               required: false
       atdpPn:
         type: object
+        required: false
         properties:
           channel:
             type: string
@@ -94,6 +96,7 @@ properties:
         required: false
       contacts:
         type: array
+        required: false
         items:
           type: object
           properties:
@@ -187,9 +190,11 @@ properties:
         required: false
       companyData:
         type: object
+        required: false
         properties:
           balanceSheet:
             type: object
+            required: false
             properties:
               inventory:
                 type: string
@@ -217,6 +222,7 @@ properties:
                 required: false
           incomeStatement:
             type: object
+            required: false
             properties:
               salesCost:
                 type: string
@@ -272,6 +278,7 @@ properties:
                 required: false
           basicInformation:
             type: object
+            required: false
             properties:
               economicActivity:
                 type: string
@@ -295,6 +302,7 @@ properties:
                 required: false
           legalRepresentative:
             type: object
+            required: false
             properties:
               issueDate:
                 type: string
@@ -330,6 +338,7 @@ properties:
                 required: false
           location:
             type: object
+            required: false
             properties:
               mobile:
                 type: string
@@ -397,11 +406,13 @@ properties:
         required: false
       addresses:
         type: array
+        required: false
         items:
           type: object
           properties:
             coverage:
               type: object
+              required: false
               properties:
                 lotCode:
                   type: string
@@ -613,6 +624,7 @@ properties:
         required: false
       sourceSystems:
         type: array
+        required: false
         items:
           type: object
           properties:
