@@ -1,0 +1,10 @@
+{
+  "codeResponse": "200",
+  "responseMessage": "La solicitud fue exitosa",
+  "numberPqr": "MDM-PQR-4165970",
+  "contractDetail": [
+    {
+     "link": "https://strportalfijaqa.blob.core.windows.net/89800943/MDM-MOV-326899/CONTRATO-DEFINITIVO.pdf"
+    }
+  ]
+}

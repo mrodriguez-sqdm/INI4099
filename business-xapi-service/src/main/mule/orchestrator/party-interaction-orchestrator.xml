@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-party-interaction-orchestratorSub_Flow" doc:id="8d0a09b0-385d-4a88-adf7-c6099d7aab31" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="1456f601-b62e-448f-b74a-fc2f9acc5854" variableName="parameters"/>
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="a768672b-dcce-470a-862e-dc6fa228fc6b" variableName="headers"/>
+		<ee:transform doc:name="Transform FILTROS PARAM to JSON" doc:id="2e62d5c4-fc09-4a10-9fe3-1e43f0382248" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+var raw = vars.parameters.FILTERS
+var lista = raw splitBy ";"
+var pares = lista map (item) -> item splitBy ":"
+var filtrados = pares filter (kv) -> sizeOf(kv) == 2
+var resultado = filtrados reduce (pair, acc = {}) -> acc ++ {
+  (pair[0] as String {lowerFirst: true}): pair[1]
+}
+---
+{
+  filtros: resultado
+}
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="build Payload BOT" doc:id="665b74f8-3963-4cc7-9aad-2b51f91119c7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  "WSRequestHeader": {
+    "System": {
+      "name": vars.headers.name,
+      "correlationID": vars.headers."X-CORRELATION-ID",
+      "processingServer": ""
+    },
+    "Property": []
+  },
+  "WSRequestBody": {
+    "Phone": (payload.filtros.Phone default ""),
+    "Audit": {
+      "Canal": vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="70901372-e8c9-47e6-80c8-9f1701f9f34a" name="post-byphone-clientSub_Flow"/>
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="fba5aac3-d8ae-4632-8c93-66313ef17109" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Message" doc:id="9af6cf5c-e410-45c7-a210-fdbe6ae0a801" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	responseCode: "200",
+	responseMessage: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode,
+	interactions: if(payload.WSResponseHeader.Service.status == "OK")[
+    {
+      client: {
+        firstNames: payload.WSResponseBody.Customer.Names,
+        lastNames: payload.WSResponseBody.Customer.Lastnames,
+        documentType: payload.WSResponseBody.Customer.Document_Type,
+        documentNumber: payload.WSResponseBody.Customer.Document_Number,
+        email: payload.WSResponseBody.Customer.Email
+      },
+      accesos: [
+        {
+          accion: "",
+          canal: payload.WSResponseBody.Access.Name,
+          fecha: payload.WSResponseBody.Access.Creation_Date
+        }
+      ]
+    }
+  ]else
+	[]
+	
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="post-party-interaction-orchestratorSub_Flow" doc:id="d856406d-08ba-4ce7-97a9-cfb06a18b244" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="535e305d-d23c-4a86-9f03-96d69b40d4bb" variableName="parameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="1b9448fb-84e7-49e3-8c65-7e90d82b798d" variableName="headers" />
+		<ee:transform doc:name="Transform Message" doc:id="92b2988c-8e8b-46c9-93c9-663570d4c34b" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  WSRequestHeader: {
+    System: {
+      name: vars.headers.name,
+      correlationID: vars.headers."X-CORRELATION-ID",
+      processingServer: ""
+    },
+    Property: []
+  },
+  WSRequestBody: {
+    Document_Type: payload.subscription.client.documentType,
+    Document_Number: payload.subscription.client.documentNumber,
+    TyC: if (payload.subscription.acceptsTermsAndConditions) "Si" else "No",
+    Audit: {
+      Canal: vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="e6402c65-af15-41c2-8a52-b41f015c95af" name="post-settyc-clientSub_Flow"/>
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="7f8ea0cc-97cd-45d8-b9e1-59541ea83be0" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Message" doc:id="fb769f5b-0fbd-42fc-9ad0-6a0bca8da239" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: if(payload.WSResponseHeader.Service.status == "OK") 200 else 500,
+  code: payload.WSResponseHeader.Service.statusDetail[0].errorCode,
+  message: {
+    message: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="patch-party-interaction-orchestratorSub_Flow" doc:id="17ba78c3-ff01-4e79-85ab-eb325c2857b6" >
+		<set-variable value="#[attributes.queryParams]" doc:name="Save Parameters" doc:id="f0cdf8d0-47c7-43fc-8492-92b556fb3470" variableName="parameters" />
+		<set-variable value="#[attributes.uriParams]" doc:name="Save URI Parameters" doc:id="3ac78a87-ab0c-45ef-a0bc-97f01d270b81" variableName="uriParameters" />
+		<set-variable value="#[attributes.headers]" doc:name="Save headers" doc:id="28770c4b-e69d-4120-81e3-6a1e35d943ef" variableName="headers" />
+		<ee:transform doc:name="Transform Message" doc:id="a881a853-934b-4b58-9529-5150107d00fb">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+  WSRequestHeader: {
+    System: {
+      name: vars.headers.name,
+      correlationID: vars.headers."X-CORRELATION-ID",
+      processingServer: ""
+    },
+    Property: []
+  },
+  WSRequestBody: {
+  	Customer: {
+	    Document_Type: payload.subscription.client.documentType,
+	    Document_Number: payload.subscription.client.documentNumber,
+	    Names: payload.subscription.client.names,
+        Lastnames: payload.subscription.client.lastNames,
+        Email: payload.subscription.client.email,
+	    TyC: if (payload.subscription.acceptsTermsAndConditions) "Si" else "No"
+	    },
+	    Access: {
+	    	Id: vars.uriParameters.id,
+	    	Name: payload.subscription.acces.name,
+	    	Parameters: (payload.subscription.acces.parameters) map (param) -> {
+	    		Parameter: param.parameter,
+	    		Value: param.value
+	    	}
+	    },
+    Audit: {
+      Canal: vars.headers.name
+    }
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="534f60cc-1b1e-4efc-ab4f-d80d78e397ec" name="post-whatsapp-update-clientSub_Flow"/>
+		<set-variable value='#[if(payload.WSResponseHeader.Service.status == "FAIL")&#10; 500&#10;else&#10; 200]' doc:name="Set Variable" doc:id="46bfe4a7-9934-4274-89c2-237b6b60be47" variableName="httpStatus" />
+		<ee:transform doc:name="Transform Response Bot Service" doc:id="dc449e53-7c1e-4fbc-a058-750f7a7d435c" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  status: if(payload.WSResponseHeader.Service.status == "OK") 200 else 500,
+  code: payload.WSResponseHeader.Service.statusDetail[0].errorCode,
+  message: {
+    message: payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode
+  }
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

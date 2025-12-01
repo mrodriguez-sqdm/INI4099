@@ -1,0 +1,286 @@
+#%RAML 1.0
+title: business-xapi-services
+version: v1
+baseUri:  https://business-xapi-services-{env}.us-e2.cloudhub.io/{version}
+description: manage information related to the organization's businesss
+protocols:
+  - HTTPS
+
+traits:
+  tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
+
+mediaType: 
+  - application/json
+
+securitySchemes:
+  etb_oauth_2_0: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/etb-oauth-20/1.0.1/etb-oauth-20.raml
+
+
+/partyInteraction:
+  get:
+    is: 
+    - tibcoHeaders
+    securedBy: [etb_oauth_2_0]
+    displayName: getCustomerInteractions
+    description: view customer interactions 
+    queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: "Parameter that allows the origin of the request to be identified"
+        INTERACTION_ID:
+          type: string
+          example: "12552454"
+          description: "Number Interaction"
+          required: false
+        FILTERS:
+          type: string
+          example: "Phone:542545454;CustomerId:12452145"
+          description: "String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon."
+          required: false
+        LIMIT:
+          type: number
+          description: "Limit on orders to display"
+          required: false
+        OFFSET:
+          type: string
+          description: "used to organize information and establish a logical order"
+          required: false
+    responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/get-interactions.raml
+                example: !include /examples/response/get-interactions.json
+          400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+  post:
+    is: 
+    - tibcoHeaders
+    securedBy: [etb_oauth_2_0]
+    displayName: createInteraction
+    description: operation that allows you to update the terms and conditions
+    queryParameters:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: "Parameter that allows the origin of the request to be identified"
+    body:
+      application/json:
+        type: !include /datatypes/request/create-interaction.raml
+        example: !include /examples/request/create-interaction.json
+    responses:
+        200:
+          body:
+            application/json:
+              type: !include /datatypes/response/create-interaction.raml
+        400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+        401:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-401.json
+        404:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-404.json
+        500:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-500.json
+  /{id}:
+    patch:
+      is: 
+      - tibcoHeaders
+      securedBy: [etb_oauth_2_0]
+      displayName: updateInteraction
+      description: operation that allows you to update the terms and conditions
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: "Parameter that allows the origin of the request to be identified"
+      body:
+        application/json:
+          type: !include /datatypes/request/update-interaction.raml
+          example: !include /examples/request/update-interaction.json
+      responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/response/update-interaction.raml
+          400:
+              body:
+                application/json:
+                  type: !include /datatypes/response/error.raml
+                  example: !include /examples/response/error-400.json
+          401:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-401.json
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-404.json
+          500:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-500.json
+/createSurvey:
+  post:
+    is: 
+    - tibcoHeaders
+    securedBy: [etb_oauth_2_0]
+    displayName: createSurvey
+    description: register survey
+    queryParameters:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: "Parameter that allows the origin of the request to be identified"
+    body:
+      application/json:
+        type: !include /datatypes/request/create-survey.raml
+        example: !include /examples/request/create-survey.json
+    responses:
+        200:
+          body:
+            application/json:
+              type: !include /datatypes/response/create-survey.raml
+        400:
+            body:
+              application/json:
+                type: !include /datatypes/response/error.raml
+                example: !include /examples/response/error-400.json
+        401:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-401.json
+        404:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-404.json
+        500:
+          body:
+            application/json:
+              type: !include /datatypes/response/error.raml
+              example: !include /examples/response/error-500.json
+/agreement:
+  get:
+    is: 
+    - tibcoHeaders
+    securedBy: [etb_oauth_2_0]
+    displayName: Get Contract
+    description: Get Contract
+      
+    queryParameters:
+        ORIGIN:
+          type: string
+          required: true
+          example: "WHATSAPP"
+          description: |
+            **Business Purpose**: Identifies the requesting channel for interaction context, security validation, and audit attribution
+            
+            **Validation Rules**: 
+            - Format: Alphanumeric string, uppercase
+            - Length: 3-20 characters
+            - Pattern: ^[A-Z][A-Z0-9_]*$
+            
+            **Valid Values**: 
+            - **WHATSAPP**: WhatsApp Business Platform requests via Bot Services integration
+            - **PORTAL**: ETB Customer Web Portal requests for self-service interactions
+            - **MOBILE**: iOS/Android mobile application requests with offline sync capability
+            - **AGENT**: Call center agent desktop requests for assisted service
+            - **CRM**: Automated CRM system requests for business intelligence
+            
+            **Usage Examples**: 
+            - Customer service: "WHATSAPP" for Bot Services chat-based support automation
+            - Self-service: "PORTAL" for web-based account management and interaction history
+            
+            **Channel Variations**: Each channel receives optimized response structure and field filtering based on business requirements
+            
+        SERVICE_ACCOUNT:
+          type: string
+          example: "12552454"
+          description: Number service account
+          required: false
+        CUSTOMER_ID:
+          type: string
+          example: "12552454"
+          description: Number Identification customer
+          required: false
+        CUSTOMER_ID_TYPE:
+          type: string
+          example: "CC"
+          description: Type Identification customer
+          required: false
+        MOBILE_NUMBER:
+          type: string
+          example: "2154215445"
+          description: Phone number of line mobile
+          required: false
+    responses:
+          200:
+            description: |
+              **Success Response - Operation Completed Successfully**
+            body:
+              application/json:
+                type: !include datatypes/response/get-contracts.raml
+                example: !include examples/response/get-contract.json
+          400:
+            description: |
+              **Bad Request - REQUEST_ERROR**
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/response/error-400.json
+          401:
+            description: |
+              **Unauthorized - AUTHENTICATION_ERROR**
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/response/error-401.json
+          404:
+            description: |
+              **Not Found - NOT_FOUND**
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/response/error-404.json
+          500:
+            description: |
+              **Internal Server Error - INTERNAL_SERVER_ERROR**
+            body:
+              application/json:
+                type: !include datatypes/response/error.raml
+                example: !include examples/response/error-500.json

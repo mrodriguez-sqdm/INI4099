@@ -1,0 +1,22 @@
+{
+	"reasonSurvey" : "motivo encuesta",
+	"trackingNumber" : "numero seguimiento",
+	"customer": {
+      "documentNumber": "79657111",
+      "documentType": "CC"
+    },
+    "survey": [
+		  {
+			"question": "Origen",
+			"answer": "ENCUESTA_BOT"
+		  },
+		  {
+			"question": "Origen",
+			"answer": "ENCUESTA_BOT"
+		  },
+		  {
+			"question": "Origen",
+			"answer": "ENCUESTA_BOT"
+		  }
+	  ]
+}
