@@ -102,5 +102,5 @@ commons:
 configurationTimeout:
   bot-sapi-2-listener: "62000"
   botServices:
-    responseTimeout: "30000"
+    responseTimeout: "90000"
     connectionIdleTimeout: "60000"
