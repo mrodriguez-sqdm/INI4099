@@ -558,7 +558,9 @@ var method_send = upper(payload.shippingMethod."type")
     },
     "Bill_Email": if(method_send == "EMAIL") payload.shippingMethod.value else "",
     "Bill_Phone": if(method_send == "SMS" or method_send == "WHATSAPP") payload.shippingMethod.value else "",
-    "Delivery_Type": method_send,
+    "Delivery_Type": if(method_send == "EMAIL") "Email" 
+                      else if(method_send == "WHATSAPP") "WhatsApp"
+                      else method_send,
     "Phone": payload.customer.phone default ""
   }
 }]]></ee:set-payload>
