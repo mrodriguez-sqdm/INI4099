@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow name="get-productOffering-orchestratorSub_Flow" doc:id="352ec12b-f4e0-4f2d-a3aa-1d5321716edd" >
+		<set-variable value='#[readUrl("classpath://rules.json", "application/json")]' doc:name="Set Variable" doc:id="1092e6fa-b8bb-4291-8fcb-747cfa9d8193" variableName="rules"/>
+		<set-variable value="#[flatten(vars.rules.data)]" doc:name="Set Variable" doc:id="7c68caff-a038-4b0e-9070-96a945c381f7" variableName="methodRulesArray"/>
+		<ee:transform doc:name="Transform Message" doc:id="1f4b19a7-37a6-4a91-ab85-f9bfafd9afdf" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="rules" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.methodRulesArray filter ((item, index) -> 
+							item.method == vars.currentMethod and 
+							sizeOf(item.path splitBy("/")) == sizeOf(vars.currentPathSections)
+						)]]></ee:set-variable>
+				<ee:set-variable variableName="mongoDB_tipo_servicio" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.methodRulesArray.mongoDB_tipo_servicio
+]]></ee:set-variable>
+				<ee:set-variable variableName="tipo_servicio" ><![CDATA[%dw 2.0
+output application/java
+---
+attributes.queryParams.tipo_servicio]]></ee:set-variable>
+				<ee:set-variable variableName="mongo_query_fields" ><![CDATA[%dw 2.0
+output application/java
+---
+vars.rules[0].data[1].mongo_query_fields]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="5d9793f3-9fae-428d-8b7f-6127eedadf68" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="isValidMongoDB" ><![CDATA[%dw 2.0
+output application/java
+---
+if (
+  (vars.mongoDB_tipo_servicio[0] default null) is Array<String> 
+  and (vars.tipo_servicio default "") is String
+)
+  vars.mongoDB_tipo_servicio[0] contains (vars.tipo_servicio as String)
+else
+  true]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="Choice" doc:id="eb0f4d7c-2d25-4009-970a-650ef284af9d" >
+			<when expression='#[vars.isValidMongoDB== true]'>
+				<flow-ref doc:name="Flow Reference" doc:id="f6203418-840b-4b4a-8626-0e2a883ad3f8" name="get-productOffering-generateQuerySub_Flow"/>
+			
+</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="268a0641-598a-4d97-8540-c58906b50f1e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+  code: "503",
+  reason: "Service Unavailable",
+  message: "Base de datos no disponible",
+  status: "Service Unavailable",
+  referenceError: "DB_CONN_503",
+  timestamp: now() as String {format: "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"}
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+	<sub-flow name="get-productOffering-generateQuerySub_Flow" doc:id="ce06811f-43ff-4fcc-8496-bba3a7b462fd" >
+		<ee:transform doc:name="Transform Message" doc:id="8e633fa4-9de7-41ae-a497-4a0e79bc974d" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="mongo_query" ><![CDATA[%dw 2.0
+output application/json
+var base = vars.mongo_query_fields default {}
+
+fun castForMongo(k, v) =
+  if (lower(k) == "precio_oferta.precio_con_iva") 
+    // Si viene como array (parámetro repetido), castea cada elemento
+    if (v is Array) v map ((it) -> (it as Number))
+    // Si viene como string único, castea a Number
+    else if (v is String) (v as Number)
+    else v
+  else v
+
+var fromQueryParams =
+  (attributes.queryParams default {})
+    // filtra nulos, vacíos y 'limit'
+    filterObject ((v, k) -> v != null and v != "" and lower(k) != "limit")
+    // castea sólo el campo objetivo; el resto pasa intacto
+    mapObject ((v, k) -> { (k): castForMongo(k, v) })
+
+---
+base ++ fromQueryParams]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="7114cb77-426f-4bcd-b739-809b72c3cc19" name="get-productOffering-clientSub_Flow" />
+		<logger level="INFO" doc:name="Logger" doc:id="303972ff-f4fd-4028-a15b-dc2f3e518802" message="#[payload.response.response]"/>
+		<ee:transform doc:name="Transform Message" doc:id="b84aabe1-8e3e-4454-80ca-675bd30f8341" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[payload.response.response]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<ee:transform doc:name="Transform Message" doc:id="4abf8c6f-ab5f-408c-a60e-a73553ab78ac" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+
+// URLs base fijas 
+var baseOfferingUrl = "https://api.etb.com/productOffering"
+var baseSpecUrl     = "https://api.etb.com/productSpecification"
+
+// Convierte lo que llegue a Array de objetos
+fun ensureArray(v) =
+  if (v is Array) v
+  else if (v is String) read(v, "application/json")        // parsea string JSON
+  else if (v is Binary) read(v, "application/json")        // parsea stream binario JSON
+  else if (v is Object) [v]                                // envuelve objeto único en array
+  else []                                                  // fallback vacío
+
+fun strOrNull(x) = if (x == null) null else (x as String)
+fun isoOrNull(x) = 
+    if (x == null) null
+    else (x as DateTime { timezone: "UTC" }) as String { format: "yyyy-MM-dd'T'HH:mm:ssXXX" }
+
+fun getCaracteristica(p, nombre) =
+    if (isEmpty((p.caracteristicas_producto_oferta default [])
+                  filter (c) -> upper(c.caracteristica as String) == upper(nombre)))
+      null
+    else
+      ((p.caracteristicas_producto_oferta default [])
+        filter (c) -> upper(c.caracteristica as String) == upper(nombre))[0].valor
+
+fun getChannels(p) =
+    (
+      ((p.parametros_bundle default [])
+          filter (pb) -> upper(pb.parametro as String) == "CANAL VENTA")
+        flatMap (x) -> (x.valor default "") splitBy "/"
+        map (v) -> (trim(v) as String)
+        filter (v) -> sizeOf(v) > 0
+    )
+    distinctBy ((v) -> v)
+    map (ch) -> {
+        "@type": "ChannelRef",
+        name: ch
+    }
+
+// Toma el primer valor de un objeto (para _id con una sola clave como {"$oid": "..."})
+fun firstValue(o) = if (o == null) null else ((o pluck (v, k) -> v)[0]) default null
+
+fun toOfferingPrices(p) =
+    (p.precio_oferta default []) map (po, idx) -> {
+        "@type": "ProductOfferingPrice",
+        id: (firstValue(po.'_id') default (p.id_producto ++ "-price-" ++ (idx + 1))) as String,
+        name: "Precio",
+        priceType: "recurring",
+        recurringChargePeriodType: "month",
+        price: {
+            dutyFreeAmount:     { value: (po.precio_sin_iva default 0) as Number, unit: "COP" },
+            taxIncludedAmount:  { value: (po.precio_con_iva default 0) as Number, unit: "COP" },
+            taxRate: (po.iva default 0) as Number
+        },
+        validFor: {
+            startDateTime: isoOrNull(po.fecha_creacion),
+            endDateTime  : isoOrNull(po.fecha_aplicacion)
+        }
+    }
+
+---
+ensureArray(payload) map (p) -> {
+  "@type": "ProductOffering",
+  id: (p.id_producto default p.cod_configuracion) as String,
+  href: baseOfferingUrl ++ "/" ++ ((p.id_producto default p.cod_configuracion) as String),
+  name: (p.producto default p.display) as String,
+  description: strOrNull(getCaracteristica(p, "DESCRIPCION")),
+  isBundle: (p.es_tipo_bundle default false) as Boolean,
+  lifecycleStatus: (p.estado default "Activo") as String,
+  lastUpdate: isoOrNull(p.fecha_creacion),
+
+  validFor: {
+    startDateTime: isoOrNull(p.fecha_ini_vigencia),
+    endDateTime  : isoOrNull(p.fecha_fin_vigencia)
+  },
+
+  category: (
+      [
+        {(name: p.tipo_servicio)    if p.tipo_servicio    != null},
+        {(name: p.subtipo_servicio) if p.subtipo_servicio != null}
+      ] default []
+  ) map (c) -> c ++ { "@type": "CategoryRef" },
+
+  channel: getChannels(p),
+  productOfferingPrice: toOfferingPrices(p),
+
+  productSpecification:
+    if (p.id_producto != null or p.producto != null)
+    {
+      "@type": "ProductSpecificationRef",
+      id  : (p.id_producto default (p.cod_configuracion as String)),
+      name: (p.producto default p.display) as String,
+      href: baseSpecUrl ++ "/" ++ ((p.id_producto default p.cod_configuracion) as String)
+    }
+    else null
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="f5a1d65f-dcac-4f48-94dd-122973c9181e" message="#[payload]"/>
+	
+</sub-flow>
+</mule>

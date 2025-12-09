@@ -1,0 +1,173 @@
+#%RAML 1.0
+title: product-xapi-services
+version: v1
+baseUri: https://product-xapi-services-{env}.us-e2.cloudhub.io/{version}
+description: product information
+
+protocols:
+  - HTTPS
+
+mediaType:
+  - application/json
+
+traits:
+  tibcoHeaders: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/tibcorequestheaders/1.0.6/tibcorequestheaders.raml
+
+securitySchemes:
+  oauth_2_0: !include exchange_module/35a39a92-efa9-49b6-8f13-d66508fd2f35/etb-oauth-20/1.0.1/etb-oauth-20.raml
+
+types:
+  error-response: !include datatypes/response/error.raml
+
+/productOffering:
+  get:
+    is:  
+     - tibcoHeaders
+    securedBy: [ oauth_2_0 ]
+    description:  Permite consultar ofertas de productos
+    queryParameters:
+      producto:
+        type: string
+        required: false
+        description: Nombre o descripción del producto
+        example: "DECODIFICADOR FTTC 1"
+      cod_configuracion:
+        type: string
+        required: false
+        description: Código interno de configuración del producto
+        example: "23333320327"
+      tipo_servicio:
+        type: string
+        required: false
+        description: Tipo de servicio (ej. FTTC, FTTH)
+        example: "FTTC"
+      tipo_producto:
+        type: string
+        required: false
+        description: Clasificación del producto (ej. Adicional, Principal)
+        example: "Adicional"
+      subtipo_producto:
+        type: string
+        required: false
+        description: Subclasificación específica del producto
+        example: "SECUNDARIO"
+      subtipo_servicio:
+        type: string
+        required: false
+        description: Subtipo del servicio (ej. FTTC TV, FTTH Datos)
+        example: "FTTC TV"
+      precio_con_iva:
+        type: string
+        required: false
+        description: Precio del producto con impuestos incluidos
+        example: "1.0"
+    responses:
+      200:
+        body:
+          application/json:
+            type: !include datatypes/response/productOffering.raml
+      400:
+        body:
+          application/json:
+            type: error-response
+
+/promotion:
+  get:
+    is: 
+     - tibcoHeaders 
+    securedBy: [ oauth_2_0 ]
+    description: Consulta de promociones disponibles
+    queryParameters:
+      ID_Servicio:
+        type: integer
+        required: false
+        example: 2
+        description: ID del servicio relacionado a la promoción
+      ID_Tipo_Servicio:
+        type: integer
+        required: false
+        example: 1
+        description: ID del tipo de servicio
+      Canales:
+        type: string
+        required: false
+        example: MKD
+        description: Canal por el cual se ofrece la promoción
+      ID_Tipo_Activacion:
+        type: integer
+        required: false
+        example: 5
+        description: Tipo de activación aplicable para la promoción
+      ID_Tipo_Promocion:
+        type: integer
+        required: false
+        example: 1
+        description: Tipo de promoción
+      ID_Convenio:
+        type: integer
+        required: false
+        example: 123
+        description: ID de convenio asociado
+      Planes_Aplicar:
+        type: string
+        required: false
+        example: "6378"
+        description: Código de plan al que se aplica la promoción
+      Tramites_Aplicar:
+        type: string
+        required: false
+        example: VTA
+        description: Trámite que activa la promoción
+    responses:
+      200:
+        body:
+          application/json:
+            type: {}
+      400:
+        body:
+          application/json:
+            type: error-response
+
+/productUsage:
+  /notify:
+    post:
+      is: 
+       - tibcoHeaders
+      securedBy: [ oauth_2_0 ]
+      displayName: Product Notification
+      description: Product Notification
+      queryParameters:
+        ORIGIN:
+          type: string
+          example: "WHATSAPP"
+          description: Parameter that allows the origin of the request to be identified
+      body:
+        application/json:
+          type: !include /datatypes/request/notification-product.raml
+          example: !include /examples/request/notification-product.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: !include /datatypes/response/notification-product.raml
+              example: !include /examples/response/notification-product.json
+        400:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-400.json
+        401:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-401.json
+        404:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-404.json
+        500:
+          body:
+            application/json:
+              type: !include /datatypes/response/error_base.raml
+              example: !include /examples/response/error-500.json
