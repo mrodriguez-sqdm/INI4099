@@ -29,6 +29,9 @@ mongoDb-mdm:
   #portabilidadProcesos: "MDM_PORTABILIDAD_PROCESOS"
   collection-operators: "PAR_OPERADORES_PORTABILIDAD"
   collection-bussiness-days: "PAR_DIA_FESTIVO"
+  collection-productOffering: "CMP_OFERTA_PRODUCTO"
+  collection-beneficiosPromocion: "PROM_BENEFICIOS_PROMOCION"
+  collection-promocion: "PROM_PROMOCION"
  
   mayoristas:
     collection-order: "MDM_CD_ORDEN"       

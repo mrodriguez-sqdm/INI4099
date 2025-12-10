@@ -26,50 +26,54 @@ types:
     securedBy: [ oauth_2_0 ]
     description:  Permite consultar ofertas de productos
     queryParameters:
-      producto:
+      ORIGIN:
+        type: string
+        example: "WHATSAPP"
+        description: Parameter that allows the origin of the request to be identified
+      CATEGORY:
         type: string
         required: false
-        description: Nombre o descripción del producto
-        example: "DECODIFICADOR FTTC 1"
-      cod_configuracion:
+        description: Categoria del producto
+        example: ""
+      FILTERS:
         type: string
+        example: "Product_Type:value;Service_Type:value;Product_Subtype:value;"
+        description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
         required: false
-        description: Código interno de configuración del producto
-        example: "23333320327"
-      tipo_servicio:
+      LIMIT:
+        type: number
+        description: Limit on orders to display
+        required: false
+      OFFSET:
         type: string
+        description: used to organize information and establish a logical order
         required: false
-        description: Tipo de servicio (ej. FTTC, FTTH)
-        example: "FTTC"
-      tipo_producto:
-        type: string
-        required: false
-        description: Clasificación del producto (ej. Adicional, Principal)
-        example: "Adicional"
-      subtipo_producto:
-        type: string
-        required: false
-        description: Subclasificación específica del producto
-        example: "SECUNDARIO"
-      subtipo_servicio:
-        type: string
-        required: false
-        description: Subtipo del servicio (ej. FTTC TV, FTTH Datos)
-        example: "FTTC TV"
-      precio_con_iva:
-        type: string
-        required: false
-        description: Precio del producto con impuestos incluidos
-        example: "1.0"
     responses:
       200:
         body:
           application/json:
-            type: !include datatypes/response/productOffering.raml
+            type: !include /datatypes/response/get-productOffering.raml
+            example: !include /examples/response/get-productOffering.json
       400:
         body:
           application/json:
-            type: error-response
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-400.json
+      401:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-401.json
+      404:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-404.json
+      500:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-500.json
 
 /promotion:
   get:
@@ -78,55 +82,55 @@ types:
     securedBy: [ oauth_2_0 ]
     description: Consulta de promociones disponibles
     queryParameters:
-      ID_Servicio:
-        type: integer
-        required: false
-        example: 2
-        description: ID del servicio relacionado a la promoción
-      ID_Tipo_Servicio:
-        type: integer
-        required: false
-        example: 1
-        description: ID del tipo de servicio
-      Canales:
+      ORIGIN:
         type: string
+        example: "WHATSAPP"
+        description: Parameter that allows the origin of the request to be identified
+      PLANS_TO_BE_APPLIED:
+        type: array
+        items: string
         required: false
-        example: MKD
-        description: Canal por el cual se ofrece la promoción
-      ID_Tipo_Activacion:
-        type: integer
-        required: false
-        example: 5
-        description: Tipo de activación aplicable para la promoción
-      ID_Tipo_Promocion:
-        type: integer
-        required: false
-        example: 1
-        description: Tipo de promoción
-      ID_Convenio:
-        type: integer
-        required: false
-        example: 123
-        description: ID de convenio asociado
-      Planes_Aplicar:
+        description: Categoria del producto
+        example: ["274","215"]
+      FILTERS:
         type: string
+        example: "Key:value;"
+        description: String used to apply filters to the query (follow example), separate the filter type and its value with a colon, and separate the number of filters with a semicolon.
         required: false
-        example: "6378"
-        description: Código de plan al que se aplica la promoción
-      Tramites_Aplicar:
+      LIMIT:
+        type: number
+        description: Limit on orders to display
+        required: false
+      OFFSET:
         type: string
+        description: used to organize information and establish a logical order
         required: false
-        example: VTA
-        description: Trámite que activa la promoción
     responses:
       200:
         body:
           application/json:
-            type: {}
+            type: !include /datatypes/response/get-promotion.raml
+            example: !include /examples/response/get-promotion.json
       400:
         body:
           application/json:
-            type: error-response
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-400.json
+      401:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-401.json
+      404:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-404.json
+      500:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-500.json
 
 /productUsage:
   /notify:

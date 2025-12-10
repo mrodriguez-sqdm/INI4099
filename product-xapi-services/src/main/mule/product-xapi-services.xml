@@ -35,7 +35,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="Flow Reference" doc:id="13ded03f-c2ee-475a-9605-654413ec9ed3" name="get-productOffering-handlerSub_Flow" />
 	</flow>
 	<flow name="get:\promotion:product-xapi-services-config" doc:id="9db95eeb-f533-42c0-82b8-3f27b782a043" >
-		<flow-ref doc:name="Flow Reference" doc:id="d2639854-efe9-4d49-b200-40bd0c809b76" name="get-promotion-orchestratorFlow" />
+		<flow-ref doc:name="Flow Reference" doc:id="d2639854-efe9-4d49-b200-40bd0c809b76" name="get-promotion-orchestratorSub_Flow" />
 	</flow>
 	<flow name="post:\productUsage\notify:application\json:product-xapi-services-config" doc:id="25b5217a-4cca-47a0-8ae2-e338ae962de6" >
 		<flow-ref doc:name="Flow Reference" doc:id="23c9d120-7663-4f39-98b2-9f842461674b" name="post-product-papi-clientSub_Flow"/>

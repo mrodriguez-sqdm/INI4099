@@ -129,4 +129,13 @@ output application/json
 	<flow name="get:\v1\pqrAgendaTmr:mongo-db-sapi-services-config" doc:id="4530532b-6a1a-47a5-9209-d2850880550c" >
 		<flow-ref doc:name="Flow Reference" doc:id="54b006b7-b41e-4e54-9e6c-be2e056cfc4b" name="get-pqr-agenda-tmr-clientSub_Flow"/>
 	</flow>
+		<flow name="post:\v1\productOffering:application\json:mongo-db-sapi-services-config" doc:id="1477094c-dc7e-4572-a6ea-cfbe6cc9a4a3" >
+		<flow-ref doc:name="Flow Reference" doc:id="27ea7df2-1165-421b-b907-f968551c6d12" name="get-productOffering-clientSub_Flow" />
+	</flow>
+	<flow name="get:\v1\promBeneficiosPromocion:mongo-db-sapi-services-config" doc:id="100930e9-3f91-4d21-b5d7-9879cabe112e" >
+		<flow-ref doc:name="Flow Reference" doc:id="067c7a47-1b52-41a0-b0bc-a32de497458f" name="get-beneficios-promocion-clientSub_Flow" />
+	</flow>
+	<flow name="post:\v1\promotion:application\json:mongo-db-sapi-services-config" doc:id="f2cd8d07-4358-437f-a85e-c2f827a9d340" >
+		<flow-ref doc:name="Flow Reference" doc:id="df7eefb5-1f0d-4c95-8a6d-288a67238812" name="get-promocion-clientSub_Flow" />
+	</flow>
 </mule>

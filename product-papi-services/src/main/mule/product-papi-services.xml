@@ -39,7 +39,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<flow-ref doc:name="Flow Reference" doc:id="b7df27e1-ff34-4314-8b85-1ebbcfddb04e" name="get-productOffering-handlerSub_Flow" />
 	</flow>
 	<flow name="get:\promotion:product-papi-services-config" doc:id="fda1d294-bd20-4cb0-88c4-d1e0eb6cfe40" >
-		<flow-ref doc:name="Flow Reference" doc:id="29bcd2a7-14bb-4233-90ea-3ceb0baa8952" name="get-promotion-orchestratorSub_Flow" />
+		<flow-ref doc:name="Flow Reference" doc:id="29bcd2a7-14bb-4233-90ea-3ceb0baa8952" name="get-promotion-benefits-orchestratorSub_Flow" />
 	</flow>
 	<flow name="post:\productUsage\notify:application\json:product-papi-services-config" doc:id="813daf0e-43e8-422c-b9cd-96fd80b149e8" >
 		<flow-ref doc:name="Flow Reference" doc:id="453f3dc7-d8dc-426e-85a4-3ab674645256" name="post-productUsage-notify-orchestratorSub_Flow"/>

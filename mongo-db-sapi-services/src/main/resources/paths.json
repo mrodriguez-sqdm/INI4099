@@ -115,6 +115,26 @@
 				"method": "GET",
 				"path": "/mongo/v1/pqrAgendaTmr",
 				"processname": "get Pqr agenda TMR"
+			},
+						{
+				"method": "GET",
+				"path": "/mongo/v1/operators",
+				"processname": "get operators data"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/promBeneficiosPromocion",
+				"processname": "get beneficios promocion"
+			},
+			{
+				"method": "POST",
+				"path": "/mongo/v1/productOffering",
+				"processname": "get product offering"
+			},
+			{
+				"method": "POST",
+				"path": "/mongo/v1/promotion",
+				"processname": "get promotion"
 			}
 		]
 	}

@@ -741,3 +741,60 @@ traits:
       500:
         body:
           type: !include /datatypes/responses/error.raml
+  /productOffering:
+      post:
+        is: [security_client_id,request_headers]   
+        displayName: Get product Offering
+        description: This operation retrieves a product offering
+        body:
+          application/json:
+            type: !include /datatypes/requests/get-query-dynamic.raml
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/responses/get-productOffering.raml
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/responses/error.raml
+  /promBeneficiosPromocion:
+     is: [security_client_id,request_headers]
+     get:
+      displayName: Get Beneficios Promocion
+      description: Get Beneficios Promocion
+      queryParameters:
+        IdPromotion:
+          type: string
+          example: "454544"
+          required: false
+      responses:
+        200:
+          body:
+           application/json:
+            type: !include /datatypes/responses/get-beneficios-promocion.raml
+        404:
+          body:
+           application/json:
+            type: !include /datatypes/responses/error.raml
+        500:
+          body:
+           application/json:
+            type: !include /datatypes/responses/error.raml
+  /promotion:
+      post:
+        is: [security_client_id,request_headers]   
+        displayName: Get promotion
+        description: This operation retrieves a promotions
+        body:
+          application/json:
+            type: !include /datatypes/requests/get-query-dynamic.raml
+        responses:
+          200:
+            body:
+              application/json:
+                type: !include /datatypes/responses/get-promotion.raml
+          404:
+            body:
+              application/json:
+                type: !include /datatypes/responses/error.raml

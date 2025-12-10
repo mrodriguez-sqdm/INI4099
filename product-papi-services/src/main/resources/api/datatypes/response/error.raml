@@ -1,44 +1,35 @@
-#%RAML 1.0 DataType
+#%RAML 1.0 DataType 
 type: object
-displayName: Error
-description: Standard error object defined by TM Forum Open APIs
 properties:
+  status:
+    type: integer
+    example: 400
+    required: false
   code:
     type: string
-    required: true
-    example: "400"
-  reason:
-    type: string
-    required: true
-    example: "Invalid field value"
+    example: REQUEST_ERROR
+    required: false
   message:
+    type: object
+    properties:
+      message:
+        type: string
+        example: Required query parameter document not specified
+        required: false
+  messageServer:
     type: string
-    required: true
-    example: "The value provided for 'lifecycleStatus' is not valid."
-  status:
-    type: string
-    required: true
-    example: "Bad Request"
-  referenceError:
-    type: string
+    example: ''
     required: false
-    example: "ERR-PO-001"
-  timestamp:
-    type: datetime
-    required: false
-    example: "2024-05-30T13:25:48Z"
-  "@type":
-    type: string
-    required: false
-    example: "Error"
-    description: The type of the error object
-  "@baseType":
-    type: string
-    required: false
-    example: "Entity"
-    description: The base type of this entity
-  "@schemaLocation":
-    type: string
-    required: false
-    example: "https://mydomain.com/schema/Error"
-    description: A link to the JSON schema describing this object
+  cause:
+    type: array
+    items:
+      type: object
+      properties:
+        origin:
+          type: string
+          example: problem-management-xapi-services
+          required: false
+        message:
+          type: string
+          example: org.mule.module.apikit.api.exception.InvalidQueryParameterException
+          required: false
