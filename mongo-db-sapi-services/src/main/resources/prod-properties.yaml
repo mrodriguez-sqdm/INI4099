@@ -33,6 +33,7 @@ mongoDb-mdm:
   collection-productOffering: "CMP_OFERTA_PRODUCTO"
   collection-beneficiosPromocion: "PROM_BENEFICIOS_PROMOCION"
   collection-promocion: "PROM_PROMOCION"
+  collection-portal-unificado: "PORTAL_UNIFICADO_CONFIGURACION"
   
  
   mayoristas:

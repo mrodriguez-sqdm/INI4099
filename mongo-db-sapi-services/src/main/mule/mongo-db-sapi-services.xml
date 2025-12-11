@@ -138,4 +138,7 @@ output application/json
 	<flow name="post:\v1\promotion:application\json:mongo-db-sapi-services-config" doc:id="f2cd8d07-4358-437f-a85e-c2f827a9d340" >
 		<flow-ref doc:name="Flow Reference" doc:id="df7eefb5-1f0d-4c95-8a6d-288a67238812" name="get-promocion-clientSub_Flow" />
 	</flow>
+	<flow name="get:\v1\unifiedPortalConf:mongo-db-sapi-services-config" doc:id="71764d25-72b3-42e7-b18d-3bda3f4c7fee" >
+		<flow-ref doc:name="Flow Reference" doc:id="ad62a649-b44b-4492-b970-54e1e237a557" name="get-unified-portal-conf-clientSub_Flow" />
+	</flow>
 </mule>

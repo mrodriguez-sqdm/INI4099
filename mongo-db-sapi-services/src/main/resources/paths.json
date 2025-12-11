@@ -135,6 +135,11 @@
 				"method": "POST",
 				"path": "/mongo/v1/promotion",
 				"processname": "get promotion"
+			},
+			{
+				"method": "GET",
+				"path": "/mongo/v1/unifiedPortalConf",
+				"processname": "get configuracion portal unificado"
 			}
 		]
 	}

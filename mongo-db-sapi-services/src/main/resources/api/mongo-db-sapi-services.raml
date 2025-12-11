@@ -798,3 +798,24 @@ traits:
             body:
               application/json:
                 type: !include /datatypes/responses/error.raml
+  /unifiedPortalConf:
+     is: [security_client_id,request_headers]
+     get:
+      displayName: Get configuracion portal unificado
+      description: Get configuracion portal unificado
+      queryParameters:
+        nombre:
+          type: string
+          example: "FRANJAS"
+          required: false
+      responses:
+        200:
+          body:
+            type: !include /datatypes/responses/get-unified-portal-conf.raml
+            example: !include examples/responses/get-unified-portal-conf.json
+        404:
+          body:
+            type: !include /datatypes/responses/error.raml
+        500:
+          body:
+            type: !include /datatypes/responses/error.raml
