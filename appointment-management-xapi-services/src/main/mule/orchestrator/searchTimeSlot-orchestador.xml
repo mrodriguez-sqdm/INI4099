@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	 
+	
+	
+	<sub-flow name="get-searchTimeSlot-orchestador">
+
+    <!-- Guardar headers -->
+    <set-variable value="#[attributes.headers]" variableName="headers" doc:name="Set Headers"/>
+
+    <!-- Construir lista de peticiones por categoría -->
+    <ee:transform doc:name="Build Requests">
+      <ee:message>
+        <ee:set-payload><![CDATA[%dw 2.0
+import trim from dw::core::Strings
+output application/json
+
+var numDays = attributes.queryParams.numDays default "15"
+var area = attributes.queryParams.area default "SUBA"
+var date = attributes.queryParams.date default "2022-10-13"
+var rawCategories = attributes.queryParams.categories default ""
+
+var categoriesText = rawCategories as String replace "%2C" with ","
+var categories = categoriesText splitBy "," map (c) -> trim(c)
+
+---
+categories map (cat) -> {
+  numDays: numDays as String,
+  location: area,
+  timeSlot: "",
+  skill: cat,
+  date: date
+}
+]]></ee:set-payload>
+      </ee:message>
+    </ee:transform>
+
+    <!-- Inicializar lista de respuestas -->
+    <set-variable value="#[[]]" variableName="responses" doc:name="Init Responses"/>
+
+    <!-- Ejecutar por cada categoría -->
+    <foreach doc:name="Send Each Request" collection="#[payload]">
+      <try>
+        <!-- Llamada al subflujo por cada categoría -->
+        <flow-ref doc:name="Go to Client" doc:id="d574fd67-3fff-446e-83d8-7b6de0f6e9b4" name="post-capacity-client"/>
+
+        <!-- Construcción del nuevo valor de vars.responses -->
+		<ee:transform doc:name="Append Successful Response">
+		  <ee:message>
+		    <ee:set-payload><![CDATA[%dw 2.0
+		output application/json
+		---
+		(vars.responses default []) ++ [payload]
+		]]></ee:set-payload>
+		  </ee:message>
+		</ee:transform>
+		
+		<!-- Actualización real de la variable -->
+		<set-variable variableName="responses" value="#[payload]" />
+
+
+        <!-- Manejo de errores -->
+        <error-handler>
+          <on-error-continue enableNotifications="true" logException="true" doc:name="OnError -> Append FAIL" type="HTTP:INTERNAL_SERVER_ERROR">
+            <set-variable variableName="responses"
+                          doc:name="Append Error Response"
+                          value="#[(vars.responses default []) ++ [{
+                            status: 'FAIL',
+                            description: 'No Capacities',
+                            capacities: null
+                          }]]"/>
+          </on-error-continue>
+        </error-handler>
+      </try>
+    </foreach>
+
+    <!-- Filtrado final: solo PASS o respuesta genérica FAIL -->
+		<set-payload value="#[vars.responses]" doc:name="Set Payload" doc:id="90c5873b-9d8e-4f26-9176-7eee71f3dd90" />
+		<ee:transform doc:name="Filter Valid Responses or Return FAIL">
+      <ee:message>
+        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+
+var caps = 
+  (payload 
+    filter ((item) -> item.status == "PASS" and item.capacities != null)
+    flatMap ((item) -> item.capacities)) default []
+
+var groupedByDate = caps groupBy $.date
+
+---
+{
+  items: groupedByDate pluck ((capacities, date) -> {
+    date: date,
+    areas: [
+      {
+        label: attributes.queryParams.area,
+        timeSlots: (capacities groupBy $.time_slot) pluck ((capsByTimeSlot, timeSlot) -> {
+          label: timeSlot,
+          categories: capsByTimeSlot map (c) -> {
+            label: c.work_skill,
+            quota: (c.quota as Number),
+            used: 0
+          }
+        })
+      }
+    ]
+  })
+}
+]]></ee:set-payload>
+      </ee:message>
+    </ee:transform>
+
+    <!-- Log final (opcional) -->
+
+  </sub-flow>
+	
+  
+
+
+</mule>
