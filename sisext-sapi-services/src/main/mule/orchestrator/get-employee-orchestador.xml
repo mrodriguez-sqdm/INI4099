@@ -19,7 +19,9 @@ output application/json
     messageResponse: "OK",
     employee: {
         workforceID: payload.workforceID default null,
-        fullName: payload.givenName default null,
+        fullName: trim(
+            (payload.givenName default "") ++ " " ++ (payload.sn default "")
+        ),
         email: payload.mail default null,
         telephoneNumber: payload.telephoneNumber default null,
         status:

@@ -19,12 +19,12 @@ output application/json
 ---
 {
 	id: payload.employee.workforceID,
-	fullName: payload.employee.fullName,
-	status: payload.employee.status,
+	fullName: upper(payload.employee.fullName),
+	status: upper(payload.employee.status),
     contactMedium: (
     []
     ++ (if (!isEmpty(payload.employee.email)) [{ mediumType: "email", value: payload.employee.email }] else [])
-    ++ (if (!isEmpty(payload.employee.telephoneNumber)) [{ mediumType: "phone", value: payload.employee.telephoneNumber }] else [])
+    ++ (if (!isEmpty(payload.employee.telephoneNumber)) [{ mediumType: "mobile", value: payload.employee.telephoneNumber }] else [])
   )
 }]]></ee:set-payload>
 					</ee:message>
@@ -147,19 +147,19 @@ output application/json
 ---
 {
 	id: payload.resourceId,
-	fullName: payload.name,
-	status: payload.status,
+	fullName: upper(payload.name),
+	status: upper(payload.status),
     contactMedium: (
     []
     ++ (if (!isEmpty(payload.email)) [{ mediumType: "email", value: payload.email }] else [])
-    ++ (if (!isEmpty(payload.phone)) [{ mediumType: "phone", value: payload.phone }] else [])
+    ++ (if (!isEmpty(payload.phone)) [{ mediumType: "mobile", value: payload.phone }] else [])
   )
 }]]></ee:set-payload>
 					</ee:message>
 				</ee:transform>
 			</when>
-			<otherwise >
-				<ee:transform doc:name="Set Payload Response Fail" doc:id="8217e8cc-9124-4b5b-bdb9-5b939f6244d1" >
+			<otherwise>
+				<ee:transform doc:name="Set Payload Response Fail" doc:id="d8c80e1f-fa9b-499c-b047-607b5703fc6e" >
 					<ee:message >
 						<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
