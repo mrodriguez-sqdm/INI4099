@@ -58,47 +58,6 @@ output application/json
 		<set-variable value="#[attributes.headers]" doc:name="Set headers" doc:id="3a050a6e-c51f-4275-af44-ad339cf5e19e" variableName="headers" />
 		<set-variable value="#[[]]" doc:name="Set Variable" doc:id="481da76a-7cb2-47c5-a900-91a0d861edb9" variableName="bodyResponse"/>
 		<flow-ref doc:name="Flow Reference" doc:id="6bb40cd9-051c-4eb9-9f1f-a8822686daca" name="get-party-clientSub_Flow"/>
-		<ee:transform doc:name="Transform Message" doc:id="8c884523-9fbb-4149-b350-36d7c29f2415" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json
----
-{
-  "totalResults": 3,
-  "limit": 10,
-  "offset": 0,
-  "items": [
-    {
-      "resourceId": "1015456632",
-      "lng": -74.08767,
-      "lat": 4.67953,
-      "time": "2025-09-29T13:33:52+0000",
-      "dis": 706
-    },
-    {
-      "resourceId": "1012424602",
-      "lng": -74.08888,
-      "lat": 4.6801,
-      "time": "2025-09-29T13:36:30+0000",
-      "dis": 782
-    },
-    {
-      "resourceId": "80856655",
-      "lng": -74.08014,
-      "lat": 4.67719,
-      "time": "2025-09-29T13:36:57+0000",
-      "dis": 761
-    }
-  ],
-  "links": [
-    {
-      "rel": "canonical",
-      "href": "https://etb.fs.ocs.oraclecloud.com/rest/ofscCore/v1/resources/custom-actions/resourcesInA"
-    }
-  ]
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
 		<choice doc:name="Choice" doc:id="4adba65e-d24b-4197-a14c-60bed2d7af5d" >
 			<when expression="#[payload.totalResults &gt; 0]">
 				<foreach doc:name="For Each" doc:id="3628c4be-cc4d-4de8-a18e-8366f8ec3f57" collection="#[payload.items]">
