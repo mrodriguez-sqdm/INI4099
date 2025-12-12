@@ -576,71 +576,9 @@ output application/json
 {
   codeResponse: vars.httpStatus as String ,
   messageResponse: if(payload.WSResponseHeader.Service.status == "OK") payload.WSResponseHeader.Service.statusDetail[0].errorDetailCode else payload.WSResponseHeader.Service.statusDetail[0].errorMessage,
-   debt: {
-        adjust: {
-            date: payload.WSResponseBody.Adjust.Date default "",
-            numPqr: payload.WSResponseBody.Adjust.Num_PQR default "",
-            origin: payload.WSResponseBody.Adjust.Origin default "",
-            value: {
-                value: payload.WSResponseBody.Adjust.Value.Value default "",
-                valueStr: payload.WSResponseBody.Adjust.Value.Value_Str default ""
-            }
-        },
-        barcode: payload.WSResponseBody.Barcode default "",
-        billedPeriod: payload.WSResponseBody.Billed_Period default "",
-        billingAccount: payload.WSResponseBody.Billing_Account default "",
-        billingAddress: payload.WSResponseBody.Billing_Address default "",
-        billingCutoffDate: payload.WSResponseBody.Billing_Cutoff_Date default "",
-        billingNumber: payload.WSResponseBody.Billing_Number default "",
-        billingNumberPse: payload.WSResponseBody.Billing_Number_PSE default "",
-        billingPhone: payload.WSResponseBody.Billing_Phone default "",
-        concepts: {
-            reconnected: {
-                cost: payload.WSResponseBody.Concepts.Reconnected.Cost default "",
-                costUsr: payload.WSResponseBody.Concepts.Reconnected.Cost_Usr default "",
-                date: payload.WSResponseBody.Concepts.Reconnected.Date default ""
-            },
-            suspend: {
-                cost: payload.WSResponseBody.Concepts.Suspend.Cost default "",
-                costUsr: payload.WSResponseBody.Concepts.Suspend.Cost_Usr default "",
-                date: payload.WSResponseBody.Concepts.Suspend.Date default ""
-            }
-        },
-        deliveryType: payload.WSResponseBody.Delivery_Type default "",
-        email: payload.WSResponseBody.Email default "",
-        extemporaneous: payload.WSResponseBody.Extemporaneous default "",
-        informationValue: (payload.WSResponseBody.Information_Value default []) map {
-            date: $.Date default "",
-            message: $.Message default ""
-        },
-        invoiceOrigin: payload.WSResponseBody.Invoice_Origin default "",
-        isReceiptOfPayment: payload.WSResponseBody.Is_Receipt_Of_Payment default "",
-        paydayLimit: payload.WSResponseBody.Payday_Limit default "",
-        payment: {
-            bank: payload.WSResponseBody.Payment.Bank default "",
-            paymentDate: payload.WSResponseBody.Payment.Payment_Date default "",
-            "type": payload.WSResponseBody.Payment.Type default "",
-            value: {
-                value: payload.WSResponseBody.Payment.Value.Value default "",
-                valueStr: payload.WSResponseBody.Payment.Value.Value_Str default ""
-            }
-        },
-        paymentDate: payload.WSResponseBody.Payment_Date default "",
-        phone: payload.WSResponseBody.Phone default "",
-        state: payload.WSResponseBody.State default "",
-        valueFinal: {
-            value: payload.WSResponseBody.Value_Final.Value default "",
-            valueStr: payload.WSResponseBody.Value_Final.Value_Str default ""
-        },
-        valueOriginal: {
-            value: payload.WSResponseBody.Value_Original.Value default "",
-            valueStr: payload.WSResponseBody.Value_Original.Value_Str default ""
-        },
-        valueService: {
-            value: payload.WSResponseBody.Value_Service.Value default "",
-            valueStr: payload.WSResponseBody.Value_Service.Value_Str default ""
-        }
-    }
+  detail: {
+	numberPqr: payload.WSResponseHeader.PQR_Number default ""
+  }
 }
 ]]></ee:set-payload>
 			</ee:message>
