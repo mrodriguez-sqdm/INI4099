@@ -26,6 +26,22 @@ bot-sapi:
       agenda: "/agenda/v1"
   client_id: "b8665f3c588a4a709576760a1cc5a582"
   client_secret: "7417c6490e8943FDBCDB907d30e9f2f7"
+  
+mongo-db-sapi:
+  protocol: "HTTP"
+  host: "mule-worker-internal-mongo-db-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8091"
+  base-path: "/mongo/v1"
+  resources:  
+    franjas:
+      base-path: "/unifiedPortalConf"
+      get:
+        path: ""
+  nombre-franja: "FRANJA_AGENDA"
+
+  security:
+    client-id: "b8665f3c588a4a709576760a1cc5a582"
+    client-secret: "7417c6490e8943FDBCDB907d30e9f2f7"
 
 oracle-sapi:
   protocol: "HTTP"
@@ -59,3 +75,6 @@ configurationTimeout:
   operations-papi: "62000"
   bot-sapi: "62000"
   azure-sapi: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"

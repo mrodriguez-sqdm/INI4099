@@ -22,12 +22,15 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:request-config name="HTTP_Request_configuration_bot-sapi" doc:name="HTTP Request configuration" doc:id="f49a444a-7627-497c-b933-e4c4bf9dbfed" basePath="${bot-sapi.basepath}" responseTimeout="${configurationTimeout.bot-sapi}">
 		<http:request-connection protocol="${bot-sapi.protocol}" host="${bot-sapi.host}" port="${bot-sapi.port}" />
 	</http:request-config>
-		<http:request-config name="Oracle-Sapi-HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="807df35c-d60e-401e-8cca-87eea6f301d2" basePath="${oracle-sapi.basepath}" responseTimeout="${oracle-sapi.configurationTimeout}">
+	<http:request-config name="Oracle-Sapi-HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="807df35c-d60e-401e-8cca-87eea6f301d2" basePath="${oracle-sapi.basepath}" responseTimeout="${oracle-sapi.configurationTimeout}">
 		<http:request-connection host="${oracle-sapi.host}" port="${oracle-sapi.port}" protocol="${oracle-sapi.protocol}"/>
+	</http:request-config>
+	<http:request-config name="mongo_db_sapi_config" doc:name="HTTP Request configuration" doc:id="0b3a72f8-6289-403f-b03e-be87b5a15725" basePath="${mongo-db-sapi.base-path}" responseTimeout="${configurationTimeout.mongo-db-sapi.responseTimeout}">
+		<http:request-connection protocol="${mongo-db-sapi.protocol}" host="${mongo-db-sapi.host}" port="${mongo-db-sapi.port}" connectionIdleTimeout="${configurationTimeout.mongo-db-sapi.connectionIdleTimeout}"/>
 	</http:request-config>
 	<tls:context name="TLS_Context" doc:name="TLS Context" doc:id="4aa07c4c-b916-4132-8c05-d01322e68af4">
         <tls:key-store type="${tls.type}" path="${tls.path}" keyPassword="${tls.keyPassword}" password="${tls.password}" />
     </tls:context>	
     
-	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="0613cc81-c319-42d2-8e51-cc871d45f464" flowRef="appointment-management-xapi-services-main" /> 
+	<api-gateway:autodiscovery apiId="${autodiscovery}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="0613cc81-c319-42d2-8e51-cc871d45f464" flowRef="appointment-management-xapi-services-main" />
 </mule>

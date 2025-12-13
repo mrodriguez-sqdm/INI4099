@@ -28,6 +28,22 @@ bot-sapi:
   client_id: "9070fd1dac714b1b9e041c0d8fdff6ce"
   client_secret: "A2De130A74084573Bc8352790a8C1b56" 
 
+mongo-db-sapi:
+  protocol: "HTTP"
+  host: "localhost"
+  port: "8095"
+  base-path: "/mongo/v1"
+  resources:  
+    franjas:
+      base-path: "/unifiedPortalConf"
+      get:
+        path: ""
+  nombre-franja: "FRANJA_AGENDA"
+
+  security:
+    client-id: "9070fd1dac714b1b9e041c0d8fdff6ce"
+    client-secret: "A2De130A74084573Bc8352790a8C1b56"
+
 oracle-sapi:
   protocol: "HTTP"
   host: "localhost"
@@ -60,4 +76,7 @@ configurationTimeout:
   operations-papi: "62000"
   bot-sapi: "62000"
   azure-sapi: "62000"
+  mongo-db-sapi:
+    responseTimeout: "30000"
+    connectionIdleTimeout: "60000"
 
