@@ -27,7 +27,7 @@ http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/cu
 		name="Secure_Properties_Config" doc:name="Secure Properties"
 		doc:id="9f71883f-8f1c-464c-b025-34fd47ab4119"
 		file="secureProperties/${env}-secure-properties.yaml"
-		key="${secure.keyPapi}">
+		key="${secure.key}">
 		<secure-properties:encrypt
 			algorithm="Blowfish" />
 	</secure-properties:config>
