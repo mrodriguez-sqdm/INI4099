@@ -21,10 +21,11 @@ properties:
     type: string
     example: 'OK'
     required: false
-  
   summary:
     type: object
     required: false
+    description: |
+      Summary of billing accounts proccessed
     properties:
       totalAccounts:
         type: integer
@@ -65,7 +66,6 @@ properties:
           description: "Failed billing account number"
           example: '14000001234'
           required: true
-
   accounts:
     type: array
     required: false
@@ -189,3 +189,116 @@ properties:
                 description: "PDF invoice download URL. ZSmart: downloadUrl"
                 example: 'https://billing.etb.net.co/invoices/INV-2026-001234.pdf'
                 required: false
+        summary:
+          type: object
+          required: false
+          description: |
+            Aggregated totals and payment status across all invoices[] for this account.
+            Present only when invoices[] contains more than one invoice.
+            All monetary values are summed as numbers and formatted by MuleSoft.
+
+            **status derivation rule (evaluated in priority order):**
+            1. totalOpenAmount == "0"                                  → "Al día"
+            2. totalOpenAmount > 0 AND any invoice dueDate < now()     → "Vencido"
+            3. totalOpenAmount > 0 AND all invoice dueDates >= now()   → "Pendiente"
+
+            **nextDueDate derivation rule:**
+            min(dueDate) among invoices where openAmount > 0.
+            null when status is "Al día" (no pending invoices).
+          properties:
+            accountNumber:
+              type: string
+              required: false
+              description: |
+                Billing account number. Populated only when BILLING_ACCOUNT is the sole
+                search key in the request — confirms which account the summary belongs to.
+                Omitted for CONNECTION_NUMBER or CUSTOMER_ID_TYPE+CUSTOMER_ID searches
+                (accountNumber is already the top-level key of the accounts[] item).
+              example: '14000001234'
+            invoiceCount:
+              type: integer
+              required: false
+              description: "Total number of invoices returned for this account."
+              example: 3
+            status:
+              type: string
+              required: false
+              enum: ['Al día', 'Pendiente', 'Vencido']
+              description: |
+                Overall payment status derived by MuleSoft (not from ZSmart).
+                - "Al día"   : totalOpenAmount == 0 — no pending debt across all invoices
+                - "Pendiente": totalOpenAmount > 0 AND all pending dueDate >= today
+                - "Vencido"  : totalOpenAmount > 0 AND at least one pending dueDate < today
+              example: 'Vencido'
+            nextDueDate:
+              type: string
+              required: false
+              description: |
+                Earliest dueDate among invoices with openAmount > 0 (most urgent debt).
+                Format: YYYY-MM-DD HH:MM:SS. Null when status is "Al día".
+              example: '2026-01-15 23:59:59'
+            totalDue:
+              type: object
+              required: false
+              description: "Sum of all invoice amounts (due). ZSmart source: due (sum)"
+              properties:
+                value:
+                  type: string
+                  required: false
+                  description: "Raw sum. ZSmart: due"
+                  example: '403000'
+                formatted:
+                  type: string
+                  required: false
+                  description: "Formatted sum by channel unit. ZSmart: formatDue"
+                  example: '$ 403,000'
+            totalOpenAmount:
+              type: object
+              required: false
+              description: "Sum of all pending (arrears) amounts across invoices. ZSmart source: openAmount (sum)"
+              properties:
+                value:
+                  type: string
+                  required: false
+                  description: "Raw sum of arrears. ZSmart: openAmount"
+                  example: '258000'
+                formatted:
+                  type: string
+                  required: false
+                  description: "Formatted sum. ZSmart: formatOpenAmount"
+                  example: '$ 258,000'
+            totalPaidAmount:
+              type: object
+              required: false
+              description: "Sum of all paid amounts across invoices. ZSmart source: paidCharge (sum)"
+              properties:
+                value:
+                  type: string
+                  required: false
+                  description: "Raw sum of paid charges. ZSmart: paidCharge"
+                  example: '145000'
+                formatted:
+                  type: string
+                  required: false
+                  description: "Formatted sum. ZSmart: formatPaidCharge"
+                  example: '$ 145,000'
+            totalAdjustCharge:
+              type: object
+              required: false
+              description: "Sum of all adjustments/credits across invoices. ZSmart source: adjustCharge (sum)"
+              properties:
+                value:
+                  type: string
+                  required: false
+                  description: "Raw sum of adjustments. ZSmart: adjustCharge"
+                  example: '0'
+                formatted:
+                  type: string
+                  required: false
+                  description: "Formatted sum. ZSmart: formatAdjustCharge"
+                  example: '$ 0'
+            currencyCode:
+              type: string
+              required: false
+              description: "Currency code shared by all invoices in this account. ZSmart: currencyCode"
+              example: 'COP'

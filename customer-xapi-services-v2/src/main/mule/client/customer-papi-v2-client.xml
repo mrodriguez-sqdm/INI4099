@@ -24,7 +24,9 @@ attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
 	<sub-flow name="post-billingHistory-customer-papi-v2-clientSub_Flow" doc:id="997887d2-6faf-468f-a3a4-e55fbf275ce6">
-		<http:request method="POST" doc:name="customer-papi-v2 POST billingHistory" doc:id="974c0b27-3e03-495b-8ade-e3b45c54fa44" config-ref="HTTP_Request_configuration_customer-papi-services-v2" path="${customer-papi-v2.resources.billingHistory.path}" sendCorrelationId="AUTO">
+		<try doc:name="Try" doc:id="2da57284-9fc1-42ab-98da-395e1f8f0773" >
+			<validation:is-true doc:name="validate credentials" doc:id="4faa77e0-92f5-4f01-8ea7-eb73f5e3512c" expression="#[(payload.username  == p('secure::banks.username')) and (payload.password == p('secure::banks.password'))]" message="Unauthorized: Invalid username or password, please check you credentials." />
+			<http:request method="POST" doc:name="customer-papi-v2 POST billingHistory" doc:id="974c0b27-3e03-495b-8ade-e3b45c54fa44" config-ref="HTTP_Request_configuration_customer-papi-services-v2" path="${customer-papi-v2.resources.billingHistory.path}" sendCorrelationId="AUTO">
 			<http:headers><![CDATA[#[output application/java
 ---
 {
@@ -36,6 +38,33 @@ attributes.queryParams]]]></http:query-params>
 	"systemId": attributes.headers.systemId default "MIGRACION"
 }]]]></http:headers>
 		</http:request>
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="9ec2f026-8be0-4921-ab30-fbb64abc9cc9" type="VALIDATION:INVALID_BOOLEAN" >
+					<ee:transform doc:name="set validation error" doc:id="ff878a3b-1e36-4e6e-96d7-ab7197ad6e45" >
+						<ee:message >
+							<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "status": "401",
+    "code": "HTTP:UNAUTHORIZED",
+    "message": "Invalid User Credentials",
+    "messageServer": error.description,
+    "cause": [
+        {
+            "origin": "customer-xapi-services-v2",
+            "message": "Invalid User Credentials"
+        }
+    ]
+}]]></ee:set-payload>
+						</ee:message>
+						<ee:variables >
+							<ee:set-variable variableName="httpStatus" ><![CDATA[401]]></ee:set-variable>
+						</ee:variables>
+					</ee:transform>
+				</on-error-continue>
+			</error-handler>
+		</try>
 	</sub-flow>
 	<sub-flow name="get-billingHistory-customer-papi-v2-clientSub_Flow" doc:id="49cb1e4f-db5a-4eee-891a-e6363042634c" >
 		<http:request method="GET" doc:name="customer-papi-v2 GET billingHistory" doc:id="7084b0b4-5d29-4c7c-b420-6336ddf500ce" config-ref="HTTP_Request_configuration_customer-papi-services-v2" path="${customer-papi-v2.resources.billingHistory.path}" sendCorrelationId="AUTO">
@@ -152,7 +181,7 @@ attributes.queryParams]]]></http:query-params>
 	</sub-flow>
 	<sub-flow name="post-payment-banks-basic-auth-customer-papi-v2-clientSub_Flow" doc:id="fbfa39c9-78be-4e5b-aaba-8e76c381c20d">
 		<try doc:name="Try" doc:id="a885425f-634b-4bf1-a852-31515e2e8772" >
-			<validation:is-true doc:name="validate credentials" doc:id="f4f7434f-11e0-4e20-87d6-6845526ec938" expression="#[(payload.username  == p('secure::banks.payment.username')) and (payload.password == p('secure::banks.payment.password'))]" message="Unauthorized: Invalid username or password, please check you credentials."/>
+			<validation:is-true doc:name="validate credentials" doc:id="f4f7434f-11e0-4e20-87d6-6845526ec938" expression="#[(payload.username  == p('secure::banks.username')) and (payload.password == p('secure::banks.password'))]" message="Unauthorized: Invalid username or password, please check you credentials."/>
 			<http:request method="POST" doc:name="customer-papi-v2 POST payment banks basic auth" doc:id="1b8b60ce-0fa0-45dd-bdfa-ff885d1f96e2" config-ref="HTTP_Request_configuration_customer-papi-services-v2" path="${customer-papi-v2.resources.paymentBanksBasicAuth.path}" sendCorrelationId="AUTO">
 			<http:headers><![CDATA[#[output application/java
 ---

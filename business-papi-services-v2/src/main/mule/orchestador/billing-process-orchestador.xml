@@ -20,7 +20,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		</ee:transform>
 		<logger level="INFO" doc:name="start billing process creation"
 			doc:id="94358145-0fc1-4641-afb8-da8e1361f5dd"
-			message='#["Starting Billing Process Creation: " ++ vars.processCode default "UNKNOWN" ++ ", Service ID: " ++ vars.transactionId default "0"]' />
+			message='#["Starting Billing Process Creation: " ++ vars.processCode default "UNKNOWN" ++ ", Transaction ID: " ++ vars.transactionId default "0"]' />
 		<ee:transform doc:name="set post billing process request"
 			doc:id="34cdd542-8596-4ad7-95ab-de431b02b5b3">
 			<ee:message>
@@ -36,7 +36,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload resource="dwScripts/postBillingProcess/postBillingResponse.dwl" />
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="end billing process creation" doc:id="79228962-dd1e-4354-8dc7-1eafc7c8401a" message='#["Ended Billing Process Creation: " ++ vars.processCode default "UNKNOWN" ++ ", Service ID: " ++ vars.serviceId default "0"]'/>
+		<logger level="INFO" doc:name="end billing process creation" doc:id="79228962-dd1e-4354-8dc7-1eafc7c8401a" message='#["Ended Billing Process Creation: " ++ vars.processCode default "UNKNOWN" ++ ", Transaction ID: " ++ vars.transactionId default "0"]'/>
 	</sub-flow>
 	<sub-flow name="patch-billing-process-orchestadorSub_Flow" doc:id="9b20fb2d-66a6-4c9b-b79c-294dfd3ede5e" >
 		<ee:transform doc:name="set  variables" doc:id="9cfd3fc3-da2d-44ec-a5a2-8c0cb7a4f784">
@@ -47,7 +47,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-variable resource="dwScripts/patchBillingProcess/setProcessCode.dwl" variableName="processCode" />
 			</ee:variables>
 		</ee:transform>
-		<logger level="INFO" doc:name="start billing process update" doc:id="f66d8477-e7e4-4d7e-a61f-2454cec2f1c6" message='#["Starting Billing Process Update: " ++ vars.processCode default "UNKNOWN" ++ ", Service ID: " ++ vars.serviceId default "0"]' />
+		<logger level="INFO" doc:name="start billing process update" doc:id="f66d8477-e7e4-4d7e-a61f-2454cec2f1c6" message='#["Starting Billing Process Update: " ++ vars.processCode default "UNKNOWN" ++ ", Transaction ID: " ++ vars.transactionId default "0"]' />
 		<ee:transform doc:name="set patch billing process request" doc:id="bc2d0ff6-3a0b-4b22-ae09-26c60c8d7f51">
 			<ee:message />
 			<ee:variables>
@@ -62,6 +62,6 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 				<ee:set-payload resource="dwScripts/patchBillingProcess/patchBillingResponse.dwl" />
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="end billing process update" doc:id="2119977b-dbea-45a8-b96e-678c324ad9d7" message='#["Ended Billing Process Update: " ++ vars.processCode default "UNKNOWN" ++ ", Service ID: " ++ vars.serviceId default "0"]'/>
+		<logger level="INFO" doc:name="end billing process update" doc:id="2119977b-dbea-45a8-b96e-678c324ad9d7" message='#["Ended Billing Process Update: " ++ vars.processCode default "UNKNOWN" ++ ", Transaction ID: " ++ vars.transactionId default "0"]'/>
 	</sub-flow>
 </mule>

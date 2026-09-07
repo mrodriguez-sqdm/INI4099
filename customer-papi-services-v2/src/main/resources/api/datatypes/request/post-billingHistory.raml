@@ -2,20 +2,17 @@
 type: object
 additionalProperties: false
 properties:
-  # user:
-  #   type: string
-  #   description: User Credential Provided from the bank
-  #   required: true
-  #   example: "BANK_USER"
-  # pass:
-  #   type: string
-  #   description: Pass Credential Provided from the bank
-  #   required: true
-  #   example: "BANK_PASS"
+  username:
+    type: string
+    example: "banco_bogota_etb"
+    required: true
+  password:
+    type: string
+    example: "**********"
+    required: true
   origin:
     type: string
-    example: "BANCOLOMBIA"
-    description: Banco de origen
+    example: "BANCO"
     required: true
   channelCode:
     type: string

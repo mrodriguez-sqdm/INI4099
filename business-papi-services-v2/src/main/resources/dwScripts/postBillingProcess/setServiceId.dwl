@@ -1,4 +1,4 @@
 %dw 2.0
 output application/json
 ---
-payload.transaction.prodInstId
+payload.transaction.serviceNumber

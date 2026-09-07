@@ -174,6 +174,7 @@ attributes.queryParams]]]></http:query-params>
 	</sub-flow>
 	<sub-flow name="post-billing-business-papi-v2-clientSub_Flow"
 		doc:id="83005528-1a49-441c-9f32-6f1ed0119480">
+		<logger level="INFO" doc:name="Log Start" doc:id="07a0516e-9632-4c75-a544-02dd1c4f589d" message='#["HTTP CLIENT START | cid=" ++ correlationId ++ " | operation=POST /billing-process"]' />
 		<http:request method="POST" doc:name="POST /billing"
 			doc:id="9eba29bf-0ad7-4ebe-b1c5-62bc8efc7f76"
 			config-ref="HTTP_Request_configuration_business-papi-services-v2"
@@ -189,10 +190,12 @@ attributes.queryParams]]]></http:query-params>
 	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 		</http:request>
+		<logger level="INFO" doc:name="Log End" doc:id="339c75e9-2422-4861-b16d-d332ddb2e6ef" message='#["HTTP CLIENT END | cid=" ++ correlationId ++ " | operation=POST /billing-process | status=OK"]' />
 	</sub-flow>
 	<sub-flow
 		name="patch-billing-business-papi-v2-clientSub_Flow"
 		doc:id="5d896b2d-de1f-4a60-b29d-ab5dd5c29ba5">
+		<logger level="INFO" doc:name="Log Start" doc:id="5224abf3-1c7e-4110-99cd-d9f1ee72ee05" message='#["HTTP CLIENT START | cid=" ++ correlationId ++ " | operation=PATCH /billing-process"]' />
 		<http:request method="PATCH" doc:name="PATCH /billing"
 			doc:id="2ac13794-4886-4fa7-bd77-56d71a000d27"
 			config-ref="HTTP_Request_configuration_business-papi-services-v2"
@@ -208,5 +211,6 @@ attributes.queryParams]]]></http:query-params>
 	"systemId": attributes.headers.systemId
 }]]]></http:headers>
 		</http:request>
+		<logger level="INFO" doc:name="Log End" doc:id="b4dd70f6-ed27-4914-a045-6a5e989ff16d" message='#["HTTP CLIENT END | cid=" ++ correlationId ++ " | operation=PATCH /billing-process | status=OK"]' />
 	</sub-flow>
 </mule>

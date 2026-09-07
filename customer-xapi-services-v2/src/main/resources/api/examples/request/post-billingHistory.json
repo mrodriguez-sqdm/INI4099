@@ -1,5 +1,7 @@
 {
-  "origin": "BANCOLOMBIA",
+  "username": "banco_bogota_etb",
+  "password": "**********",
+  "origin": "BANCO",
   "channelCode": "USSD",
   "connectionNumber": "6015551234",
   "billingAccount": "14000001234",

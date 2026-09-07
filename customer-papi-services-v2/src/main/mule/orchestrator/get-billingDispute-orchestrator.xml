@@ -171,17 +171,16 @@ output application/json
 			</ee:message>
 		</ee:transform>
 		<flow-ref doc:name="System Generic (MDM_CUENTA_FACTURACION)" doc:id="6c817703-4211-480e-9d92-c3c26cfa2ca0" name="generic-sapi-clientSub_Flow" target="mdmCuentaFact" />
-		<ee:transform doc:name="set billing loop variables" doc:id="0ea5b071-ef12-4ddb-b08a-3b0e2a31fef8" >
+		<ee:transform doc:name="set billingAccounts" doc:id="0ea5b071-ef12-4ddb-b08a-3b0e2a31fef8" >
 			<ee:message />
 			<ee:variables >
 				<ee:set-variable variableName="billingAccounts" ><![CDATA[%dw 2.0
 output application/json
 ---
 vars.mdmCuentaFact.result.*"Cuenta_Facturacion"]]></ee:set-variable>
-				<ee:set-variable variableName="billingDisputeAcc" ><![CDATA[[]]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<parallel-foreach doc:name="Parallel For Each Billing Account" doc:id="c39fd96f-2524-4725-ab4c-f9a3574e88a3" collection="vars.billingAccounts" maxConcurrency="10">
+		<parallel-foreach doc:name="Parallel For Each Billing Account" doc:id="c39fd96f-2524-4725-ab4c-f9a3574e88a3" collection="vars.billingAccounts" maxConcurrency="10" target="billingDisputeAcc">
 			<try doc:name="Try" doc:id="59f96b39-2aad-4afc-bc76-5e8b92a80492" >
 				<logger level="INFO" doc:name="billing loop value" doc:id="e64af166-97f3-4615-9f9a-77009932eb27" message='#["billing account processing: " ++ payload default ""]' />
 				<ee:transform doc:name="set billingAccount" doc:id="c173d3ae-c913-4ec8-ac60-ae8dbe2779f3" >
@@ -221,11 +220,11 @@ output application/json skipNullOn = "everywhere"
 				</ee:transform>
 				<flow-ref doc:name="System Generic (Zsmart Billing History)" doc:id="7df2b73d-030b-414f-a6cc-b11d78631269" name="generic-zsmart-sapi-clientSub_Flow" />
 				<ee:transform doc:name="set billingDisputeAcc value" doc:id="dd5e011f-93a4-4021-aa16-d4b2319abff6" >
-					<ee:message />
-					<ee:variables >
-						<ee:set-variable variableName="billingDisputeAcc" ><![CDATA[%dw 2.0
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
-var zsmartResponse = {
+---
+{
 	"status": "success",
 	"accountNumber": vars.billingAccount,
 	"disputes": payload.result.result.disputeExDtoList map (dispute, index) -> {
@@ -242,25 +241,25 @@ var zsmartResponse = {
 			"glTypeName": disputeItem.glTypeName
 		}
 	}
-}
----
-vars.billingDisputeAcc + zsmartResponse]]></ee:set-variable>
+}]]></ee:set-payload>
+					</ee:message>
+					<ee:variables >
 					</ee:variables>
 				</ee:transform>
 				<error-handler >
 					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="4d41a970-2f94-49b3-a492-3ccaee661b99" >
 						<ee:transform doc:name="set billingDisputeAcc value" doc:id="28b4bb8b-edd3-4d01-85d5-d791655d1b9a" >
-							<ee:message />
-							<ee:variables >
-								<ee:set-variable variableName="billingDisputeAcc" ><![CDATA[%dw 2.0
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
-var zsmartResponse = {
+---
+{
 	"status": "failed",
 	"accountNumber": vars.billingAccount,
 	"billingError": error.description
-}
----
-vars.billingDisputeAcc + zsmartResponse]]></ee:set-variable>
+}]]></ee:set-payload>
+							</ee:message>
+							<ee:variables >
 							</ee:variables>
 						</ee:transform>
 					</on-error-continue>
@@ -271,11 +270,11 @@ vars.billingDisputeAcc + zsmartResponse]]></ee:set-variable>
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
-var totalCount = sizeOf(vars.billingDisputeAcc) default 0
-var successCount = sizeOf(vars.billingDisputeAcc filter ($.status == "success")) default 0
-var failedCount = sizeOf(vars.billingDisputeAcc filter ($.status == "failed")) default 0
-var successAccounts = vars.billingDisputeAcc filter ($.status == "success") default []
-var failedAccounts = vars.billingDisputeAcc filter ($.status == "failed") default []
+var totalCount = sizeOf(vars.billingDisputeAcc default []) default 0
+var successCount = sizeOf(vars.billingDisputeAcc default [] filter ($.payload.status == "success")) default 0
+var failedCount = sizeOf(vars.billingDisputeAcc default [] filter ($.payload.status == "failed")) default 0
+var successAccounts = vars.billingDisputeAcc default [] filter ($.payload.status == "success") default []
+var failedAccounts = vars.billingDisputeAcc default [] filter ($.payload.status == "failed") default []
 ---
 {
 	"codeResponse": if ( failedCount == 0 ) "200" 
@@ -296,8 +295,8 @@ var failedAccounts = vars.billingDisputeAcc filter ($.status == "failed") defaul
 			<ee:variables >
 				<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
 output application/json
-var totalCount = sizeOf(vars.billingDisputeAcc) default 0
-var failedCount = sizeOf(vars.billingDisputeAcc filter ($.status == "failed")) default 0
+var totalCount = sizeOf(vars.billingDisputeAcc default []) default 0
+var failedCount = sizeOf(vars.billingDisputeAcc default [] filter ($.payload.status == "failed")) default 0
 ---
 if ( failedCount == 0 ) 200 
           else if ( failedCount < totalCount ) 207

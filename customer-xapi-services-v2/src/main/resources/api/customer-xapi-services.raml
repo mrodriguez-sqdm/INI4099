@@ -29,9 +29,6 @@ mediaType:
 
 securitySchemes:
   etb_oauth_2_0: !include exchange_modules/35a39a92-efa9-49b6-8f13-d66508fd2f35/etb-oauth-20/1.0.2/etb-oauth-20.raml
-  basicAuth:
-    description: This API requires Basic Authentication for sensitive operations.
-    type: Basic Authentication
 
 /riskValidation:                
   /otp:
@@ -1124,7 +1121,6 @@ securitySchemes:
     is:
       - tibcoHeaders
       - trafficControlled
-    securedBy: [ basicAuth ]
     displayName: Consultar historial de facturas
     description: |
       Query postpaid account bill history from ZSmart (billHistoryQuery — v0.8).

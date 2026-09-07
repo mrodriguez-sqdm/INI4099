@@ -112,67 +112,78 @@ vars.billingParams.billingAccount]]></ee:set-variable>
 		<ee:transform doc:name="set billing history response" doc:id="b1ceb43a-b4e1-484b-b8c1-69b5b355eaa5">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
-output application/json skipNullOn = "everywhere"
+import some, every from dw::core::Arrays
 var zsmartResponse = payload.result.result
+fun formatAmount(amountVal, formattedVal) =
+  {
+    "value": amountVal,
+    "formatted": amountVal as Number as String {format: "\$ #,##0"}
+  }
+output application/json  skipNullOn="everywhere"
 ---
 {
-	"codeResponse": "200",
-	"messageResponse": "OK",
-	"accounts": [{
-		"transactionID": zsmartResponse.transactionID,
-		"accountNumber": vars.billingAccount,
-		"invoices": zsmartResponse.billExParamList map ((item, index) -> {
-			"billId": item.billID,
-			"billType": item.billType,
-			"invoiceNumber": item.billNumber,
-			"accountId": item.accountNumber default item.acctId,
-			"cycleBeginDate": item.cycleBeginDate,
-			"cycleEndDate": item.cycleEndDate,
-			"invoiceDate": item.entryDate,
-			"dueDate": item.dueDate,
-			"amount": {
-				"value": item.due,
-				"formatted": item.formatDue
-			},
-			"openAmount": {
-				"value": item.openAmount,
-				"formatted": item.formatOpenAmount
-			},
-			"paidAmount": {
-				"value": item.paidCharge,
-				"formatted": item.formatPaidCharge
-			},
-			"prebalance": {
-				"value": item.preBalance,
-				"formatted": item.formatPreBalance
-			},
-			"afterBalance": {
-				"value": item.afterBalance,
-				"formatted": item.formatAfterBalance
-			},
-			"wsCharge": {
-				"value": item.wrCharge,
-				"formatted": item.formatWrCharge
-			},
-			"settleCharge": {
-				"value": item.settleCharge,
-				"formatted": item.formatSettleCharge
-			},
-			"recvCharge": {
-				"value": item.recvCharge,
-				"formatted": item.formatRecvCharge
-			},
-			"adjustCharge": {
-				"value": item.adjustCharge,
-				"formatted": item.formatAdjustCharge
-			},
-			"status": if ( item.openAmount == "0" ) "Pagada"
+  "codeResponse": "200",
+  "messageResponse": "OK",
+  "accounts": [
+    {
+      "transactionID": zsmartResponse.transactionID,
+      "accountNumber": vars.billingAccount,
+      "invoices": zsmartResponse.billExParamList default [] map ((item, index) -> {
+        "billId": item.billID,
+        "billType": item.billType,
+        "invoiceNumber": item.billNumber,
+        "accountId": item.accountNumber default item.acctId,
+        "cycleBeginDate": item.cycleBeginDate,
+        "cycleEndDate": item.cycleEndDate,
+        "invoiceDate": item.entryDate,
+        "dueDate": item.dueDate,
+        "amount": formatAmount(item.due, item.formatDue),
+        "openAmount": formatAmount(item.openAmount, item.formatOpenAmount),
+        "paidAmount": formatAmount(item.paidCharge, item.formatPaidCharge),
+        "prebalance": formatAmount(item.preBalance, item.formatPreBalance),
+        "afterBalance": formatAmount(item.afterBalance, item.formatAfterBalance),
+        "wsCharge": formatAmount(item.wrCharge, item.formatWrCharge),
+        "settleCharge": formatAmount(item.settleCharge, item.formatSettleCharge),
+        "recvCharge": formatAmount(item.recvCharge, item.formatRecvCharge),
+        "adjustCharge": formatAmount(item.adjustCharge, item.formatAdjustCharge),
+        "status": 
+          if (item.openAmount == "0")
+            "Pagada"
           else
             "Pendiente",
-			"currencyCode": item.currencyCode,
-			"downloadUrl": item.downloadUrl
-		})
-	}]
+        "currencyCode": item.currencyCode,
+        "downloadUrl": item.downloadUrl
+      }),
+      "summary": do {
+        var due = sum(zsmartResponse.billExParamList.due default ["0"] map $ as Number) as String
+        var formattedDue = sum(zsmartResponse.billExParamList.formatDue default ["0"] map $ as Number) as String
+        var openAmount = sum(zsmartResponse.billExParamList.openAmount default ["0"] map $ as Number) as String
+        var formattedOpenAmount = sum(zsmartResponse.billExParamList.formatOpenAmount default ["0"] map $ as Number) as String
+        var paidCharge = sum(zsmartResponse.billExParamList.paidCharge default ["0"] map $ as Number) as String
+        var formattedPaidCharge = sum(zsmartResponse.billExParamList.formatPaidCharge default ["0"] map $ as Number) as String
+        var adjustCharge = sum(zsmartResponse.billExParamList.adjustCharge default ["0"] map $ as Number) as String
+        var formatAdjustCharge = sum(zsmartResponse.billExParamList.formatAdjustCharge default ["0"] map $ as Number) as String
+        var dueDates =  zsmartResponse.billExParamList.dueDate
+        ---
+        {
+          "accountNumber": vars.billingAccount,
+          "invoiceCount": sizeOf(zsmartResponse.billExParamList default []),
+          "status": dueDates  match {
+              case x if(openAmount == "0") -> "Al día"
+              case x if(openAmount > "0" and (dueDates some (($ as LocalDateTime {format: "yyyy-MM-dd HH:mm:ss"}) < now()))) -> "Vencido"
+              case x if(openAmount > "0" and (dueDates every (($ as LocalDateTime {format: "yyyy-MM-dd HH:mm:ss"}) >= now()))) -> "Pendiente"
+              else -> "None"
+          },
+          "nextDueDate": zsmartResponse.billExParamList default [] filter ((item) -> item.openAmount > "0") map $.dueDate minBy ((item) -> item),
+          "currencyCode": "COP",
+          "totalDue": formatAmount(due, formattedDue),
+          "totalOpenAmount": formatAmount(openAmount, formattedOpenAmount),
+          "totalPaidAmount": formatAmount(paidCharge, formattedPaidCharge),
+          "totalAdjustCharge": formatAmount(adjustCharge, formatAdjustCharge)
+        }
+      }
+    }
+  ]
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
@@ -212,7 +223,7 @@ output application/json
 						</ee:message>
 					</ee:transform>
 		<flow-ref doc:name="System Generic (MDM_CUENTA_FACTURACION)" doc:id="a65cdf89-ec8b-4594-b1dd-4477b4067bae" name="generic-sapi-clientSub_Flow" target="mdmCuentaFact" />
-		<ee:transform doc:name="set billing loop variables" doc:id="10957ce4-c253-4d19-a332-057af2af14d6" >
+		<ee:transform doc:name="set billingAccounts" doc:id="10957ce4-c253-4d19-a332-057af2af14d6" >
 			<ee:message >
 			</ee:message>
 			<ee:variables >
@@ -220,10 +231,9 @@ output application/json
 output application/json
 ---
 vars.mdmCuentaFact.result.*"Cuenta_Facturacion"]]></ee:set-variable>
-				<ee:set-variable variableName="billingHistoryAcc" ><![CDATA[[]]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
-		<parallel-foreach doc:name="Parallel For Each Billing Account" doc:id="4c212812-68ff-4a48-8052-02ea8a04eec1" collection="#[vars.billingAccounts]" maxConcurrency="10">
+		<parallel-foreach doc:name="Parallel For Each Billing Account" doc:id="4c212812-68ff-4a48-8052-02ea8a04eec1" collection="#[vars.billingAccounts]" maxConcurrency="10" target="billingHistoryAcc">
 			<try doc:name="Try" doc:id="0b85680a-a8cd-4cff-bc25-de810706b3df">
 				<logger level="INFO" doc:name="billing loop value" doc:id="b36ccc5e-c83d-4fb4-9739-81dede0915c2" message='#["billing account processing: " ++ payload default ""]' />
 				<ee:transform doc:name="set billingAccount" doc:id="022d2cca-8b38-47b4-aca5-67ab6a796c61">
@@ -270,15 +280,20 @@ output application/json skipNullOn = "everywhere"
 				<flow-ref doc:name="System Generic (Zsmart Billing History)" doc:id="032f2105-a0b6-4905-8f67-c681730026f7" name="generic-zsmart-sapi-clientSub_Flow" />
 				<ee:transform doc:name="set billingHistoryAcc value" doc:id="25d9428d-69d3-47f0-817d-dad93e55b42d">
 						<ee:message>
-						</ee:message>
-				<ee:variables>
-					<ee:set-variable variableName="billingHistoryAcc"><![CDATA[%dw 2.0
+						<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
-var zsmartResponse = {
+import some, every from dw::core::Arrays
+fun formatAmount(amountVal, formattedVal) =
+  {
+    "value": amountVal,
+    "formatted": amountVal as Number as String {format: "\$ #,##0"}
+  }
+---
+{
 	"status": "success",
 	"transactionID": payload.result.result.transactionID,
 	"accountNumber": vars.billingAccount,
-	"invoices": payload.result.result.billExParamList map ((item, index) -> {
+	"invoices": payload.result.result.billExParamList default [] map ((item, index) -> {
 		"billId": item.billID,
 		"billType": item.billType,
 		"invoiceNumber": item.billNumber,
@@ -287,67 +302,72 @@ var zsmartResponse = {
 		"cycleEndDate": item.cycleEndDate,
 		"invoiceDate": item.entryDate,
 		"dueDate": item.dueDate,
-		"amount": {
-			"value": item.due,
-			"formatted": item.formatDue
-		},
-		"openAmount": {
-			"value": item.openAmount,
-			"formatted": item.formatOpenAmount
-		},
-		"paidAmount": {
-			"value": item.paidCharge,
-			"formatted": item.formatPaidCharge
-		},
-		"prebalance": {
-			"value": item.preBalance,
-			"formatted": item.formatPreBalance
-		},
-		"afterBalance": {
-			"value": item.afterBalance,
-			"formatted": item.formatAfterBalance
-		},
-		"wsCharge": {
-			"value": item.wrCharge,
-			"formatted": item.formatWrCharge
-		},
-		"settleCharge": {
-			"value": item.settleCharge,
-			"formatted": item.formatSettleCharge
-		},
-		"recvCharge": {
-			"value": item.recvCharge,
-			"formatted": item.formatRecvCharge
-		},
-		"adjustCharge": {
-			"value": item.adjustCharge,
-			"formatted": item.formatAdjustCharge
-		},
+		"amount": formatAmount(item.due, item.formatDue),
+		"openAmount": formatAmount(item.openAmount, item.formatOpenAmount),
+		"paidAmount": formatAmount(item.paidCharge, item.formatPaidCharge),
+		"prebalance": formatAmount(item.preBalance, item.formatPreBalance),
+		"afterBalance": formatAmount(item.afterBalance, item.formatAfterBalance),
+		"wsCharge": formatAmount(item.wrCharge, item.formatWrCharge),
+		"settleCharge": formatAmount(item.settleCharge, item.formatSettleCharge),
+		"recvCharge": formatAmount(item.recvCharge, item.formatRecvCharge),
+		"adjustCharge": formatAmount(item.adjustCharge, item.formatAdjustCharge),
 		"status": if ( item.openAmount == "0" ) "Pagada"
           else
             "Pendiente",
 		"currencyCode": item.currencyCode,
 		"downloadUrl": item.downloadUrl
-	})
-}
----
-vars.billingHistoryAcc + zsmartResponse]]></ee:set-variable>
+	}),
+	"summary": do {
+		var due = sum(payload.result.result.billExParamList.due default ["0"] map $ as Number) as String
+		var formattedDue = sum(payload.result.result.billExParamList.formatDue default ["0"] map $ as Number) as String
+		var openAmount = sum(payload.result.result.billExParamList.openAmount default ["0"] map $ as Number) as String
+		var formattedOpenAmount = sum(payload.result.result.billExParamList.formatOpenAmount default ["0"] map $ as Number) as String
+		var paidCharge = sum(payload.result.result.billExParamList.paidCharge default ["0"] map $ as Number) as String
+		var formattedPaidCharge = sum(payload.result.result.billExParamList.formatPaidCharge default ["0"] map $ as Number) as String
+		var adjustCharge = sum(payload.result.result.billExParamList.adjustCharge default ["0"] map $ as Number) as String
+		var formatAdjustCharge = sum(payload.result.result.billExParamList.formatAdjustCharge default ["0"] map $ as Number) as String
+		var dueDates =  payload.result.result.billExParamList.dueDate
+		---
+		{
+			"accountNumber": "vars.billingAccount",
+			"invoiceCount": sizeOf(payload.result.result.billExParamList default []),
+			"status": dueDates  match {
+				case x if(openAmount == "0") -> "Al día"
+              case x if(openAmount > "0" and (dueDates some (($ as LocalDateTime {
+					format: "yyyy-MM-dd HH:mm:ss"
+				}) < now()))) -> "Vencido"
+              case x if(openAmount > "0" and (dueDates every (($ as LocalDateTime {
+					format: "yyyy-MM-dd HH:mm:ss"
+				}) >= now()))) -> "Pendiente"
+              else -> "None"
+			},
+			"nextDueDate": payload.result.result.billExParamList default [] filter ((item) -> item.openAmount > "0") map $.dueDate minBy ((item) -> item),
+			"currencyCode": "COP",
+			"totalDue": formatAmount(due, formattedDue),
+			"totalOpenAmount": formatAmount(openAmount, formattedOpenAmount),
+			"totalPaidAmount": formatAmount(paidCharge, formattedPaidCharge),
+			"totalAdjustCharge": formatAmount(adjustCharge, formatAdjustCharge)
+		}
+	}
+}]]></ee:set-payload>
+						</ee:message>
+				<ee:variables>
 				</ee:variables>
 					</ee:transform>
 				<error-handler>
 					<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="62cc4b7c-a313-462a-8382-a3e671ff9c36">
 						<ee:transform doc:name="set billingHistoryAcc value" doc:id="618dd6bb-a988-4a82-8ac7-47c08482429f">
-							<ee:message />
-							<ee:variables>
-								<ee:set-variable variableName="billingHistoryAcc"><![CDATA[%dw 2.0
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
-var zsmartResponse = {
+---
+{
 	"status": "failed",
 	"accountNumber": vars.billingAccount,
 	"billingError": error.description
-}
----
-vars.billingHistoryAcc + zsmartResponse]]></ee:set-variable>
+}]]></ee:set-payload>
+							</ee:message>
+							<ee:variables>
 							</ee:variables>
 						</ee:transform>
 					</on-error-continue>
@@ -358,11 +378,11 @@ vars.billingHistoryAcc + zsmartResponse]]></ee:set-variable>
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
-var totalCount = sizeOf(vars.billingHistoryAcc) default 0
-var successCount = sizeOf(vars.billingHistoryAcc filter ($.status == "success")) default 0
-var failedCount = sizeOf(vars.billingHistoryAcc filter ($.status == "failed")) default 0
-var successAccounts = vars.billingHistoryAcc filter ($.status == "success") default []
-var failedAccounts = vars.billingHistoryAcc filter ($.status == "failed") default []
+var totalCount = sizeOf(vars.billingHistoryAcc default []) default 0
+var successCount = sizeOf(vars.billingHistoryAcc default [] filter ($.payload.status == "success")) default 0
+var failedCount = sizeOf(vars.billingHistoryAcc default [] filter ($.payload.status == "failed")) default 0
+var successAccounts = vars.billingHistoryAcc default [] filter ($.payload.status == "success") default []
+var failedAccounts = vars.billingHistoryAcc default [] filter ($.payload.status == "failed") default []
 ---
 {
 	"codeResponse": if ( failedCount == 0 ) "200" 
@@ -383,8 +403,8 @@ var failedAccounts = vars.billingHistoryAcc filter ($.status == "failed") defaul
 			<ee:variables >
 				<ee:set-variable variableName="httpStatus" ><![CDATA[%dw 2.0
 output application/json
-var totalCount = sizeOf(vars.billingHistoryAcc) default 0
-var failedCount = sizeOf(vars.billingHistoryAcc filter ($.status == "failed")) default 0
+var totalCount = sizeOf(vars.billingHistoryAcc default []) default 0
+var failedCount = sizeOf(vars.billingHistoryAcc default [] filter ($.payload.status == "failed")) default 0
 ---
 if ( failedCount == 0 ) 200 
           else if ( failedCount < totalCount ) 207
