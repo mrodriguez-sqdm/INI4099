@@ -379,7 +379,7 @@ mediaType:
                   example: !include /examples/response/error-500.json
 
   /redirect:
-    /{providerId}:
+    /{customerId}:
       get:
         is: [security_client_id,tibcoHeaders]
         displayName: Retrieve OTT Subscriber Details
@@ -400,9 +400,9 @@ mediaType:
           200:
             body:
               application/json:
-                type: !include /datatypes/response/get-ott-customer-products-redirect-providerId.raml
+                type: !include /datatypes/response/get-ott-customer-products-redirect-customerId.raml
                 examples: 
-                  HBO: !include /examples/response/get-hbo-customer-products-redirect-providerId.json
+                  HBO: !include /examples/response/get-hbo-customer-products-redirect-customerId.json
           400:
               body:
                 application/json:

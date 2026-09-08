@@ -291,8 +291,8 @@ mongo-cf-sapi:
 
 mongo-db-sapi:
   protocol: "HTTP"
-  port: "8091"
-  host: "mule-worker-internal-mongo-db-sapi-services-qa.us-e2.cloudhub.io"
+  port: "8085"
+  host: "localhost"
   basePath: "/mongo/v1"
   base-path: "/mongo/v1"
   path:

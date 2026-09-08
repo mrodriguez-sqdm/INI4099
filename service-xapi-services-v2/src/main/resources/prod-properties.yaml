@@ -33,7 +33,7 @@ service-papi-v2:
      event-listener:
       path: "/event-listener"
      redirect:
-      path: "/redirect/{providerId}"
+      path: "/redirect/{customerId}"
 
   security:
     client_id: "7b167b9c389a4c0099bbf7ea34df88fc"

@@ -1,42 +1,57 @@
-#%RAML 1.0 DataType
-
+#%RAML 1.0 DataType 
 type: object
-
 properties:
-
-  eventId:
+  id:
     type: string
     example: 1d732753-ae1f-45f8-82f7-7243d395b1ac
     required: false
-
-  eventType:
+  event_type:
     type: string
     example: >-
       account_provision | error_notification | multi_product_added |
       multi_product_switched | multi_product_terminated |
       product_added | product_terminated | user_registered
     required: false
-
-  userId:
+  user_id:
     type: string
     example: 4fc94354-1e23-438b-9572-554f0343ef55
     required: false
-
-  partnerUserId:
+  partner_user_id:
     type: string
     example: 67334b1d-b7d3-43c7-8561-ec8132dd2e0a
     required: false
-
-  occurredAt:
-    type: datetime
-    example: 2022-04-11T21:19:18Z
+  timestamp:
+    type: integer
+    example: 1649711958
     required: false
-
-  eventData:
+  event_data:
     type: object
     required: false
     properties:
-
+      product:
+        type: object
+        required: false
+        properties:
+          code:
+            type: string
+            example: product123
+            required: false
+          sub_id:
+            type: string
+            example: e3a99020-b8d8-4f23-99c8-8f8d4c041328
+            required: false
+          starts:
+            type: integer
+            example: 16495421041
+            required: false
+          expires:
+            type: integer
+            example: 1575555853
+            required: false
+          reason:
+            type: string
+            example: PRODUCT_CANCELED
+            required: false
       address:
         type: object
         required: false
@@ -45,179 +60,97 @@ properties:
             type: string
             example: US
             required: false
-
       email:
         type: string
         example: user_email@example.com
         required: false
-
-      phoneNumber:
+      phone_number:
         type: string
-        example: '+1 (425) 555-1212'
+        example: +1 (425) 555-1212
         required: false
-
       name:
         type: string
         example: John Doe
         required: false
-
-      action:
-        type: string
-        example: multi_product_added
-        required: false
-
-      newAccountIdChanged:
-        type: string
-        example: 83334b1d-b7d3-43c7-8561-ec8132dd2e83
-        required: false
-
-      error:
-        type: string
-        example: service_regression
-        required: false
-
-      errorDescription:
-        type: string
-        example: Platform is encountering an internal issue.
-        required: false
-
-      product:
-        type: object
-        required: false
-        properties:
-
-          code:
-            type: string
-            example: product123
-            required: false
-
-          subscriptionId:
-            type: string
-            example: e3a99020-b8d8-4f23-99c8-8f8d4c041328
-            required: false
-
-          starts:
-            type: datetime
-            example: 2022-04-09T21:28:24Z
-            required: false
-
-          expires:
-            type: datetime
-            example: 2019-12-05T14:24:13Z
-            required: false
-
       products:
         type: array
         required: false
         items:
           type: object
           properties:
-
             code:
               type: string
               example: product123
               required: false
-
-            name:
-              type: string
-              example: product A
-              required: false
-
-            starts:
-              type: datetime
-              example: 2021-12-01T15:36:40Z
-              required: false
-
-            renews:
-              type: datetime
-              example: 2022-01-01T00:00:00Z
-              required: false
-
-            expires:
-              type: datetime
-              example: 2023-01-01T00:00:00Z
-              required: false
-
-            subscriptionId:
+            sub_id:
               type: string
               example: 3d1abea8-dfe0-4f8e-8db9-6d45d7984576
               required: false
-
-            transactionId:
-              type: string
-              example: ETB-TX-123456
-              required: false
-
             status:
               type: string
-              example: ACTIVE
+              example: PENDING
               required: false
-
+            starts:
+              type: integer
+              example: 1638365000
+              required: false
+            expires:
+              type: integer
+              example: 1638365025
+              required: false
             reason:
               type: string
               example: OFFER_EXPIRED
               required: false
-
-      productsTerminated:
+      action:
+        type: string
+        example: multi_product_added
+        required: false
+      products_added:
         type: array
         required: false
         items:
           type: object
           properties:
-
-            code:
-              type: string
-              example: product123
-              required: false
-
-            subscriptionId:
-              type: string
-              example: 3d1abea8-dfe0-4f8e-8db9-6d45d7984576
-              required: false
-
-      productsAdded:
-        type: array
-        required: false
-        items:
-          type: object
-          properties:
-
             code:
               type: string
               example: product567
               required: false
-
-            subscriptionId:
+            sub_id:
               type: string
               example: e3a99020-b8d8-4f23-99c8-8f8d4c041328
               required: false
-
             starts:
-              type: datetime
-              example: 2021-12-01T15:36:40Z
-              required: false
-
-            renews:
-              type: datetime
-              example: 2022-01-01T00:00:00Z
-              required: false
-
-            transactionId:
               type: string
-              example: ETB-TX-456789
+              example: '1638365000'
               required: false
-
-      effectiveDate:
-        type: datetime
-        example: 2021-12-01T15:37:05Z
+      products_terminated:
+        type: array
         required: false
-
-      reason:
-        type: string
-        example: USER_PAUSED
+        items:
+          type: object
+          properties:
+            code:
+              type: string
+              example: product123
+              required: false
+            sub_id:
+              type: string
+              example: 3d1abea8-dfe0-4f8e-8db9-6d45d7984576
+              required: false
+      effective_date:
+        type: integer
+        example: 1638365025
         required: false
-
-      details:
+      error:
         type: string
-        example: Pause requested by customer
+        example: service_regression
+        required: false
+      error_description:
+        type: string
+        example: Platform is encountering an internal issue.
+        required: false
+      new_account_id_changed:
+        type: string
+        example: 83334b1d-b7d3-43c7-8561-ec8132dd2e83
         required: false

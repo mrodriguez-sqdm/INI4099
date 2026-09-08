@@ -98,6 +98,7 @@ fun generateEventId() =
 			<ee:variables >
 				<ee:set-variable variableName="eventType" ><![CDATA[payload.eventType]]></ee:set-variable>
 				<ee:set-variable variableName="eventId" ><![CDATA[payload.eventId]]></ee:set-variable>
+				<ee:set-variable variableName="headers" ><![CDATA[attributes.headers]]></ee:set-variable>
 			</ee:variables>
 		</ee:transform>
 		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="099e4cd2-441f-4bc9-903b-dbb618c0d132" variableName="solicitudEvento"/>
@@ -113,6 +114,7 @@ output application/json skipNullOn="everywhere"
     insert: "MDM_TRAZABILIDAD_EVENTOS_THIRDPARTY",
     documents: [
       {
+      	idEvento: vars.solicitudEvento.id,
         proveedor: "HBO",
         estado: if ((attributes.statusCode default 0) == 202) "EXITOSO" else "FALLIDO",
         solicitudEvento: vars.solicitudEvento,
@@ -163,6 +165,14 @@ fun unixToIso(timestamp) =
 		</ee:transform>
 	</sub-flow>
 	<sub-flow name="wbd-redirect-providerId-orchestratorSub_Flow" doc:id="4377517d-fb60-456c-811e-d88ec0d3cb49" >
+		<ee:transform doc:name="Transform Message" doc:id="9fd1f552-62be-4201-bffe-7f80e40e3abe" >
+			<ee:message >
+			</ee:message>
+			<ee:variables >
+				<ee:set-variable variableName="headers" ><![CDATA[attributes.headers]]></ee:set-variable>
+				<ee:set-variable variableName="partnerUserId" ><![CDATA[attributes.uriParams.customerId]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
 		<flow-ref doc:name="get-subscriptions-wbd-sapi-clientSub_Flow" doc:id="f4f33211-0935-4fcc-8aa0-306b65e9a998" name="get-subscriptions-wbd-sapi-clientSub_Flow" />
 		<ee:transform doc:name="Transform Message" doc:id="23532742-63c5-4c1b-8acf-fe0d083d44f7" >
 			<ee:message >
@@ -173,7 +183,7 @@ var product = payload.Result.products[0]
 
 ---
 {
-  partner_user_id: attributes.uriParams.providerId,
+  partner_user_id: vars.partnerUserId,
   code: product.code,
   sub_id: product.sub_id,
   starts: product.starts
@@ -183,160 +193,17 @@ var product = payload.Result.products[0]
 		<flow-ref doc:name="post-activation-url-wbd-sapi-clientSub_Flow" doc:id="db462fe2-cf24-40a9-8ae7-929f4ffeb869" name="post-activation-url-wbd-sapi-clientSub_Flow"/>
 	</sub-flow>
 	<sub-flow name="wbd-event-listener-orchestratorSub_Flow" doc:id="9ff2e6fe-b88a-46e4-8096-6d1341c9db21" >
-		<ee:transform doc:name="Transform Message" doc:id="365212f1-c8fb-405f-9fde-7a867905491f" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
-output application/json skipNullOn="everywhere"
-
-fun isoToUnix(date) =
-    if (date == null)
-        null
-    else
-        (date as DateTime) as Number
-
----
-{
-    (id: payload.eventId)
-        if (payload.eventId?),
-
-    (event_type: payload.eventType)
-        if (payload.eventType?),
-
-    (user_id: payload.userId)
-        if (payload.userId?),
-
-    (partner_user_id: payload.partnerUserId)
-        if (payload.partnerUserId?),
-
-    (timestamp: isoToUnix(payload.occurredAt))
-        if (payload.occurredAt?),
-
-    (event_data: {
-
-        (product: {
-            (code: payload.eventData.product.code)
-                if (payload.eventData.product.code?),
-
-            (sub_id: payload.eventData.product.subscriptionId)
-                if (payload.eventData.product.subscriptionId?),
-
-            (starts: isoToUnix(payload.eventData.product.starts))
-                if (payload.eventData.product.starts?),
-
-            (expires: isoToUnix(payload.eventData.product.expires))
-                if (payload.eventData.product.expires?),
-
-            (reason: payload.eventData.product.reason)
-                if (payload.eventData.product.reason?)
-        })
-            if (payload.eventData.product?),
-
-        (address: {
-            (country: payload.eventData.address.country)
-                if (payload.eventData.address.country?)
-        })
-            if (payload.eventData.address?),
-
-        (email: payload.eventData.email)
-            if (payload.eventData.email?),
-
-        (phone_number: payload.eventData.phoneNumber)
-            if (payload.eventData.phoneNumber?),
-
-        (name: payload.eventData.name)
-            if (payload.eventData.name?),
-
-        (products:
-            payload.eventData.products map (product) -> {
-                (code: product.code)
-                    if (product.code?),
-
-                (sub_id: product.subscriptionId)
-                    if (product.subscriptionId?),
-
-                (status: product.status)
-                    if (product.status?),
-
-                (starts: isoToUnix(product.starts))
-                    if (product.starts?),
-
-                (expires: isoToUnix(product.expires))
-                    if (product.expires?),
-
-                (reason: product.reason)
-                    if (product.reason?)
-            }
-        )
-            if (payload.eventData.products?),
-
-        (action: payload.eventData.action)
-            if (payload.eventData.action?),
-
-        (products_added:
-            payload.eventData.productsAdded map (product) -> {
-                (code: product.code)
-                    if (product.code?),
-
-                (sub_id: product.subscriptionId)
-                    if (product.subscriptionId?),
-
-                (starts: (isoToUnix(product.starts) as String))
-                    if (product.starts?)
-            }
-        )
-            if (payload.eventData.productsAdded?),
-
-        (products_terminated:
-            payload.eventData.productsTerminated map (product) -> {
-                (code: product.code)
-                    if (product.code?),
-
-                (sub_id: product.subscriptionId)
-                    if (product.subscriptionId?)
-            }
-        )
-            if (payload.eventData.productsTerminated?),
-
-        (effective_date: isoToUnix(payload.eventData.effectiveDate))
-            if (payload.eventData.effectiveDate?),
-
-        (error: payload.eventData.error)
-            if (payload.eventData.error?),
-
-        (error_description: payload.eventData.errorDescription)
-            if (payload.eventData.errorDescription?),
-
-        (new_account_id_changed: payload.eventData.newAccountIdChanged)
-            if (payload.eventData.newAccountIdChanged?)
-    })
-        if (payload.eventData?)
-}]]></ee:set-payload>
-			</ee:message>
-		</ee:transform>
 		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="d47e5b44-21eb-4b7b-b200-08a65dc17392" variableName="notificacionEvento"/>
+		<set-variable value='#[%dw 2.0&#10;output application/java&#10;---&#10;{&#10;    name: "WARNER",&#10;    "X-CORRELATION-ID": payload.id,&#10;    source: "WARNER",&#10;    systemId: "MIGRACION"&#10;}]' doc:name="Set Variable" doc:id="9478335e-8ca1-40c5-8d22-b3dfd09531ef" variableName="headers"/>
 		<flow-ref doc:name="post-event-listener-wbd-sapi-clientSub_Flow" doc:id="c0ec5ac2-cdaf-4e23-8b69-639d6caec381" name="post-event-listener-wbd-sapi-clientSub_Flow"/>
 		<choice doc:name="Choice" doc:id="e5349f7c-02a4-4a39-8b63-2fc4963cded1" >
 			<when expression="#[payload.valid == true]">
-				<ee:transform doc:name="Transform Message" doc:id="065cf895-cbae-4c70-919e-40bf1bdfc32d">
+				<ee:transform doc:name="Request MDM_TRAZABILIDAD_EVENTOS_THIRDPARTY" doc:id="065cf895-cbae-4c70-919e-40bf1bdfc32d">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
 output application/json skipNullOn="everywhere"
 
-var notification = payload
-
-var subId =
-    notification.event_data.product.sub_id
-        default notification.event_data.products[0].sub_id
-        default notification.event_data.products_added[0].sub_id
-        default notification.event_data.products_terminated[0].sub_id
-        default null
-
-var code =
-    notification.event_data.product.code
-        default notification.event_data.products[0].code
-        default notification.event_data.products_added[0].code
-        default notification.event_data.products_terminated[0].code
-        default null
+var notification = vars.notificacionEvento
 
 ---
 {
@@ -345,18 +212,10 @@ var code =
     updates: [
       {
         q: {
-          "solicitudEvento.partner_user_id": notification.partner_user_id,
-          (
-            "solicitudEvento.event_data.products": {
-              "$elemMatch": {
-                (sub_id: subId) if (subId != null),
-                (code: code) if (code != null)
-              }
-            }
-          ) if (subId != null or code != null)
+          idEvento: notification.id
         },
         u: {
-          "$set": {
+          "\$set": {
             notificacionEvento: notification,
             estado:
               if (notification.event_type == "error_notification")
@@ -378,9 +237,43 @@ var code =
 			</ee:message>
 		</ee:transform>
 				<flow-ref doc:name="mongo-db-sapi-dynamicQuery-clientSub_Flow" doc:id="14076576-b90f-4e73-8483-c35ae3b73f99" name="mongo-db-sapi-dynamicQuery-clientSub_Flow" />
-				<ee:transform doc:name="Transform Message" doc:id="26e46756-b42f-4365-a770-cd2c6b578a2a" >
-					<ee:message >
-						<ee:set-payload ><![CDATA[%dw 2.0
+				<choice doc:name="Choice" doc:id="de18f283-a6fa-47f8-b906-39a37dd49059">
+					<when expression="#[vars.notificacionEvento.event_type == 'account_provision']">
+						<ee:transform doc:name="Request MDM_CD_INVENTARIO" doc:id="b35b2f63-4250-4071-93b0-60a1f76d83ee">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    query: {
+        update: "MDM_CD_INVENTARIO",
+        updates: [
+            {
+                q: {
+                    Id_Cuenta_Servicio: vars.notificacionEvento.event_data.products[0].sub_id
+                },
+                u: {
+                    "\$set": {
+                        "Servicios.0.HBO": {
+                            Status: "Pending",
+                            Intentos: 0
+                        }
+                    }
+                },
+                multi: false,
+                upsert: false
+            }
+        ]
+    }
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+						<flow-ref doc:name="mongo-db-sapi-dynamicQuery-clientSub_Flow" doc:id="ddce67b5-809d-409a-9266-07a79c9f17ba" name="mongo-db-sapi-dynamicQuery-clientSub_Flow" />
+					</when>
+				</choice>
+				<ee:transform doc:name="Transform Message" doc:id="26e46756-b42f-4365-a770-cd2c6b578a2a">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
 output application/java
 ---
 null]]></ee:set-payload>

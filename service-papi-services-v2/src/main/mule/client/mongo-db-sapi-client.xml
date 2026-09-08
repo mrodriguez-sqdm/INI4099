@@ -80,7 +80,7 @@ else {}]]]></http:query-params>
 	"name": vars.headers.name,
 	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
 	"source": vars.headers.source,
-	"systemId": vars.headers.systemId
+	"systemId": vars.headers.systemId default "MIGRACION"
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>

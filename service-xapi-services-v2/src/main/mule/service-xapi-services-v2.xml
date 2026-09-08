@@ -79,10 +79,9 @@ output application/json
 		<flow-ref doc:name="Flow Reference" doc:id="1860e622-8249-4a4b-8194-c3a4739e9c60" name="service-papi-post-activate-sim-clientSub_Flow"/>
 	</flow>
 	<flow name="post:\customer-products\event-listener:application\json:service-xapi-services-config" doc:id="60d558b9-4408-4164-9f8b-b2094f27e952" >
-		<set-variable value="202" doc:name="Set Variable" doc:id="ecdb6581-addc-4944-a254-cb24c1cf0225" variableName="httpStatus"/>
 		<flow-ref doc:name="Flow Reference" doc:id="92dd2029-f726-4ece-ba46-415b032a4110" name="service-papi-v2-service-event-listener-clientSub_Flow"/>
 	</flow>
-	<flow name="get:\customer-products\redirect\(providerId):service-xapi-services-config" doc:id="d51a2f48-35ba-4d7e-81b9-3cbe452ab938" >
+	<flow name="get:\customer-products\redirect\(customerId):service-xapi-services-config" doc:id="d51a2f48-35ba-4d7e-81b9-3cbe452ab938" >
 		<flow-ref doc:name="Flow Reference" doc:id="7e237f15-3be2-4d44-88b5-70a45e19bc5f" name="service-papi-v2-service.redirect-id-clientSub_Flow"/>
 	</flow>
 </mule>

@@ -42,38 +42,26 @@ output application/java
 output application/java
 ---
 {
-  partner_user_id: attributes.uriParams.id
+  partner_user_id: attributes.uriParams.id default attributes.uriParams.customerId
 }]]]></http:query-params>
 		</http:request>
 	</sub-flow>
 	<sub-flow name="post-activation-url-wbd-sapi-clientSub_Flow" doc:id="1f0bd840-e596-4119-ac81-c6beb1368b79" >
 		<http:request method="POST" doc:name="Request" doc:id="71077a73-53a1-4efc-99d9-70737492a570" config-ref="HTTP_Request_configuration_wbd" path="${wbd-sapi.resources.activation-url.path}">
-			<http:headers ><![CDATA[#[%dw 2.0
-output application/java
+			<http:headers ><![CDATA[#[output application/java
 ---
 {
-  "client_secret": p("wbd-sapi.security.client_secret"),
-  "client_id": p("wbd-sapi.security.client_id"),
-  "name": attributes.headers.name,
-  "X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-  "source": attributes.headers.source,
-  "systemId": attributes.headers.systemId
+	"client_secret" : p('wbd-sapi.security.client_secret'),
+	"client_id" : p('wbd-sapi.security.client_id'),
+	"name": vars.headers.name,
+	"X-CORRELATION-ID": vars.headers."X-CORRELATION-ID",
+	"source": vars.headers.source,
+	"systemId": vars.headers.systemId
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
 	<sub-flow name="post-event-listener-wbd-sapi-clientSub_Flow" doc:id="aec1f1b4-0212-4d2b-9b32-0bdaf03bd5b6" >
 		<http:request method="POST" doc:name="Request" doc:id="4bab7cfd-1fca-4d12-99bd-f8db47aacebb" config-ref="HTTP_Request_configuration_wbd" path="${wbd-sapi.resources.event-listener.base-path}${wbd-sapi.resources.event-listener.post.path}">
-			<http:body ><![CDATA[#[%dw 2.0
-output application/java
----
-{
-  "client_secret": p("wbd-sapi.security.client_secret"),
-  "client_id": p("wbd-sapi.security.client_id"),
-  "name": attributes.headers.name,
-  "X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-  "source": attributes.headers.source,
-  "systemId": attributes.headers.systemId
-}]]]></http:body>
 			<http:headers ><![CDATA[#[output application/java
 ---
 {

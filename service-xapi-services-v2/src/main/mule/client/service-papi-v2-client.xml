@@ -138,10 +138,9 @@ attributes.queryParams]]]></http:query-params>
 {
 	"client_secret" : p('service-papi-v2.security.client_secret'),
 	"client_id" : p('service-papi-v2.security.client_id'),
-	"name": attributes.headers.name,
-	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
-	"source": attributes.headers.source,
-	"systemId": attributes.headers.systemId
+	"Date": attributes.headers.Date,
+	"Digest": attributes.headers.Digest,
+	"Signature": attributes.headers.Signature
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
