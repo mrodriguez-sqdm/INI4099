@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:wsc="http://www.mulesoft.org/schema/mule/wsc"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<sub-flow
+		name="patch-services-pqr-by-id-orchestrator-sub-flow"
+		doc:id="55f80fa0-ca5f-4cd5-aadb-57a0800c8e5f">
+		<ee:transform doc:name="set pqrId and pqrUpdateType"
+			doc:id="db9a5714-ff44-4a9e-8cee-6426d51118a5">
+			<ee:variables>
+				<ee:set-variable
+					resource="dwlScripts/patchServicesPqr/setPqrId.dwl"
+					variableName="pqrId" />
+				<ee:set-variable
+					resource="dwlScripts/patchServicesPqr/setPqrUpdateType.dwl"
+					variableName="pqrUpdateType" />
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="set pqr update request"
+			doc:id="133f7bf0-f111-4ba5-af70-b4aa1d8ce3b2">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable
+					resource="dwlScripts/patchServicesPqr/setPqrUpdateFlow.dwl"
+					variableName="pqrUpdateFlow" />
+				<ee:set-variable
+					resource="dwlScripts/patchServicesPqr/setPqrUpdatePath.dwl"
+					variableName="pqrUpdatePath" />
+			</ee:variables>
+		</ee:transform>
+		<ee:dynamic-evaluate
+			doc:name="dynamic pqr update xml mapping"
+			doc:id="56ffc58a-5028-4b9b-a4af-bccc076ee77c"
+			expression="#[vars.pqrUpdatePath]" />
+		<flow-ref doc:name="set-pqr-soap-client-sub-flow"
+			doc:id="1a0d2f98-bb35-4cff-bf8a-5a83c66b3257"
+			name="#[vars.pqrUpdateFlow]" />
+		<ee:transform doc:name="set operation"
+			doc:id="8bf73fa4-bfe2-4617-9076-a9ec5920e04d">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable
+					resource="dwlScripts/patchServicesPqr/setOperation.dwl"
+					variableName="operation" />
+			</ee:variables>
+		</ee:transform>
+		<choice doc:name="operation result"
+			doc:id="66599bbe-6664-4923-b00e-b17ab510e5ac">
+			<when expression="#[vars.operation.result != 0]">
+				<raise-error doc:name="PATCH_PQR:RESULT_ERROR"
+					doc:id="d4e8110d-ea88-4c9b-81b1-0793e2c5cd33"
+					type="PATCH_PQR:RESULT_ERROR"
+					description='#["OperationResult: " ++ (vars.operation.result as String) ++ " - " ++ (vars.operation.resultDesc as String)]' />
+			</when>
+			<otherwise>
+				<ee:transform doc:name="set json response"
+					doc:id="44565bb5-129e-4b79-bd47-a18a776986cf">
+					<ee:message>
+						<ee:set-payload
+							resource="dwlScripts/patchServicesPqr/patchPqrJsonResponse.dwl" />
+					</ee:message>
+					<ee:variables>
+						<ee:set-variable
+							resource="dwlScripts/patchServicesPqr/setHttpStatus.dwl"
+							variableName="httpStatus" />
+					</ee:variables>
+				</ee:transform>
+			</otherwise>
+		</choice>
+	</sub-flow>
+</mule>

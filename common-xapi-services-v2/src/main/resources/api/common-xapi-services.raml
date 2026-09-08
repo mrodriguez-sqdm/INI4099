@@ -59,6 +59,39 @@ securitySchemes:
           application/json:
             type: !include /datatypes/response/error.raml
             example: !include /examples/response/error-500.json
+  patch:
+    is: [security_client_id, tibcoHeaders]
+    securedBy: [etb_oauth_2_0]
+    displayName: Patch Trouble Ticket
+    description: Updates a PQR Ticket
+    body:
+      application/json:
+        type: !include /datatypes/request/patch-trouble-ticket-request.raml
+    responses:
+      201:
+        body:
+          application/json:
+            type: !include /datatypes/response/patch-trouble-ticket-response.raml
+      400:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-400.json
+      401:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-401.json
+      404:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-404.json
+      500:
+        body:
+          application/json:
+            type: !include /datatypes/response/error.raml
+            example: !include /examples/response/error-500.json
 /communications:
   /third-party:
     /message:

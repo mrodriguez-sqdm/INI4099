@@ -13,9 +13,33 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 			doc:name="POST /services/pqr"
 			doc:id="364bff26-4412-4c45-8c16-660adeedf5c7"
 			config-ref="Datalogic_SAPI_HTTP_Request_configuration"
-			path="${dataLogicSapi.servicePqr.path}"
-			sendCorrelationId="AUTO" >
-			<http:headers ><![CDATA[#[vars.headers default {}]]]></http:headers>
+			path="${dataLogicSapi.servicePqr.path}" sendCorrelationId="AUTO">
+			<http:headers><![CDATA[#[vars.headers default {}]]]></http:headers>
+		</http:request>
+	</sub-flow>
+	<sub-flow name="get-pqr-datalogic-sapi-client-sub-flow"
+		doc:id="105f7035-459c-4797-87fc-c3b7dc2cb91b">
+		<http:request
+			method="${dataLogicSapi.servicePqr.get.method}"
+			doc:name="GET /services/pqr"
+			doc:id="9ce31d61-f3e3-4a68-ade2-7e66a51e6816"
+			config-ref="Datalogic_SAPI_HTTP_Request_configuration"
+			path="${dataLogicSapi.servicePqr.path}" sendCorrelationId="AUTO">
+			<http:headers><![CDATA[#[vars.headers default {}]]]></http:headers>
+			<http:query-params><![CDATA[#[vars.queryParameters default {}]]]></http:query-params>
+		</http:request>
+	</sub-flow>
+	<sub-flow
+		name="patch-pqr-by-id-datalogic-sapi-client-sub-flow"
+		doc:id="671ce778-3abe-4dbd-aa3f-c632c44eed45">
+		<http:request
+			method="${dataLogicSapi.servicePqrById.patch.method}"
+			doc:name="PATCH /services/pqr/{pqrId}"
+			doc:id="8226fc6d-390b-40a7-a229-efa58fdda63a"
+			config-ref="Datalogic_SAPI_HTTP_Request_configuration"
+			path="${dataLogicSapi.servicePqrById.path}" sendCorrelationId="AUTO">
+			<http:headers><![CDATA[#[vars.headers default {}]]]></http:headers>
+			<http:uri-params><![CDATA[#[vars.uriParameters default {}]]]></http:uri-params>
 		</http:request>
 	</sub-flow>
 </mule>

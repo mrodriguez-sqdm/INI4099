@@ -98,4 +98,16 @@
 			doc:id="b0e52681-1d97-4894-a59a-13623160c703"
 			name="post-services-run-orch-service-orchestrator-sub-flow" />
 	</flow>
+	<flow
+		name="patch:\services\pqr\(pqrId):application\json:data-logic-sapi-services-config">
+		<flow-ref
+			doc:name="patch-services-pqr-by-id-orchestrator-sub-flow"
+			doc:id="98f273c7-c6b6-486c-b91d-a3b1f94bfcb3"
+			name="patch-services-pqr-by-id-orchestrator-sub-flow" />
+	</flow>
+	<flow name="get:\services\pqr:data-logic-sapi-services-config">
+		<flow-ref doc:name="get-services-pqr-orchestrator-sub-flow"
+			doc:id="1ba473fb-cefc-46ca-8aed-3277904a1859"
+			name="get-services-pqr-orchestrator-sub-flow" />
+	</flow>
 </mule>

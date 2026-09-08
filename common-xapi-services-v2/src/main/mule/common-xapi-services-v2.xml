@@ -102,4 +102,11 @@
 			doc:id="056dc82e-49f5-43b4-8d59-9f1b861fced0"
 			name="post-trouble-ticket-common-papi-v2-clientSub_Flow" />
 	</flow>
+	<flow
+		name="patch:\troubleTicket:application\json:common-xapi-services-config">
+		<flow-ref
+			doc:name="patch-trouble-ticket-common-papi-v2-clientSub_Flow"
+			doc:id="9f231e1e-e024-4b89-86a1-029b58730c94"
+			name="patch-trouble-ticket-common-papi-v2-clientSub_Flow" />
+	</flow>
 </mule>

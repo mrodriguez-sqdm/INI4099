@@ -52,6 +52,29 @@ attributes.queryParams]]]></http:query-params>
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow
+		name="patch-trouble-ticket-common-papi-v2-clientSub_Flow"
+		doc:id="d80d7a92-9eb0-46c9-a7ab-5c64243d280f">
+		<http:request
+			method="${commonPapi.troubleTicket.patch.method}"
+			doc:name="PATCH /troubleTicket"
+			doc:id="031e90d3-0b5c-4db8-acf2-275a6a52356e"
+			config-ref="HTTP_Common_PAPI_Request_Config"
+			path="${commonPapi.troubleTicket.path}" sendCorrelationId="AUTO">
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('secure::api.clientSecret'),
+	"client_id" : p('secure::api.clientId'),
+	"x-system-id": attributes.headers.'x-system-id',
+	"x-channel-id": attributes.headers.'x-channel-id',
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 	<sub-flow name="documents-post-common-papi-v2-clientSub_Flow"
 		doc:id="e5f6a7b8-c901-2345-ef01-abcdefabcdef">
 		<http:request

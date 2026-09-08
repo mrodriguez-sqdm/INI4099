@@ -11,6 +11,11 @@
 				"method": "POST",
 				"path": "/v2/trouleTicket",
 				"processname": "Post trouble ticket"
+			},
+			{
+				"method": "PATCH",
+				"path": "/v2/trouleTicket",
+				"processname": "Patch trouble ticket"
 			}
 		]
 	}

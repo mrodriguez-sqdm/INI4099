@@ -108,5 +108,11 @@ dataLogicSapi:
   basePath: "/v1"
   servicePqr:
     path: "/services/pqr"
+    get:
+      method: "GET"
     post:
       method: "POST"
+  servicePqrById:
+    path: "/services/pqr/{pqrId}"
+    patch:
+      method: "PATCH"
