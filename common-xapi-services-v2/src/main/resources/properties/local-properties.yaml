@@ -25,6 +25,8 @@ commonPapi:
     path: "/troubleTicket"
     post:
       method: "POST"
+    patch:
+      method: "PATCH"
   communicationThirdPartyMessage:
     path: "/communications/third-party/message"
     post:

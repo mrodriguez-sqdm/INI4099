@@ -52,6 +52,29 @@ attributes.queryParams]]]></http:query-params>
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
+	<sub-flow
+		name="patch-trouble-ticket-common-papi-v2-clientSub_Flow"
+		doc:id="4f450719-7bab-4daa-887e-6281995ff8d0">
+		<http:request
+			method="${commonPapi.troubleTicket.patch.method}"
+			doc:name="PATCH /troubleTicket"
+			doc:id="e940397f-be1e-4bea-a883-85c23f33e752"
+			config-ref="HTTP_Common_PAPI_Request_Config"
+			path="${commonPapi.troubleTicket.path}" sendCorrelationId="AUTO">
+			<http:headers><![CDATA[#[output application/java
+---
+{
+	"client_secret" : p('secure::api.clientSecret'),
+	"client_id" : p('secure::api.clientId'),
+	"x-system-id": attributes.headers.'x-system-id',
+	"x-channel-id": attributes.headers.'x-channel-id',
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."X-CORRELATION-ID",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]]></http:headers>
+		</http:request>
+	</sub-flow>
 	<sub-flow name="documents-post-common-papi-v2-clientSub_Flow"
 		doc:id="e5f6a7b8-c901-2345-ef01-abcdefabcdef">
 		<http:request
@@ -156,9 +179,15 @@ attributes.queryParams]]]></http:query-params>
 			<http:query-params><![CDATA[#[attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
-		<sub-flow name="post-userIdp-login-common-papi-v2-clientSub_Flow" doc:id="a5442e94-c6b5-45a3-8200-9526da1218b7" >
-		<http:request method="POST" doc:name="common-papi-v2 login" doc:id="54830986-07a0-4bbd-af2e-82ce6e973b86" config-ref="HTTP_Common_PAPI_Request_Config" path="${commonPapi.userIdp.path}${commonPapi.userIdp.login.path}" >
-			<http:headers ><![CDATA[#[output application/java
+	<sub-flow
+		name="post-userIdp-login-common-papi-v2-clientSub_Flow"
+		doc:id="a5442e94-c6b5-45a3-8200-9526da1218b7">
+		<http:request method="POST"
+			doc:name="common-papi-v2 login"
+			doc:id="54830986-07a0-4bbd-af2e-82ce6e973b86"
+			config-ref="HTTP_Common_PAPI_Request_Config"
+			path="${commonPapi.userIdp.path}${commonPapi.userIdp.login.path}">
+			<http:headers><![CDATA[#[output application/java
 ---
 {
 	"client_secret" : p('secure::api.clientSecret'),
@@ -170,9 +199,15 @@ attributes.queryParams]]]></http:query-params>
 }]]]></http:headers>
 		</http:request>
 	</sub-flow>
-	<sub-flow name="delete-userIdp-common-papi-v2-clientSub_Flow" doc:id="fd56ff7b-dc62-4fe9-9b78-e601589c8be3" >
-		<http:request method="${commonPapi.userIdp.delete.method}" doc:name="common-papi-v2 documents" doc:id="bc6cca75-2d00-4f59-94a9-1d3ee753a484" config-ref="HTTP_Common_PAPI_Request_Config" path="${commonPapi.userIdp.path}" >
-			<http:headers ><![CDATA[#[output application/java
+	<sub-flow name="delete-userIdp-common-papi-v2-clientSub_Flow"
+		doc:id="fd56ff7b-dc62-4fe9-9b78-e601589c8be3">
+		<http:request
+			method="${commonPapi.userIdp.delete.method}"
+			doc:name="common-papi-v2 documents"
+			doc:id="bc6cca75-2d00-4f59-94a9-1d3ee753a484"
+			config-ref="HTTP_Common_PAPI_Request_Config"
+			path="${commonPapi.userIdp.path}">
+			<http:headers><![CDATA[#[output application/java
 ---
 {
 	"client_secret" : p('secure::api.clientSecret'),
@@ -182,7 +217,7 @@ attributes.queryParams]]]></http:query-params>
 	"source": attributes.headers.source,
 	"systemId": attributes.headers.systemId
 }]]]></http:headers>
-			<http:query-params ><![CDATA[#[attributes.queryParams]]]></http:query-params>
+			<http:query-params><![CDATA[#[attributes.queryParams]]]></http:query-params>
 		</http:request>
 	</sub-flow>
 </mule>
