@@ -4,7 +4,7 @@ var pqrResponse = payload.body.Set_PQRResponse.Set_PQRResult.WSResponseBody
 ---
 {
 	"code": "200",
-	"message": "PQR Creada correctamente",
+	"message": "PQR creada correctamente",
 	"pqr": {
 		"databaseId": pqrResponse.database_id,
 		"operationResult": pqrResponse.OperationResult,

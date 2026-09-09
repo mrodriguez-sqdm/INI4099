@@ -24,6 +24,9 @@ mdm_data_services:
     address: "/MDM_Data_Services/MDM_Data_Services.asmx"
     operations: 
       setPqr: "Set_PQR"
+      getPqr: "Get_PQR"
+      setPqrActivity: "Set_PQR_Actividades"
+      setPqrCharacteristics: "Set_PQR_Caracteristicas"
       setOrder: "Set_Order"
       setOrderPhase: "Set_Order_Phase"
       setOrderBundleOrden: "Set_Order_Bundle_Orden"

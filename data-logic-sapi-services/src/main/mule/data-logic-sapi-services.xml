@@ -20,8 +20,11 @@
 				<http:headers>#[vars.outboundHeaders default {}]</http:headers>
 			</http:error-response>
 		</http:listener>
-		<async doc:name="Async" doc:id="a0b18f72-73aa-4f80-8de1-aef228597ee7" >
-			<flow-ref doc:name="initial-loggin-Sub_Flow" doc:id="7d7fdfb5-ba45-4374-ac8b-4941cd4ab16b" name="initial-loggin-Sub_Flow" />
+		<async doc:name="Async"
+			doc:id="a0b18f72-73aa-4f80-8de1-aef228597ee7">
+			<flow-ref doc:name="initial-loggin-Sub_Flow"
+				doc:id="7d7fdfb5-ba45-4374-ac8b-4941cd4ab16b"
+				name="initial-loggin-Sub_Flow" />
 		</async>
 		<apikit:router
 			config-ref="data-logic-sapi-services-config" />
@@ -97,5 +100,17 @@
 			doc:name="post-services-run-orch-service-orchestrator-sub-flow"
 			doc:id="b0e52681-1d97-4894-a59a-13623160c703"
 			name="post-services-run-orch-service-orchestrator-sub-flow" />
+	</flow>
+	<flow
+		name="patch:\services\pqr\(pqrId):application\json:data-logic-sapi-services-config">
+		<flow-ref
+			doc:name="patch-services-pqr-by-id-orchestrator-sub-flow"
+			doc:id="3e1d1d04-bda8-47f2-9713-aad0dec77526"
+			name="patch-services-pqr-by-id-orchestrator-sub-flow" />
+	</flow>
+	<flow name="get:\services\pqr:data-logic-sapi-services-config">
+		<flow-ref doc:name="get-services-pqr-orchestrator-sub-flow"
+			doc:id="8c54920c-7fcf-42ae-a91e-bd06c9b4303b"
+			name="get-services-pqr-orchestrator-sub-flow" />
 	</flow>
 </mule>

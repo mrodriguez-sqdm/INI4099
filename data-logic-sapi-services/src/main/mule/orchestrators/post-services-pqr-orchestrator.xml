@@ -17,9 +17,9 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 					resource="dwlScripts/postServicesPqr/postPqrXmlRequest.dwl" />
 			</ee:message>
 		</ee:transform>
-		<flow-ref doc:name="pqr-soap-client-sub-flow"
+		<flow-ref doc:name="set-pqr-soap-client-sub-flow"
 			doc:id="1a0d2f98-bb35-4cff-bf8a-5a83c66b3257"
-			name="pqr-soap-client-sub-flow" />
+			name="set-pqr-soap-client-sub-flow" />
 		<choice doc:name="operation result"
 			doc:id="66599bbe-6664-4923-b00e-b17ab510e5ac">
 			<when

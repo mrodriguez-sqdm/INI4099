@@ -6,12 +6,36 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/wsc http://www.mulesoft.org/schema/mule/wsc/current/mule-wsc.xsd">
-	<sub-flow name="pqr-soap-client-sub-flow"
-		doc:id="07ef7637-4cd6-4c78-b99d-89fb115b913a">
+	<sub-flow name="set-pqr-soap-client-sub-flow"
+		doc:id="cc62834c-322a-45d8-a2a8-1db483572e2a">
 		<wsc:consume
 			operation="${mdm_data_services.soap.operations.setPqr}"
 			doc:name="Consume Set_PQR"
-			doc:id="5918d50a-a886-4dea-8852-48bb4e655c94"
+			doc:id="e6bf9206-e831-476a-a799-d78c45545402"
+			config-ref="MDM_Data_Web_Service_Consumer_Config" />
+	</sub-flow>
+	<sub-flow name="get-pqr-soap-client-sub-flow"
+		doc:id="4c1e240e-08e1-498f-97ab-ad5e61e49b95">
+		<wsc:consume
+			operation="${mdm_data_services.soap.operations.getPqr}"
+			doc:name="Consume Get_PQR"
+			doc:id="d2e930b6-71ff-4652-877f-a5885a08c067"
+			config-ref="MDM_Data_Web_Service_Consumer_Config" />
+	</sub-flow>
+	<sub-flow name="set-pqr-activity-soap-client-sub-flow"
+		doc:id="f180ff1a-b10e-414d-8e28-877bb95a0610">
+		<wsc:consume
+			operation="${mdm_data_services.soap.operations.setPqrActivity}"
+			doc:name="Consume Set_PQR_Actividades"
+			doc:id="284e6805-ebf2-43ef-b18a-e99a37b9b372"
+			config-ref="MDM_Data_Web_Service_Consumer_Config" />
+	</sub-flow>
+	<sub-flow name="set-pqr-characteristics-soap-client-sub-flow"
+		doc:id="5d39a27a-9840-4f19-87db-021f16722228">
+		<wsc:consume
+			operation="${mdm_data_services.soap.operations.setPqrCharacteristics}"
+			doc:name="Consume Set_PQR_Caracteristicas"
+			doc:id="438c5377-5fd7-4273-9ce1-f77654627f83"
 			config-ref="MDM_Data_Web_Service_Consumer_Config" />
 	</sub-flow>
 	<sub-flow name="post-set-order-soap-client-sub-flow"
