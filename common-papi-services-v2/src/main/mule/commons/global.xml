@@ -93,7 +93,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 			</reconnection>
 		</http:request-connection>
 	</http:request-config>
-   <http:request-config
+	<http:request-config
 		name="HTTP_Request_configuration_google-sapi"
 		doc:name="HTTP Request configuration"
 		basePath="${google-sapi.base-path}"

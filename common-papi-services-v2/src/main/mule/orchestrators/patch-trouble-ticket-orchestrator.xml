@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule
+	xmlns:validation="http://www.mulesoft.org/schema/mule/validation"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<sub-flow name="patch-trouble-ticket-orchestrator-sub-flow"
+		doc:id="b1ab798f-96bb-4230-8837-11fcfce8bab3">
+		<ee:transform doc:name="set variables"
+			doc:id="75400652-cebc-42ef-8d67-e8fd81099c6b">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="initialPayload"><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-variable>
+				<ee:set-variable variableName="headers"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"client_secret" : p('secure::api.clientSecret'),
+	"client_id" : p('secure::api.clientId'),
+	"name": attributes.headers.name,
+	"X-CORRELATION-ID": attributes.headers."x-correlation-id",
+	"source": attributes.headers.source,
+	"systemId": attributes.headers.systemId
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<ee:transform doc:name="set get pqr request"
+			doc:id="bda03000-616d-4900-b460-63f944c8e47c">
+			<ee:message>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="queryParameters"><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+{
+	id: vars.initialPayload.ticket.pqrId,
+	//pqrNumber: vars.initialPayload.ticket.pqr.number,
+	//customerDocumentType: vars.initialPayload.ticket.customer.documentType,
+	//customerDocumentNumber: vars.initialPayload.ticket.customer.documentNumber,
+	//connectionNumber: vars.initialPayload.ticket.service.connectionNumber,
+	//billingAccount: vars.initialPayload.ticket.customer.billingAccount,
+	//cun: vars.initialPayload.ticket.pqr.cunRelated,
+	//assignedUser: vars.initialPayload.ticket.pqr.assignedUser,
+	//querytype: vars.initialPayload.ticket.pqr.queryType,
+	//serviceType: vars.initialPayload.ticket.pqr.serviceType,
+	//receptionChannel: vars.initialPayload.ticket.pqr.receptionChannel,
+	//businessDays: vars.initialPayload.ticket.pqr.businessDays,
+	//status: vars.initialPayload.ticket.pqr.status
+}
+]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref doc:name="get-pqr-datalogic-sapi-client-sub-flow"
+			doc:id="56ad419e-dda8-424f-86a7-1327937cb274"
+			name="get-pqr-datalogic-sapi-client-sub-flow" target="pqrDetails" />
+		<validation:is-false
+			doc:name="validate pqr status"
+			doc:id="64a83263-5360-4e32-96fd-7ce56a04612a"
+			expression='#[(lower(vars.pqrDetails.pqr[0].pqrStatus) != "cerrado") and (lower(vars.pqrDetails.pqr[0].pqrStatus) != "terminado")]'
+			message="The PQR is already closed" />
+		<validation:is-false
+			doc:name="validate pqr customer docType "
+			doc:id="09d8ed5b-4112-419e-9ab4-c24100f28d9b"
+			expression="#[(vars.initialPayload.ticket.customer.documentType != vars.pqrDetails.pqr[0].documentType)]"
+			message="The customer's document type does not match with the PQR details in our system." />
+		<validation:is-false
+			doc:name="validate pqr customer docNumber"
+			doc:id="a7133632-2079-4b36-bcb5-8cb0b7b3a56e"
+			expression="#[(vars.initialPayload.ticket.customer.documentType != vars.pqrDetails.pqr[0].documentNumber)]"
+			message="The customer's document number does not match with the PQR details in our system." />
+		<ee:transform doc:name="set patch pqr request"
+			doc:id="c72291ce-eb4c-4bec-a288-9f3bc43afd65">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json skipNullOn="everywhere"
+---
+{
+  "activity": vars.initialPayload.ticket.pqr.activity,
+  "characteristics": vars.initialPayload.ticket.pqr.characteristics,
+  "pqrStatus": vars.initialPayload.ticket.pqr.status,
+  "assignedUser": vars.initialPayload.ticket.pqr.assignedUser
+}]]></ee:set-payload>
+			</ee:message>
+			<ee:variables>
+				<ee:set-variable variableName="uriParameters"><![CDATA[%dw 2.0
+output application/json
+---
+{
+	pqrId: vars.initialPayload.ticket.pqrId
+}]]></ee:set-variable>
+			</ee:variables>
+		</ee:transform>
+		<flow-ref
+			doc:name="patch-pqr-by-id-datalogic-sapi-client-sub-flow"
+			doc:id="10f0ecfe-3ece-4404-97a7-db7ca2206e5e"
+			name="patch-pqr-by-id-datalogic-sapi-client-sub-flow" />
+	</sub-flow>
+</mule>
