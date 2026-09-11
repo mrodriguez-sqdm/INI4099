@@ -17,7 +17,6 @@ http:
     port: "8091"
     readTimeout: "10000"
     
-# --- Example Backend HTTP Requester (defaults - override per environment) ---
 backend:
   connectionIdleTimeout: "30000"
   responseTimeout: "30000"

@@ -10,7 +10,7 @@ api:
 # --- Example Backend HTTP Requester ---
 order-mngt-papi:
   protocol: "HTTP"
-  host: "order-management-papi-services-qa.us-e2.cloudhub.io"
+  host: "mule-worker-internal-order-management-papi-services-qa.us-e2.cloudhub.io"
   port: "8091"
   basePath: "/v1"
   resources:

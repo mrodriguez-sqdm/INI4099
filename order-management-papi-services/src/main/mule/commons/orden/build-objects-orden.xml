@@ -14,7 +14,7 @@ output application/json
 var fechaActual = (now() >> "UTC-5") as String {format: "dd/MM/yyyy HH:mm:ss"}
 ---
 {
-		  "pqrType": "VTA",
+		  "pqrType": "TESR",
 		  "pqrDate": fechaActual,
 		  "system": "MDM",
 		  "orderNumber": vars.orderNumber,
