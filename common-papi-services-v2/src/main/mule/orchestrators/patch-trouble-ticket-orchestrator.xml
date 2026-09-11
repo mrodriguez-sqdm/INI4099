@@ -42,8 +42,8 @@ output application/java
 output application/json skipNullOn="everywhere"
 ---
 {
-	id: vars.initialPayload.ticket.pqrId,
-	//pqrNumber: vars.initialPayload.ticket.pqr.number,
+	//id: vars.initialPayload.ticket.pqrId,
+	pqrNumber: vars.initialPayload.ticket.pqrId,
 	//customerDocumentType: vars.initialPayload.ticket.customer.documentType,
 	//customerDocumentNumber: vars.initialPayload.ticket.customer.documentNumber,
 	//connectionNumber: vars.initialPayload.ticket.service.connectionNumber,
